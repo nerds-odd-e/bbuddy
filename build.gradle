@@ -40,3 +40,11 @@ dependencies {
 
     cucumberRuntime "info.cukes:cucumber-java8:1.2.4"
 }
+
+task bootRunByPort() {
+    bootRun {
+        def port = project.hasProperty("port") ? "$port" : 0
+        systemProperty "server.port", port
+    }
+}
+bootRunByPort.finalizedBy bootRun
