@@ -8,9 +8,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 public class BetterBudgetCategoryTest {
 
-//	private BudgetCategoryImpl bc = new BudgetCategoryImpl();
+	private BudgetCategoryImpl bc = new BudgetCategoryImpl();
 	private Date fourthOfJuly2011;
 	private Date secondOfJuly2011;
 	private Date twentyJune2011;
@@ -28,32 +30,32 @@ public class BetterBudgetCategoryTest {
 		twentyMay2011 = new SimpleDateFormat("yyMMdd").parse("110520");
 	}
 
-//	@Test (expected=RuntimeException.class)
+	@Test (expected=RuntimeException.class)
 	public void testBeginDateIsLaterThanStartDateThrowsAnException() throws Exception {
-//		bc.getAmount(fourthOfJuly2011 , secondOfJuly2011);
+		bc.getAmount(fourthOfJuly2011 , secondOfJuly2011);
 	}
 	
 	@Test
 	public void getAmountOfARangeInsideABudgetPeriod() throws Exception {
-//		bc.setAmount(secondOfJuly2011, 31);
-//		assertEquals(3, bc.getAmount(secondOfJuly2011, fourthOfJuly2011));
+		bc.setAmount(secondOfJuly2011, 31);
+		assertEquals(3, bc.getAmount(secondOfJuly2011, fourthOfJuly2011));
 	}
 
 	@Test
 	public void getAmountOfARangeTwoNeigbouringBudgetPeriods() throws Exception {
-//		bc.setAmount(twentyJune2011, 300);
-//		bc.setAmount(secondOfJuly2011, 31);
-//		assertEquals(114, bc.getAmount(twentyJune2011, fourthOfJuly2011));
+		bc.setAmount(twentyJune2011, 300);
+		bc.setAmount(secondOfJuly2011, 31);
+		assertEquals(114, bc.getAmount(twentyJune2011, fourthOfJuly2011));
 	}
 	
 	@Test
 	public void getAmountOfARangeWithManyBudgetPeriodsInBetween() throws Exception {
-//		bc.setAmount(tenthMarch2011, 31);
-//		bc.setAmount(twentyApril2011, 3000);
-//		bc.setAmount(twentyMay2011, 3100);
-//		bc.setAmount(twentyJune2011, 3000);
-//		bc.setAmount(secondOfJuly2011, 31);
-//		assertEquals(9100 + 2 + 22, bc.getAmount(tenthMarch2011, secondOfJuly2011));
+		bc.setAmount(tenthMarch2011, 31);
+		bc.setAmount(twentyApril2011, 3000);
+		bc.setAmount(twentyMay2011, 3100);
+		bc.setAmount(twentyJune2011, 3000);
+		bc.setAmount(secondOfJuly2011, 31);
+		assertEquals(9100 + 2 + 22, bc.getAmount(tenthMarch2011, secondOfJuly2011));
 	}
 	
 }

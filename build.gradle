@@ -19,5 +19,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
     compile("mysql:mysql-connector-java")
+    compile files("libs/moss-common-2.1.0.0.jar")
     testCompile("junit:junit:4.12")
 }
