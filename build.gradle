@@ -10,6 +10,10 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'spring-boot'
 
+plugins {
+    id "com.github.samueltbrown.cucumber" version "0.9"
+}
+
 repositories {
     mavenCentral()
 }
@@ -22,4 +26,6 @@ dependencies {
     compile files("libs/moss-common-2.1.0.0.jar")
     testCompile "junit:junit:4.12"
     testCompile "org.mockito:mockito-all:1.10.19"
+    testCompile "info.cukes:cucumber-junit:1.2.4"
+    testCompile "info.cukes:cucumber-java8:1.2.4"
 }
