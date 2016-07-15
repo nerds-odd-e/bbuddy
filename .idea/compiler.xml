@@ -19,6 +19,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="bbuddy_cucumber" target="1.8" />
       <module name="bbuddy_main" target="1.8" />
       <module name="bbuddy_test" target="1.8" />
     </bytecodeTargetLevel>
