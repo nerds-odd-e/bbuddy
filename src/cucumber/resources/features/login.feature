@@ -1,6 +1,6 @@
 Feature: Login
 
   Scenario: Successful Login
-    Given there is a user named "Joseph" and password is "123456"
-    When login with user name "Joseph" and password "123456"
+    Given there is a user named "user" and password is "password"
+    When login with user name "user" and password "password"
     Then login successfully
