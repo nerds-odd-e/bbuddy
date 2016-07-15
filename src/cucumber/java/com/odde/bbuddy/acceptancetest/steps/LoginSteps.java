@@ -3,6 +3,8 @@ package com.odde.bbuddy.acceptancetest.steps;
 import com.odde.bbuddy.Application;
 import cucumber.api.java8.En;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,10 +19,12 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class LoginSteps implements En {
 
     {
-        Given("^there is a user named \"([^\"]*)\" and password is \"([^\"]*)\"$", (String arg1, String arg2) -> {
+        Given("^there is a user named \"([^\"]*)\" and password is \"([^\"]*)\"$", (String userName, String password) -> {
         });
 
-        When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$", (String arg1, String arg2) -> {
+        When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$", (String userName, String password) -> {
+            WebDriver driver = new ChromeDriver();
+            driver.get("http://localhost:8080/login");
         });
 
         Then("^login successfully$", () -> {
