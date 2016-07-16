@@ -1,6 +1,7 @@
 package com.odde.bbuddy.user;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "users")
 @Getter
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class User {
 
     @Id
@@ -17,9 +19,9 @@ public class User {
     private long id;
 
     @NonNull
-    private final String userName;
+    private String userName;
 
     @NonNull
-    private final String password;
+    private String password;
 
 }

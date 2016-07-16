@@ -49,6 +49,7 @@ public class LoginSteps implements En {
             String bodyText = driver.findElement(By.tagName("body")).getText();
             assertTrue(bodyText.contains("Welcome"));
             driver.close();
+            userRepo.deleteAll();
         });
     }
 }
