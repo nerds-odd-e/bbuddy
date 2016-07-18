@@ -8,7 +8,7 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 @IntegrationTest
 public class LoginSteps implements En {
 
-    WebDriver driver = new ChromeDriver();
+    WebDriver driver = new FirefoxDriver();
 
     @Autowired
     UserRepo userRepo;
