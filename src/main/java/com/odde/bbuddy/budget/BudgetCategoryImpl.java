@@ -1,10 +1,12 @@
 package com.odde.bbuddy.budget;
 
 import ca.digitalcave.moss.common.DateUtil;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.logging.Logger;
 
+@Service
 public class BudgetCategoryImpl {
 
     private BudgetCategoryType periodType;
