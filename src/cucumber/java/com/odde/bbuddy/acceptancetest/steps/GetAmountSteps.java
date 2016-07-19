@@ -22,9 +22,6 @@ public class GetAmountSteps implements En {
     MonthlyBudgetRepo monthlyBudgetRepo;
 
     {
-        Given("^no budget for any month$", () -> {
-        });
-
         Given("^budget planned for \"([^\"]*)\" is (\\d+)$", (String month, Integer budget) -> {
             Date monthDate = null;
             try {
