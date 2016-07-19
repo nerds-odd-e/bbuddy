@@ -5,7 +5,6 @@ buildscript {
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:1.3.6.RELEASE"
-        classpath "com.github.samueltbrown:gradle-cucumber-plugin:0.9"
     }
 }
 
@@ -52,13 +51,8 @@ task bootRunByPort() {
 }
 bootRunByPort.finalizedBy bootRun
 
-task cucumberByTag() {
-    cucumber {
-        if (project.hasProperty('tag')) {
-            tags = ["@" + "$tag"]
-        }
-    }
-    doLast {
-        tasks.cucumber.execute()
+cucumber {
+    if (project.hasProperty('tag')) {
+        tags = ["@" + "$tag"]
     }
 }

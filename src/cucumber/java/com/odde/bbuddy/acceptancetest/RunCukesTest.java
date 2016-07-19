@@ -1,11 +1,10 @@
 package com.odde.bbuddy.acceptancetest;
 
-import org.junit.runner.RunWith;
-import cucumber.api.junit.Cucumber;
 import cucumber.api.CucumberOptions;
+import cucumber.api.junit.Cucumber;
+import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "src/cucumber/resources/features", glue = {"com.odde.bbuddy.acceptancetest.steps"}, format = {
-        "pretty", "html:target/cucumber", "json:target/cucumber-report.json"})
+@CucumberOptions(features = "src/cucumber/resources/features", glue = {"com.odde.bbuddy.acceptancetest.steps"}, format = {"pretty"})
 public class RunCukesTest {
 }
