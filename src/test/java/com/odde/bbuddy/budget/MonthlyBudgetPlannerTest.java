@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class MonthlyBudgetPlannerTest {
@@ -21,10 +22,9 @@ public class MonthlyBudgetPlannerTest {
     @Test
     public void get_amount_from_budget_category() throws ParseException {
         given_monthly_budget_planned_as();
+        given_total_amount_is(100L);
 
-        planner.getAmount(startDate, endDate);
-
-        verify(mockBudgetCategory).getAmount(startDate, endDate);
+        assertEquals(100L, planner.getAmount(startDate, endDate));
     }
 
     @Test
@@ -52,6 +52,10 @@ public class MonthlyBudgetPlannerTest {
 
     private MonthlyBudget budget(String month, int budget) throws ParseException {
         return new MonthlyBudget(new SimpleDateFormat("yyyy-MM").parse(month), budget);
+    }
+
+    private void given_total_amount_is(long total) {
+        when(mockBudgetCategory.getAmount(any(Date.class), any(Date.class))).thenReturn(total);
     }
 
 }
