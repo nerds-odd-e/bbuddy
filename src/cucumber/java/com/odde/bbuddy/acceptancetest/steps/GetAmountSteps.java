@@ -25,7 +25,7 @@ public class GetAmountSteps implements En {
         Given("^budget planned for \"([^\"]*)\" is (\\d+)$", (String month, Integer budget) -> {
             Date monthDate = null;
             try {
-                monthDate = new SimpleDateFormat("yyyy-mm").parse(month);
+                monthDate = new SimpleDateFormat("yyyy-MM").parse(month);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
