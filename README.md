@@ -16,6 +16,6 @@ Use git to clone this project into a folder. Then in this folder, run the comman
 >1. Setup Database
 `mysql -u root < db_migrations/initialize_users_and_roles.sql`
 >2. Run Tests
-`gradle cucumber check`
+`gradle check cucumber`
 >3. Start Web Application
 `gradle bootRunByPort -Pport=8090`
