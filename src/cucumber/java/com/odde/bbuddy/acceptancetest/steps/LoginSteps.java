@@ -25,7 +25,7 @@ import static org.junit.Assert.assertTrue;
 @IntegrationTest
 public class LoginSteps implements En {
 
-    WebDriver driver = new FirefoxDriver();
+    WebDriver driver;
 
     @Autowired
     UserRepo userRepo;
@@ -37,6 +37,7 @@ public class LoginSteps implements En {
         });
 
         When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$", (String userName, String password) -> {
+            driver = new FirefoxDriver();
             driver.get("http://localhost:8080/login");
             WebElement userNameTextBox = driver.findElement(By.name("username"));
             userNameTextBox.sendKeys(userName);
