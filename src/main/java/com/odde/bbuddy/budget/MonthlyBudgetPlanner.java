@@ -33,4 +33,9 @@ public class MonthlyBudgetPlanner {
     private Iterable<MonthlyBudget> allPlannedBudgets() {
         return monthlyBudgetRepo.findAll();
     }
+
+    public void addMonthlyBudget(MonthlyBudget monthlyBudget, Runnable afterSuccess) {
+        System.out.println("month: " + monthlyBudget.getMonth());
+        System.out.println("budget: " + monthlyBudget.getBudget());
+    }
 }
