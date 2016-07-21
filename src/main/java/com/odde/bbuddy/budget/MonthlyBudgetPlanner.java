@@ -34,8 +34,12 @@ public class MonthlyBudgetPlanner {
         return monthlyBudgetRepo.findAll();
     }
 
-    public void addMonthlyBudget(MonthlyBudget monthlyBudget, Runnable afterSuccess) {
-        monthlyBudgetRepo.save(monthlyBudget);
-        afterSuccess.run();
+    public void addMonthlyBudget(MonthlyBudget monthlyBudget, Runnable afterSuccess, Runnable afterFail) {
+        try {
+            monthlyBudgetRepo.save(monthlyBudget);
+            afterSuccess.run();
+        } catch (IllegalArgumentException e) {
+            afterFail.run();
+        }
     }
 }

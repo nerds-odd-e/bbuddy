@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
 public class AddBudgetOfMonthlyBudgetPlannerTest {
 
@@ -20,20 +20,37 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
     Date monthDate = parseDate("2016-07-01");
     private MonthlyBudget monthlyBudget = new MonthlyBudget(monthDate, 100);
 
+    Runnable afterSuccess = mock(Runnable.class);
+    Runnable afterFail = mock(Runnable.class);
+    Runnable whatever = () -> {};
+
     @Test
     public void save_monthly_budget() throws ParseException {
-        planner.addMonthlyBudget(monthlyBudget, ()->{});
+        planner.addMonthlyBudget(monthlyBudget, whatever, whatever);
 
         assertSavedMonthlyBudgetEquals(monthlyBudget);
     }
 
     @Test
     public void after_success_is_called_if_save_successfully() throws ParseException {
-        Runnable afterSuccess = mock(Runnable.class);
-
-        planner.addMonthlyBudget(monthlyBudget, afterSuccess);
+        planner.addMonthlyBudget(monthlyBudget, afterSuccess, afterFail);
 
         verify(afterSuccess).run();
+        verify(afterFail, never()).run();
+    }
+
+    @Test
+    public void after_fail_is_called_if_save_failed() {
+        givenSaveWillFail();
+
+        planner.addMonthlyBudget(monthlyBudget, afterSuccess, afterFail);
+
+        verify(afterFail).run();
+        verify(afterSuccess, never()).run();
+    }
+
+    private void givenSaveWillFail() {
+        when(mockRepo.save(any(MonthlyBudget.class))).thenThrow(IllegalArgumentException.class);
     }
 
     private Date parseDate(String source) throws ParseException {
