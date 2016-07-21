@@ -10,7 +10,7 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
-public class MonthlyBudgetPlannerTest {
+public class GetAmountOfMonthlyBudgetPlannerTest {
 
     BudgetCategoryImpl mockBudgetCategory = mock(BudgetCategoryImpl.class);
     MonthlyBudgetRepo stubRepo = mock(MonthlyBudgetRepo.class);
@@ -43,7 +43,7 @@ public class MonthlyBudgetPlannerTest {
         return new SimpleDateFormat("yyyy-MM-dd").parse(source);
     }
 
-    public MonthlyBudgetPlannerTest() throws ParseException {
+    public GetAmountOfMonthlyBudgetPlannerTest() throws ParseException {
     }
 
     private void given_monthly_budget_planned_as(MonthlyBudget... budget) throws ParseException {
