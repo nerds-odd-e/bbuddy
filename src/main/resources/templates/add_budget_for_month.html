@@ -6,7 +6,7 @@
 </head>
 <body>
 <div th:if="${message}">
-    ${message}
+    <p th:text="${message}" />
 </div>
 <form th:action="@{/confirm_add_budget_for_month}" method="post">
     <div><label> Month : <input type="text" name="month"/> </label></div>

@@ -28,6 +28,19 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
         assertEquals(100, captor.getValue().getBudget().intValue());
     }
 
+    @Test
+    public void after_success_is_called_if_save_successfully() throws ParseException {
+        MonthlyBudgetRepo mockRepo = mock(MonthlyBudgetRepo.class);
+        BudgetCategoryImpl stubBudgetCategory = mock(BudgetCategoryImpl.class);
+        MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(stubBudgetCategory, mockRepo);
+
+        Date monthDate = parseDate("2016-07-01");
+        Runnable afterSuccess = mock(Runnable.class);
+        planner.addMonthlyBudget(new MonthlyBudget(monthDate, 100), afterSuccess);
+
+        verify(afterSuccess).run();
+    }
+
     private Date parseDate(String source) throws ParseException {
         return new SimpleDateFormat("yyyy-MM-dd").parse(source);
     }
