@@ -20,16 +20,15 @@ public class GetAmountControllerTest {
 
     Date startDate = parseDate("2016-07-01");
     Date endDate = parseDate("2016-07-10");
+    Model mockModel = mock(Model.class);
 
     @Test
     public void go_to_get_amount_page() throws ParseException {
-        Model mockModel = mock(Model.class);
         assertEquals("get_amount", controller.getAmount(startDate, endDate, mockModel));
     }
 
     @Test
     public void get_amount_from_monthly_budget_planner() throws ParseException {
-        Model mockModel = mock(Model.class);
         controller.getAmount(startDate, endDate, mockModel);
 
         verify(mockPlanner).getAmount(startDate, endDate);
@@ -37,7 +36,6 @@ public class GetAmountControllerTest {
 
     @Test
     public void pass_amount_to_page() {
-        Model mockModel = mock(Model.class);
         when(mockPlanner.getAmount(startDate, endDate)).thenReturn(100L);
 
         controller.getAmount(startDate, endDate, mockModel);
