@@ -27,7 +27,13 @@ public class AddBudgetForMonthController {
             @RequestParam(name = "budget") int budget, Model model) {
         planner.addMonthlyBudget(
                 new MonthlyBudget(monthDate, budget),
-                () -> model.addAttribute("message", "Successfully add budget for month"), () -> {});
+                setMessage(model, "Successfully add budget for month"),
+                setMessage(model, "Add budget for month failed"));
         return "add_budget_for_month";
     }
+
+    private Runnable setMessage(Model model, String attributeValue) {
+        return () -> model.addAttribute("message", attributeValue);
+    }
+
 }

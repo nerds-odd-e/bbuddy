@@ -14,6 +14,8 @@ import static org.mockito.Mockito.*;
 
 public class AddBudgetForMonthControllerTest {
 
+    private static final int SUCCESS = 1;
+    private static final int FAIL = 2;
     MonthlyBudgetPlanner stubPlanner = mock(MonthlyBudgetPlanner.class);
     AddBudgetForMonthController controller = new AddBudgetForMonthController(stubPlanner);
     Model mockModel = mock(Model.class);
@@ -26,17 +28,26 @@ public class AddBudgetForMonthControllerTest {
 
     @Test
     public void return_add_success_message_to_page_when_add_budget_for_month_successfully() throws ParseException {
-        given_add_monthly_budget_will_succeed();
+        given_add_monthly_budget_will(SUCCESS);
 
         controller.confirm(monthDate, 100, mockModel);
 
         verify(mockModel).addAttribute("message", "Successfully add budget for month");
     }
 
-    private void given_add_monthly_budget_will_succeed() {
+    @Test
+    public void return_add_fail_message_to_page_when_add_budget_for_month_failed() {
+        given_add_monthly_budget_will(FAIL);
+
+        controller.confirm(monthDate, 100, mockModel);
+
+        verify(mockModel).addAttribute("message", "Add budget for month failed");
+    }
+
+    private void given_add_monthly_budget_will(int i) {
         doAnswer(invocation -> {
-            Runnable afterSuccess = (Runnable) invocation.getArguments()[1];
-            afterSuccess.run();
+            Runnable afterFail = (Runnable) invocation.getArguments()[i];
+            afterFail.run();
             return null;
         }).when(stubPlanner).addMonthlyBudget(any(MonthlyBudget.class), any(Runnable.class), any(Runnable.class));
     }
