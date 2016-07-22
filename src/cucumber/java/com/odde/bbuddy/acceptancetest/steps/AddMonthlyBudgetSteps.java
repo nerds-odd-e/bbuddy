@@ -2,7 +2,9 @@ package com.odde.bbuddy.acceptancetest.steps;
 
 import com.odde.bbuddy.budget.MonthlyBudget;
 import com.odde.bbuddy.budget.MonthlyBudgetRepo;
-import cucumber.api.java8.En;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,42 +17,26 @@ import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 
-public class AddMonthlyBudgetSteps implements En {
+public class AddMonthlyBudgetSteps {
 
     WebDriver driver;
 
     @Autowired
     MonthlyBudgetRepo monthlyBudgetRepo;
 
-    {
-        When("^add budget for \"([^\"]*)\" with amount (\\d+)$", (String month, Integer budget) -> {
-            addBudgetForMonth(month, budget);
-        });
-
-        Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$", (Integer budget, String month) -> {
-            verifyMonthlyBudgetIsSaved(budget, month);
-        });
-
-        Given("^budget (\\d+) has been set for month \"([^\"]*)\"$", (Integer budget, String month) -> {
-            Date monthDate = null;
-            try {
-                monthDate = new SimpleDateFormat("yyyy-MM").parse(month);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            monthlyBudgetRepo.save(new MonthlyBudget(monthDate, budget));
-        });
-
-        When("^add budget for \"([^\"]*)\" with a new amount (\\d+)$", (String month, Integer budget) -> {
-            addBudgetForMonth(month, budget);
-        });
-
-        Then("^the budget for \"([^\"]*)\" is (\\d+)$", (String month, Integer budget) -> {
-            verifyMonthlyBudgetIsSaved(budget, month);
-        });
+    @When("^add budget for \"([^\"]*)\" with amount (\\d+)$")
+    public void add_budget_for_with_amount(String month, int budget) throws Throwable {
+        driver = new FirefoxDriver();
+        driver.get("http://localhost:8080/add_budget_for_month");
+        WebElement monthTextBox = driver.findElement(By.name("month"));
+        monthTextBox.sendKeys(month);
+        WebElement budgetTextBox = driver.findElement(By.name("budget"));
+        budgetTextBox.sendKeys(String.valueOf((Integer) budget));
+        budgetTextBox.submit();
     }
 
-    private void verifyMonthlyBudgetIsSaved(Integer budget, String month) {
+    @Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$")
+    public void monthly_budget_for_is_saved(int budget, String month) throws Throwable {
         assertEquals(1, monthlyBudgetRepo.count());
         monthlyBudgetRepo.findAll().forEach(monthlyBudget -> {
             Date monthDate = null;
@@ -60,19 +46,30 @@ public class AddMonthlyBudgetSteps implements En {
                 e.printStackTrace();
             }
             assertEquals(monthDate, monthlyBudget.getMonth());
-            assertEquals(budget, monthlyBudget.getBudget());
+            assertEquals((Integer) budget, monthlyBudget.getBudget());
         });
         monthlyBudgetRepo.deleteAll();
         driver.close();
     }
 
-    private void addBudgetForMonth(String month, Integer budget) {
-        driver = new FirefoxDriver();
-        driver.get("http://localhost:8080/add_budget_for_month");
-        WebElement monthTextBox = driver.findElement(By.name("month"));
-        monthTextBox.sendKeys(month);
-        WebElement budgetTextBox = driver.findElement(By.name("budget"));
-        budgetTextBox.sendKeys(String.valueOf(budget));
-        budgetTextBox.submit();
+    @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")
+    public void budget_has_been_set_for_month(int budget, String month) throws Throwable {
+        Date monthDate = null;
+        try {
+            monthDate = new SimpleDateFormat("yyyy-MM").parse(month);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        monthlyBudgetRepo.save(new MonthlyBudget(monthDate, budget));
+    }
+
+    @When("^add budget for \"([^\"]*)\" with a new amount (\\d+)$")
+    public void add_budget_for_with_a_new_amount(String month, int budget) throws Throwable {
+        add_budget_for_with_amount(month, budget);
+    }
+
+    @Then("^the budget for \"([^\"]*)\" is (\\d+)$")
+    public void the_budget_for_is(String month, int budget) throws Throwable {
+        budget_has_been_set_for_month(budget, month);
     }
 }

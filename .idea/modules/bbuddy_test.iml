@@ -28,7 +28,7 @@
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" name="Gradle: org.mockito:mockito-all:1.10.19" level="project" />
     <orderEntry type="library" name="Gradle: info.cukes:cucumber-junit:1.2.4" level="project" />
-    <orderEntry type="library" name="Gradle: info.cukes:cucumber-java8:1.2.4" level="project" />
+    <orderEntry type="library" name="Gradle: info.cukes:cucumber-java:1.2.4" level="project" />
     <orderEntry type="library" name="Gradle: info.cukes:cucumber-spring:1.2.4" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-java:2.53.1" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-chrome-driver:2.53.1" level="project" />
@@ -51,7 +51,6 @@
     <orderEntry type="library" name="Gradle: org.springframework:spring-core:4.2.7.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-test:4.2.7.RELEASE" level="project" />
     <orderEntry type="library" name="Gradle: info.cukes:cucumber-core:1.2.4" level="project" />
-    <orderEntry type="library" name="Gradle: info.cukes:cucumber-java:1.2.4" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-edge-driver:2.53.1" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:htmlunit-driver:2.21" level="project" />
     <orderEntry type="library" name="Gradle: org.seleniumhq.selenium:selenium-firefox-driver:2.53.1" level="project" />
