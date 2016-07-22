@@ -1,9 +1,6 @@
 package com.odde.bbuddy.budget;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,11 +14,13 @@ public class MonthlyBudget {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Setter
     private long id;
 
     @NonNull
     private Date month;
 
     @NonNull
+    @Setter
     private Integer budget;
 }

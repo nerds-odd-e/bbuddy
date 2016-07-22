@@ -13,6 +13,7 @@ import static org.mockito.Mockito.*;
 
 public class AddBudgetOfMonthlyBudgetPlannerTest {
 
+    private static final long MONTH_BUDGET_ID = 1L;
     MonthlyBudgetRepo mockRepo = mock(MonthlyBudgetRepo.class);
     BudgetCategoryImpl stubBudgetCategory = mock(BudgetCategoryImpl.class);
     MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(stubBudgetCategory, mockRepo);
@@ -49,6 +50,22 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
         verify(afterSuccess, never()).run();
     }
 
+    @Test
+    public void overwrite_monthly_budget_when_budget_has_been_set_for_that_month() {
+        given_existing_monthly_budget_with_id(MONTH_BUDGET_ID);
+
+        MonthlyBudget overwrittenMonthlyBudget = new MonthlyBudget(monthDate, 200);
+        planner.addMonthlyBudget(overwrittenMonthlyBudget, whatever, whatever);
+
+        MonthlyBudget savedMonthlyBudget = assertSavedMonthlyBudgetEquals(overwrittenMonthlyBudget);
+        assertEquals(MONTH_BUDGET_ID, savedMonthlyBudget.getId());
+    }
+
+    private void given_existing_monthly_budget_with_id(long id) {
+        when(mockRepo.findByMonth(monthDate)).thenReturn(monthlyBudget);
+        monthlyBudget.setId(id);
+    }
+
     private void givenSaveWillFail() {
         when(mockRepo.save(any(MonthlyBudget.class))).thenThrow(IllegalArgumentException.class);
     }
@@ -60,11 +77,17 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
     public AddBudgetOfMonthlyBudgetPlannerTest() throws ParseException {
     }
 
-    private void assertSavedMonthlyBudgetEquals(MonthlyBudget expectedMonthlyBudget) {
+    private MonthlyBudget assertSavedMonthlyBudgetEquals(MonthlyBudget expectedMonthlyBudget) {
+        MonthlyBudget savedMonthlyBudget = captureSavedMonthlyBudget();
+        assertEquals(expectedMonthlyBudget.getMonth(), savedMonthlyBudget.getMonth());
+        assertEquals(expectedMonthlyBudget.getBudget(), savedMonthlyBudget.getBudget());
+        return savedMonthlyBudget;
+    }
+
+    private MonthlyBudget captureSavedMonthlyBudget() {
         ArgumentCaptor<MonthlyBudget> captor = ArgumentCaptor.forClass(MonthlyBudget.class);
         verify(mockRepo).save(captor.capture());
-        assertEquals(expectedMonthlyBudget.getMonth(), captor.getValue().getMonth());
-        assertEquals(expectedMonthlyBudget.getBudget(), captor.getValue().getBudget());
+        return captor.getValue();
     }
 
 }
