@@ -14,7 +14,7 @@
   when: ansible_os_family == "Debian"
 
 - name: Gradle | Unpack the compressed Gradle
-  command: |
+  shell: |
     mkdir -p "{{ gradle.install_to }}"
     unzip "{{ gradle.cache_dir }}/gradle-{{gradle.version}}-all.zip" -d "{{ gradle.install_to }}"
   args:
