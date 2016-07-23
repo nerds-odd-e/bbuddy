@@ -1,6 +1,9 @@
 - block:
     - name: Ensure mysql 5.5
-      apt: name=mysql-server-5.5
+      apt: name="{{ item }}"
+      with_items:
+        - mysql-server-5.5
+        - python-mysqldb
   when: ansible_os_family == "Debian"
 
 - name: Ensure mysql database
