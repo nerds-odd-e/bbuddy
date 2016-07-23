@@ -1,0 +1,7 @@
+- block:
+    - name: Ensure mysql 5.5
+      apt: name=mysql-server-5.5
+  when: ansible_os_family == "Debian"
+
+- name: Ensure mysql database
+  mysql_db: name="{{ mysql.database }}" state=present

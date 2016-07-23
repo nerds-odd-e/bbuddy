@@ -3,3 +3,6 @@
   hosts: bbuddy-server
   roles:
     - jdk8
+    - role: mysql
+      mysql:
+        database: bbuddy
