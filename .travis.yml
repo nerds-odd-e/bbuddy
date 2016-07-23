@@ -10,4 +10,4 @@ install:
 
 script:
   - ansible-playbook bbuddy.yml --syntax-check
-  - ansible-playbook bbuddy.yml -l localhost
+  - ansible-playbook bbuddy.yml -l travis_ci
