@@ -15,4 +15,12 @@
         - oracle-java8-installer
         - ca-certificates
         - oracle-java8-set-default
+
+    - name: JDK profile
+      copy:
+        dest: "{{ jdk8.profile }}"
+        content: |
+          export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
+          export PATH="$JAVA_HOME/bin:$PATH"
   when: ansible_os_family == "Debian"
+
