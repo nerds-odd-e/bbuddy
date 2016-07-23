@@ -1,0 +1,5 @@
+---
+- name: BBuddy Server
+  hosts: bbuddy-server
+  roles:
+    - jdk8
