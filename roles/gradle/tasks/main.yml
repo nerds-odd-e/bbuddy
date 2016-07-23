@@ -1,0 +1,29 @@
+- name: Gradle | Ensure cache directory
+  file: path="{{ gradle.cache_dir }}" state=directory
+
+- name: Gradle | Download gradle
+  get_url:
+    url: "https://services.gradle.org/distributions/gradle-{{gradle.version}}-all.zip"
+    dest: "{{ gradle.cache_dir }}/gradle-{{gradle.version}}-all.zip"
+
+- name: Gradle | apt-get update
+  apt: update_cache=yes
+  
+- name: Gradle | Install unzip
+  apt: pkg=unzip state=latest
+  when: ansible_os_family == "Debian"
+
+- name: Gradle | Unpack the compressed Gradle
+  command: |
+    mkdir -p "$(dirname '{{ gradle_home }}')"
+    unzip "{{ gradle.cache_dir }}/gradle-{{gradle.version}}-all.zip" -d "$(dirname '{{ gradle_home }}')"
+  args:
+    creates: "{{ gradle_home }}"
+
+- name: Gradle | Add the Gradle binary to the system path
+  copy:
+    dest: "{{ gradle.profile }}"
+    content: |
+      export GRADLE_HOME="{{ gradle_home }}"
+      export PATH="$GRADLE_HOME/bin:$PATH"
+  when: ansible_os_family == "Debian"
