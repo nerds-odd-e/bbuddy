@@ -10,5 +10,5 @@ install:
 
 script:
   - ansible-playbook bbuddy.yml --syntax-check
-  - ansible-playbook bbuddy.yml -l travis_ci
+  - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt
   - bash -lec "gradle check cucumber"
