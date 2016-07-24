@@ -4,7 +4,5 @@
   roles:
     - jdk8
     - gradle
-    - role: mysql
-      mysql:
-        database: bbuddy
+    - mysql
     - xserver
