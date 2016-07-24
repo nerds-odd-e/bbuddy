@@ -2,7 +2,9 @@ package com.odde.bbuddy.acceptancetest.steps;
 
 import com.odde.bbuddy.budget.MonthlyBudget;
 import com.odde.bbuddy.budget.MonthlyBudgetRepo;
-import cucumber.api.java8.En;
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -14,34 +16,35 @@ import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
 
-public class GetAmountSteps implements En {
+public class GetAmountSteps {
 
     WebDriver driver;
 
     @Autowired
     MonthlyBudgetRepo monthlyBudgetRepo;
 
-    {
-        Given("^budget planned for \"([^\"]*)\" is (\\d+)$", (String month, Integer budget) -> {
-            Date monthDate = null;
-            try {
-                monthDate = new SimpleDateFormat("yyyy-MM").parse(month);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            monthlyBudgetRepo.save(new MonthlyBudget(monthDate, budget));
-        });
+    @Given("^budget planned for \"([^\"]*)\" is (\\d+)$")
+    public void budget_planned_for_is(String month, int budget) throws Throwable {
+        Date monthDate = null;
+        try {
+            monthDate = new SimpleDateFormat("yyyy-MM").parse(month);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        monthlyBudgetRepo.save(new MonthlyBudget(monthDate, budget));
+    }
 
-        When("^get amount of period from \"([^\"]*)\" to \"([^\"]*)\"$", (String startDate, String endDate) -> {
-            driver = new FirefoxDriver();
-            driver.get("http://localhost:8080/get_amount?startDate=" + startDate + "&endDate=" + endDate);
-        });
+    @When("^get amount of period from \"([^\"]*)\" to \"([^\"]*)\"$")
+    public void get_amount_of_period_from_to(String startDate, String endDate) throws Throwable {
+        driver = new FirefoxDriver();
+        driver.get("http://localhost:8080/get_amount?startDate=" + startDate + "&endDate=" + endDate);
+    }
 
-        Then("^the amount is (\\d+)$", (Integer amount) -> {
-            String bodyText = driver.findElement(By.tagName("body")).getText();
-            assertTrue(bodyText.contains(String.valueOf(amount)));
-            driver.close();
-            monthlyBudgetRepo.deleteAll();
-        });
+    @Then("^the amount is (\\d+)$")
+    public void the_amount_is(int amount) throws Throwable {
+        String bodyText = driver.findElement(By.tagName("body")).getText();
+        assertTrue(bodyText.contains(String.valueOf(amount)));
+        driver.close();
+        monthlyBudgetRepo.deleteAll();
     }
 }

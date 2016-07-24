@@ -8,7 +8,8 @@ Please install the following tools for this project. The latest version should b
 >* jdk 1.8
 >* gradle
 >* mysql
->* intellij idea community edition
+>* intellij idea community edition with the following plug-in installed
+>>* lombok plug-in
 >* Firefox
 
 # Setup Development Environment

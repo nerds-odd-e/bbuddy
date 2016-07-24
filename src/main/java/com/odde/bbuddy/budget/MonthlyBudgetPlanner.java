@@ -33,4 +33,22 @@ public class MonthlyBudgetPlanner {
     private Iterable<MonthlyBudget> allPlannedBudgets() {
         return monthlyBudgetRepo.findAll();
     }
+
+    public void addMonthlyBudget(MonthlyBudget monthlyBudget, Runnable afterSuccess, Runnable afterFail) {
+        try {
+            saveMonthlyBudget(monthlyBudget);
+            afterSuccess.run();
+        } catch (IllegalArgumentException e) {
+            afterFail.run();
+        }
+    }
+
+    private void saveMonthlyBudget(MonthlyBudget monthlyBudget) {
+        MonthlyBudget existingBudget = monthlyBudgetRepo.findByMonth(monthlyBudget.getMonth());
+        if (existingBudget != null) {
+            existingBudget.setBudget(monthlyBudget.getBudget());
+            monthlyBudgetRepo.save(existingBudget);
+        } else
+            monthlyBudgetRepo.save(monthlyBudget);
+    }
 }
