@@ -1,4 +1,4 @@
 travis_ci ansible_host=localhost ansible_connection=local
 
-[bbuddy-server]
+[bbuddy_servers]
 travis_ci ansible_become=True ansible_become_user=root

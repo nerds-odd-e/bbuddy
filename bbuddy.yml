@@ -1,6 +1,6 @@
 ---
 - name: BBuddy Server
-  hosts: bbuddy-server
+  hosts: bbuddy_servers
   roles:
     - jdk8
     - gradle
