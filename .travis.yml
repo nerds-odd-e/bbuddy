@@ -9,6 +9,6 @@ install:
   - pip install ansible
 
 script:
-  - ansible-playbook bbuddy.yml --syntax-check
+  - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --syntax-check
   - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt
   - bash -lec "gradle check cucumber"
