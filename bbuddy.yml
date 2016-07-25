@@ -1,8 +1,11 @@
 ---
 - name: BBuddy Server
-  hosts: bbuddy_servers
+  hosts: all
+  any_errors_fatal: true
   roles:
     - jdk8
     - gradle
-    - mysql
+    - role: mysql
+      mysql:
+        database: bbuddy
     - xserver
