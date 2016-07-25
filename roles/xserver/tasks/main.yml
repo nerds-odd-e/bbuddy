@@ -16,6 +16,6 @@
           export DISPLAY=:{{ xvfb.display }}
 
     - name: Ensure xvfb service is running
-      service: name=xvfb state=started enabled=yes
+      service: name=xvfb state=restarted enabled=yes
 
   when: ansible_os_family == "Debian"
