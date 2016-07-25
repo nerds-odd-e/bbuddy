@@ -16,4 +16,6 @@
   hosts: bbuddy_ci_servers
   any_errors_fatal: true
   roles:
-    - jenkins
+    - role: jenkins
+      jenkins:
+        port: 8000

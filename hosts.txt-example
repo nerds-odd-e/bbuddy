@@ -1,2 +1,7 @@
-[bbuddy_servers]
 your_host ansible_ssh_user=YourUserName ansible_ssh_pass=YourPassword ansible_become_pass=YourPassword
+
+[bbuddy_servers]
+your_host
+
+[bbuddy_ci_servers]
+your_host
