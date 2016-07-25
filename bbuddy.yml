@@ -11,3 +11,9 @@
         user: nerd
         password: dbs3cr3t
     - xserver
+
+- name: BBuddy CI
+  hosts: bbuddy_ci_servers
+  any_errors_fatal: true
+  roles:
+    - jenkins

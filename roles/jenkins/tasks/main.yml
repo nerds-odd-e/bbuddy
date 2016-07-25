@@ -1,0 +1,19 @@
+- block:
+  - name: Adding the key for Jenkins repository
+    apt_key: url=http://pkg.jenkins-ci.org/debian-stable/jenkins.io.key
+    
+  - name: Adding Jenkins source
+    copy:
+      dest: /etc/apt/sources.list.d/jenkins.list
+      content: |
+        deb http://pkg.jenkins.io/debian-stable binary/
+    register: jenkins_source
+
+  - name: Update apt cache
+    apt: update_cache=yes
+    when: jenkins_source | changed
+
+  - name: Ensure Jenkins
+    apt: name=jenkins update_cache=yes cache_valid_time=604800
+
+  when: ansible_os_family == "Debian"
