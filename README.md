@@ -20,3 +20,19 @@ Use git to clone this project into a folder. Then in this folder, run the comman
 `gradle check cucumber`
 >3. Start Web Application
 `gradle bootRunByPort -Pport=8090`
+
+# Setup Development Environment using VM
+Install the following tools first.
+>* [VirtualBox](https://www.virtualbox.org/)
+>* [Vagrant](https://www.vagrantup.com)
+>* [Ansible](https://www.ansible.com/)
+
+Run the below command:
+`vagrant up`
+
+# If you are using MacOS, and have [Homebrew](http://brew.sh/) installed.
+Run the below commands:
+
+    brew cask install virtualbox vagrant
+    brew install ansible
+    vagrant up
