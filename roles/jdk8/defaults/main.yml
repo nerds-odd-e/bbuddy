@@ -1,0 +1,2 @@
+jdk8:
+  profile: /etc/profile.d/java.sh

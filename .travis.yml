@@ -1,13 +1,14 @@
-language: java
-jdk:
-  - oraclejdk8
-services:
-  - mysql
+---
+language: python
+python: "2.7"
 
-before_script:
-  - mysql -u root -e 'create database bbuddy'
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3
-  
-script: gradle check cucumber
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  - pip install ansible
+
+script:
+  - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --syntax-check
+  - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt
+  - bash -lec "gradle check cucumber"

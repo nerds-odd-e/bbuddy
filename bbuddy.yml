@@ -1,0 +1,21 @@
+---
+- name: BBuddy Server
+  hosts: all
+  any_errors_fatal: true
+  roles:
+    - jdk8
+    - gradle
+    - role: mysql
+      mysql:
+        database: bbuddy
+        user: nerd
+        password: dbs3cr3t
+    - xserver
+
+- name: BBuddy CI
+  hosts: bbuddy_ci_servers
+  any_errors_fatal: true
+  roles:
+    - role: jenkins
+      jenkins:
+        port: 8000

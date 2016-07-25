@@ -1,0 +1,39 @@
+#! /bin/sh -e
+### BEGIN INIT INFO
+# Provides:          xvfb
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Should-Start:      $syslog
+# Should-Stop:       $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start or stop Xvfb
+# Description:       X virtual framebuffer is a display server implementing the X11 display server protocol.
+### END INIT INFO
+
+XVFB=/usr/bin/Xvfb
+XVFBARGS=":{{ xvfb.display }} -ac -screen 0 1024x768x24"
+PIDFILE=/var/run/xvfb_{{ xvfb.display }}.pid
+case "$1" in
+  start)
+    echo -n "Starting virtual X frame buffer: Xvfb"
+    /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE --make-pidfile --background --exec $XVFB -- $XVFBARGS
+    echo "."
+    ;;
+  stop)
+    echo -n "Stopping virtual X frame buffer: Xvfb"
+    /sbin/start-stop-daemon --stop --quiet --pidfile $PIDFILE
+    rm -f $PIDFILE
+    echo "."
+    ;;
+  restart)
+    $0 stop
+    $0 start
+    ;;
+  *)
+  echo "Usage: /etc/init.d/xvfb {start|stop|restart}"
+  exit 1
+esac
+exit 0
+
+# -*- mode: sh -*-

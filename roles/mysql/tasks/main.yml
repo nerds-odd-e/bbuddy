@@ -1,0 +1,16 @@
+- block:
+    - name: Ensure mysql server
+      apt: name="{{ item }}"
+      with_items:
+        - mysql-server
+        - python-mysqldb
+  when: ansible_os_family == "Debian"
+
+- name: Ensure mysql database
+  mysql_db: name="{{ mysql.database }}" state=present
+
+- name: MySQL user
+  mysql_user: user="{{ mysql.user }}" password="{{ mysql.password }}" host="{{ item }}" priv="{{ mysql.database }}.*:ALL,GRANT" state=present
+  with_items:
+    - localhost
+    - "%"
