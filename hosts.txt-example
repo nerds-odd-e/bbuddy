@@ -1,0 +1,2 @@
+[bbuddy_servers]
+your_host ansible_ssh_user=YourUserName ansible_ssh_pass=YourPassword ansible_become_pass=YourPassword

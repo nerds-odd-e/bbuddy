@@ -81,3 +81,4 @@ gradle-app.setting
 
 # Ansible
 /*.retry
+/hosts.txt
