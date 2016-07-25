@@ -67,7 +67,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
     }
 
     private void givenSaveWillFail() {
-        when(mockRepo.save(any(MonthlyBudget.class))).thenThrow(IllegalArgumentException.class);
+        doThrow(IllegalArgumentException.class).when(mockRepo).save(any(MonthlyBudget.class));
     }
 
     private Date parseDate(String source) throws ParseException {
