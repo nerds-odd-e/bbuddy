@@ -8,14 +8,13 @@
 
     - name: Xvfb:{{ xvfb.display }} init.d script
       template: src=init_xvfb.sh.j2 dest=/etc/init.d/xvfb mode="0755"
+      notify: Restart and enable xvfb service
 
     - name: Xvfb:{{ xvfb.display }} profile
       copy:
         dest: /etc/profile.d/xvfb.sh
         content: |
           export DISPLAY=:{{ xvfb.display }}
-
-    - name: Ensure xvfb service is running
-      service: name=xvfb state=restarted enabled=yes
+      notify: Restart and enable xvfb service
 
   when: ansible_os_family == "Debian"

@@ -1,0 +1,2 @@
+- name: Restart and enable xvfb service
+  service: name=xvfb state=restarted enabled=yes
