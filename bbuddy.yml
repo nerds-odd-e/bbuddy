@@ -8,4 +8,6 @@
     - role: mysql
       mysql:
         database: bbuddy
+        user: nerd
+        password: dbs3cr3t
     - xserver
