@@ -10,7 +10,7 @@
         database: bbuddy
         user: nerd
         password: dbs3cr3t
-    - xserver
+    - firefox
 
 - name: BBuddy CI
   hosts: bbuddy_ci_servers
