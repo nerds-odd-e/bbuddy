@@ -1,9 +1,11 @@
 package com.odde.bbuddy.acceptancetest.driver;
 
-import org.openqa.selenium.WebDriver;
-
 public interface UiDriver {
     void close();
 
-    WebDriver getWebDriver();
+    void navigateTo(String url);
+
+    UiElement findElementByName(String name);
+
+    UiElement findElementByTag(String tag);
 }
