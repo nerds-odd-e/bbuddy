@@ -5,16 +5,18 @@
         - xserver-xorg-core
         - xvfb
 
-    - name: Ensure firefox-{{ ansible_architecture }} v46.0.1
+    - name: Ensure firefox-{{ ansible_architecture }} v{{ firefox_version }}
       shell: |
+        firefox --version | grep -F '{{ firefox_version }}' && exit 0
+
         mkdir -p /opt
-        curl https://download-installer.cdn.mozilla.net/pub/firefox/releases/46.0.1/linux-{{ ansible_architecture }}/en-US/firefox-46.0.1.tar.bz2 | tar -jx -C /opt
-        [[ -f /usr/bin/firefox ]] && mv /usr/bin/firefox /usr/bin/firefox-orig
+        curl https://download-installer.cdn.mozilla.net/pub/firefox/releases/{{ firefox_version }}/linux-{{ ansible_architecture }}/en-US/firefox-{{ firefox_version }}.tar.bz2 | tar -jx -C /opt
         [[ -L /usr/bin/firefox ]] && rm /usr/bin/firefox
+        [[ -f /usr/bin/firefox ]] && mv /usr/bin/firefox /usr/bin/firefox-orig
         ln -s /opt/firefox/firefox /usr/bin/firefox
-        ln -s /opt/firefox/firefox /usr/bin/firefox-46.0.1
+        ln -s /opt/firefox/firefox /usr/bin/firefox-{{ firefox_version }}
       args:
-        creates: /usr/bin/firefox-46.0.1
+        creates: "/usr/bin/firefox-{{ firefox_version }}"
 
     - name: Xvfb:{{ xvfb.display }} init.d script
       template: src=init_xvfb.sh.j2 dest=/etc/init.d/xvfb mode="0755"
