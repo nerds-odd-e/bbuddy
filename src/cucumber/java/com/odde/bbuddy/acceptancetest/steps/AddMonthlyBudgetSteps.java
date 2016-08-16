@@ -47,7 +47,6 @@ public class AddMonthlyBudgetSteps {
             assertEquals(monthDate, monthlyBudget.getMonth());
             assertEquals((Integer) budget, monthlyBudget.getBudget());
         });
-        monthlyBudgetRepo.deleteAll();
     }
 
     @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")

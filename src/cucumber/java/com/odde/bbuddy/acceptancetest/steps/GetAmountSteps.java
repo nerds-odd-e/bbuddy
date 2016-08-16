@@ -43,6 +43,5 @@ public class GetAmountSteps {
     public void the_amount_is(int amount) throws Throwable {
         String bodyText = driver.getWebDriver().findElement(By.tagName("body")).getText();
         assertTrue(bodyText.contains(String.valueOf(amount)));
-        monthlyBudgetRepo.deleteAll();
     }
 }
