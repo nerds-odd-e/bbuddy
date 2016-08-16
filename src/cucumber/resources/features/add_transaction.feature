@@ -1,6 +1,5 @@
 Feature: Add Transaction
 
-  @wip
   Scenario: successfully add a new transaction
     When add a new transaction with the following information
       | Type    | Description         | Date        | Amount  |

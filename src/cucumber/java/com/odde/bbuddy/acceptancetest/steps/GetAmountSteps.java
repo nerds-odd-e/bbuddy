@@ -1,13 +1,12 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
+import com.odde.bbuddy.acceptancetest.driver.UiDriver;
 import com.odde.bbuddy.budget.MonthlyBudget;
 import com.odde.bbuddy.budget.MonthlyBudgetRepo;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
@@ -18,7 +17,8 @@ import static org.junit.Assert.assertTrue;
 
 public class GetAmountSteps {
 
-    WebDriver driver;
+    @Autowired
+    UiDriver driver;
 
     @Autowired
     MonthlyBudgetRepo monthlyBudgetRepo;
@@ -36,15 +36,13 @@ public class GetAmountSteps {
 
     @When("^get amount of period from \"([^\"]*)\" to \"([^\"]*)\"$")
     public void get_amount_of_period_from_to(String startDate, String endDate) throws Throwable {
-        driver = new FirefoxDriver();
-        driver.get("http://localhost:8080/get_amount?startDate=" + startDate + "&endDate=" + endDate);
+        driver.getWebDriver().get("http://localhost:8080/get_amount?startDate=" + startDate + "&endDate=" + endDate);
     }
 
     @Then("^the amount is (\\d+)$")
     public void the_amount_is(int amount) throws Throwable {
-        String bodyText = driver.findElement(By.tagName("body")).getText();
+        String bodyText = driver.getWebDriver().findElement(By.tagName("body")).getText();
         assertTrue(bodyText.contains(String.valueOf(amount)));
-        driver.close();
         monthlyBudgetRepo.deleteAll();
     }
 }
