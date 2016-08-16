@@ -1,3 +1,4 @@
+@user
 Feature: Login
 
   Scenario: Successful Login
