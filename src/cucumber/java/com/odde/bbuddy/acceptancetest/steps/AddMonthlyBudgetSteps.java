@@ -1,7 +1,6 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
-import com.odde.bbuddy.acceptancetest.driver.UiDriver;
-import com.odde.bbuddy.acceptancetest.driver.UiElement;
+import com.odde.bbuddy.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.odde.bbuddy.budget.MonthlyBudget;
 import com.odde.bbuddy.budget.MonthlyBudgetRepo;
 import cucumber.api.java.en.Given;
@@ -18,19 +17,14 @@ import static org.junit.Assert.assertEquals;
 public class AddMonthlyBudgetSteps {
 
     @Autowired
-    UiDriver driver;
+    AddMonthlyBudgetPage page;
 
     @Autowired
     MonthlyBudgetRepo monthlyBudgetRepo;
 
     @When("^add budget for \"([^\"]*)\" with amount (\\d+)$")
     public void add_budget_for_with_amount(String month, int budget) throws Throwable {
-        driver.navigateTo("http://localhost:8080/add_budget_for_month");
-        UiElement monthTextBox = driver.findElementByName("month");
-        monthTextBox.sendKeys(month);
-        UiElement budgetTextBox = driver.findElementByName("budget");
-        budgetTextBox.sendKeys(String.valueOf((Integer) budget));
-        budgetTextBox.submit();
+        page.addMonthlyBudget(month, budget);
     }
 
     @Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$")
