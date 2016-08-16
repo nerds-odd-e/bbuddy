@@ -1,6 +1,6 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
-import com.odde.bbuddy.acceptancetest.driver.UiDriver;
+import com.odde.bbuddy.acceptancetest.pages.MonthlyBudgetAmountPage;
 import com.odde.bbuddy.budget.MonthlyBudget;
 import com.odde.bbuddy.budget.MonthlyBudgetRepo;
 import cucumber.api.java.en.Given;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class GetAmountSteps {
 
     @Autowired
-    UiDriver driver;
+    MonthlyBudgetAmountPage page;
 
     @Autowired
     MonthlyBudgetRepo monthlyBudgetRepo;
@@ -35,12 +35,11 @@ public class GetAmountSteps {
 
     @When("^get amount of period from \"([^\"]*)\" to \"([^\"]*)\"$")
     public void get_amount_of_period_from_to(String startDate, String endDate) throws Throwable {
-        driver.navigateTo("http://localhost:8080/get_amount?startDate=" + startDate + "&endDate=" + endDate);
+        page.open(startDate, endDate);
     }
 
     @Then("^the amount is (\\d+)$")
     public void the_amount_is(int amount) throws Throwable {
-        String bodyText = driver.findElementByTag("body").getText();
-        assertTrue(bodyText.contains(String.valueOf(amount)));
+        assertTrue(page.getAllText().contains(String.valueOf(amount)));
     }
 }
