@@ -1,13 +1,11 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
-import com.odde.bbuddy.acceptancetest.driver.UiDriver;
+import com.odde.bbuddy.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.odde.bbuddy.budget.MonthlyBudget;
 import com.odde.bbuddy.budget.MonthlyBudgetRepo;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
@@ -19,19 +17,14 @@ import static org.junit.Assert.assertEquals;
 public class AddMonthlyBudgetSteps {
 
     @Autowired
-    UiDriver driver;
+    AddMonthlyBudgetPage page;
 
     @Autowired
     MonthlyBudgetRepo monthlyBudgetRepo;
 
     @When("^add budget for \"([^\"]*)\" with amount (\\d+)$")
     public void add_budget_for_with_amount(String month, int budget) throws Throwable {
-        driver.getWebDriver().get("http://localhost:8080/add_budget_for_month");
-        WebElement monthTextBox = driver.getWebDriver().findElement(By.name("month"));
-        monthTextBox.sendKeys(month);
-        WebElement budgetTextBox = driver.getWebDriver().findElement(By.name("budget"));
-        budgetTextBox.sendKeys(String.valueOf((Integer) budget));
-        budgetTextBox.submit();
+        page.addMonthlyBudget(month, budget);
     }
 
     @Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$")
@@ -47,7 +40,6 @@ public class AddMonthlyBudgetSteps {
             assertEquals(monthDate, monthlyBudget.getMonth());
             assertEquals((Integer) budget, monthlyBudget.getBudget());
         });
-        monthlyBudgetRepo.deleteAll();
     }
 
     @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")

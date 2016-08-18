@@ -1,5 +1,6 @@
 package com.odde.bbuddy.acceptancetest.driver;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.context.annotation.Scope;
@@ -17,7 +18,17 @@ public class SeleniumWebDriver implements UiDriver {
     }
 
     @Override
-    public WebDriver getWebDriver() {
-        return webDriver;
+    public void navigateTo(String url) {
+        webDriver.get(url);
+    }
+
+    @Override
+    public UiElement findElementByName(String name) {
+        return new SeleniumWebElement(webDriver.findElement(By.name(name)));
+    }
+
+    @Override
+    public UiElement findElementByTag(String tag) {
+        return new SeleniumWebElement(webDriver.findElement(By.tagName(tag)));
     }
 }

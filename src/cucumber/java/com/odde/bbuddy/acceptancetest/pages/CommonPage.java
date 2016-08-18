@@ -1,0 +1,13 @@
+package com.odde.bbuddy.acceptancetest.pages;
+
+import com.odde.bbuddy.acceptancetest.driver.UiDriver;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class CommonPage {
+    @Autowired
+    UiDriver driver;
+
+    public String getAllText() {
+        return driver.findElementByTag("body").getText();
+    }
+}
