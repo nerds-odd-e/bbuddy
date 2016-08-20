@@ -27,4 +27,9 @@ public class SeleniumWebDriver implements UiDriver {
     public UiElement findElementByTag(String tag) {
         return new SeleniumWebElement(webDriver.findElement(By.tagName(tag)));
     }
+
+    @Override
+    public void navigateToWithParams(String url, Params params) {
+        webDriver.get(url + params.getQuery());
+    }
 }

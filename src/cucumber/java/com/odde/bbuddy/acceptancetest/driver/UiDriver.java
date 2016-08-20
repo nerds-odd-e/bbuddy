@@ -8,4 +8,6 @@ public interface UiDriver {
     UiElement findElementByName(String name);
 
     UiElement findElementByTag(String tag);
+
+    void navigateToWithParams(String url, Params params);
 }

@@ -29,4 +29,9 @@ public class UiDriverWithHostName implements UiDriver {
     public UiElement findElementByTag(String tag) {
         return originalDriver.findElementByTag(tag);
     }
+
+    @Override
+    public void navigateToWithParams(String url, Params params) {
+        originalDriver.navigateToWithParams(hostName + url, params);
+    }
 }
