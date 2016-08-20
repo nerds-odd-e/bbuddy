@@ -1,7 +1,7 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
-import com.odde.bbuddy.acceptancetest.pages.LoginPage;
+import com.odde.bbuddy.acceptancetest.pages.SignInPage;
 import com.odde.bbuddy.user.User;
 import com.odde.bbuddy.user.UserRepo;
 import cucumber.api.java.en.Given;
@@ -12,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static org.junit.Assert.assertTrue;
 
 
-public class LoginSteps {
+public class SignInSteps {
 
     @Autowired
     UserRepo userRepo;
 
     @Autowired
-    LoginPage page;
+    SignInPage page;
 
     @Autowired
     CommonPage commonPage;
@@ -30,7 +30,7 @@ public class LoginSteps {
 
     @When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void login_with_user_name_and_password(String userName, String password) throws Throwable {
-        page.login(userName, password);
+        page.signIn(userName, password);
     }
 
     @Then("^login successfully$")

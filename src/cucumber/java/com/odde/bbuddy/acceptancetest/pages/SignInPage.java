@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("cucumber-glue")
-public class LoginPage {
+public class SignInPage {
 
     @Autowired
     UiDriver driver;
 
-    public void login(String userName, String password) {
+    public void signIn(String userName, String password) {
         driver.navigateTo("/signin");
         setPassword(password);
         setUserNameAndSubmit(userName);
