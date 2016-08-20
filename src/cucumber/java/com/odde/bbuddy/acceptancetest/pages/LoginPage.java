@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class LoginPage extends CommonPage {
 
     public void login(String userName, String password) {
-        driver.navigateTo("http://localhost:8080/login");
+        driver.navigateTo("/login");
         UiElement userNameTextBox = driver.findElementByName("username");
         userNameTextBox.sendKeys(userName);
         UiElement passwordBox = driver.findElementByName("password");

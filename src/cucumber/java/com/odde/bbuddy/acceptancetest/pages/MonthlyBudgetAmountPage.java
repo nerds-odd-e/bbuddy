@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class MonthlyBudgetAmountPage extends CommonPage {
 
     public void open(String startDate, String endDate) {
-        driver.navigateTo("http://localhost:8080/get_amount?startDate=" + startDate + "&endDate=" + endDate);
+        driver.navigateTo("/get_amount?startDate=" + startDate + "&endDate=" + endDate);
     }
 
 }
