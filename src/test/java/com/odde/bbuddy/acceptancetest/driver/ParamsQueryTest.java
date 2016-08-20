@@ -19,4 +19,12 @@ public class ParamsQueryTest {
 
         assertEquals("?name=value", params.getQuery());
     }
+
+    @Test
+    public void query_string_when_there_are_two_params() {
+        params.add("first", "firstValue");
+        params.add("second", "secondValue");
+
+        assertEquals("?first=firstValue&second=secondValue", params.getQuery());
+    }
 }
