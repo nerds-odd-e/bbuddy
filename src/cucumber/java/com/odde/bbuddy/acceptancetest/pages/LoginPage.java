@@ -14,7 +14,7 @@ public class LoginPage {
     UiDriver driver;
 
     public void login(String userName, String password) {
-        driver.navigateTo("/login");
+        driver.navigateTo("/signin");
         setPassword(password);
         setUserNameAndSubmit(userName);
     }
