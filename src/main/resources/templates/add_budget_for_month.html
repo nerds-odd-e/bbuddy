@@ -1,8 +1,6 @@
-<div>
-</div>
+<div>{{message}}</div>
 <form action="/confirm_add_budget_for_month" method="post">
     <div><label> Month : <input type="text" name="month"/> </label></div>
     <div><label> Budget: <input type="text" name="budget"/> </label></div>
-    <input type="hidden" name="{{_csrf.parameterName}}" value="{{_csrf.token}}"/>
     <div><input type="submit" value="Add"/></div>
 </form>
