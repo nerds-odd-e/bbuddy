@@ -15,11 +15,19 @@ public class LoginPage {
 
     public void login(String userName, String password) {
         driver.navigateTo("/login");
+        setPassword(password);
+        setUserNameAndSubmit(userName);
+    }
+
+    private void setUserNameAndSubmit(String userName) {
         UiElement userNameTextBox = driver.findElementByName("username");
         userNameTextBox.sendKeys(userName);
+        userNameTextBox.submit();
+    }
+
+    private void setPassword(String password) {
         UiElement passwordBox = driver.findElementByName("password");
         passwordBox.sendKeys(password);
-        userNameTextBox.submit();
     }
 
 }
