@@ -1,5 +1,6 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
+import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.MonthlyBudgetAmountPage;
 import com.odde.bbuddy.budget.MonthlyBudget;
 import com.odde.bbuddy.budget.MonthlyBudgetRepo;
@@ -18,6 +19,9 @@ public class GetAmountSteps {
 
     @Autowired
     MonthlyBudgetAmountPage page;
+
+    @Autowired
+    CommonPage commonPage;
 
     @Autowired
     MonthlyBudgetRepo monthlyBudgetRepo;
@@ -40,6 +44,6 @@ public class GetAmountSteps {
 
     @Then("^the amount is (\\d+)$")
     public void the_amount_is(int amount) throws Throwable {
-        assertTrue(page.getAllText().contains(String.valueOf(amount)));
+        assertTrue(commonPage.getAllText().contains(String.valueOf(amount)));
     }
 }
