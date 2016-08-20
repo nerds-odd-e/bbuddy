@@ -1,5 +1,6 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
+import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.LoginPage;
 import com.odde.bbuddy.user.User;
 import com.odde.bbuddy.user.UserRepo;
@@ -19,6 +20,9 @@ public class LoginSteps {
     @Autowired
     LoginPage page;
 
+    @Autowired
+    CommonPage commonPage;
+
     @Given("^there is a user named \"([^\"]*)\" and password is \"([^\"]*)\"$")
     public void there_is_a_user_named_and_password_is(String userName, String password) throws Throwable {
         userRepo.save(new User(userName, password));
@@ -31,6 +35,6 @@ public class LoginSteps {
 
     @Then("^login successfully$")
     public void login_successfully() throws Throwable {
-        assertTrue(page.getAllText().contains("Welcome"));
+        assertTrue(commonPage.getAllText().contains("Welcome"));
     }
 }
