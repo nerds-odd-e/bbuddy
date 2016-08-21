@@ -1,4 +1,4 @@
-@monthlyBudget
+@user @monthlyBudget
 Feature: Add budget for month
 
   Scenario: Add budget for month
