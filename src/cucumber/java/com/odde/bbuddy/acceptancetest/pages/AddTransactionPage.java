@@ -2,7 +2,6 @@ package com.odde.bbuddy.acceptancetest.pages;
 
 import com.odde.bbuddy.acceptancetest.driver.UiDriver;
 import com.odde.bbuddy.acceptancetest.driver.UiElement;
-import com.odde.bbuddy.acceptancetest.driver.UiSelect;
 import com.odde.bbuddy.acceptancetest.steps.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -17,13 +16,27 @@ public class AddTransactionPage {
 
     public void add(Transaction transaction) {
         driver.navigateTo("/add_transaction");
-        UiSelect type = driver.findSelectByName("type");
-        type.selectByVisibleText(transaction.getType());
-        UiElement description = driver.findElementByName("description");
-        description.sendKeys(transaction.getDescription());
-        UiElement date = driver.findElementByName("date");
-        date.sendKeys(transaction.getDate());
-        UiElement amount = driver.findElementByName("amount");
-        amount.sendKeys(transaction.getAmount());
+        setType(transaction.getType());
+        setDescription(transaction.getDescription());
+        setDate(transaction.getDate());
+        setAmountAndSubmit(transaction.getAmount());
+    }
+
+    private void setAmountAndSubmit(String amount) {
+        UiElement element = driver.findElementByName("amount");
+        element.sendKeys(amount);
+        element.submit();
+    }
+
+    private void setDate(String date) {
+        driver.findElementByName("date").sendKeys(date);
+    }
+
+    private void setDescription(String description) {
+        driver.findElementByName("description").sendKeys(description);
+    }
+
+    private void setType(String type) {
+        driver.findSelectByName("type").selectByVisibleText(type);
     }
 }
