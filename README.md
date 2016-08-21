@@ -17,7 +17,7 @@ Use git to clone this project into a folder. Then in this folder, run the comman
 >1. Run Tests
 `gradle clean check cucumber`
 >2. Start Web Application
-`gradle bootRunByPort -Pport=8090`
+`gradle clean bootRunByPort -Pport=8090`
 
 # Setup Development Environment using VM
 Install the following tools first.
