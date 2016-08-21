@@ -14,11 +14,9 @@ Please install the following tools for this project. The latest version should b
 
 # Setup Development Environment
 Use git to clone this project into a folder. Then in this folder, run the command below in order.
->1. Setup Database
-`mysql -u root < db_migrations/initialize_users_and_roles.sql`
->2. Run Tests
-`gradle check cucumber`
->3. Start Web Application
+>1. Run Tests
+`gradle clean check cucumber`
+>2. Start Web Application
 `gradle bootRunByPort -Pport=8090`
 
 # Setup Development Environment using VM
