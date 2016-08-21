@@ -1,9 +1,7 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
 import lombok.Getter;
-import lombok.Setter;
 
-@Setter
 @Getter
 public class Transaction {
 
