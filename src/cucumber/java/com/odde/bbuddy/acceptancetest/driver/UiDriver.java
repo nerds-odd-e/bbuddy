@@ -10,4 +10,6 @@ public interface UiDriver {
     UiElement findElementByTag(String tag);
 
     void navigateToWithParams(String url, Params params);
+
+    UiSelect findSelectByName(String name);
 }

@@ -34,4 +34,9 @@ public class UiDriverWithHostName implements UiDriver {
     public void navigateToWithParams(String url, Params params) {
         originalDriver.navigateToWithParams(hostName + url, params);
     }
+
+    @Override
+    public UiSelect findSelectByName(String name) {
+        return originalDriver.findSelectByName(name);
+    }
 }
