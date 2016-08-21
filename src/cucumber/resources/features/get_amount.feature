@@ -1,4 +1,4 @@
-@monthlyBudget
+@user @monthlyBudget
 Feature: Get amount of a period based on monthly budgeting
 
   Scenario: Get amount with no budget planned for any month overlapping the period
