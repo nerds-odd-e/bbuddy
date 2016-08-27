@@ -1,10 +1,10 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
+import com.odde.bbuddy.acceptancetest.data.budget.MonthlyBudgetRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.MonthlyBudgetAmountPage;
 import com.odde.bbuddy.budget.MonthlyBudget;
-import com.odde.bbuddy.budget.MonthlyBudgetRepo;
 import cucumber.api.Format;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -29,7 +29,7 @@ public class MonthlyBudgetSteps {
     CommonPage commonPage;
 
     @Autowired
-    MonthlyBudgetRepo monthlyBudgetRepo;
+    MonthlyBudgetRepoForTest monthlyBudgetRepo;
 
     @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")
     public void budget_has_been_set_for_month(int budget, @Format(MONTH) Date month) throws Throwable {

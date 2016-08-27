@@ -1,7 +1,7 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
-import com.odde.bbuddy.acceptancetest.data.EditableTransaction;
-import com.odde.bbuddy.acceptancetest.data.TransactionRepoForTest;
+import com.odde.bbuddy.acceptancetest.data.transaction.EditableTransaction;
+import com.odde.bbuddy.acceptancetest.data.transaction.TransactionRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.AddTransactionPage;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import cucumber.api.Format;

@@ -1,4 +1,4 @@
-package com.odde.bbuddy.acceptancetest.data;
+package com.odde.bbuddy.acceptancetest.data.transaction;
 
 import lombok.Getter;
 
