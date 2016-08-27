@@ -1,10 +1,10 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
 import com.odde.bbuddy.Application;
+import com.odde.bbuddy.acceptancetest.data.TransactionRepoForTest;
 import com.odde.bbuddy.acceptancetest.driver.UiDriver;
 import com.odde.bbuddy.acceptancetest.pages.SignInPage;
 import com.odde.bbuddy.budget.MonthlyBudgetRepo;
-import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import com.odde.bbuddy.user.User;
 import com.odde.bbuddy.user.UserRepo;
 import cucumber.api.java.After;
@@ -36,7 +36,7 @@ public class Hooks {
     MonthlyBudgetRepo monthlyBudgetRepo;
 
     @Autowired
-    TransactionRepo transactionRepo;
+    TransactionRepoForTest transactionRepo;
 
     @Before("@user")
     public void signIn(){

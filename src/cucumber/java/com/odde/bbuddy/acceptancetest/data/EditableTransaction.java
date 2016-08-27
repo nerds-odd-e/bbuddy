@@ -1,9 +1,9 @@
-package com.odde.bbuddy.acceptancetest.steps;
+package com.odde.bbuddy.acceptancetest.data;
 
 import lombok.Getter;
 
 @Getter
-public class Transaction {
+public class EditableTransaction {
 
     private String type;
     private String description;

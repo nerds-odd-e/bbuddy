@@ -2,7 +2,7 @@ package com.odde.bbuddy.acceptancetest.pages;
 
 import com.odde.bbuddy.acceptancetest.driver.UiDriver;
 import com.odde.bbuddy.acceptancetest.driver.UiElement;
-import com.odde.bbuddy.acceptancetest.steps.Transaction;
+import com.odde.bbuddy.acceptancetest.data.EditableTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -14,7 +14,7 @@ public class AddTransactionPage {
     @Autowired
     UiDriver driver;
 
-    public void add(Transaction transaction) {
+    public void add(EditableTransaction transaction) {
         driver.navigateTo("/add_transaction");
         setType(transaction.getType());
         setDescription(transaction.getDescription());
