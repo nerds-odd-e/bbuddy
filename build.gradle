@@ -58,6 +58,7 @@ dependencies {
             "info.cukes:cucumber-spring:1.2.4",
             "org.seleniumhq.selenium:selenium-java:2.53.1",
             "org.seleniumhq.selenium:selenium-chrome-driver:2.53.1",
+            "org.unitils:unitils-core:3.4.3"
     )
 
     cucumberRuntime "info.cukes:cucumber-java:1.2.4"
