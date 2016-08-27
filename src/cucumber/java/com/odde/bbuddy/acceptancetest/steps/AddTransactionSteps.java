@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static com.odde.bbuddy.acceptancetest.steps.Formats.*;
 import static org.junit.Assert.assertEquals;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
 import static org.unitils.reflectionassert.ReflectionComparatorMode.IGNORE_DEFAULTS;
@@ -29,7 +30,7 @@ public class AddTransactionSteps {
     }
 
     @Then("^a new transaction will be created$")
-    public void a_new_transaction_will_be_created(@Format("yyyy-MM-dd") List<Transaction> expected) throws Throwable {
+    public void a_new_transaction_will_be_created(@Format(DAY) List<Transaction> expected) throws Throwable {
         assertTransactionsEquals(expected, transactionRepo.findAll());
     }
 
