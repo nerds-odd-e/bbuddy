@@ -10,21 +10,19 @@ import static org.mockito.Mockito.verify;
 
 public class TestTransactionController {
 
+    Transactions transactions = mock(Transactions.class);
+    TransactionController controller = new TransactionController(transactions);
+
     @Test
     public void back_page() {
-        Transactions transactions = mock(Transactions.class);
-        TransactionController controller = new TransactionController(transactions);
-
-        assertEquals("add_transaction", controller.confirm(new Transaction()));
+        assertEquals("redirect:/add_transaction", controller.addTransaction(new Transaction()));
     }
 
     @Test
     public void add_transaction() {
-        Transactions transactions = mock(Transactions.class);
-        TransactionController controller = new TransactionController(transactions);
-
         Transaction transaction = new Transaction();
-        controller.confirm(transaction);
+
+        controller.addTransaction(transaction);
 
         verify(transactions).add(transaction);
     }
