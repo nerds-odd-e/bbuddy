@@ -5,6 +5,7 @@ import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Test;
 import org.springframework.ui.Model;
 
+import static com.odde.bbuddy.RunnableHelper.createRunnableArgumentInvoker;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -49,10 +50,6 @@ public class TransactionControllerTest {
     }
 
     private void given_add_transaction_will(int i) {
-        doAnswer(invocation -> {
-            Runnable after = (Runnable) invocation.getArguments()[i];
-            after.run();
-            return null;
-        }).when(transactions).add(any(Transaction.class), any(Runnable.class), any(Runnable.class));
+        doAnswer(createRunnableArgumentInvoker(i)).when(transactions).add(any(Transaction.class), any(Runnable.class), any(Runnable.class));
     }
 }

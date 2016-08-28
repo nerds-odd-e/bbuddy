@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 
 import java.text.ParseException;
 
+import static com.odde.bbuddy.RunnableHelper.createRunnableArgumentInvoker;
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -51,11 +52,7 @@ public class AddBudgetForMonthControllerTest {
     }
 
     private void given_add_monthly_budget_will(int i) {
-        doAnswer(invocation -> {
-            Runnable after = (Runnable) invocation.getArguments()[i];
-            after.run();
-            return null;
-        }).when(mockPlanner).addMonthlyBudget(any(MonthlyBudget.class), any(Runnable.class), any(Runnable.class));
+        doAnswer(createRunnableArgumentInvoker(i)).when(mockPlanner).addMonthlyBudget(any(MonthlyBudget.class), any(Runnable.class), any(Runnable.class));
     }
 
 }

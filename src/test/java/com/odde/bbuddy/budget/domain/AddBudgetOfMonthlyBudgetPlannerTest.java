@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 import static com.odde.bbuddy.common.Formats.parseDay;
-import static com.odde.bbuddy.transaction.domain.RunnableHelper.WHATEVER;
+import static com.odde.bbuddy.RunnableHelper.WHATEVER;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
