@@ -13,7 +13,7 @@ public class Transactions {
         this.repo = repo;
     }
 
-    public void add(Transaction transaction, Runnable afterSuccess) {
+    public void add(Transaction transaction, Runnable afterSuccess, Runnable afterFailed) {
         repo.save(transaction);
         afterSuccess.run();
     }

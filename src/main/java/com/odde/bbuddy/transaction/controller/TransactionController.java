@@ -22,7 +22,12 @@ public class TransactionController {
     @RequestMapping(value = "/confirm_add_transaction", method = RequestMethod.POST)
     public String addTransaction(@ModelAttribute Transaction transaction, Model model) {
         transactions.add(transaction,
-                ()-> model.addAttribute("message", "Successfully add transaction"));
+                setMessage(model, "Successfully add transaction"),
+                setMessage(model, "Add transaction failed"));
         return "add_transaction";
+    }
+
+    private Runnable setMessage(Model model, String message) {
+        return () -> model.addAttribute("message", message);
     }
 }

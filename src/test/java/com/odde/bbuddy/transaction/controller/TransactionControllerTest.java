@@ -11,6 +11,8 @@ import static org.mockito.Mockito.*;
 
 public class TransactionControllerTest {
 
+    private static final int SUCCESS = 1;
+    private static final int FAILED = 2;
     Transactions transactions = mock(Transactions.class);
     TransactionController controller = new TransactionController(transactions);
     Model mockModel = mock(Model.class);
@@ -25,23 +27,32 @@ public class TransactionControllerTest {
     public void add_transaction() {
         controller.addTransaction(transaction, mockModel);
 
-        verify(transactions).add(eq(transaction), any(Runnable.class));
+        verify(transactions).add(eq(transaction), any(Runnable.class), any(Runnable.class));
     }
 
     @Test
     public void add_transaction_successfully() {
-        given_add_transaction_will_success();
+        given_add_transaction_will(SUCCESS);
 
         controller.addTransaction(transaction, mockModel);
 
         verify(mockModel).addAttribute("message", "Successfully add transaction");
     }
 
-    private void given_add_transaction_will_success() {
+    @Test
+    public void add_transaction_failed() {
+        given_add_transaction_will(FAILED);
+
+        controller.addTransaction(transaction, mockModel);
+
+        verify(mockModel).addAttribute("message", "Add transaction failed");
+    }
+
+    private void given_add_transaction_will(int i) {
         doAnswer(invocation -> {
-            Runnable afterSuccess = (Runnable) invocation.getArguments()[1];
-            afterSuccess.run();
+            Runnable after = (Runnable) invocation.getArguments()[i];
+            after.run();
             return null;
-        }).when(transactions).add(any(Transaction.class), any(Runnable.class));
+        }).when(transactions).add(any(Transaction.class), any(Runnable.class), any(Runnable.class));
     }
 }
