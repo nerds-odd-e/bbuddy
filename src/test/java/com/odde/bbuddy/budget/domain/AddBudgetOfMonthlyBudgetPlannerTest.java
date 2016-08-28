@@ -45,7 +45,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
 
     @Test
     public void after_fail_is_called_if_save_failed() {
-        givenSaveWillFail();
+        given_save_will_fail();
 
         planner.addMonthlyBudget(monthlyBudget, afterSuccess, afterFail);
 
@@ -69,7 +69,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
         monthlyBudget.setId(id);
     }
 
-    private void givenSaveWillFail() {
+    private void given_save_will_fail() {
         doThrow(IllegalArgumentException.class).when(mockRepo).save(any(MonthlyBudget.class));
     }
 

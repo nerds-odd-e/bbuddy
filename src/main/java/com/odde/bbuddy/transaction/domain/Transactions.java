@@ -14,7 +14,11 @@ public class Transactions {
     }
 
     public void add(Transaction transaction, Runnable afterSuccess, Runnable afterFailed) {
-        repo.save(transaction);
-        afterSuccess.run();
+        try {
+            repo.save(transaction);
+            afterSuccess.run();
+        } catch (IllegalArgumentException e) {
+            afterFailed.run();
+        }
     }
 }
