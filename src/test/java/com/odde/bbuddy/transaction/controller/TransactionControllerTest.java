@@ -8,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-public class TestTransactionController {
+public class TransactionControllerTest {
 
     Transactions transactions = mock(Transactions.class);
     TransactionController controller = new TransactionController(transactions);

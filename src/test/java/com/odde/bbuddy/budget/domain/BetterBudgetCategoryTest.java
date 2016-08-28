@@ -1,6 +1,7 @@
-package com.odde.bbuddy.budget;
+package com.odde.bbuddy.budget.domain;
 
 //import org.homeunix.thecave.buddi.model.impl.BudgetCategoryImpl;
+import com.odde.bbuddy.budget.BudgetCategoryImpl;
 import org.junit.Before;
 import org.junit.Test;
 
