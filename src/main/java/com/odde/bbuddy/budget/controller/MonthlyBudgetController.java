@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
@@ -21,12 +23,10 @@ public class MonthlyBudgetController {
         this.planner = planner;
     }
 
-    @RequestMapping("/confirm_add_budget_for_month")
-    public String confirm(
-            @RequestParam(name = "month") @DateTimeFormat(pattern = "yyyy-MM") Date monthDate,
-            @RequestParam(name = "budget") int budget, Model model) {
+    @RequestMapping(value = "/confirm_add_budget_for_month", method = RequestMethod.POST)
+    public String confirm(@ModelAttribute MonthlyBudget monthlyBudget, Model model) {
         planner.addMonthlyBudget(
-                new MonthlyBudget(monthDate, budget),
+                monthlyBudget,
                 setMessage(model, "Successfully add budget for month"),
                 setMessage(model, "Add budget for month failed"));
         return "add_budget_for_month";
