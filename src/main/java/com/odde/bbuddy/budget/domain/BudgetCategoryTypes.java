@@ -1,4 +1,4 @@
-package com.odde.bbuddy.budget;
+package com.odde.bbuddy.budget.domain;
 
 public enum BudgetCategoryTypes {
     BUDGET_CATEGORY_TYPE_WEEK,

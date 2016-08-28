@@ -1,6 +1,6 @@
 package com.odde.bbuddy.acceptancetest.data.budget;
 
-import com.odde.bbuddy.budget.MonthlyBudget;
+import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import org.springframework.context.annotation.Scope;
 import org.springframework.data.repository.Repository;
 

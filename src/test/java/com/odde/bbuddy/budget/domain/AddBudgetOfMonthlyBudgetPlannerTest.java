@@ -1,9 +1,6 @@
 package com.odde.bbuddy.budget.domain;
 
-import com.odde.bbuddy.budget.BudgetCategoryImpl;
-import com.odde.bbuddy.budget.MonthlyBudget;
-import com.odde.bbuddy.budget.MonthlyBudgetPlanner;
-import com.odde.bbuddy.budget.MonthlyBudgetRepo;
+import com.odde.bbuddy.budget.repo.MonthlyBudgetRepo;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 

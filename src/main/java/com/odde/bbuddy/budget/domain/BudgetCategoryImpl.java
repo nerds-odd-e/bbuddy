@@ -1,4 +1,4 @@
-package com.odde.bbuddy.budget;
+package com.odde.bbuddy.budget.domain;
 
 import ca.digitalcave.moss.common.DateUtil;
 import org.springframework.stereotype.Service;

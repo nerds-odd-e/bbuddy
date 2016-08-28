@@ -1,7 +1,7 @@
 package com.odde.bbuddy.budget.controller;
 
-import com.odde.bbuddy.budget.MonthlyBudget;
-import com.odde.bbuddy.budget.MonthlyBudgetPlanner;
+import com.odde.bbuddy.budget.domain.MonthlyBudget;
+import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;

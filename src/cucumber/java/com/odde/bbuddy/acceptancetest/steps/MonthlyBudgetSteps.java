@@ -4,7 +4,7 @@ import com.odde.bbuddy.acceptancetest.data.budget.MonthlyBudgetRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.MonthlyBudgetAmountPage;
-import com.odde.bbuddy.budget.MonthlyBudget;
+import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import cucumber.api.Format;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

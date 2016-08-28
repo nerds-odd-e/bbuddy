@@ -1,9 +1,6 @@
 package com.odde.bbuddy.budget.domain;
 
 import ca.digitalcave.moss.common.DateUtil;
-import com.odde.bbuddy.budget.BudgetCategoryImpl;
-import com.odde.bbuddy.budget.BudgetCategoryType;
-import com.odde.bbuddy.budget.BudgetCategoryTypeMonthly;
 import org.junit.Test;
 
 import java.util.Calendar;

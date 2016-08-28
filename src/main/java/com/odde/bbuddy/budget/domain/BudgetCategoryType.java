@@ -1,4 +1,4 @@
-package com.odde.bbuddy.budget;
+package com.odde.bbuddy.budget.domain;
 
 import java.util.Date;
 

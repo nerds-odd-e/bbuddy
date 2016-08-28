@@ -1,6 +1,6 @@
 package com.odde.bbuddy.budget.controller;
 
-import com.odde.bbuddy.budget.MonthlyBudgetPlanner;
+import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
 import org.junit.Test;
 import org.springframework.ui.Model;
 

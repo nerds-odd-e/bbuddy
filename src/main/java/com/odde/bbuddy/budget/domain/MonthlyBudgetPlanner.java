@@ -1,5 +1,6 @@
-package com.odde.bbuddy.budget;
+package com.odde.bbuddy.budget.domain;
 
+import com.odde.bbuddy.budget.repo.MonthlyBudgetRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
