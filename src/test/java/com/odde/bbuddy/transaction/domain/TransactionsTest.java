@@ -14,7 +14,7 @@ public class TransactionsTest {
         Transactions transactions = new Transactions(repo);
 
         Transaction transaction = new Transaction();
-        transactions.add(transaction);
+        transactions.add(transaction, ()->{});
 
         verify(repo).save(transaction);
     }
