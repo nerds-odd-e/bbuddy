@@ -17,7 +17,7 @@ public class AddBudgetForMonthControllerTest {
     private static final int SUCCESS = 1;
     private static final int FAIL = 2;
     MonthlyBudgetPlanner stubPlanner = mock(MonthlyBudgetPlanner.class);
-    AddBudgetForMonthController controller = new AddBudgetForMonthController(stubPlanner);
+    MonthlyBudgetController controller = new MonthlyBudgetController(stubPlanner);
     Model mockModel = mock(Model.class);
     Date monthDate = parseDate("2016-07-01");
 

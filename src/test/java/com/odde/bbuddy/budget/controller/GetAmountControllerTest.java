@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 public class GetAmountControllerTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
-    GetAmountController controller = new GetAmountController(mockPlanner);
+    MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner);
 
     Date startDate = parseDate("2016-07-01");
     Date endDate = parseDate("2016-07-10");
