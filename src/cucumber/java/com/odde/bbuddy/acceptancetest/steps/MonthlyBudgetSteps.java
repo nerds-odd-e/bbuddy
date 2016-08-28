@@ -11,10 +11,11 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.Date;
 
+import static com.odde.bbuddy.acceptancetest.steps.AssertionHelper.*;
 import static com.odde.bbuddy.acceptancetest.steps.Formats.MONTH;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class MonthlyBudgetSteps {
@@ -53,11 +54,7 @@ public class MonthlyBudgetSteps {
 
     @Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$")
     public void monthly_budget_for_is_saved(Integer budget, @Format(MONTH) Date month) throws Throwable {
-        assertEquals(1, monthlyBudgetRepo.count());
-        monthlyBudgetRepo.findAll().forEach(monthlyBudget -> {
-            assertEquals(month, monthlyBudget.getMonth());
-            assertEquals(budget, monthlyBudget.getBudget());
-        });
+        assertListDeepEquals(Arrays.asList(new MonthlyBudget(month, budget)), monthlyBudgetRepo.findAll());
     }
 
     @Then("^the budget for \"([^\"]*)\" is (\\d+)$")
