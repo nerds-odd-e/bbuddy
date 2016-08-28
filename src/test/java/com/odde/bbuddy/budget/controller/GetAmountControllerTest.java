@@ -5,22 +5,19 @@ import org.junit.Test;
 import org.springframework.ui.Model;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.odde.bbuddy.common.Formats.DAY;
+import static com.odde.bbuddy.common.Formats.parseDay;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class GetAmountControllerTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner);
 
-    Date startDate = parseDate("2016-07-01");
-    Date endDate = parseDate("2016-07-10");
+    Date startDate = parseDay("2016-07-01");
+    Date endDate = parseDay("2016-07-10");
     Model mockModel = mock(Model.class);
 
     @Test
@@ -42,13 +39,6 @@ public class GetAmountControllerTest {
         controller.getAmount(startDate, endDate, mockModel);
 
         verify(mockModel).addAttribute("amount", 100L);
-    }
-
-    public GetAmountControllerTest() throws ParseException {
-    }
-
-    private Date parseDate(String source) throws ParseException {
-        return new SimpleDateFormat(DAY).parse(source);
     }
 
 }

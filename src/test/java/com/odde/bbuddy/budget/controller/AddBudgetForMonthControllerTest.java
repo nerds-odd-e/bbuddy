@@ -6,10 +6,8 @@ import org.junit.Test;
 import org.springframework.ui.Model;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-import static com.odde.bbuddy.common.Formats.DAY;
+import static com.odde.bbuddy.common.Formats.parseDay;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -20,7 +18,7 @@ public class AddBudgetForMonthControllerTest {
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner);
     Model mockModel = mock(Model.class);
-    private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDate("2016-07-01"), 100);
+    private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
     @Test
     public void go_to_add_budget_for_month_page() throws ParseException {
@@ -58,13 +56,6 @@ public class AddBudgetForMonthControllerTest {
             afterFail.run();
             return null;
         }).when(mockPlanner).addMonthlyBudget(any(MonthlyBudget.class), any(Runnable.class), any(Runnable.class));
-    }
-
-    private Date parseDate(String source) throws ParseException {
-        return new SimpleDateFormat(DAY).parse(source);
-    }
-
-    public AddBudgetForMonthControllerTest() throws ParseException {
     }
 
 }

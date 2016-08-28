@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
-import static com.odde.bbuddy.common.Formats.DAY;
 import static com.odde.bbuddy.common.Formats.MONTH;
+import static com.odde.bbuddy.common.Formats.parseDay;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -19,8 +19,8 @@ public class GetAmountOfMonthlyBudgetPlannerTest {
     MonthlyBudgetRepo stubRepo = mock(MonthlyBudgetRepo.class);
     MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(mockBudgetCategory, stubRepo);
 
-    Date startDate = parseDate("2016-07-01");
-    Date endDate = parseDate("2016-07-10");
+    Date startDate = parseDay("2016-07-01");
+    Date endDate = parseDay("2016-07-10");
 
     @Test
     public void get_amount_from_budget_category() throws ParseException {
@@ -38,15 +38,8 @@ public class GetAmountOfMonthlyBudgetPlannerTest {
 
         planner.getAmount(startDate, endDate);
 
-        verify(mockBudgetCategory).setAmount(parseDate("2016-06-01"), 30);
-        verify(mockBudgetCategory).setAmount(parseDate("2016-07-01"), 31);
-    }
-
-    private Date parseDate(String source) throws ParseException {
-        return new SimpleDateFormat(DAY).parse(source);
-    }
-
-    public GetAmountOfMonthlyBudgetPlannerTest() throws ParseException {
+        verify(mockBudgetCategory).setAmount(parseDay("2016-06-01"), 30);
+        verify(mockBudgetCategory).setAmount(parseDay("2016-07-01"), 31);
     }
 
     private void given_monthly_budget_planned_as(MonthlyBudget... budget) throws ParseException {

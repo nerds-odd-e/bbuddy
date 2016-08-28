@@ -5,10 +5,9 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.odde.bbuddy.common.Formats.DAY;
+import static com.odde.bbuddy.common.Formats.parseDay;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -20,7 +19,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
     BudgetCategoryImpl stubBudgetCategory = mock(BudgetCategoryImpl.class);
     MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(stubBudgetCategory, mockRepo);
 
-    Date monthDate = parseDate("2016-07-01");
+    Date monthDate = parseDay("2016-07-01");
     private MonthlyBudget monthlyBudget = new MonthlyBudget(monthDate, 100);
 
     Runnable afterSuccess = mock(Runnable.class);
@@ -70,13 +69,6 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
 
     private void givenSaveWillFail() {
         doThrow(IllegalArgumentException.class).when(mockRepo).save(any(MonthlyBudget.class));
-    }
-
-    private Date parseDate(String source) throws ParseException {
-        return new SimpleDateFormat(DAY).parse(source);
-    }
-
-    public AddBudgetOfMonthlyBudgetPlannerTest() throws ParseException {
     }
 
     private MonthlyBudget assertSavedMonthlyBudgetEquals(MonthlyBudget expectedMonthlyBudget) {
