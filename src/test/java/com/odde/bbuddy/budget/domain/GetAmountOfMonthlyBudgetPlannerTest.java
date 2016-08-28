@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
+import static com.odde.bbuddy.common.Formats.DAY;
+import static com.odde.bbuddy.common.Formats.MONTH;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -41,7 +43,7 @@ public class GetAmountOfMonthlyBudgetPlannerTest {
     }
 
     private Date parseDate(String source) throws ParseException {
-        return new SimpleDateFormat("yyyy-MM-dd").parse(source);
+        return new SimpleDateFormat(DAY).parse(source);
     }
 
     public GetAmountOfMonthlyBudgetPlannerTest() throws ParseException {
@@ -52,7 +54,7 @@ public class GetAmountOfMonthlyBudgetPlannerTest {
     }
 
     private MonthlyBudget budget(String month, int budget) throws ParseException {
-        return new MonthlyBudget(new SimpleDateFormat("yyyy-MM").parse(month), budget);
+        return new MonthlyBudget(new SimpleDateFormat(MONTH).parse(month), budget);
     }
 
     private void given_total_amount_is(long total) {

@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import static com.odde.bbuddy.acceptancetest.steps.AssertionHelper.*;
-import static com.odde.bbuddy.acceptancetest.steps.Formats.MONTH;
+import static com.odde.bbuddy.common.Formats.MONTH;
 import static org.junit.Assert.assertTrue;
 
 public class MonthlyBudgetSteps {

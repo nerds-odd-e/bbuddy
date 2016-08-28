@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
 
+import static com.odde.bbuddy.common.Formats.DAY;
+
 @Entity
 @Table(name = "transactions")
 @Getter
@@ -20,7 +22,7 @@ public class Transaction {
     private Type type;
     private String description;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = DAY)
     private Date date;
     private Integer amount;
 

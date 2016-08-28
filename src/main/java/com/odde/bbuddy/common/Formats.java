@@ -1,4 +1,4 @@
-package com.odde.bbuddy.acceptancetest.steps;
+package com.odde.bbuddy.common;
 
 public class Formats {
     public static final String MONTH = "yyyy-MM";
