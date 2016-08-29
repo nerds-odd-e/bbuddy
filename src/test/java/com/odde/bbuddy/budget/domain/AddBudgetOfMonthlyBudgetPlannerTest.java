@@ -8,7 +8,6 @@ import java.text.ParseException;
 import java.util.Date;
 
 import static com.odde.bbuddy.common.Formats.parseDay;
-import static com.odde.bbuddy.RunnableHelper.WHATEVER;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -30,14 +29,16 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
 
     @Test
     public void save_monthly_budget() throws ParseException {
-        planner.addMonthlyBudget(monthlyBudget, WHATEVER, WHATEVER);
+        planner.addMonthlyBudget(monthlyBudget);
 
         assertSavedMonthlyBudgetEquals(monthlyBudget);
     }
 
     @Test
     public void after_success_is_called_if_save_successfully() throws ParseException {
-        planner.addMonthlyBudget(monthlyBudget, afterSuccess, afterFail);
+        planner.addMonthlyBudget(monthlyBudget)
+                .success(afterSuccess)
+                .failed(afterFail);
 
         verify(afterSuccess).run();
         verify(afterFail, never()).run();
@@ -47,7 +48,9 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
     public void after_fail_is_called_if_save_failed() {
         given_save_will_fail();
 
-        planner.addMonthlyBudget(monthlyBudget, afterSuccess, afterFail);
+        planner.addMonthlyBudget(monthlyBudget)
+                .success(afterSuccess)
+                .failed(afterFail);
 
         verify(afterFail).run();
         verify(afterSuccess, never()).run();
@@ -58,7 +61,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
         given_existing_monthly_budget_with_id(MONTH_BUDGET_ID);
 
         MonthlyBudget overwrittenMonthlyBudget = new MonthlyBudget(monthDate, 200);
-        planner.addMonthlyBudget(overwrittenMonthlyBudget, WHATEVER, WHATEVER);
+        planner.addMonthlyBudget(overwrittenMonthlyBudget);
 
         MonthlyBudget savedMonthlyBudget = assertSavedMonthlyBudgetEquals(overwrittenMonthlyBudget);
         assertEquals(MONTH_BUDGET_ID, savedMonthlyBudget.getId());

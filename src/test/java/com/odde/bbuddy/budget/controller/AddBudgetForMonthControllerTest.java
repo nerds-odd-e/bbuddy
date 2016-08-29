@@ -2,20 +2,20 @@ package com.odde.bbuddy.budget.controller;
 
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
+import com.odde.bbuddy.common.PostActions;
 import org.junit.Test;
 import org.springframework.ui.Model;
 
 import java.text.ParseException;
 
-import static com.odde.bbuddy.RunnableHelper.createRunnableArgumentInvoker;
 import static com.odde.bbuddy.common.Formats.parseDay;
+import static com.odde.bbuddy.common.PostActionsFactory.failed;
+import static com.odde.bbuddy.common.PostActionsFactory.success;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 public class AddBudgetForMonthControllerTest {
 
-    private static final int SUCCESS = 1;
-    private static final int FAIL = 2;
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner);
     Model mockModel = mock(Model.class);
@@ -23,19 +23,23 @@ public class AddBudgetForMonthControllerTest {
 
     @Test
     public void go_to_add_budget_for_month_page() throws ParseException {
+        given_add_monthly_budget_will(success());
+
         assertEquals("add_budget_for_month", controller.confirm(monthlyBudget, mockModel));
     }
 
     @Test
     public void add_monthly_budget() {
+        given_add_monthly_budget_will(success());
+
         controller.confirm(monthlyBudget, mockModel);
 
-        verify(mockPlanner).addMonthlyBudget(eq(monthlyBudget), any(Runnable.class), any(Runnable.class));
+        verify(mockPlanner).addMonthlyBudget(monthlyBudget);
     }
 
     @Test
     public void return_add_success_message_to_page_when_add_budget_for_month_successfully() throws ParseException {
-        given_add_monthly_budget_will(SUCCESS);
+        given_add_monthly_budget_will(success());
 
         controller.confirm(monthlyBudget, mockModel);
 
@@ -44,15 +48,15 @@ public class AddBudgetForMonthControllerTest {
 
     @Test
     public void return_add_fail_message_to_page_when_add_budget_for_month_failed() {
-        given_add_monthly_budget_will(FAIL);
+        given_add_monthly_budget_will(failed());
 
         controller.confirm(monthlyBudget, mockModel);
 
         verify(mockModel).addAttribute("message", "Add budget for month failed");
     }
 
-    private void given_add_monthly_budget_will(int i) {
-        doAnswer(createRunnableArgumentInvoker(i)).when(mockPlanner).addMonthlyBudget(any(MonthlyBudget.class), any(Runnable.class), any(Runnable.class));
+    private void given_add_monthly_budget_will(PostActions postActions) {
+        when(mockPlanner.addMonthlyBudget(any(MonthlyBudget.class))).thenReturn(postActions);
     }
 
 }

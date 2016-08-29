@@ -1,10 +1,12 @@
 package com.odde.bbuddy.transaction.domain;
 
 import com.odde.bbuddy.common.PostActions;
-import com.odde.bbuddy.common.PostActionsFactory;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.odde.bbuddy.common.PostActionsFactory.failed;
+import static com.odde.bbuddy.common.PostActionsFactory.success;
 
 @Service
 public class Transactions {
@@ -18,9 +20,9 @@ public class Transactions {
     public PostActions add(Transaction transaction) {
         try {
             repo.save(transaction);
-            return PostActionsFactory.success();
+            return success();
         } catch (IllegalArgumentException e) {
-            return PostActionsFactory.failed();
+            return failed();
         }
     }
 }
