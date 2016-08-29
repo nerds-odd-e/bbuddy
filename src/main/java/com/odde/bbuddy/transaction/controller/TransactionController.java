@@ -21,9 +21,9 @@ public class TransactionController {
 
     @RequestMapping(value = "/confirm_add_transaction", method = RequestMethod.POST)
     public String addTransaction(@ModelAttribute Transaction transaction, Model model) {
-        transactions.add(transaction,
-                setMessage(model, "Successfully add transaction"),
-                setMessage(model, "Add transaction failed"));
+        transactions.add(transaction)
+                .success(setMessage(model, "Successfully add transaction"))
+                .failed(setMessage(model, "Add transaction failed"));
         return "add_transaction";
     }
 

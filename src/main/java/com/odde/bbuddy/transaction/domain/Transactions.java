@@ -1,5 +1,7 @@
 package com.odde.bbuddy.transaction.domain;
 
+import com.odde.bbuddy.common.PostActions;
+import com.odde.bbuddy.common.PostActionsFactory;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +15,12 @@ public class Transactions {
         this.repo = repo;
     }
 
-    public void add(Transaction transaction, Runnable afterSuccess, Runnable afterFailed) {
+    public PostActions add(Transaction transaction) {
         try {
             repo.save(transaction);
-            afterSuccess.run();
+            return PostActionsFactory.success();
         } catch (IllegalArgumentException e) {
-            afterFailed.run();
+            return PostActionsFactory.failed();
         }
     }
 }

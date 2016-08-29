@@ -3,7 +3,6 @@ package com.odde.bbuddy.transaction.domain;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.junit.Test;
 
-import static com.odde.bbuddy.RunnableHelper.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -18,14 +17,16 @@ public class TransactionsTest {
 
     @Test
     public void save_transaction() {
-        transactions.add(transaction, WHATEVER, WHATEVER);
+        transactions.add(transaction);
 
         verify(mockRepo).save(transaction);
     }
 
     @Test
     public void call_after_success_when_save_successfully() {
-        transactions.add(transaction, afterSuccess, afterFailed);
+        transactions.add(transaction)
+                .success(afterSuccess)
+                .failed(afterFailed);
 
         verify(afterSuccess).run();
         verify(afterFailed, never()).run();
@@ -35,7 +36,9 @@ public class TransactionsTest {
     public void call_after_failed_when_save_failed() {
         given_save_will_fail();
 
-        transactions.add(transaction, afterSuccess, afterFailed);
+        transactions.add(transaction)
+                .success(afterSuccess)
+                .failed(afterFailed);
 
         verify(afterFailed).run();
         verify(afterSuccess, never()).run();
