@@ -27,7 +27,7 @@ public class Transaction {
     private Integer amount;
 
     public enum Type {
-        Income
+        Income, Outcome
     }
 
 }
