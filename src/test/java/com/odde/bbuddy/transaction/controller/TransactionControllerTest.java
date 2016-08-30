@@ -20,10 +20,15 @@ public class TransactionControllerTest {
     Transaction transaction = new Transaction();
 
     @Test
-    public void back_page() {
+    public void go_to_transaction_add_page() {
+        assertEquals("transaction/add", controller.addTransaction());
+    }
+
+    @Test
+    public void back_page_after_submit() {
         given_add_transaction_will(success());
 
-        assertEquals("add_transaction", controller.submitAddTransaction(transaction, mockModel));
+        assertEquals("transaction/add", controller.submitAddTransaction(transaction, mockModel));
     }
 
     @Test

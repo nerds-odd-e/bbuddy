@@ -15,7 +15,7 @@ public class AddTransactionPage {
     UiDriver driver;
 
     public void add(EditableTransaction transaction) {
-        driver.navigateTo("/add_transaction");
+        driver.navigateTo("/transaction/add");
         setType(transaction.getType());
         setDescription(transaction.getDescription());
         setDate(transaction.getDate());

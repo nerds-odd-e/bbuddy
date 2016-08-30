@@ -24,7 +24,12 @@ public class TransactionController {
         transactions.add(transaction)
                 .success(setMessage(model, "Successfully add transaction"))
                 .failed(setMessage(model, "Add transaction failed"));
-        return "add_transaction";
+        return "transaction/add";
+    }
+
+    @RequestMapping(value = "/transaction/add", method = RequestMethod.GET)
+    public String addTransaction() {
+        return "transaction/add";
     }
 
     private Runnable setMessage(Model model, String message) {

@@ -12,7 +12,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/add_budget_for_month").setViewName("add_budget_for_month");
-        registry.addViewController("/add_transaction").setViewName("add_transaction");
     }
 
     @Override
