@@ -6,6 +6,7 @@ import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Test;
 import org.springframework.ui.Model;
 
+import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.common.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.PostActionsFactory.success;
 import static org.junit.Assert.assertEquals;
@@ -21,14 +22,14 @@ public class TransactionControllerTest {
 
     @Test
     public void go_to_transaction_add_page() {
-        assertEquals("transaction/add", controller.addTransaction());
+        assertEquals(TRANSACTION_ADD, controller.addTransaction());
     }
 
     @Test
     public void back_page_after_submit() {
         given_add_transaction_will(success());
 
-        assertEquals("transaction/add", controller.submitAddTransaction(transaction, mockModel));
+        assertEquals(TRANSACTION_ADD, controller.submitAddTransaction(transaction, mockModel));
     }
 
     @Test

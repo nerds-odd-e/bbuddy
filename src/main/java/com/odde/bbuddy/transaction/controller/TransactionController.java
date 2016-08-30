@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
+
 @Controller
 public class TransactionController {
 
@@ -19,17 +21,17 @@ public class TransactionController {
         this.transactions = transactions;
     }
 
-    @RequestMapping(value = "/transaction/add", method = RequestMethod.POST)
+    @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.POST)
     public String submitAddTransaction(@ModelAttribute Transaction transaction, Model model) {
         transactions.add(transaction)
                 .success(setMessage(model, "Successfully add transaction"))
                 .failed(setMessage(model, "Add transaction failed"));
-        return "transaction/add";
+        return TRANSACTION_ADD;
     }
 
-    @RequestMapping(value = "/transaction/add", method = RequestMethod.GET)
+    @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)
     public String addTransaction() {
-        return "transaction/add";
+        return TRANSACTION_ADD;
     }
 
     private Runnable setMessage(Model model, String message) {
