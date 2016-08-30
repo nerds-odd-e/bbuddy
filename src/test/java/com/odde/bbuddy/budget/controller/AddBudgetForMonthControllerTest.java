@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 
 import java.text.ParseException;
 
+import static com.odde.bbuddy.Urls.MONTHLYBUDGET_ADD;
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.PostActionsFactory.success;
@@ -22,17 +23,22 @@ public class AddBudgetForMonthControllerTest {
     private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
     @Test
+    public void go_to_monthly_budget_add_page() {
+        assertEquals(MONTHLYBUDGET_ADD, controller.addMonthlyBudget());
+    }
+
+    @Test
     public void go_to_add_budget_for_month_page() throws ParseException {
         given_add_monthly_budget_will(success());
 
-        assertEquals("add_budget_for_month", controller.confirm(monthlyBudget, mockModel));
+        assertEquals(MONTHLYBUDGET_ADD, controller.submitAddMonthlyBudget(monthlyBudget, mockModel));
     }
 
     @Test
     public void add_monthly_budget() {
         given_add_monthly_budget_will(success());
 
-        controller.confirm(monthlyBudget, mockModel);
+        controller.submitAddMonthlyBudget(monthlyBudget, mockModel);
 
         verify(mockPlanner).addMonthlyBudget(monthlyBudget);
     }
@@ -41,7 +47,7 @@ public class AddBudgetForMonthControllerTest {
     public void return_add_success_message_to_page_when_add_budget_for_month_successfully() throws ParseException {
         given_add_monthly_budget_will(success());
 
-        controller.confirm(monthlyBudget, mockModel);
+        controller.submitAddMonthlyBudget(monthlyBudget, mockModel);
 
         verify(mockModel).addAttribute("message", "Successfully add budget for month");
     }
@@ -50,7 +56,7 @@ public class AddBudgetForMonthControllerTest {
     public void return_add_fail_message_to_page_when_add_budget_for_month_failed() {
         given_add_monthly_budget_will(failed());
 
-        controller.confirm(monthlyBudget, mockModel);
+        controller.submitAddMonthlyBudget(monthlyBudget, mockModel);
 
         verify(mockModel).addAttribute("message", "Add budget for month failed");
     }
