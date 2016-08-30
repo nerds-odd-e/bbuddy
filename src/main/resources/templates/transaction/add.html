@@ -1,5 +1,5 @@
 <div>{{message}}</div>
-<form style="max-width: 330px;" action="/transaction/add" method="post">
+<form style="max-width: 330px;" action="{{transactionAddUrl}}" method="post">
     <div><label>Type</label>
         <select name="type">
             {{#types}} <option value="{{name}}">{{name}}</option> {{/types}}
