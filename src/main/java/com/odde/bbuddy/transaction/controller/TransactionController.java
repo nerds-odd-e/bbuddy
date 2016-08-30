@@ -19,7 +19,7 @@ public class TransactionController {
         this.transactions = transactions;
     }
 
-    @RequestMapping(value = "/transaction/add/submit", method = RequestMethod.POST)
+    @RequestMapping(value = "/transaction/add", method = RequestMethod.POST)
     public String submitAddTransaction(@ModelAttribute Transaction transaction, Model model) {
         transactions.add(transaction)
                 .success(setMessage(model, "Successfully add transaction"))
