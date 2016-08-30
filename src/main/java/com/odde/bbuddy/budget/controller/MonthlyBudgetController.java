@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Date;
 
 import static com.odde.bbuddy.Urls.MONTHLYBUDGET_ADD;
+import static com.odde.bbuddy.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static com.odde.bbuddy.common.Formats.DAY;
 
 @Controller
@@ -39,12 +40,12 @@ public class MonthlyBudgetController {
         return MONTHLYBUDGET_ADD;
     }
 
-    @RequestMapping("/get_amount")
-    public String getAmount(
+    @RequestMapping(value = MONTHLYBUDGET_TOTALAMOUNT, method = RequestMethod.GET)
+    public String totalAmountOfMonthlyBudget(
             @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
             @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate, Model model) {
         model.addAttribute("amount", planner.getAmount(startDate, endDate));
-        return "get_amount";
+        return MONTHLYBUDGET_TOTALAMOUNT;
     }
 
     private Runnable setMessage(Model model, String attributeValue) {
