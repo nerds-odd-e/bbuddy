@@ -22,7 +22,14 @@ public class TransactionControllerTest {
 
     @Test
     public void go_to_transaction_add_page() {
-        assertEquals(TRANSACTION_ADD, controller.addTransaction());
+        assertEquals(TRANSACTION_ADD, controller.addTransaction(mockModel));
+    }
+
+    @Test
+    public void show_all_transaction_types() {
+        controller.addTransaction(mockModel);
+
+        verify(mockModel).addAttribute("types", Transaction.Type.values());
     }
 
     @Test
@@ -30,6 +37,15 @@ public class TransactionControllerTest {
         given_add_transaction_will(success());
 
         assertEquals(TRANSACTION_ADD, controller.submitAddTransaction(transaction, mockModel));
+    }
+
+    @Test
+    public void show_all_transaction_types_after_submit() {
+        given_add_transaction_will(success());
+
+        controller.submitAddTransaction(transaction, mockModel);
+
+        verify(mockModel).addAttribute("types", Transaction.Type.values());
     }
 
     @Test
