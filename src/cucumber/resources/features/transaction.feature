@@ -17,7 +17,7 @@ Feature: Transaction
       | Income  | Course Registration | 2016-08-14  | 4000    |
       | Outcome | Buy MacBook Pro     | 2015-11-01  | 100     |
     When show all transactions
-    Then you will see all transactions as belw
+    Then you will see all transactions as below
       | Type    | Description         | Date        | Amount  |
       | Income  | Course Registration | 2016-08-14  | 4000    |
       | Outcome | Buy MacBook Pro     | 2015-11-01  | 100     |

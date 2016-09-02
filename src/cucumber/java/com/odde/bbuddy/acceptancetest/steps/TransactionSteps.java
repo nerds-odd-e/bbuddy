@@ -51,7 +51,7 @@ public class TransactionSteps {
         showAllTransactionsPage.show();
     }
 
-    @Then("^you will see all transactions as belw$")
+    @Then("^you will see all transactions as below$")
     public void you_will_see_all_transactions_as_belw(List<EditableTransaction> transactions) throws Throwable {
     }
 }
