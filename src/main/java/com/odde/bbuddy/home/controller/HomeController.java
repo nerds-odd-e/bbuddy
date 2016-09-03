@@ -13,12 +13,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
 public class HomeController {
-    @Autowired
-    private Outbox outbox;
 
     @RequestMapping(value = {"/"}, method = GET)
     public String index(Model model){
-        outbox.send(null);
         return "home";
     }
 }
