@@ -12,4 +12,6 @@ import java.util.List;
 public interface TransactionRepoForTest extends Repository<Transaction, Long> {
     List<Transaction> findAll();
     void deleteAll();
+
+    void save(Transaction transaction);
 }

@@ -1,9 +1,8 @@
 <div>{{message}}</div>
-<form style="max-width: 330px;" action="/transaction/add/submit" method="post">
+<form style="max-width: 330px;" action="{{transactionAddUrl}}" method="post">
     <div><label>Type</label>
         <select name="type">
-            <option value="Income">Income</option>
-            <option value="Outcome">Outcome</option>
+            {{#types}} <option value="{{name}}">{{name}}</option> {{/types}}
         </select>
     </div>
     <div><label>Description</label><input type="text" name="description" class="form-control"/></div>

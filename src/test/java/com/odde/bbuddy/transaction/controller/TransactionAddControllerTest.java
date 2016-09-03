@@ -6,13 +6,14 @@ import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Test;
 import org.springframework.ui.Model;
 
+import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.common.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.PostActionsFactory.success;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
-public class TransactionControllerTest {
+public class TransactionAddControllerTest {
 
     Transactions mockTransactions = mock(Transactions.class);
     TransactionController controller = new TransactionController(mockTransactions);
@@ -20,10 +21,31 @@ public class TransactionControllerTest {
     Transaction transaction = new Transaction();
 
     @Test
-    public void back_page() {
+    public void go_to_transaction_add_page() {
+        assertEquals(TRANSACTION_ADD, controller.addTransaction(mockModel));
+    }
+
+    @Test
+    public void show_all_transaction_types() {
+        controller.addTransaction(mockModel);
+
+        verify(mockModel).addAttribute("types", Transaction.Type.values());
+    }
+
+    @Test
+    public void back_page_after_submit() {
         given_add_transaction_will(success());
 
-        assertEquals("add_transaction", controller.submitAddTransaction(transaction, mockModel));
+        assertEquals(TRANSACTION_ADD, controller.submitAddTransaction(transaction, mockModel));
+    }
+
+    @Test
+    public void show_all_transaction_types_after_submit() {
+        given_add_transaction_will(success());
+
+        controller.submitAddTransaction(transaction, mockModel);
+
+        verify(mockModel).addAttribute("types", Transaction.Type.values());
     }
 
     @Test
