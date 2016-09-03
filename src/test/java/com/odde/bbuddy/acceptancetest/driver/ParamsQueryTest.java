@@ -2,6 +2,8 @@ package com.odde.bbuddy.acceptancetest.driver;
 
 import org.junit.Test;
 
+import java.util.logging.Logger;
+
 import static org.junit.Assert.assertEquals;
 
 public class ParamsQueryTest {
