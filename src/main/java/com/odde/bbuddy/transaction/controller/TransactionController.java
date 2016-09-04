@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.Urls.TRANSACTION_LIST;
+import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
 
 @Controller
 public class TransactionController {
@@ -34,10 +35,6 @@ public class TransactionController {
     public String addTransaction(Model model) {
         model.addAttribute("types", Transaction.Type.values());
         return TRANSACTION_ADD;
-    }
-
-    private Runnable setMessage(Model model, String message) {
-        return () -> model.addAttribute("message", message);
     }
 
     @RequestMapping(value = TRANSACTION_LIST, method = RequestMethod.GET)

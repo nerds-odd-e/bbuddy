@@ -16,6 +16,7 @@ import java.util.Date;
 import static com.odde.bbuddy.Urls.MONTHLYBUDGET_ADD;
 import static com.odde.bbuddy.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static com.odde.bbuddy.common.Formats.DAY;
+import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
 
 @Controller
 public class MonthlyBudgetController {
@@ -46,10 +47,6 @@ public class MonthlyBudgetController {
             @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate, Model model) {
         model.addAttribute("amount", planner.getAmount(startDate, endDate));
         return MONTHLYBUDGET_TOTALAMOUNT;
-    }
-
-    private Runnable setMessage(Model model, String attributeValue) {
-        return () -> model.addAttribute("message", attributeValue);
     }
 
 }
