@@ -12,7 +12,7 @@ import static com.odde.bbuddy.Urls.MONTHLYBUDGET_ADD;
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.PostActionsFactory.success;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 public class AddBudgetForMonthControllerTest {
@@ -24,14 +24,14 @@ public class AddBudgetForMonthControllerTest {
 
     @Test
     public void go_to_monthly_budget_add_page() {
-        assertEquals(MONTHLYBUDGET_ADD, controller.addMonthlyBudget());
+        assertThat(controller.addMonthlyBudget()).isEqualTo(MONTHLYBUDGET_ADD);
     }
 
     @Test
     public void go_to_add_budget_for_month_page() throws ParseException {
         given_add_monthly_budget_will(success());
 
-        assertEquals(MONTHLYBUDGET_ADD, controller.submitAddMonthlyBudget(monthlyBudget, mockModel));
+        assertThat(controller.submitAddMonthlyBudget(monthlyBudget, mockModel)).isEqualTo(MONTHLYBUDGET_ADD);
     }
 
     @Test

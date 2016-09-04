@@ -2,9 +2,7 @@ package com.odde.bbuddy.acceptancetest.driver;
 
 import org.junit.Test;
 
-import java.util.logging.Logger;
-
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ParamsQueryTest {
 
@@ -12,14 +10,14 @@ public class ParamsQueryTest {
 
     @Test
     public void empty_query_when_there_is_no_param() {
-        assertEquals("", params.getQuery());
+        assertThat(params.getQuery()).isEqualTo("");
     }
 
     @Test
     public void query_string_when_there_is_one_param() {
         params.add("name", "value");
 
-        assertEquals("?name=value", params.getQuery());
+        assertThat(params.getQuery()).isEqualTo("?name=value");
     }
 
     @Test
@@ -27,6 +25,6 @@ public class ParamsQueryTest {
         params.add("first", "firstValue");
         params.add("second", "secondValue");
 
-        assertEquals("?first=firstValue&second=secondValue", params.getQuery());
+        assertThat(params.getQuery()).isEqualTo("?first=firstValue&second=secondValue");
     }
 }

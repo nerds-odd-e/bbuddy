@@ -8,7 +8,7 @@ import java.util.Date;
 
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.Formats.parseMonth;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 public class GetAmountOfMonthlyBudgetPlannerTest {
@@ -25,7 +25,7 @@ public class GetAmountOfMonthlyBudgetPlannerTest {
         given_monthly_budget_planned_as();
         given_total_amount_is(100L);
 
-        assertEquals(100L, planner.getAmount(startDate, endDate));
+        assertThat(planner.getAmount(startDate, endDate)).isEqualTo(100L);
     }
 
     @Test

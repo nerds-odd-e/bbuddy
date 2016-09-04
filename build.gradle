@@ -58,7 +58,8 @@ dependencies {
         "info.cukes:cucumber-java:1.2.4",
         "info.cukes:cucumber-spring:1.2.4",
         "org.seleniumhq.selenium:selenium-java:2.53.1",
-        "org.unitils:unitils-core:3.4.3"
+        "org.unitils:unitils-core:3.4.3",
+        "org.assertj:assertj-core:3.5.2"
     )
 
     cucumberRuntime "info.cukes:cucumber-java:1.2.4"

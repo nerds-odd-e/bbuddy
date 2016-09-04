@@ -9,7 +9,7 @@ import java.util.Date;
 
 import static com.odde.bbuddy.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static com.odde.bbuddy.common.Formats.parseDay;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 public class GetAmountControllerTest {
@@ -23,7 +23,7 @@ public class GetAmountControllerTest {
 
     @Test
     public void go_to_get_amount_page() throws ParseException {
-        assertEquals(MONTHLYBUDGET_TOTALAMOUNT, controller.totalAmountOfMonthlyBudget(startDate, endDate, mockModel));
+        assertThat(controller.totalAmountOfMonthlyBudget(startDate, endDate, mockModel)).isEqualTo(MONTHLYBUDGET_TOTALAMOUNT);
     }
 
     @Test

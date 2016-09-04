@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.common.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.PostActionsFactory.success;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -22,7 +22,7 @@ public class TransactionAddControllerTest {
 
     @Test
     public void go_to_transaction_add_page() {
-        assertEquals(TRANSACTION_ADD, controller.addTransaction(mockModel));
+        assertThat(controller.addTransaction(mockModel)).isEqualTo(TRANSACTION_ADD);
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TransactionAddControllerTest {
     public void back_page_after_submit() {
         given_add_transaction_will(success());
 
-        assertEquals(TRANSACTION_ADD, controller.submitAddTransaction(transaction, mockModel));
+        assertThat(controller.submitAddTransaction(transaction, mockModel)).isEqualTo(TRANSACTION_ADD);
     }
 
     @Test

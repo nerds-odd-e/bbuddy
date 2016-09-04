@@ -4,7 +4,7 @@ import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Test;
 
 import static com.odde.bbuddy.Urls.TRANSACTION_LIST;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 public class TransactionListControllerTest {
@@ -14,6 +14,6 @@ public class TransactionListControllerTest {
 
     @Test
     public void go_to_transaction_list_page() {
-        assertEquals(TRANSACTION_LIST, controller.showTransactions());
+        assertThat(controller.showTransactions()).isEqualTo(TRANSACTION_LIST);
     }
 }
