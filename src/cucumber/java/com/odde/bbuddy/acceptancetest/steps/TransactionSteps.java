@@ -38,7 +38,7 @@ public class TransactionSteps {
 
     @Then("^the following transactions will be created$")
     public void the_following_transactions_will_be_created(@Format(DAY) List<Transaction> expected) throws Throwable {
-        assertListDeepEquals(expected, transactionRepo.findAll());
+        assertListDeepEquals(expected, transactionRepo.findAll(), "date");
     }
 
     @Given("^exists the following transactions$")

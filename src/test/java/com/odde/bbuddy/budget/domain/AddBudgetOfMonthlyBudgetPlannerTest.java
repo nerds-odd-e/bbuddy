@@ -11,8 +11,6 @@ import static com.odde.bbuddy.common.Formats.parseDay;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
-import static org.unitils.reflectionassert.ReflectionComparatorMode.IGNORE_DEFAULTS;
 
 public class AddBudgetOfMonthlyBudgetPlannerTest {
 
@@ -78,7 +76,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
 
     private MonthlyBudget assertSavedMonthlyBudgetEquals(MonthlyBudget expectedMonthlyBudget) {
         MonthlyBudget savedMonthlyBudget = captureSavedMonthlyBudget();
-        assertReflectionEquals(expectedMonthlyBudget, savedMonthlyBudget, IGNORE_DEFAULTS);
+        assertThat(savedMonthlyBudget).isEqualToIgnoringGivenFields(expectedMonthlyBudget, "id");
         return savedMonthlyBudget;
     }
 
