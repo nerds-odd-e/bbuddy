@@ -4,13 +4,13 @@ import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
-import java.util.ArrayList;
-
 import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -25,10 +25,11 @@ public class TransactionControllerValidTest {
     @Before
     public void givenHasFieldErrors() {
         when(stubBindingResult.hasFieldErrors()).thenReturn(true);
-        when(stubBindingResult.getFieldErrors()).thenReturn(
-                new ArrayList<FieldError>() {{
-                    add(new FieldError("objectName", "field", "error message"));
-                }});
+        givenFieldErrors(new FieldError("objectName", "field", "error message"));
+    }
+
+    private void givenFieldErrors(FieldError... errors) {
+        when(stubBindingResult.getFieldErrors()).thenReturn(asList(errors));
     }
 
     @Test
@@ -55,6 +56,23 @@ public class TransactionControllerValidTest {
         submitTransactionAdd();
 
         verify(mockModel).addAttribute("message", "error message");
+    }
+
+    @Test
+    public void will_show_error_message_when_has_two_field_errors() {
+        givenFieldErrors(
+                new FieldError("objectName", "field", "error message"),
+                new FieldError("objectName1", "field1", "another error message"));
+
+        submitTransactionAdd();
+
+        assertThat(errorMessage()).contains("error message", "another error message");
+    }
+
+    private String errorMessage() {
+        ArgumentCaptor<String> message = ArgumentCaptor.forClass(String.class);
+        verify(mockModel).addAttribute(eq("message"), message.capture());
+        return message.getValue();
     }
 
     private String submitTransactionAdd() {

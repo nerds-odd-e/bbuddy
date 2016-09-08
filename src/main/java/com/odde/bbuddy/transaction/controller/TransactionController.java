@@ -15,6 +15,7 @@ import javax.validation.Valid;
 import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.Urls.TRANSACTION_LIST;
 import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
+import static java.util.stream.Collectors.joining;
 
 @Controller
 public class TransactionController {
@@ -33,8 +34,14 @@ public class TransactionController {
                     .success(setMessage(model, "Successfully add transaction"))
                     .failed(setMessage(model, "Add transaction failed"));
         else
-            setMessage(model, result.getFieldErrors().stream().findFirst().get().getDefaultMessage()).run();
+            setMessage(model, errorMessages(result)).run();
         return addTransaction(model);
+    }
+
+    private String errorMessages(BindingResult result) {
+        return result.getFieldErrors().stream()
+                .map(fieldError -> fieldError.getDefaultMessage())
+                .collect(joining("/n"));
     }
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)
