@@ -5,6 +5,7 @@ import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Test;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.common.PostActionsFactory.failed;
@@ -13,12 +14,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
-public class TransactionAddControllerTest {
+public class TransactionControllerAddTest {
 
     Transactions mockTransactions = mock(Transactions.class);
     TransactionController controller = new TransactionController(mockTransactions);
     Model mockModel = mock(Model.class);
     Transaction transaction = new Transaction();
+    BindingResult anyBindingResult = mock(BindingResult.class);
 
     @Test
     public void go_to_transaction_add_page() {
@@ -36,14 +38,18 @@ public class TransactionAddControllerTest {
     public void back_page_after_submit() {
         given_add_transaction_will(success());
 
-        assertThat(controller.submitAddTransaction(transaction, mockModel)).isEqualTo(TRANSACTION_ADD);
+        assertThat(submitTransactionAdd()).isEqualTo(TRANSACTION_ADD);
+    }
+
+    private String submitTransactionAdd() {
+        return controller.submitAddTransaction(transaction, anyBindingResult, mockModel);
     }
 
     @Test
     public void show_all_transaction_types_after_submit() {
         given_add_transaction_will(success());
 
-        controller.submitAddTransaction(transaction, mockModel);
+        submitTransactionAdd();
 
         verify(mockModel).addAttribute("types", Transaction.Type.values());
     }
@@ -52,7 +58,7 @@ public class TransactionAddControllerTest {
     public void add_transaction() {
         given_add_transaction_will(success());
 
-        controller.submitAddTransaction(transaction, mockModel);
+        submitTransactionAdd();
 
         verify(mockTransactions).add(transaction);
     }
@@ -61,7 +67,7 @@ public class TransactionAddControllerTest {
     public void add_transaction_successfully() {
         given_add_transaction_will(success());
 
-        controller.submitAddTransaction(transaction, mockModel);
+        submitTransactionAdd();
 
         verify(mockModel).addAttribute("message", "Successfully add transaction");
     }
@@ -70,7 +76,7 @@ public class TransactionAddControllerTest {
     public void add_transaction_failed() {
         given_add_transaction_will(failed());
 
-        controller.submitAddTransaction(transaction, mockModel);
+        submitTransactionAdd();
 
         verify(mockModel).addAttribute("message", "Add transaction failed");
     }

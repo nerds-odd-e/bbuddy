@@ -7,7 +7,7 @@ import static com.odde.bbuddy.Urls.TRANSACTION_LIST;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-public class TransactionListControllerTest {
+public class TransactionControllerListTest {
 
     Transactions mockTransactions = mock(Transactions.class);
     TransactionController controller = new TransactionController(mockTransactions);
