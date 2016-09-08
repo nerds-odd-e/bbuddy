@@ -32,6 +32,8 @@ public class TransactionController {
             transactions.add(transaction)
                     .success(setMessage(model, "Successfully add transaction"))
                     .failed(setMessage(model, "Add transaction failed"));
+        else
+            setMessage(model, result.getFieldErrors().stream().findFirst().get().getDefaultMessage()).run();
         return addTransaction(model);
     }
 
