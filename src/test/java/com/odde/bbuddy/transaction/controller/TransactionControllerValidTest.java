@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 
 public class TransactionControllerValidTest {
 
-    Model stubModel = mock(Model.class);
+    Model mockModel = mock(Model.class);
     Transaction transaction = new Transaction();
     BindingResult stubBindingResult = mock(BindingResult.class);
     Transactions mockTransactions = mock(Transactions.class);
@@ -36,8 +36,15 @@ public class TransactionControllerValidTest {
         assertThat(submitTransactionAdd()).isEqualTo(TRANSACTION_ADD);
     }
 
+    @Test
+    public void will_show_all_transaction_types_when_has_field_error() {
+        submitTransactionAdd();
+
+        verify(mockModel).addAttribute("types", Transaction.Type.values());
+    }
+
     private String submitTransactionAdd() {
-        return controller.submitAddTransaction(transaction, stubBindingResult, stubModel);
+        return controller.submitAddTransaction(transaction, stubBindingResult, mockModel);
     }
 
 }
