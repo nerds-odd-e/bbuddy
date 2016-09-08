@@ -28,9 +28,10 @@ public class TransactionController {
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.POST)
     public String submitAddTransaction(@Valid @ModelAttribute Transaction transaction, BindingResult result, Model model) {
-        transactions.add(transaction)
-                .success(setMessage(model, "Successfully add transaction"))
-                .failed(setMessage(model, "Add transaction failed"));
+        if (!result.hasFieldErrors())
+            transactions.add(transaction)
+                    .success(setMessage(model, "Successfully add transaction"))
+                    .failed(setMessage(model, "Add transaction failed"));
         return addTransaction(model);
     }
 
