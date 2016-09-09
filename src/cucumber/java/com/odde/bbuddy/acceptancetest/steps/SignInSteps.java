@@ -9,8 +9,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.assertTrue;
-
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SignInSteps {
 
@@ -35,6 +34,6 @@ public class SignInSteps {
 
     @Then("^login successfully$")
     public void login_successfully() throws Throwable {
-        assertTrue(commonPage.getAllText().contains("Welcome"));
+        assertThat(commonPage.getAllText()).contains("Welcome");
     }
 }
