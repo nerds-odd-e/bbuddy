@@ -5,6 +5,7 @@ import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
 import com.odde.bbuddy.common.PostActions;
 import org.junit.Test;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 
 import java.text.ParseException;
 
@@ -21,6 +22,7 @@ public class AddBudgetForMonthControllerTest {
     MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner);
     Model mockModel = mock(Model.class);
     private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
+    BindingResult noErrorBindingResult = mock(BindingResult.class);
 
     @Test
     public void go_to_monthly_budget_add_page() {
@@ -31,14 +33,14 @@ public class AddBudgetForMonthControllerTest {
     public void go_to_add_budget_for_month_page() throws ParseException {
         given_add_monthly_budget_will(success());
 
-        assertThat(controller.submitAddMonthlyBudget(monthlyBudget, mockModel)).isEqualTo(MONTHLYBUDGET_ADD);
+        assertThat(submitMonthlyBudgetAdd()).isEqualTo(MONTHLYBUDGET_ADD);
     }
 
     @Test
     public void add_monthly_budget() {
         given_add_monthly_budget_will(success());
 
-        controller.submitAddMonthlyBudget(monthlyBudget, mockModel);
+        submitMonthlyBudgetAdd();
 
         verify(mockPlanner).addMonthlyBudget(monthlyBudget);
     }
@@ -47,7 +49,7 @@ public class AddBudgetForMonthControllerTest {
     public void return_add_success_message_to_page_when_add_budget_for_month_successfully() throws ParseException {
         given_add_monthly_budget_will(success());
 
-        controller.submitAddMonthlyBudget(monthlyBudget, mockModel);
+        submitMonthlyBudgetAdd();
 
         verify(mockModel).addAttribute("message", "Successfully add budget for month");
     }
@@ -56,9 +58,13 @@ public class AddBudgetForMonthControllerTest {
     public void return_add_fail_message_to_page_when_add_budget_for_month_failed() {
         given_add_monthly_budget_will(failed());
 
-        controller.submitAddMonthlyBudget(monthlyBudget, mockModel);
+        submitMonthlyBudgetAdd();
 
         verify(mockModel).addAttribute("message", "Add budget for month failed");
+    }
+
+    private String submitMonthlyBudgetAdd() {
+        return controller.submitAddMonthlyBudget(monthlyBudget, noErrorBindingResult, mockModel);
     }
 
     private void given_add_monthly_budget_will(PostActions postActions) {

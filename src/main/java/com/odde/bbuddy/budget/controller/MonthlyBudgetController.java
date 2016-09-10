@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.Date;
 
 import static com.odde.bbuddy.Urls.MONTHLYBUDGET_ADD;
@@ -29,10 +31,11 @@ public class MonthlyBudgetController {
     }
 
     @RequestMapping(value = MONTHLYBUDGET_ADD, method = RequestMethod.POST)
-    public String submitAddMonthlyBudget(@ModelAttribute MonthlyBudget monthlyBudget, Model model) {
-        planner.addMonthlyBudget(monthlyBudget)
-                .success(setMessage(model, "Successfully add budget for month"))
-                .failed(setMessage(model, "Add budget for month failed"));
+    public String submitAddMonthlyBudget(@Valid @ModelAttribute MonthlyBudget monthlyBudget, BindingResult result, Model model) {
+        if (!result.hasFieldErrors())
+            planner.addMonthlyBudget(monthlyBudget)
+                    .success(setMessage(model, "Successfully add budget for month"))
+                    .failed(setMessage(model, "Add budget for month failed"));
         return MONTHLYBUDGET_ADD;
     }
 

@@ -46,8 +46,8 @@ public class TransactionController {
                 .forEach(fieldError -> setErrorMessage(model, fieldError));
     }
 
-    private Model setErrorMessage(Model model, FieldError fieldError) {
-        return model.addAttribute("error." + fieldError.getField(), fieldError.getDefaultMessage());
+    private void setErrorMessage(Model model, FieldError fieldError) {
+        model.addAttribute("error." + fieldError.getField(), fieldError.getDefaultMessage());
     }
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)

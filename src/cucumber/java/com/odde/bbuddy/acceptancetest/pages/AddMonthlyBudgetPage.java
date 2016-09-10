@@ -15,15 +15,15 @@ public class AddMonthlyBudgetPage {
     @Autowired
     UiDriver driver;
 
-    public void addMonthlyBudget(String month, int budget) {
+    public void addMonthlyBudget(String month, String budget) {
         driver.navigateTo(MONTHLYBUDGET_ADD);
         setMonth(month);
         setBudgetAndSubmit(budget);
     }
 
-    private void setBudgetAndSubmit(Integer budget) {
+    private void setBudgetAndSubmit(String budget) {
         UiElement budgetTextBox = driver.findElementByName("budget");
-        budgetTextBox.sendKeys(String.valueOf(budget));
+        budgetTextBox.sendKeys(budget);
         budgetTextBox.submit();
     }
 
