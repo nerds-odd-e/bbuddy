@@ -17,10 +17,13 @@ public class ErrorMessageInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        BindingResult bindingResult = (BindingResult) modelAndView.getModel().get(BindingResult.MODEL_KEY_PREFIX + "monthlyBudget");
-        if (bindingResult != null)
-            bindingResult.getFieldErrors()
+        if (bindingResult(modelAndView) != null)
+            bindingResult(modelAndView).getFieldErrors()
                     .forEach(fieldError -> setErrorMessage(modelAndView.getModelMap(), fieldError));
+    }
+
+    private BindingResult bindingResult(ModelAndView modelAndView) {
+        return (BindingResult) modelAndView.getModel().get(BindingResult.MODEL_KEY_PREFIX + "monthlyBudget");
     }
 
     private void setErrorMessage(ModelMap model, FieldError fieldError) {
