@@ -16,12 +16,10 @@ import javax.validation.Valid;
 import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.Urls.TRANSACTION_LIST;
 import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
-import static java.util.stream.Collectors.joining;
 
 @Controller
 public class TransactionController {
 
-    private static final String DELIMITER = ";";
     private final Transactions transactions;
 
     @Autowired
@@ -30,20 +28,26 @@ public class TransactionController {
     }
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.POST)
-    public String submitAddTransaction(@Valid @ModelAttribute Transaction transaction, BindingResult result, Model model) {
+    public String submitAddTransaction(
+            @Valid @ModelAttribute Transaction transaction,
+            BindingResult result,
+            Model model) {
         if (!result.hasFieldErrors())
             transactions.add(transaction)
                     .success(setMessage(model, "Successfully add transaction"))
                     .failed(setMessage(model, "Add transaction failed"));
         else
-            setMessage(model, errorMessages(result)).run();
+            setErrorMessages(result, model);
         return addTransaction(model);
     }
 
-    private String errorMessages(BindingResult result) {
-        return result.getFieldErrors().stream()
-                .map(FieldError::getDefaultMessage)
-                .collect(joining(DELIMITER));
+    private void setErrorMessages(BindingResult result, Model model) {
+        result.getFieldErrors()
+                .forEach(fieldError -> setErrorMessage(model, fieldError));
+    }
+
+    private Model setErrorMessage(Model model, FieldError fieldError) {
+        return model.addAttribute("error." + fieldError.getField(), fieldError.getDefaultMessage());
     }
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)

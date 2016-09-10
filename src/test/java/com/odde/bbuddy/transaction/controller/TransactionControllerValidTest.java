@@ -4,7 +4,6 @@ import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -25,7 +24,7 @@ public class TransactionControllerValidTest {
     @Before
     public void givenHasFieldErrors() {
         when(stubBindingResult.hasFieldErrors()).thenReturn(true);
-        givenFieldErrors(new FieldError("objectName", "field", "error message"));
+        givenFieldErrors(new FieldError("notUsedObjectName", "field", "error message"));
     }
 
     private void givenFieldErrors(FieldError... errors) {
@@ -53,26 +52,23 @@ public class TransactionControllerValidTest {
 
     @Test
     public void will_show_error_message_when_has_one_field_error() {
+        givenFieldErrors(new FieldError("notUsedObjectName", "field", "error message"));
+
         submitTransactionAdd();
 
-        verify(mockModel).addAttribute("message", "error message");
+        verify(mockModel).addAttribute("error.field", "error message");
     }
 
     @Test
     public void will_show_error_message_when_has_two_field_errors() {
         givenFieldErrors(
-                new FieldError("objectName", "field", "error message"),
-                new FieldError("objectName1", "field1", "another error message"));
+                new FieldError("notUsedObjectName", "field", "error message"),
+                new FieldError("notUsedObjectName1", "field1", "another error message"));
 
         submitTransactionAdd();
 
-        assertThat(errorMessage()).contains("error message", "another error message");
-    }
-
-    private String errorMessage() {
-        ArgumentCaptor<String> message = ArgumentCaptor.forClass(String.class);
-        verify(mockModel).addAttribute(eq("message"), message.capture());
-        return message.getValue();
+        verify(mockModel).addAttribute("error.field", "error message");
+        verify(mockModel).addAttribute("error.field1", "another error message");
     }
 
     private String submitTransactionAdd() {
