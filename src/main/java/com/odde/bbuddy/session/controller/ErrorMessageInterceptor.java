@@ -8,6 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class ErrorMessageInterceptor implements HandlerInterceptor {
     @Override
@@ -17,13 +22,24 @@ public class ErrorMessageInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        if (bindingResult(modelAndView) != null)
-            bindingResult(modelAndView).getFieldErrors()
-                    .forEach(fieldError -> setErrorMessage(modelAndView.getModelMap(), fieldError));
+        //If apply forEach directly on flatMap, there will be a concurrent access issue. But, this issue can't be capture by current unit tests and only capture by the acceptance tests. More investigation should be put here later.
+        allFieldErrors(modelAndView)
+                .forEach(fieldError -> setErrorMessage(modelAndView.getModelMap(), fieldError));
     }
 
-    private BindingResult bindingResult(ModelAndView modelAndView) {
-        return (BindingResult) modelAndView.getModel().get(BindingResult.MODEL_KEY_PREFIX + "monthlyBudget");
+    private List<FieldError> allFieldErrors(ModelAndView modelAndView) {
+        return modelAndView.getModelMap().entrySet().stream()
+                .filter(this::hasFieldError)
+                .flatMap(this::fieldErrors)
+                .collect(toList());
+    }
+
+    private boolean hasFieldError(Map.Entry<String, Object> entry) {
+        return entry.getKey().startsWith(BindingResult.MODEL_KEY_PREFIX);
+    }
+
+    private Stream<FieldError> fieldErrors(Map.Entry<String, Object> entry) {
+        return ((BindingResult)entry.getValue()).getFieldErrors().stream();
     }
 
     private void setErrorMessage(ModelMap model, FieldError fieldError) {

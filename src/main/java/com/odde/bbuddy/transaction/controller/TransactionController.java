@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,18 +35,7 @@ public class TransactionController {
             transactions.add(transaction)
                     .success(setMessage(model, "Successfully add transaction"))
                     .failed(setMessage(model, "Add transaction failed"));
-        else
-            setErrorMessages(result, model);
         return addTransaction(model);
-    }
-
-    private void setErrorMessages(BindingResult result, Model model) {
-        result.getFieldErrors()
-                .forEach(fieldError -> setErrorMessage(model, fieldError));
-    }
-
-    private void setErrorMessage(Model model, FieldError fieldError) {
-        model.addAttribute("error." + fieldError.getField(), fieldError.getDefaultMessage());
     }
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)

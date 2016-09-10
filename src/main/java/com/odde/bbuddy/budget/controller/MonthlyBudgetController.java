@@ -31,7 +31,10 @@ public class MonthlyBudgetController {
     }
 
     @RequestMapping(value = MONTHLYBUDGET_ADD, method = RequestMethod.POST)
-    public String submitAddMonthlyBudget(@Valid @ModelAttribute MonthlyBudget monthlyBudget, BindingResult result, Model model) {
+    public String submitAddMonthlyBudget(
+            @Valid @ModelAttribute MonthlyBudget monthlyBudget,
+            BindingResult result,
+            Model model) {
         if (!result.hasFieldErrors())
             planner.addMonthlyBudget(monthlyBudget)
                     .success(setMessage(model, "Successfully add budget for month"))
