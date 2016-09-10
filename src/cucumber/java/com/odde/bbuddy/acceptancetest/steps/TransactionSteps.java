@@ -5,6 +5,7 @@ import com.odde.bbuddy.acceptancetest.data.transaction.TransactionRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.AddTransactionPage;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.ShowAllTransactionsPage;
+import com.odde.bbuddy.acceptancetest.pages.ErrorMessages;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import cucumber.api.Format;
 import cucumber.api.java.en.Given;
@@ -31,6 +32,9 @@ public class TransactionSteps {
 
     @Autowired
     CommonPage commonPage;
+
+    @Autowired
+    ErrorMessages errorMessages;
 
     @When("^add transactions with the following information$")
     public void add_transactions_with_the_following_information(List<EditableTransaction> transactions) throws Throwable {
@@ -67,12 +71,16 @@ public class TransactionSteps {
 
     @Then("^there is an error message for empty ([^\"]*)$")
     public void there_is_an_error_message_for_empty_input(String field) throws Throwable {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(field + " should not be empty");
+        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notEmpty));
     }
 
     @Then("^there is an error message for null ([^\"]*)$")
     public void there_is_an_error_message_for_null_input(String field) throws Throwable {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(field + " should not be null");
+        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notNull));
+    }
+
+    private String errorMessageWith(String field, String error) {
+        return String.format("%s %s", field, error);
     }
 
 }
