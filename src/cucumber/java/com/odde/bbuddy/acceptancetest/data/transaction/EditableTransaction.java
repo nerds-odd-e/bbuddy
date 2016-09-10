@@ -10,4 +10,11 @@ public class EditableTransaction {
     private String date;
     private String amount;
 
+    public EditableTransaction populateAllEmptyAndDefaultData() {
+        type = "Income";
+        description = "";
+        date = "";
+        amount = "";
+        return this;
+    }
 }

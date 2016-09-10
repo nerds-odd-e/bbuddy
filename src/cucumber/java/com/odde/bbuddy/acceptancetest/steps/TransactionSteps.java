@@ -16,6 +16,7 @@ import java.util.List;
 
 import static com.odde.bbuddy.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
 import static com.odde.bbuddy.common.Formats.DAY;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TransactionSteps {
 
@@ -54,4 +55,24 @@ public class TransactionSteps {
     @Then("^you will see all transactions as below$")
     public void you_will_see_all_transactions_as_belw(List<EditableTransaction> transactions) throws Throwable {
     }
+
+    @When("^add transaction with no data$")
+    public void add_transaction_with_no_data() throws Throwable {
+        addTransactionPage.add(noDataInputTransaction());
+    }
+
+    private EditableTransaction noDataInputTransaction() {
+        return new EditableTransaction().populateAllEmptyAndDefaultData();
+    }
+
+    @Then("^there is an error message for empty ([^\"]*)$")
+    public void there_is_an_error_message_for_empty_input(String field) throws Throwable {
+        assertThat(commonPage.getAllText()).containsIgnoringCase(field + " should not be empty");
+    }
+
+    @Then("^there is an error message for null ([^\"]*)$")
+    public void there_is_an_error_message_for_null_input(String field) throws Throwable {
+        assertThat(commonPage.getAllText()).containsIgnoringCase(field + " should not be null");
+    }
+
 }
