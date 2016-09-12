@@ -9,12 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.AbstractMap;
 
+import static java.util.AbstractMap.SimpleEntry;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.springframework.validation.BindingResult.MODEL_KEY_PREFIX;
 
 public class ErrorMessageInterceptorTest {
 
@@ -44,7 +45,7 @@ public class ErrorMessageInterceptorTest {
 
         postHandle();
 
-        assertThat(modelMap).contains(new AbstractMap.SimpleEntry("error.field", "error message"));
+        assertThat(modelMap).contains(new SimpleEntry("error.field", "error message"));
     }
 
     @Test
@@ -56,8 +57,8 @@ public class ErrorMessageInterceptorTest {
         postHandle();
 
         assertThat(modelMap).contains(
-                new AbstractMap.SimpleEntry("error.field", "error message"),
-                new AbstractMap.SimpleEntry("error.field1", "another error message"));
+                new SimpleEntry("error.field", "error message"),
+                new SimpleEntry("error.field1", "another error message"));
     }
 
     private void postHandle() throws Exception {
@@ -65,7 +66,12 @@ public class ErrorMessageInterceptorTest {
     }
 
     private void givenFieldErrors(FieldError... errors) {
-        modelMap.put(BindingResult.MODEL_KEY_PREFIX + "anyObject", stubBindingResult(errors));
+        modelMap.addAttribute(MODEL_KEY_PREFIX + "anyObject", stubBindingResult(errors));
+        add_another_attribute_so_that_concurrent_modification_exception_can_not_be_hidden();
+    }
+
+    private void add_another_attribute_so_that_concurrent_modification_exception_can_not_be_hidden() {
+        modelMap.addAttribute("anotherAttribute", "anotherValue");
     }
 
     private BindingResult stubBindingResult(FieldError[] errors) {
