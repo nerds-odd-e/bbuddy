@@ -18,18 +18,22 @@ public class AuthenticationFailedTest {
 
     @Test
     public void message_when_sign_in_error() {
+        controller.failedMessage = "a failed message";
+
         ModelAndView actual = controller.signIn("any error", null);
 
-        assertThat(actual.getModel().get("message")).isEqualTo("Invalid username and password!");
+        assertThat(actual.getModel().get("message")).isEqualTo("a failed message");
         assertThat(actual.getModel().get("type")).isEqualTo("danger");
         assertThat(actual.getViewName()).isEqualTo("signin");
     }
 
     @Test
     public void message_when_logout() {
+        controller.logoutMessage = "a logout message";
+
         ModelAndView actual = controller.signIn(null, "something logout");
 
-        assertThat(actual.getModel().get("message")).isEqualTo("You've been logged out successfully.");
+        assertThat(actual.getModel().get("message")).isEqualTo("a logout message");
         assertThat(actual.getModel().get("type")).isEqualTo("info");
         assertThat(actual.getViewName()).isEqualTo("signin");
     }
