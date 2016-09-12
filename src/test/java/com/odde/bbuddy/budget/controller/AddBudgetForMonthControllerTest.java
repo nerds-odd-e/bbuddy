@@ -48,19 +48,21 @@ public class AddBudgetForMonthControllerTest {
     @Test
     public void return_add_success_message_to_page_when_add_budget_for_month_successfully() throws ParseException {
         given_add_monthly_budget_will(success());
+        controller.successMessage = "a success message";
 
         submitMonthlyBudgetAdd();
 
-        verify(mockModel).addAttribute("message", "Successfully add budget for month");
+        verify(mockModel).addAttribute("message", "a success message");
     }
 
     @Test
     public void return_add_fail_message_to_page_when_add_budget_for_month_failed() {
         given_add_monthly_budget_will(failed());
+        controller.failedMessage = "a failed message";
 
         submitMonthlyBudgetAdd();
 
-        verify(mockModel).addAttribute("message", "Add budget for month failed");
+        verify(mockModel).addAttribute("message", "a failed message");
     }
 
     private String submitMonthlyBudgetAdd() {

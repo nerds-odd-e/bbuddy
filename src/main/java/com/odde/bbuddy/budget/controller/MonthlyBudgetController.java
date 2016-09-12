@@ -3,6 +3,8 @@ package com.odde.bbuddy.budget.controller;
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +23,16 @@ import static com.odde.bbuddy.common.Formats.DAY;
 import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
 
 @Controller
+@PropertySource("classpath:resultMessages.properties")
 public class MonthlyBudgetController {
 
     private final MonthlyBudgetPlanner planner;
+
+    @Value("${monthlybudget.add.success}")
+    String successMessage;
+
+    @Value("${monthlybudget.add.failed}")
+    String failedMessage;
 
     @Autowired
     public MonthlyBudgetController(MonthlyBudgetPlanner planner) {
@@ -37,8 +46,8 @@ public class MonthlyBudgetController {
             Model model) {
         if (!result.hasFieldErrors())
             planner.addMonthlyBudget(monthlyBudget)
-                    .success(setMessage(model, "Successfully add budget for month"))
-                    .failed(setMessage(model, "Add budget for month failed"));
+                    .success(setMessage(model, successMessage))
+                    .failed(setMessage(model, failedMessage));
         return MONTHLYBUDGET_ADD;
     }
 
