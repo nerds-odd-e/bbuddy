@@ -3,6 +3,7 @@ package com.odde.bbuddy.acceptancetest.steps;
 import com.odde.bbuddy.acceptancetest.data.budget.MonthlyBudgetRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
+import com.odde.bbuddy.acceptancetest.pages.ErrorMessages;
 import com.odde.bbuddy.acceptancetest.pages.MonthlyBudgetAmountPage;
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import cucumber.api.Format;
@@ -31,6 +32,9 @@ public class MonthlyBudgetSteps {
 
     @Autowired
     MonthlyBudgetRepoForTest monthlyBudgetRepo;
+
+    @Autowired
+    ErrorMessages errorMessages;
 
     @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")
     public void budget_has_been_set_for_month(int budget, @Format(MONTH) Date month) throws Throwable {
@@ -72,8 +76,18 @@ public class MonthlyBudgetSteps {
         assertThat(commonPage.getAllText()).contains(String.valueOf(amount));
     }
 
-    @When("^add monthly budget with no date$")
-    public void add_monthly_budget_with_no_date() throws Throwable {
-        addMonthlyBudgetPage.addMonthlyBudget("", "");
+    @When("^add monthly budget with no month and invalid budget$")
+    public void add_monthly_budget_with_no_month_and_invalid_budget() throws Throwable {
+        addMonthlyBudgetPage.addMonthlyBudget(null, "invalid budget");
     }
+
+    @Then("^there is an error message for invalid number ([^\"]*)$")
+    public void there_is_an_error_message_for_invalid_number(String field) throws Throwable {
+        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.invalidNumber));
+    }
+
+    private String errorMessageWith(String field, String error) {
+        return String.format("%s %s", field, error);
+    }
+
 }

@@ -60,15 +60,6 @@ public class TransactionSteps {
     public void you_will_see_all_transactions_as_belw(List<EditableTransaction> transactions) throws Throwable {
     }
 
-    @When("^add transaction with no data$")
-    public void add_transaction_with_no_data() throws Throwable {
-        addTransactionPage.add(noDataInputTransaction());
-    }
-
-    private EditableTransaction noDataInputTransaction() {
-        return new EditableTransaction().populateAllEmptyAndDefaultData();
-    }
-
     @Then("^there is an error message for empty ([^\"]*)$")
     public void there_is_an_error_message_for_empty_input(String field) throws Throwable {
         assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notEmpty));
@@ -77,6 +68,11 @@ public class TransactionSteps {
     @Then("^there is an error message for null ([^\"]*)$")
     public void there_is_an_error_message_for_null_input(String field) throws Throwable {
         assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notNull));
+    }
+
+    @Then("^there is an error message for invalid date ([^\"]*)$")
+    public void there_is_an_error_message_for_invalid_date_input(String field) throws Throwable {
+        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.invalidDate));
     }
 
     private String errorMessageWith(String field, String error) {
