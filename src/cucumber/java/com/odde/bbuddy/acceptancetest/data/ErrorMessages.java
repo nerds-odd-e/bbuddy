@@ -1,4 +1,4 @@
-package com.odde.bbuddy.acceptancetest.pages;
+package com.odde.bbuddy.acceptancetest.data;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

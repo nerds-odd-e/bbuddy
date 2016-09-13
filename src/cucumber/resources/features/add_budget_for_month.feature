@@ -13,4 +13,4 @@ Feature: Add budget for month
   Scenario: Validation of adding monthly budget failed
     When add monthly budget with no month and invalid budget
     Then there is an error message for null month
-    And there is an error message for invalid number amount
+    And there is an error message for invalid number budget

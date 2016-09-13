@@ -3,9 +3,7 @@ package com.odde.bbuddy.acceptancetest.steps;
 import com.odde.bbuddy.acceptancetest.data.transaction.EditableTransaction;
 import com.odde.bbuddy.acceptancetest.data.transaction.TransactionRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.AddTransactionPage;
-import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.ShowAllTransactionsPage;
-import com.odde.bbuddy.acceptancetest.pages.ErrorMessages;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import cucumber.api.Format;
 import cucumber.api.java.en.Given;
@@ -17,7 +15,6 @@ import java.util.List;
 
 import static com.odde.bbuddy.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
 import static com.odde.bbuddy.common.Formats.DAY;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class TransactionSteps {
 
@@ -29,12 +26,6 @@ public class TransactionSteps {
 
     @Autowired
     TransactionRepoForTest transactionRepo;
-
-    @Autowired
-    CommonPage commonPage;
-
-    @Autowired
-    ErrorMessages errorMessages;
 
     @When("^add transactions with the following information$")
     public void add_transactions_with_the_following_information(List<EditableTransaction> transactions) throws Throwable {
@@ -58,25 +49,6 @@ public class TransactionSteps {
 
     @Then("^you will see all transactions as below$")
     public void you_will_see_all_transactions_as_belw(List<EditableTransaction> transactions) throws Throwable {
-    }
-
-    @Then("^there is an error message for empty ([^\"]*)$")
-    public void there_is_an_error_message_for_empty_input(String field) throws Throwable {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notEmpty));
-    }
-
-    @Then("^there is an error message for null ([^\"]*)$")
-    public void there_is_an_error_message_for_null_input(String field) throws Throwable {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notNull));
-    }
-
-    @Then("^there is an error message for invalid date ([^\"]*)$")
-    public void there_is_an_error_message_for_invalid_date_input(String field) throws Throwable {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.invalidDate));
-    }
-
-    private String errorMessageWith(String field, String error) {
-        return String.format("%s %s", field, error);
     }
 
 }
