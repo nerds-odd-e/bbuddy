@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.util.Date;
 
-import static com.odde.bbuddy.Urls.MONTHLYBUDGET_ADD;
-import static com.odde.bbuddy.Urls.MONTHLYBUDGET_TOTALAMOUNT;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static com.odde.bbuddy.common.Formats.DAY;
 import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
 

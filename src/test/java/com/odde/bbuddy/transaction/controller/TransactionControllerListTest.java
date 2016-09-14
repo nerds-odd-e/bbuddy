@@ -3,7 +3,7 @@ package com.odde.bbuddy.transaction.controller;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Test;
 
-import static com.odde.bbuddy.Urls.TRANSACTION_LIST;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 

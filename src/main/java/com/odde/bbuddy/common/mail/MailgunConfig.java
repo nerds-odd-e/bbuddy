@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common;
+package com.odde.bbuddy.common.mail;
 
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.springframework.beans.factory.annotation.Autowired;

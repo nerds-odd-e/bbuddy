@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import java.text.ParseException;
 import java.util.Date;
 
-import static com.odde.bbuddy.Urls.MONTHLYBUDGET_TOTALAMOUNT;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;

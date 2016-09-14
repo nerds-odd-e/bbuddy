@@ -1,4 +1,4 @@
-package com.odde.bbuddy;
+package com.odde.bbuddy.common.controller;
 
 public class Urls {
     public static final String TRANSACTION_ADD = "/transaction/add";

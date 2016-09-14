@@ -1,4 +1,4 @@
-package com.odde.bbuddy.session.controller;
+package com.odde.bbuddy.common.controller;
 
 import org.springframework.context.MessageSource;
 import org.springframework.ui.ModelMap;

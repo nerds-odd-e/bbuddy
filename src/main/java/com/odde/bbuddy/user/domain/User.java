@@ -1,4 +1,4 @@
-package com.odde.bbuddy.user;
+package com.odde.bbuddy.user.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

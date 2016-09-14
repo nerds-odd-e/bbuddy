@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.odde.bbuddy.Urls.MONTHLYBUDGET_TOTALAMOUNT;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 
 @Component
 @Scope("cucumber-glue")

@@ -1,4 +1,4 @@
-package com.odde.bbuddy.session.controller;
+package com.odde.bbuddy.common.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

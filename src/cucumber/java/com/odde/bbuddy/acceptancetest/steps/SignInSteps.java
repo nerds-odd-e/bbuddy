@@ -2,8 +2,8 @@ package com.odde.bbuddy.acceptancetest.steps;
 
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.SignInPage;
-import com.odde.bbuddy.user.User;
-import com.odde.bbuddy.user.UserRepo;
+import com.odde.bbuddy.user.domain.User;
+import com.odde.bbuddy.user.repo.UserRepo;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

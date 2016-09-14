@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import static com.odde.bbuddy.Urls.MONTHLYBUDGET_ADD;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 

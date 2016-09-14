@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
 
 @Component
 @Scope("cucumber-glue")

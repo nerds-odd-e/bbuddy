@@ -1,4 +1,4 @@
-package com.odde.bbuddy;
+package com.odde.bbuddy.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

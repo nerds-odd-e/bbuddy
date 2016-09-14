@@ -1,15 +1,15 @@
 package com.odde.bbuddy.transaction.controller;
 
-import com.odde.bbuddy.common.PostActions;
+import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Test;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
-import static com.odde.bbuddy.common.PostActionsFactory.failed;
-import static com.odde.bbuddy.common.PostActionsFactory.success;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;

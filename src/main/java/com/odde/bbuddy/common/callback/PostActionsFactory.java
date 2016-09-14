@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common;
+package com.odde.bbuddy.common.callback;
 
 public class PostActionsFactory {
     public static PostActions success() {

@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common;
+package com.odde.bbuddy.common.callback;
 
 public interface PostActions {
     PostActions success(Runnable afterSuccess);

@@ -1,14 +1,14 @@
 package com.odde.bbuddy.budget.domain;
 
 import com.odde.bbuddy.budget.repo.MonthlyBudgetRepo;
-import com.odde.bbuddy.common.PostActions;
+import com.odde.bbuddy.common.callback.PostActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-import static com.odde.bbuddy.common.PostActionsFactory.failed;
-import static com.odde.bbuddy.common.PostActionsFactory.success;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 
 @Service
 public class MonthlyBudgetPlanner {

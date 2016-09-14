@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
-import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
-import static com.odde.bbuddy.Urls.TRANSACTION_LIST;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
 import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
 
 @Controller

@@ -1,4 +1,4 @@
-package com.odde.bbuddy.session.controller;
+package com.odde.bbuddy.common.controller;
 
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;

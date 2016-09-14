@@ -1,4 +1,4 @@
-package com.odde.bbuddy.session.controller;
+package com.odde.bbuddy.common.controller;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -6,8 +6,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.odde.bbuddy.Urls.MONTHLYBUDGET_ADD;
-import static com.odde.bbuddy.Urls.TRANSACTION_ADD;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
 
 public class LayoutNavigationInterceptor implements HandlerInterceptor {
     @Override

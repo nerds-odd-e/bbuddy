@@ -1,8 +1,5 @@
-package com.odde.bbuddy;
+package com.odde.bbuddy.common.controller;
 
-import com.odde.bbuddy.session.controller.AuthenticationInterceptor;
-import com.odde.bbuddy.session.controller.ErrorMessageInterceptor;
-import com.odde.bbuddy.session.controller.LayoutNavigationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;

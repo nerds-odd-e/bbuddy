@@ -1,5 +1,6 @@
-package com.odde.bbuddy.user;
+package com.odde.bbuddy.user.repo;
 
+import com.odde.bbuddy.user.domain.User;
 import org.springframework.data.repository.Repository;
 
 import javax.transaction.Transactional;

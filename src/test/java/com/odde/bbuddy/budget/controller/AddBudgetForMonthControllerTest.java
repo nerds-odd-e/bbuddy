@@ -2,17 +2,17 @@ package com.odde.bbuddy.budget.controller;
 
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
-import com.odde.bbuddy.common.PostActions;
+import com.odde.bbuddy.common.callback.PostActions;
 import org.junit.Test;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import java.text.ParseException;
 
-import static com.odde.bbuddy.Urls.MONTHLYBUDGET_ADD;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
 import static com.odde.bbuddy.common.Formats.parseDay;
-import static com.odde.bbuddy.common.PostActionsFactory.failed;
-import static com.odde.bbuddy.common.PostActionsFactory.success;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
