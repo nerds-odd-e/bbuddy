@@ -48,7 +48,8 @@ dependencies {
             "org.projectlombok:lombok:1.16.10",
             "org.webjars:bootstrap:3.3.7-1",
             "org.webjars:jquery:3.1.0",
-            "org.hibernate:hibernate-validator:5.2.4.Final"
+            "org.hibernate:hibernate-validator:5.2.4.Final",
+            "commons-beanutils:commons-beanutils:1.9.2"
     )
 
     testCompile (

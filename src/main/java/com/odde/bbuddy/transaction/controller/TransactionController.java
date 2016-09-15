@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.odde.bbuddy.common.Formats.DAY;
+import static com.odde.bbuddy.common.BeanUtils.copyProperties;
 import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
@@ -74,10 +73,8 @@ public class TransactionController {
 
     private PresentableTransaction presentableTransactionFrom(Transaction transaction) {
         PresentableTransaction pt = new PresentableTransaction();
-        pt.setType(transaction.getType());
-        pt.setDescription(transaction.getDescription());
-        pt.setDate(new SimpleDateFormat(DAY).format(transaction.getDate()));
-        pt.setAmount(transaction.getAmount());
+        copyProperties(pt, transaction);
         return pt;
     }
+
 }
