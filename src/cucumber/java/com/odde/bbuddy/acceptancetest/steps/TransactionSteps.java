@@ -6,6 +6,7 @@ import com.odde.bbuddy.acceptancetest.pages.AddTransactionPage;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.ShowAllTransactionsPage;
 import com.odde.bbuddy.transaction.domain.Transaction;
+import com.odde.bbuddy.transaction.view.PresentableTransaction;
 import cucumber.api.Format;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -53,13 +54,8 @@ public class TransactionSteps {
     }
 
     @Then("^you will see all transactions as below$")
-    public void you_will_see_all_transactions_as_belw(List<EditableTransaction> transactions) throws Throwable {
-        transactions.forEach(transaction -> {
-            assertThat(commonPage.getAllText()).contains(transaction.getDescription());
-            assertThat(commonPage.getAllText()).contains(transaction.getAmount());
-            assertThat(commonPage.getAllText()).contains(transaction.getDate());
-            assertThat(commonPage.getAllText()).contains(transaction.getType());
-        });
+    public void you_will_see_all_transactions_as_belw(@Format(DAY) List<PresentableTransaction> transactions) throws Throwable {
+        transactions.forEach(transaction -> assertThat(commonPage.getAllText()).contains(transaction.allViewText()));
     }
 
 }

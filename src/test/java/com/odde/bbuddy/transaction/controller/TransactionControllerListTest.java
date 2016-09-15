@@ -7,11 +7,13 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.ui.Model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
+import static com.odde.bbuddy.transaction.domain.Transaction.*;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.Income;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -20,7 +22,7 @@ import static org.mockito.Mockito.*;
 
 public class TransactionControllerListTest {
 
-    private static final String DATE = "2016-08-15";
+    private static final Date DATE = parseDay("2016-08-15");
     private static final int AMOUNT = 100;
     Transactions mockTransactions = mock(Transactions.class);
     TransactionController controller = new TransactionController(mockTransactions);
@@ -43,7 +45,7 @@ public class TransactionControllerListTest {
                 expectedPresentableTransaction(Income, "Description", DATE, AMOUNT)));
     }
 
-    private PresentableTransaction expectedPresentableTransaction(Transaction.Type type, String description, String date, int amount) {
+    private PresentableTransaction expectedPresentableTransaction(Type type, String description, Date date, int amount) {
         PresentableTransaction expected = new PresentableTransaction();
         expected.setType(type);
         expected.setDescription(description);
@@ -52,11 +54,11 @@ public class TransactionControllerListTest {
         return expected;
     }
 
-    private Transaction transaction(Transaction.Type type, String description, String date, int amount) {
+    private Transaction transaction(Type type, String description, Date date, int amount) {
         Transaction transaction = new Transaction();
         transaction.setType(type);
         transaction.setDescription(description);
-        transaction.setDate(parseDay(date));
+        transaction.setDate(date);
         transaction.setAmount(amount);
         return transaction;
     }
