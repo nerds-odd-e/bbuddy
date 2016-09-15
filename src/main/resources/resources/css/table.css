@@ -22,7 +22,7 @@ div.table-title {
     background: white;
     border-radius:3px;
     border-collapse: collapse;
-    height: 320px;
+    height: 160px;
     margin: auto;
     max-width: 600px;
     padding:5px;
@@ -36,7 +36,7 @@ th {
     background:#1b1e24;
     border-bottom:4px solid #9ea7af;
     border-right: 1px solid #343a45;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 100;
     padding: 12px;
     text-align:left;
@@ -95,11 +95,11 @@ tr:last-child td:last-child {
 
 td {
     background:#FFFFFF;
-    padding:20px;
+    padding:12px;
     text-align:left;
     vertical-align:middle;
     font-weight:300;
-    font-size:18px;
+    font-size: 16px;
     text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
     border-right: 1px solid #C1C3D1;
 }
