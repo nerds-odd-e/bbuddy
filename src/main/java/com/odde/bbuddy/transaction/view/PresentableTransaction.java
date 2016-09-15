@@ -1,12 +1,12 @@
 package com.odde.bbuddy.transaction.view;
 
-import com.odde.bbuddy.transaction.domain.Transaction;
+import com.odde.bbuddy.transaction.domain.Transaction.Type;
 import lombok.Setter;
 
 @Setter
 public class PresentableTransaction {
 
-    private Transaction.Type type;
+    private Type type;
     private String description;
     private String date;
     private int amount;

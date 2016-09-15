@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
+import static com.odde.bbuddy.common.Formats.DAY;
 import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
-import static java.util.Arrays.asList;
+import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
 
 @Controller
 @PropertySource("classpath:resultMessages.properties")
@@ -51,25 +55,29 @@ public class TransactionController {
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)
     public String addTransaction(Model model) {
-        model.addAttribute("types", Transaction.Type.values());
+        model.addAttribute("types", values());
         return TRANSACTION_ADD;
     }
 
     @RequestMapping(value = TRANSACTION_LIST, method = RequestMethod.GET)
     public String showTransactions(Model model) {
-        model.addAttribute("transactions", asList(
-                presentableTransaction(Transaction.Type.Income, "Course Registration", "2016-08-14", 4000),
-                presentableTransaction(Transaction.Type.Outcome, "Buy MacBook Pro", "2015-11-01", 100)));
+        model.addAttribute("transactions", allTransactions());
 
         return TRANSACTION_LIST;
     }
 
-    private PresentableTransaction presentableTransaction(Transaction.Type income, String description, String date, int amount) {
-        PresentableTransaction transaction = new PresentableTransaction();
-        transaction.setType(income);
-        transaction.setDescription(description);
-        transaction.setDate(date);
-        transaction.setAmount(amount);
-        return transaction;
+    private List<PresentableTransaction> allTransactions() {
+        List<PresentableTransaction> all = new ArrayList<>();
+        transactions.processAll(transaction -> all.add(presentableTransactionFrom(transaction)));
+        return all;
+    }
+
+    private PresentableTransaction presentableTransactionFrom(Transaction transaction) {
+        PresentableTransaction pt = new PresentableTransaction();
+        pt.setType(transaction.getType());
+        pt.setDescription(transaction.getDescription());
+        pt.setDate(new SimpleDateFormat(DAY).format(transaction.getDate()));
+        pt.setAmount(transaction.getAmount());
+        return pt;
     }
 }
