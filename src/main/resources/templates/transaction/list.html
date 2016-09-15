@@ -1,0 +1,21 @@
+<link href="/css/table.css" rel="stylesheet" />
+<table class="table-fill">
+    <thead>
+    <tr>
+        <th class="text-left">Type</th>
+        <th class="text-left">Description</th>
+        <th class="text-left">Date</th>
+        <th class="text-left">Amount</th>
+    </tr>
+    </thead>
+    <tbody class="table-hover">
+    {{#transactions}}
+    <tr>
+        <td class="text-left">{{type}}</td>
+        <td class="text-left">{{description}}</td>
+        <td class="text-left">{{date}}</td>
+        <td class="text-left">{{amount}}</td>
+    </tr>
+    {{/transactions}}
+    </tbody>
+</table>

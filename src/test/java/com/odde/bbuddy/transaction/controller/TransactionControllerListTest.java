@@ -2,6 +2,7 @@ package com.odde.bbuddy.transaction.controller;
 
 import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Test;
+import org.springframework.ui.Model;
 
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -11,9 +12,10 @@ public class TransactionControllerListTest {
 
     Transactions mockTransactions = mock(Transactions.class);
     TransactionController controller = new TransactionController(mockTransactions);
+    Model mockModel = mock(Model.class);
 
     @Test
     public void go_to_transaction_list_page() {
-        assertThat(controller.showTransactions()).isEqualTo(TRANSACTION_LIST);
+        assertThat(controller.showTransactions(mockModel)).isEqualTo(TRANSACTION_LIST);
     }
 }

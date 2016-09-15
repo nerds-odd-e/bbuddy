@@ -3,6 +3,7 @@ package com.odde.bbuddy.acceptancetest.steps;
 import com.odde.bbuddy.acceptancetest.data.transaction.EditableTransaction;
 import com.odde.bbuddy.acceptancetest.data.transaction.TransactionRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.AddTransactionPage;
+import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.ShowAllTransactionsPage;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import cucumber.api.Format;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static com.odde.bbuddy.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
 import static com.odde.bbuddy.common.Formats.DAY;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class TransactionSteps {
 
@@ -26,6 +28,9 @@ public class TransactionSteps {
 
     @Autowired
     TransactionRepoForTest transactionRepo;
+
+    @Autowired
+    CommonPage commonPage;
 
     @When("^add transactions with the following information$")
     public void add_transactions_with_the_following_information(List<EditableTransaction> transactions) throws Throwable {
@@ -49,6 +54,12 @@ public class TransactionSteps {
 
     @Then("^you will see all transactions as below$")
     public void you_will_see_all_transactions_as_belw(List<EditableTransaction> transactions) throws Throwable {
+        transactions.forEach(transaction -> {
+            assertThat(commonPage.getAllText()).contains(transaction.getDescription());
+            assertThat(commonPage.getAllText()).contains(transaction.getAmount());
+            assertThat(commonPage.getAllText()).contains(transaction.getDate());
+            assertThat(commonPage.getAllText()).contains(transaction.getType());
+        });
     }
 
 }
