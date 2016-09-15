@@ -3,6 +3,9 @@ package com.odde.bbuddy.transaction.domain;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.junit.Test;
 
+import java.util.function.Consumer;
+
+import static java.util.Arrays.asList;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -44,7 +47,18 @@ public class TransactionsTest {
         verify(afterSuccess, never()).run();
     }
 
+    @Test
+    public void process_all_transactions() {
+        when(mockRepo.findAll()).thenReturn(asList(transaction));
+
+        Consumer<Transaction> mockConsumer = mock(Consumer.class);
+        transactions.processAll(mockConsumer);
+
+        verify(mockConsumer).accept(transaction);
+    }
+
     private void given_save_will_fail() {
         doThrow(IllegalArgumentException.class).when(mockRepo).save(any(Transaction.class));
     }
+
 }
