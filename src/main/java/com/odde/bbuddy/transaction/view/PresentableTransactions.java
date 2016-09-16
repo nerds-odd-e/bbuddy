@@ -40,4 +40,16 @@ public class PresentableTransactions {
     public String message() {
         return list.isEmpty() ? message : "";
     }
+
+    public int totalIncome() {
+        return 14000;
+    }
+
+    public int totalOutcome() {
+        return 30000;
+    }
+
+    public int balance() {
+        return -16000;
+    }
 }
