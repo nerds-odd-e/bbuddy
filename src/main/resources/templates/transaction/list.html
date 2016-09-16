@@ -1,4 +1,6 @@
 <link href="/css/table.css" rel="stylesheet" />
+<div>{{message}}</div>
+{{#transactions}}
 <table class="table-fill">
     <thead>
     <tr>
@@ -9,13 +11,12 @@
     </tr>
     </thead>
     <tbody class="table-hover">
-    {{#transactions}}
     <tr>
         <td class="text-left">{{type}}</td>
         <td class="text-left">{{description}}</td>
         <td class="text-left">{{dateForView}}</td>
         <td class="text-left">{{amount}}</td>
     </tr>
-    {{/transactions}}
     </tbody>
 </table>
+{{/transactions}}

@@ -45,6 +45,15 @@ public class TransactionControllerListTest {
                 expectedPresentableTransaction(Income, "Description", DATE, AMOUNT)));
     }
 
+    @Test
+    public void show_no_transaction() {
+        controller.noTransactionMessage = "no transaction message";
+
+        showAllTransactions();
+
+        verify(mockModel).addAttribute("message", "no transaction message");
+    }
+
     private PresentableTransaction expectedPresentableTransaction(Type type, String description, Date date, int amount) {
         PresentableTransaction expected = new PresentableTransaction();
         expected.setType(type);
