@@ -3,6 +3,7 @@ package com.odde.bbuddy.transaction.controller;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.view.PresentableTransactions;
+import com.odde.bbuddy.transaction.view.Types;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -54,7 +55,7 @@ public class TransactionController {
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)
     public String addTransaction(Model model) {
-        model.addAttribute("types", values());
+        new Types(model, values());
         return TRANSACTION_ADD;
     }
 

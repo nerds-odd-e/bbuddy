@@ -2,6 +2,7 @@ package com.odde.bbuddy.budget.controller;
 
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
+import com.odde.bbuddy.budget.view.MonthlyBudgetAmount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -60,7 +61,7 @@ public class MonthlyBudgetController {
     public String totalAmountOfMonthlyBudget(
             @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
             @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate, Model model) {
-        model.addAttribute("amount", planner.getAmount(startDate, endDate));
+        new MonthlyBudgetAmount(model, planner.getAmount(startDate, endDate));
         return MONTHLYBUDGET_TOTALAMOUNT;
     }
 
