@@ -3,6 +3,7 @@ package com.odde.bbuddy.transaction.controller;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.view.PresentableTransaction;
+import com.odde.bbuddy.transaction.view.PresentableTransactions;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ import java.util.function.Consumer;
 
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
-import static com.odde.bbuddy.transaction.domain.Transaction.*;
+import static com.odde.bbuddy.transaction.domain.Transaction.Type;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.Income;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -39,10 +40,10 @@ public class TransactionControllerListTest {
 
         showAllTransactions();
 
-        ArgumentCaptor<List<PresentableTransaction>> captor = ArgumentCaptor.forClass((Class)List.class);
-        verify(mockModel).addAttribute(eq("transactions"), captor.capture());
-        captor.getValue().forEach(actual -> assertThat(actual).isEqualToComparingFieldByField(
-                expectedPresentableTransaction(Income, "Description", DATE, AMOUNT)));
+        PresentableTransactions pts = verifyAddPresentableTransactions();
+        assertPresentableTransactionEquals(
+                pts.getList(),
+                expected(Income, "Description", DATE, AMOUNT));
     }
 
     @Test
@@ -51,11 +52,12 @@ public class TransactionControllerListTest {
 
         showAllTransactions();
 
-        verify(mockModel).addAttribute("message", "no transaction message");
-        verify(mockModel).addAttribute("table.hidden", "hidden");
+        PresentableTransactions pts = verifyAddPresentableTransactions();
+        assertThat(pts.message()).isEqualTo("no transaction message");
+        assertThat(pts.display()).isEqualTo("hidden");
     }
 
-    private PresentableTransaction expectedPresentableTransaction(Type type, String description, Date date, int amount) {
+    private PresentableTransaction expected(Type type, String description, Date date, int amount) {
         PresentableTransaction expected = new PresentableTransaction();
         expected.setType(type);
         expected.setDescription(description);
@@ -83,6 +85,17 @@ public class TransactionControllerListTest {
 
     private String showAllTransactions() {
         return controller.showTransactions(mockModel);
+    }
+
+    private PresentableTransactions verifyAddPresentableTransactions() {
+        ArgumentCaptor<PresentableTransactions> captor = ArgumentCaptor.forClass(PresentableTransactions.class);
+        verify(mockModel).addAttribute(eq("transactions"), captor.capture());
+        return captor.getValue();
+    }
+
+    private void assertPresentableTransactionEquals(List<PresentableTransaction> presentableTransactions, PresentableTransaction expected) {
+        presentableTransactions.forEach(
+                actual -> assertThat(actual).isEqualToComparingFieldByField(expected));
     }
 
 }

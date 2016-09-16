@@ -2,7 +2,7 @@ package com.odde.bbuddy.transaction.controller;
 
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
-import com.odde.bbuddy.transaction.view.PresentableTransaction;
+import com.odde.bbuddy.transaction.view.PresentableTransactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -14,11 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
-import static com.odde.bbuddy.common.BeanUtils.copyProperties;
-import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
 import static com.odde.bbuddy.common.controller.ControllerHelper.thenSetMessage;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
@@ -64,22 +60,10 @@ public class TransactionController {
 
     @RequestMapping(value = TRANSACTION_LIST, method = RequestMethod.GET)
     public String showTransactions(Model model) {
-        List<PresentableTransaction> all = new ArrayList<>();
-        transactions.processAll(transaction -> all.add(presentableTransactionFrom(transaction)));
-
-        if (all.isEmpty()) {
-            setMessage(model, noTransactionMessage);
-            model.addAttribute("table.hidden", "hidden");
-        }
-        else model.addAttribute("transactions", all);
+        PresentableTransactions pts = new PresentableTransactions(model, noTransactionMessage);
+        transactions.processAll(transaction -> pts.add(transaction));
 
         return TRANSACTION_LIST;
-    }
-
-    private PresentableTransaction presentableTransactionFrom(Transaction transaction) {
-        PresentableTransaction pt = new PresentableTransaction();
-        copyProperties(pt, transaction);
-        return pt;
     }
 
 }
