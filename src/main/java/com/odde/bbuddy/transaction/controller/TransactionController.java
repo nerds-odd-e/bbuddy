@@ -67,10 +67,11 @@ public class TransactionController {
         List<PresentableTransaction> all = new ArrayList<>();
         transactions.processAll(transaction -> all.add(presentableTransactionFrom(transaction)));
 
-        if (all.isEmpty())
+        if (all.isEmpty()) {
             setMessage(model, noTransactionMessage);
-        else
-            model.addAttribute("transactions", all);
+            model.addAttribute("table.hidden", "hidden");
+        }
+        else model.addAttribute("transactions", all);
 
         return TRANSACTION_LIST;
     }
