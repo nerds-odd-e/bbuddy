@@ -20,7 +20,7 @@ import java.util.Date;
 import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
 import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static com.odde.bbuddy.common.Formats.DAY;
-import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
+import static com.odde.bbuddy.common.controller.ControllerHelper.thenSetMessage;
 
 @Controller
 @PropertySource("classpath:resultMessages.properties")
@@ -46,8 +46,8 @@ public class MonthlyBudgetController {
             Model model) {
         if (!result.hasFieldErrors())
             planner.addMonthlyBudget(monthlyBudget)
-                    .success(setMessage(model, successMessage))
-                    .failed(setMessage(model, failedMessage));
+                    .success(thenSetMessage(model, successMessage))
+                    .failed(thenSetMessage(model, failedMessage));
         return MONTHLYBUDGET_ADD;
     }
 

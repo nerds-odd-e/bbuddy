@@ -19,6 +19,7 @@ import java.util.List;
 
 import static com.odde.bbuddy.common.BeanUtils.copyProperties;
 import static com.odde.bbuddy.common.controller.ControllerHelper.setMessage;
+import static com.odde.bbuddy.common.controller.ControllerHelper.thenSetMessage;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
@@ -50,8 +51,8 @@ public class TransactionController {
             Model model) {
         if (!result.hasFieldErrors())
             transactions.add(transaction)
-                    .success(setMessage(model, successMessage))
-                    .failed(setMessage(model, failedMessage));
+                    .success(thenSetMessage(model, successMessage))
+                    .failed(thenSetMessage(model, failedMessage));
         return addTransaction(model);
     }
 
@@ -67,7 +68,7 @@ public class TransactionController {
         transactions.processAll(transaction -> all.add(presentableTransactionFrom(transaction)));
 
         if (all.isEmpty())
-            setMessage(model, noTransactionMessage).run();
+            setMessage(model, noTransactionMessage);
         else
             model.addAttribute("transactions", all);
 
