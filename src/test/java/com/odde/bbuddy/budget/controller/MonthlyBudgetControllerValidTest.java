@@ -2,6 +2,7 @@ package com.odde.bbuddy.budget.controller;
 
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
+import com.odde.bbuddy.budget.view.MonthlyBudgetAmount;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.Model;
@@ -14,7 +15,8 @@ import static org.mockito.Mockito.*;
 public class MonthlyBudgetControllerValidTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
-    MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner);
+    MonthlyBudgetAmount stubMonthlyBudgetAmount = mock(MonthlyBudgetAmount.class);
+    MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, stubMonthlyBudgetAmount);
     Model notUsedModel = mock(Model.class);
     MonthlyBudget invalidMonthlyBudget = new MonthlyBudget(null, null);
     BindingResult stubBindingResult = mock(BindingResult.class);

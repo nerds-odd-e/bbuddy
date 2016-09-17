@@ -2,6 +2,7 @@ package com.odde.bbuddy.budget.controller;
 
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
+import com.odde.bbuddy.budget.view.MonthlyBudgetAmount;
 import com.odde.bbuddy.common.callback.PostActions;
 import org.junit.Test;
 import org.springframework.ui.Model;
@@ -9,17 +10,18 @@ import org.springframework.validation.BindingResult;
 
 import java.text.ParseException;
 
-import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-public class AddBudgetForMonthControllerTest {
+public class MonthlyBudgetControllerAddTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
-    MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner);
+    MonthlyBudgetAmount stubMonthlyBudgetAmount = mock(MonthlyBudgetAmount.class);
+    MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, stubMonthlyBudgetAmount);
     Model mockModel = mock(Model.class);
     private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
     BindingResult noErrorBindingResult = mock(BindingResult.class);

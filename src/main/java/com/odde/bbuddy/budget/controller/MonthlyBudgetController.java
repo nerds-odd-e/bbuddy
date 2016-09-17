@@ -28,6 +28,7 @@ import static com.odde.bbuddy.common.controller.ControllerHelper.thenSetMessage;
 public class MonthlyBudgetController {
 
     private final MonthlyBudgetPlanner planner;
+    private final MonthlyBudgetAmount monthlyBudgetAmount;
 
     @Value("${monthlybudget.add.success}")
     String successMessage;
@@ -36,8 +37,9 @@ public class MonthlyBudgetController {
     String failedMessage;
 
     @Autowired
-    public MonthlyBudgetController(MonthlyBudgetPlanner planner) {
+    public MonthlyBudgetController(MonthlyBudgetPlanner planner, MonthlyBudgetAmount monthlyBudgetAmount) {
         this.planner = planner;
+        this.monthlyBudgetAmount = monthlyBudgetAmount;
     }
 
     @RequestMapping(value = MONTHLYBUDGET_ADD, method = RequestMethod.POST)
@@ -60,8 +62,9 @@ public class MonthlyBudgetController {
     @RequestMapping(value = MONTHLYBUDGET_TOTALAMOUNT, method = RequestMethod.GET)
     public String totalAmountOfMonthlyBudget(
             @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
-            @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate, Model model) {
-        new MonthlyBudgetAmount(model, planner.getAmount(startDate, endDate));
+            @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate,
+            Model model) {
+        monthlyBudgetAmount.display(model, planner.getAmount(startDate, endDate));
         return MONTHLYBUDGET_TOTALAMOUNT;
     }
 
