@@ -9,7 +9,7 @@
         <th class="text-left">Amount</th>
     </tr>
     </thead>
-    {{#transactions.list}}
+    {{#transactions}}
     <tbody class="table-hover">
     <tr>
         <td class="text-left">{{type}}</td>
@@ -18,9 +18,9 @@
         <td class="text-left">{{amount}}</td>
     </tr>
     </tbody>
-    {{/transactions.list}}
+    {{/transactions}}
 </table>
-<hr>
+<hr {{transactions.display}>
 <table align="center" {{transactions.display}}>
     <tbod>
         <tr>
