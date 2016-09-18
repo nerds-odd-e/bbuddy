@@ -9,7 +9,7 @@ import static java.lang.String.format;
 
 @Component
 @PropertySource("classpath:resultMessages.properties")
-public class MonthlyBudgetAmount {
+public class PresentableMonthlyBudgetAmount {
 
     @Value("${monthlybudget.totalamount.amount}")
     public String message;

@@ -3,7 +3,8 @@ package com.odde.bbuddy.budget.controller;
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
-import com.odde.bbuddy.budget.view.MonthlyBudgetAmount;
+import com.odde.bbuddy.budget.view.PresentableAddMonthlyBudget;
+import com.odde.bbuddy.budget.view.PresentableMonthlyBudgetAmount;
 import com.odde.bbuddy.common.callback.PostActions;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,8 +27,9 @@ import static org.mockito.Mockito.*;
 public class MonthlyBudgetControllerTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
-    MonthlyBudgetAmount mockMonthlyBudgetAmount = mock(MonthlyBudgetAmount.class);
-    MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, mockMonthlyBudgetAmount);
+    PresentableMonthlyBudgetAmount mockPresentableMonthlyBudgetAmount = mock(PresentableMonthlyBudgetAmount.class);
+    PresentableAddMonthlyBudget mockPresentableAddMonthlyBudget = mock(PresentableAddMonthlyBudget.class);
+    MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount, mockPresentableAddMonthlyBudget);
     Model mockModel = mock(Model.class);
     BindingResult stubBindingResult = mock(BindingResult.class);
 
@@ -40,7 +42,18 @@ public class MonthlyBudgetControllerTest {
 
         @Test
         public void should_go_to_monthly_budget_add_page() {
-            assertThat(controller.addMonthlyBudget()).isEqualTo(MONTHLYBUDGET_ADD);
+            assertThat(addMonthlyBudget()).isEqualTo(MONTHLYBUDGET_ADD);
+        }
+
+        @Test
+        public void should_display_add_monthly_budget_view() {
+            addMonthlyBudget();
+
+            verify(mockPresentableAddMonthlyBudget).display(mockModel);
+        }
+
+        private String addMonthlyBudget() {
+            return controller.addMonthlyBudget(mockModel);
         }
     }
 
@@ -54,8 +67,15 @@ public class MonthlyBudgetControllerTest {
         }
 
         @Test
-        public void should_go_to_add_budget_for_month_page() {
+        public void should_go_to_add_monthly_budget_page() {
             assertThat(submitAddMonthlyBudget(monthlyBudget)).isEqualTo(MONTHLYBUDGET_ADD);
+        }
+
+        @Test
+        public void should_display_add_monthly_budget_view() {
+            submitAddMonthlyBudget(monthlyBudget);
+
+            verify(mockPresentableAddMonthlyBudget).display(mockModel);
         }
 
         @Test
@@ -85,13 +105,18 @@ public class MonthlyBudgetControllerTest {
         }
 
         @Test
-        public void should_go_to_add_budget_for_month_page() {
-            new AddSubmitSuccess().should_go_to_add_budget_for_month_page();
+        public void should_go_to_add_monthly_budget_page() {
+            new AddSubmitSuccess().should_go_to_add_monthly_budget_page();
         }
 
         @Test
         public void should_add_monthly_budget() {
             new AddSubmitSuccess().should_add_monthly_budget();
+        }
+
+        @Test
+        public void should_display_add_monthly_budget_view() {
+            new AddSubmitSuccess().should_display_add_monthly_budget_view();
         }
 
         @Test
@@ -151,7 +176,7 @@ public class MonthlyBudgetControllerTest {
 
             getAmount();
 
-            verify(mockMonthlyBudgetAmount).display(mockModel, 100L);
+            verify(mockPresentableMonthlyBudgetAmount).display(mockModel, 100L);
         }
 
         private String getAmount() {
