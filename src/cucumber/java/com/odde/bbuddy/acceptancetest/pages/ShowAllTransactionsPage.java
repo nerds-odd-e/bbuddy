@@ -13,7 +13,7 @@ public class ShowAllTransactionsPage {
     UiDriver uiDriver;
 
     public void show() {
-        uiDriver.navigateTo("/transaction/list");
+        uiDriver.navigateTo("/transactions");
     }
 
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -26,6 +27,6 @@ public class LayoutNavigationTest {
         interceptor.postHandle(anyRequest, anyResponse, anyHandler, modelAndView);
 
         assertThat(modelAndView.getModelMap().get("monthlyBudgetAddUrl")).isEqualTo(MONTHLYBUDGET_ADD);
-        assertThat(modelAndView.getModelMap().get("transactionAddUrl")).isEqualTo(TRANSACTION_ADD);
+        assertThat(modelAndView.getModelMap().get("transactionsUrl")).isEqualTo(TRANSACTION_LIST);
     }
 }

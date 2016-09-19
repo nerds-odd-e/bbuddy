@@ -10,9 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -23,6 +21,7 @@ import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
 
 @Controller
 @PropertySource("classpath:resultMessages.properties")
+@RequestMapping("/transactions")
 public class TransactionController {
 
     private final Transactions transactions;
@@ -41,7 +40,7 @@ public class TransactionController {
         this.transactions = transactions;
     }
 
-    @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.POST)
+    @PostMapping("add")
     public String submitAddTransaction(
             @Valid @ModelAttribute Transaction transaction,
             BindingResult result,
@@ -53,18 +52,18 @@ public class TransactionController {
         return addTransaction(model);
     }
 
-    @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)
+    @GetMapping("add")
     public String addTransaction(Model model) {
         new Types(model, values());
         return TRANSACTION_ADD;
     }
 
-    @RequestMapping(value = TRANSACTION_LIST, method = RequestMethod.GET)
-    public String showTransactions(Model model) {
+    @GetMapping
+    public String index(Model model) {
         PresentableTransactions pts = new PresentableTransactions(model, noTransactionMessage);
         transactions.processAll(transaction -> pts.add(transaction));
 
-        return TRANSACTION_LIST;
+        return "transactions/index";
     }
 
 }

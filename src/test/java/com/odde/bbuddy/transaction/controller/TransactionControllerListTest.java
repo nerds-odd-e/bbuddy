@@ -31,7 +31,7 @@ public class TransactionControllerListTest {
 
     @Test
     public void go_to_transaction_list_page() {
-        assertThat(showAllTransactions()).isEqualTo(TRANSACTION_LIST);
+        assertThat(showAllTransactions()).isEqualTo("transactions/index");
     }
 
     @Test
@@ -84,7 +84,7 @@ public class TransactionControllerListTest {
     }
 
     private String showAllTransactions() {
-        return controller.showTransactions(mockModel);
+        return controller.index(mockModel);
     }
 
     private PresentableTransactions verifyAddPresentableTransactions() {
