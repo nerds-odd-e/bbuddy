@@ -120,7 +120,7 @@ public class MonthlyBudgetControllerTest {
         }
 
         @Test
-        public void return_add_fail_message_to_page_when_add_budget_for_month_failed() {
+        public void should_return_add_failed_message_to_page() {
             controller.failedMessage = "a failed message";
 
             submitAddMonthlyBudget(monthlyBudget);
@@ -140,14 +140,14 @@ public class MonthlyBudgetControllerTest {
         }
 
         @Test
-        public void will_not_add_monthly_budget_when_has_field_error() {
+        public void should_not_add_monthly_budget() {
             submitAddMonthlyBudget(invalidMonthlyBudget);
 
             verify(mockPlanner, never()).addMonthlyBudget(invalidMonthlyBudget);
         }
 
         @Test
-        public void will_go_to_add_monthly_budget_page_when_has_field_error() {
+        public void should_go_to_add_monthly_budget_page() {
             assertThat(submitAddMonthlyBudget(invalidMonthlyBudget)).isEqualTo(MONTHLYBUDGET_ADD);
         }
 
@@ -159,19 +159,19 @@ public class MonthlyBudgetControllerTest {
         Date endDate = parseDay("2016-07-10");
 
         @Test
-        public void go_to_get_amount_page() {
+        public void should_go_to_get_amount_page() {
             assertThat(getAmount()).isEqualTo(MONTHLYBUDGET_TOTALAMOUNT);
         }
 
         @Test
-        public void get_amount_from_monthly_budget_planner() {
+        public void should_get_amount_from_monthly_budget_planner() {
             getAmount();
 
             verify(mockPlanner).getAmount(startDate, endDate);
         }
 
         @Test
-        public void pass_amount_to_page() {
+        public void should_pass_amount_to_page() {
             when(mockPlanner.getAmount(startDate, endDate)).thenReturn(100L);
 
             getAmount();
