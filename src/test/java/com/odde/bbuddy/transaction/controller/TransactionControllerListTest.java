@@ -42,7 +42,7 @@ public class TransactionControllerListTest {
 
         PresentableTransactions pts = verifyAddPresentableTransactions();
         assertPresentableTransactionEquals(
-                pts.getList(),
+                pts,
                 expected(Income, "Description", DATE, AMOUNT));
     }
 

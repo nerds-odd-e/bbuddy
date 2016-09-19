@@ -10,13 +10,15 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
 import static com.odde.bbuddy.common.controller.ControllerHelper.thenSetMessage;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
 
 @Controller
@@ -60,8 +62,7 @@ public class TransactionController {
 
     @GetMapping
     public String index(Model model) {
-        PresentableTransactions pts = new PresentableTransactions(model, noTransactionMessage);
-        transactions.processAll(transaction -> pts.add(transaction));
+        new PresentableTransactions(model, noTransactionMessage, transactions);
 
         return "transactions/index";
     }
