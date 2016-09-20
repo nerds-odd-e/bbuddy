@@ -49,7 +49,7 @@ public class MonthlyBudgetControllerTest {
         public void should_display_add_monthly_budget_view() {
             addMonthlyBudget();
 
-            verify(mockPresentableAddMonthlyBudget).display(mockModel);
+            verifyPresentableAddMonthlyBudgetDisplay();
         }
 
         private String addMonthlyBudget() {
@@ -75,7 +75,7 @@ public class MonthlyBudgetControllerTest {
         public void should_display_add_monthly_budget_view() {
             submitAddMonthlyBudget(monthlyBudget);
 
-            verify(mockPresentableAddMonthlyBudget).display(mockModel);
+            verifyPresentableAddMonthlyBudgetDisplay();
         }
 
         @Test
@@ -195,6 +195,10 @@ public class MonthlyBudgetControllerTest {
 
     private String submitAddMonthlyBudget(MonthlyBudget monthlyBudget) {
         return controller.submitAddMonthlyBudget(monthlyBudget, stubBindingResult, mockModel);
+    }
+
+    private void verifyPresentableAddMonthlyBudgetDisplay() {
+        verify(mockPresentableAddMonthlyBudget).display(mockModel);
     }
 
 }

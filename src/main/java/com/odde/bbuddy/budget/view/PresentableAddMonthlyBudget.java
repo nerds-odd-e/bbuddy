@@ -13,14 +13,14 @@ public class PresentableAddMonthlyBudget {
     String month;
 
     @Value("${label.budget}")
-    String amount;
+    String budget;
 
     @Value("${label.add}")
     String add;
 
     public void display(Model model) {
         model.addAttribute("label.month", month);
-        model.addAttribute("label.budget", amount);
+        model.addAttribute("label.budget", budget);
         model.addAttribute("label.add", add);
     }
 }

@@ -7,8 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION;
 
 public class LayoutNavigationInterceptor implements HandlerInterceptor {
     @Override
@@ -19,7 +18,7 @@ public class LayoutNavigationInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         modelAndView.addObject("monthlyBudgetAddUrl", MONTHLYBUDGET_ADD);
-        modelAndView.addObject("transactionsUrl", TRANSACTION_LIST);
+        modelAndView.addObject("transactionsUrl", TRANSACTION);
     }
 
     @Override

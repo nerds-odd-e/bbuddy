@@ -2,8 +2,8 @@ package com.odde.bbuddy.transaction.controller;
 
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
+import com.odde.bbuddy.transaction.view.PresentableAddTransaction;
 import com.odde.bbuddy.transaction.view.PresentableTransactions;
-import com.odde.bbuddy.transaction.view.Types;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -18,15 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 import static com.odde.bbuddy.common.controller.ControllerHelper.thenSetMessage;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
+import static com.odde.bbuddy.common.controller.Urls.*;
+import static com.odde.bbuddy.transaction.domain.Transaction.Type.*;
 
 @Controller
 @PropertySource("classpath:resultMessages.properties")
-@RequestMapping("/transactions")
+@RequestMapping(TRANSACTION)
 public class TransactionController {
 
     private final Transactions transactions;
+    private final PresentableAddTransaction presentableAddTransaction;
 
     @Value("${transaction.add.success}")
     String successMessage;
@@ -38,11 +39,12 @@ public class TransactionController {
     String noTransactionMessage;
 
     @Autowired
-    public TransactionController(Transactions transactions) {
+    public TransactionController(Transactions transactions, PresentableAddTransaction presentableAddTransaction) {
         this.transactions = transactions;
+        this.presentableAddTransaction = presentableAddTransaction;
     }
 
-    @PostMapping("add")
+    @PostMapping(ADD)
     public String submitAddTransaction(
             @Valid @ModelAttribute Transaction transaction,
             BindingResult result,
@@ -54,9 +56,9 @@ public class TransactionController {
         return addTransaction(model);
     }
 
-    @GetMapping("add")
+    @GetMapping(ADD)
     public String addTransaction(Model model) {
-        new Types(model, values());
+        presentableAddTransaction.display(model, values());
         return TRANSACTION_ADD;
     }
 
@@ -64,7 +66,7 @@ public class TransactionController {
     public String index(Model model) {
         new PresentableTransactions(model, noTransactionMessage, transactions);
 
-        return "transactions/index";
+        return TRANSACTION_INDEX;
     }
 
 }
