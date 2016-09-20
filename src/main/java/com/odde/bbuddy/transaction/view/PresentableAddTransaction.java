@@ -5,10 +5,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
+import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type;
 
 @Component
-@PropertySource("classpath:resultMessages.properties")
+@PropertySource(RESULT_MESSAGES)
 public class PresentableAddTransaction {
 
     @Value("${label.type}")
