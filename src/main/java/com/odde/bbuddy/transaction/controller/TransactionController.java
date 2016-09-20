@@ -29,6 +29,7 @@ public class TransactionController {
 
     private final Transactions transactions;
     private final PresentableAddTransaction presentableAddTransaction;
+    private final PresentableTransactions presentableTransactions;
 
     @Value("${transaction.add.success}")
     String successMessage;
@@ -40,9 +41,10 @@ public class TransactionController {
     String noTransactionMessage;
 
     @Autowired
-    public TransactionController(Transactions transactions, PresentableAddTransaction presentableAddTransaction) {
+    public TransactionController(Transactions transactions, PresentableAddTransaction presentableAddTransaction, PresentableTransactions presentableTransactions) {
         this.transactions = transactions;
         this.presentableAddTransaction = presentableAddTransaction;
+        this.presentableTransactions = presentableTransactions;
     }
 
     @PostMapping(ADD)
@@ -65,7 +67,7 @@ public class TransactionController {
 
     @GetMapping
     public String index(Model model) {
-        new PresentableTransactions(model, noTransactionMessage, transactions);
+        presentableTransactions.display(model);
 
         return TRANSACTION_INDEX;
     }

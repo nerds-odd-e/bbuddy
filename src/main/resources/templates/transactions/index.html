@@ -1,6 +1,6 @@
 <link href="/css/table.css" rel="stylesheet" />
 <div>{{transactions.message}}</div>
-<table class="table-fill" {{transactions.display}}>
+<table class="table-fill" {{transactions.hidden}}>
     <thead>
     <tr>
         <th class="text-left">Type</th>
@@ -20,8 +20,8 @@
     </tbody>
     {{/transactions}}
 </table>
-<hr {{transactions.display}}>
-<table align="center" {{transactions.display}}>
+<hr {{transactions.hidden}}>
+<table align="center" {{transactions.hidden}}>
     <tbod>
         <tr>
             <td>Total Income is {{transactions.totalIncome}}</td>
