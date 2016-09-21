@@ -37,9 +37,6 @@ public class TransactionController {
     @Value("${transaction.add.failed}")
     String failedMessage;
 
-    @Value("${transaction.list.empty}")
-    String noTransactionMessage;
-
     @Autowired
     public TransactionController(Transactions transactions, PresentableAddTransaction presentableAddTransaction, PresentableTransactions presentableTransactions) {
         this.transactions = transactions;
