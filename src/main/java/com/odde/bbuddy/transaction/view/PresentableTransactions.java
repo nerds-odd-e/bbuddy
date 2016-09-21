@@ -2,29 +2,34 @@ package com.odde.bbuddy.transaction.view;
 
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 
 import static com.odde.bbuddy.common.BeanUtils.copyProperties;
 import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES;
+import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
 @Component
+@Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES)
 public class PresentableTransactions extends ArrayList<PresentableTransaction> {
 
     private final Transactions transactions;
+    private final HttpServletRequest request;
 
     @Value("${transaction.list.empty}")
     String noTransactionMessage;
 
     @Autowired
-    public PresentableTransactions(Transactions transactions) {
+    public PresentableTransactions(Transactions transactions, HttpServletRequest request) {
         this.transactions = transactions;
+        this.request = request;
     }
 
     private void add(Transaction transaction) {
@@ -53,8 +58,8 @@ public class PresentableTransactions extends ArrayList<PresentableTransaction> {
         return -16000;
     }
 
-    public void display(Model model) {
+    public void display() {
         transactions.processAll(this::add);
-        model.addAttribute("transactions", this);
+        request.setAttribute("transactions", this);
     }
 }

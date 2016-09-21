@@ -63,8 +63,8 @@ public class TransactionController {
     }
 
     @GetMapping
-    public String index(Model model) {
-        presentableTransactions.display(model);
+    public String index() {
+        presentableTransactions.display();
 
         return TRANSACTION_INDEX;
     }

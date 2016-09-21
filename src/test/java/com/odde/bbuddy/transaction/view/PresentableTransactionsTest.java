@@ -3,10 +3,10 @@ package com.odde.bbuddy.transaction.view;
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.ui.Model;
 
 import java.util.Date;
 import java.util.function.Consumer;
@@ -23,8 +23,8 @@ import static org.mockito.Mockito.*;
 public class PresentableTransactionsTest {
 
     Transactions stubTransactions = mock(Transactions.class);
-    PresentableTransactions presentableTransactions = new PresentableTransactions(stubTransactions);
-    Model mockModel = mock(Model.class);
+    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+    PresentableTransactions presentableTransactions = new PresentableTransactions(stubTransactions, mockRequest);
 
     public class NoTransaction {
 
@@ -79,7 +79,7 @@ public class PresentableTransactionsTest {
         public void should_pass_transaction_to_page() {
             display();
 
-            verify(mockModel).addAttribute("transactions", presentableTransactions);
+            verify(mockRequest).setAttribute("transactions", presentableTransactions);
             assertThat(presentableTransactions)
                     .usingFieldByFieldElementComparator()
                     .containsExactly(presentableTransaction(Income, "description", date, amount));
@@ -114,7 +114,7 @@ public class PresentableTransactionsTest {
     }
 
     private void display() {
-        presentableTransactions.display(mockModel);
+        presentableTransactions.display();
     }
 
 }
