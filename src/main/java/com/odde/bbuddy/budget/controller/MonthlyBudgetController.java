@@ -10,21 +10,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Date;
 
 import static com.odde.bbuddy.common.Formats.DAY;
 import static com.odde.bbuddy.common.controller.ControllerHelper.thenSetMessage;
-import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
-import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static com.odde.bbuddy.common.controller.Urls.*;
 
 @Controller
+@RequestMapping(MONTHLYBUDGET)
 @PropertySource("classpath:resultMessages.properties")
 public class MonthlyBudgetController {
 
@@ -43,7 +39,7 @@ public class MonthlyBudgetController {
         this.presentableMonthlyBudgetAmount = presentableMonthlyBudgetAmount;
     }
 
-    @RequestMapping(value = MONTHLYBUDGET_ADD, method = POST)
+    @PostMapping(ADD)
     public String submitAddMonthlyBudget(
             @Valid @ModelAttribute MonthlyBudget monthlyBudget,
             BindingResult result,
@@ -55,12 +51,12 @@ public class MonthlyBudgetController {
         return addMonthlyBudget();
     }
 
-    @RequestMapping(value = MONTHLYBUDGET_ADD, method = GET)
+    @GetMapping(ADD)
     public String addMonthlyBudget() {
         return MONTHLYBUDGET_ADD;
     }
 
-    @RequestMapping(value = MONTHLYBUDGET_TOTALAMOUNT, method = GET)
+    @GetMapping(TOTALAMOUNT)
     public String totalAmountOfMonthlyBudget(
             @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
             @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate) {
