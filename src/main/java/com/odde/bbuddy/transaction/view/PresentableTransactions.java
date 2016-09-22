@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 import static com.odde.bbuddy.common.BeanUtils.copyProperties;
-import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES;
+import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
-@PropertySource(RESULT_MESSAGES)
+@PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PresentableTransactions extends ArrayList<PresentableTransaction> {
 
     private final Transactions transactions;

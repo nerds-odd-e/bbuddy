@@ -5,11 +5,11 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES;
+import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
 import static java.lang.String.format;
 
 @Component
-@PropertySource(RESULT_MESSAGES)
+@PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PresentableMonthlyBudgetAmount {
 
     @Value("${monthlybudget.totalamount.amount}")

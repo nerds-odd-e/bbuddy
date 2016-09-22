@@ -5,10 +5,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES;
+import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
 
 @Component
-@PropertySource(RESULT_MESSAGES)
+@PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class SignIn {
     @Value("${authentication.failed}")
     String failedMessage;

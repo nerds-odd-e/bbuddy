@@ -1,6 +1,5 @@
-package com.odde.bbuddy.common.controller;
+package com.odde.bbuddy.common.interceptor;
 
-import com.odde.bbuddy.common.interceptor.LayoutNavigationInterceptor;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 

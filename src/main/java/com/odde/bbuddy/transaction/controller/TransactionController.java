@@ -19,11 +19,11 @@ import javax.validation.Valid;
 
 import static com.odde.bbuddy.common.controller.ControllerHelper.thenSetMessage;
 import static com.odde.bbuddy.common.controller.Urls.*;
-import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES;
+import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.*;
 
 @Controller
-@PropertySource(RESULT_MESSAGES)
+@PropertySource(RESULT_MESSAGES_FULL_NAME)
 @RequestMapping(TRANSACTION)
 public class TransactionController {
 

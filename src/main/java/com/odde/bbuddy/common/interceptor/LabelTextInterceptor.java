@@ -6,9 +6,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
+import java.util.stream.Stream;
+
+import static com.odde.bbuddy.common.view.Messages.LABEL_TEXT_SHORT_NAME;
 
 public class LabelTextInterceptor implements HandlerInterceptor {
 
+    public static final String PREFIX = "label";
+    public static final String VIEW_NAME_DELIMITER = "/";
     private final ExposedResourceBundleMessageSource exposedResourceBundleMessageSource;
 
     public LabelTextInterceptor(ExposedResourceBundleMessageSource exposedResourceBundleMessageSource) {
@@ -22,11 +27,25 @@ public class LabelTextInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        String contextPath = request.getContextPath();
-        Set<String> keys = exposedResourceBundleMessageSource.getKeys("resultMessages", request.getLocale());
-        keys.stream()
-                .filter(key -> key.contains(contextPath.replaceAll("/", ".")) && key.contains("label"))
-                .forEach(key -> modelAndView.addObject(key, exposedResourceBundleMessageSource.getMessage(key, null, request.getLocale())));
+        allLabelMessageKeys(request).stream()
+                .filter(key -> isLabelMessageKeyOfView(key, modelAndView.getViewName()))
+                .forEach(key -> addLabelMessage(key, modelAndView, request));
+    }
+
+    private ModelAndView addLabelMessage(String key, ModelAndView modelAndView, HttpServletRequest request) {
+        return modelAndView.addObject(labelMessageCodeForView(key), exposedResourceBundleMessageSource.getMessageOverrided(key, null, request.getLocale()));
+    }
+
+    private String labelMessageCodeForView(String key) {
+        return key.substring(key.indexOf(PREFIX));
+    }
+
+    private boolean isLabelMessageKeyOfView(String key, String viewName) {
+        return Stream.of(viewName.split(VIEW_NAME_DELIMITER)).allMatch(name -> key.contains(name));
+    }
+
+    private Set<String> allLabelMessageKeys(HttpServletRequest request) {
+        return exposedResourceBundleMessageSource.getKeys(LABEL_TEXT_SHORT_NAME, request.getLocale());
     }
 
     @Override
