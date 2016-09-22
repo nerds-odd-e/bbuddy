@@ -1,6 +1,6 @@
 package com.odde.bbuddy.common.controller;
 
-import com.odde.bbuddy.common.controller.ErrorMessageInterceptor;
+import com.odde.bbuddy.common.interceptor.ErrorMessageInterceptor;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.MessageSource;
