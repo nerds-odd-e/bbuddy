@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 })
 public class ErrorMessages {
 
-    @Value("${org.hibernate.validator.constraints.NotEmpty.message}")
-    public String notEmpty;
+    @Value("${org.hibernate.validator.constraints.NotBlank.message}")
+    public String notBlank;
 
     @Value("${javax.validation.constraints.NotNull.message}")
     public String notNull;

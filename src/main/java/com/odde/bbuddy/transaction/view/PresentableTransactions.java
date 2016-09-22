@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 
 import static com.odde.bbuddy.common.BeanUtils.copyProperties;
-import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
+import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
 @Component

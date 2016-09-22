@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static com.odde.bbuddy.common.view.Messages.LABEL_TEXT_SHORT_NAME;
+import static com.odde.bbuddy.common.view.MessageSources.LABEL_TEXT_SHORT_NAME;
 
 public class LabelTextInterceptor implements HandlerInterceptor {
 

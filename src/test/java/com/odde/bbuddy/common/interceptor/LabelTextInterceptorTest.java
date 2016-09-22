@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Stream;
 
-import static com.odde.bbuddy.common.view.Messages.LABEL_TEXT_SHORT_NAME;
+import static com.odde.bbuddy.common.view.MessageSources.LABEL_TEXT_SHORT_NAME;
 import static java.util.stream.Collectors.toList;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;

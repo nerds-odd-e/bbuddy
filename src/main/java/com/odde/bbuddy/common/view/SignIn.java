@@ -5,7 +5,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
-import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
+import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 
 @Component
 @PropertySource(RESULT_MESSAGES_FULL_NAME)

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.odde.bbuddy.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
+import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 import static java.lang.String.format;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
