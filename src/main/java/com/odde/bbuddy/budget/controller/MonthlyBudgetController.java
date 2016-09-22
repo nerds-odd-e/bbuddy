@@ -52,20 +52,19 @@ public class MonthlyBudgetController {
             planner.addMonthlyBudget(monthlyBudget)
                     .success(thenSetMessage(model, successMessage))
                     .failed(thenSetMessage(model, failedMessage));
-        return addMonthlyBudget(model);
+        return addMonthlyBudget();
     }
 
     @RequestMapping(value = MONTHLYBUDGET_ADD, method = GET)
-    public String addMonthlyBudget(Model model) {
+    public String addMonthlyBudget() {
         return MONTHLYBUDGET_ADD;
     }
 
     @RequestMapping(value = MONTHLYBUDGET_TOTALAMOUNT, method = GET)
     public String totalAmountOfMonthlyBudget(
             @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
-            @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate,
-            Model model) {
-        presentableMonthlyBudgetAmount.display(model, planner.getAmount(startDate, endDate));
+            @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate) {
+        presentableMonthlyBudgetAmount.display(planner.getAmount(startDate, endDate));
         return MONTHLYBUDGET_TOTALAMOUNT;
     }
 

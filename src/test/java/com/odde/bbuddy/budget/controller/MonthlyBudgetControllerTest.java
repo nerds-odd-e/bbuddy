@@ -40,7 +40,7 @@ public class MonthlyBudgetControllerTest {
 
         @Test
         public void should_go_to_monthly_budget_add_page() {
-            assertThat(controller.addMonthlyBudget(mockModel)).isEqualTo(MONTHLYBUDGET_ADD);
+            assertThat(controller.addMonthlyBudget()).isEqualTo(MONTHLYBUDGET_ADD);
         }
 
     }
@@ -138,11 +138,11 @@ public class MonthlyBudgetControllerTest {
 
             getAmount();
 
-            verify(mockPresentableMonthlyBudgetAmount).display(mockModel, 100L);
+            verify(mockPresentableMonthlyBudgetAmount).display(100L);
         }
 
         private String getAmount() {
-            return controller.totalAmountOfMonthlyBudget(startDate, endDate, mockModel);
+            return controller.totalAmountOfMonthlyBudget(startDate, endDate);
         }
 
     }
