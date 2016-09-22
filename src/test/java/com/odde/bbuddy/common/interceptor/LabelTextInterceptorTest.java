@@ -93,6 +93,18 @@ public class LabelTextInterceptorTest {
         verify(mockModelAndView).addObject("label.first", "message");
     }
 
+    @Test
+    public void common_label_should_be_added() throws Exception {
+        given_messages_with_key_and_message(
+                new SimpleEntry<>("label.common", "Common")
+        );
+        given_view_name("anyView");
+
+        postHandle();
+
+        verify(mockModelAndView).addObject("label.common", "Common");
+    }
+
     private void given_message_key_with_message(SimpleEntry<String, String> entry) {
         when(stubExposedResourceBundleMessageSource.getMessageOverrided(eq(entry.getKey()), eq(null), eq(currentLocale))).thenReturn(entry.getValue());
     }

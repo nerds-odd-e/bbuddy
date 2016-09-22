@@ -28,7 +28,7 @@ public class LabelTextInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         allLabelMessageKeys(request).stream()
-                .filter(key -> isLabelMessageKeyOfView(key, modelAndView.getViewName()))
+                .filter(key -> isLabelMessageKeyForView(key, modelAndView.getViewName()))
                 .forEach(key -> addLabelMessage(key, modelAndView, request));
     }
 
@@ -40,7 +40,11 @@ public class LabelTextInterceptor implements HandlerInterceptor {
         return key.substring(key.indexOf(PREFIX));
     }
 
-    private boolean isLabelMessageKeyOfView(String key, String viewName) {
+    private boolean isLabelMessageKeyForView(String key, String viewName) {
+        return isAllNameInKey(viewName, key) || key.startsWith(PREFIX);
+    }
+
+    private boolean isAllNameInKey(String viewName, String key) {
         return Stream.of(viewName.split(VIEW_NAME_DELIMITER)).allMatch(name -> key.contains(name));
     }
 
