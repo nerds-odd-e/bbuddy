@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common.controller;
+package com.odde.bbuddy.common.interceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -17,6 +17,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(new AuthenticationInterceptor());
         registry.addInterceptor(new LayoutNavigationInterceptor());
         registry.addInterceptor(new ErrorMessageInterceptor(messageSource));
+        registry.addInterceptor(new LabelTextInterceptor(new ExposedResourceBundleMessageSource()));
         super.addInterceptors(registry);
     }
 }

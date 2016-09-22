@@ -29,10 +29,10 @@ public class PresentableAddTransaction {
 
     public void display(Model model, Type[] values) {
         model.addAttribute("types", values);
-        model.addAttribute("label.type", type);
-        model.addAttribute("label.description", description);
-        model.addAttribute("label.date", date);
-        model.addAttribute("label.amount", amount);
-        model.addAttribute("label.add", add);
+//        model.addAttribute("label.type", type);
+//        model.addAttribute("label.description", description);
+//        model.addAttribute("label.date", date);
+//        model.addAttribute("label.amount", amount);
+//        model.addAttribute("label.add", add);
     }
 }
