@@ -2,7 +2,6 @@ package com.odde.bbuddy.budget.controller;
 
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
-import com.odde.bbuddy.budget.view.PresentableAddMonthlyBudget;
 import com.odde.bbuddy.budget.view.PresentableMonthlyBudgetAmount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +30,6 @@ public class MonthlyBudgetController {
 
     private final MonthlyBudgetPlanner planner;
     private final PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount;
-    private final PresentableAddMonthlyBudget presentableAddMonthlyBudget;
 
     @Value("${monthlybudget.add.success}")
     String successMessage;
@@ -40,10 +38,9 @@ public class MonthlyBudgetController {
     String failedMessage;
 
     @Autowired
-    public MonthlyBudgetController(MonthlyBudgetPlanner planner, PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount, PresentableAddMonthlyBudget presentableAddMonthlyBudget) {
+    public MonthlyBudgetController(MonthlyBudgetPlanner planner, PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount) {
         this.planner = planner;
         this.presentableMonthlyBudgetAmount = presentableMonthlyBudgetAmount;
-        this.presentableAddMonthlyBudget = presentableAddMonthlyBudget;
     }
 
     @RequestMapping(value = MONTHLYBUDGET_ADD, method = POST)
@@ -60,7 +57,6 @@ public class MonthlyBudgetController {
 
     @RequestMapping(value = MONTHLYBUDGET_ADD, method = GET)
     public String addMonthlyBudget(Model model) {
-        presentableAddMonthlyBudget.display(model);
         return MONTHLYBUDGET_ADD;
     }
 
