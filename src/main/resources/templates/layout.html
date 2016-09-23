@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BBuddy</title>
+    <title>{{label.title}}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/css/layout.css" rel="stylesheet" />
@@ -11,20 +11,20 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">{{label.togglenavigation}}</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">BBuddy</a>
+            <a class="navbar-brand" href="#">{{label.title}}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">Dashboard</a></li>
+                <li><a href="/">{{label.dashboard}}</a></li>
                 <li><a href="#">{{user}}</a></li>
                 <li>
                     <form action="/signout" method="post" class="navbar-form navbar-left">
-                        <button type="submit" class="btn btn-default">Sign Out</button>
+                        <button type="submit" class="btn btn-default">{{label.signout}}</button>
                     </form>
                 </li>
             </ul>
@@ -36,11 +36,11 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="/">Overview <span class="sr-only">(current)</span></a></li>
-                <li><a href="{{monthlyBudgetAddUrl}}">Budget Plan</a></li>
-                <li><a href="#">Analytics</a></li>
-                <li><a href="{{transactionsUrl}}">Transactions</a></li>
-                <li><a href="#">Export</a></li>
+                <li><a href="/">{{label.overview}} <span class="sr-only">(current)</span></a></li>
+                <li><a href="{{monthlyBudgetAddUrl}}">{{label.budgetplan}}</a></li>
+                <li><a href="#">{{label.analytics}}</a></li>
+                <li><a href="{{transactionsUrl}}">{{label.transactions}}</a></li>
+                <li><a href="#">{{label.export}}</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
@@ -51,8 +51,8 @@
 
 <hr/>
 
-<footer class="container">
-    <p>&copy; 2016 Odd-e</p>
+<footer class="container" >
+    <p align="center">{{label.logo}}</p>
 </footer>
 
 <script src="/webjars/jquery/3.1.0/jquery.min.js"></script>
