@@ -6,10 +6,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION;
+import static com.odde.bbuddy.common.controller.Urls.*;
 
 public class LayoutNavigationInterceptor implements HandlerInterceptor {
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return true;
@@ -19,6 +19,7 @@ public class LayoutNavigationInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         modelAndView.addObject("monthlyBudgetAddUrl", MONTHLYBUDGET_ADD);
         modelAndView.addObject("transactionsUrl", TRANSACTION);
+        modelAndView.addObject("signoutUrl", SIGNOUT);
     }
 
     @Override
