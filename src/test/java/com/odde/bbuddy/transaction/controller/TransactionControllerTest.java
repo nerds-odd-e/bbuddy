@@ -18,7 +18,6 @@ import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_INDEX;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -54,7 +53,7 @@ public class TransactionControllerTest {
         }
 
         private String addTransaction() {
-            return controller.addTransaction(mockModel);
+            return controller.addTransaction();
         }
     }
 
@@ -181,7 +180,7 @@ public class TransactionControllerTest {
     }
 
     private void verifyPresentableAddTransactionDisplay() {
-        verify(mockPresentableAddTransaction).display(mockModel, values());
+        verify(mockPresentableAddTransaction).display();
     }
 
 }

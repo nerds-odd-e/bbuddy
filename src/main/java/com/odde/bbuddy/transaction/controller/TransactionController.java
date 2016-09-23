@@ -20,7 +20,6 @@ import javax.validation.Valid;
 import static com.odde.bbuddy.common.controller.ControllerHelper.thenSetMessage;
 import static com.odde.bbuddy.common.controller.Urls.*;
 import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.*;
 
 @Controller
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
@@ -53,12 +52,12 @@ public class TransactionController {
             transactions.add(transaction)
                     .success(thenSetMessage(model, successMessage))
                     .failed(thenSetMessage(model, failedMessage));
-        return addTransaction(model);
+        return addTransaction();
     }
 
     @GetMapping(ADD)
-    public String addTransaction(Model model) {
-        presentableAddTransaction.display(model, values());
+    public String addTransaction() {
+        presentableAddTransaction.display();
         return TRANSACTION_ADD;
     }
 
