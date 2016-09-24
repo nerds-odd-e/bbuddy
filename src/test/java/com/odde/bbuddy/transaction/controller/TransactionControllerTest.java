@@ -2,6 +2,7 @@ package com.odde.bbuddy.transaction.controller;
 
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.common.callback.PostActions;
+import com.odde.bbuddy.common.view.Message;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.view.PresentableAddTransaction;
@@ -9,7 +10,6 @@ import com.odde.bbuddy.transaction.view.PresentableTransactions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
 import java.util.function.Consumer;
@@ -28,8 +28,8 @@ public class TransactionControllerTest {
     Transactions mockTransactions = mock(Transactions.class);
     PresentableAddTransaction mockPresentableAddTransaction = mock(PresentableAddTransaction.class);
     PresentableTransactions mockPresentableTransactions = mock(PresentableTransactions.class);
-    TransactionController controller = new TransactionController(mockTransactions, mockPresentableAddTransaction, mockPresentableTransactions);
-    Model mockModel = mock(Model.class);
+    Message mockMessage = mock(Message.class);
+    TransactionController controller = new TransactionController(mockTransactions, mockPresentableAddTransaction, mockPresentableTransactions, mockMessage);
     Transaction transaction = new Transaction();
     BindingResult stubBindingResult = mock(BindingResult.class);
 
@@ -84,25 +84,25 @@ public class TransactionControllerTest {
         }
 
         @Test
-        public void should_return_add_success_message_to_page() {
+        public void should_display_success_message() {
             controller.successMessage = "a success message";
 
             submitTransactionAdd(transaction);
 
-            verify(mockModel).addAttribute("message", "a success message");
+            verify(mockMessage).display("a success message");
         }
     }
 
     public class AddSubmitFailed {
 
         @Test
-        public void should_return_add_failed_message_to_page() {
+        public void should_display_failed_message() {
             given_add_transaction_will(failed());
             controller.failedMessage = "a failed message";
 
             submitTransactionAdd(transaction);
 
-            verify(mockModel).addAttribute("message", "a failed message");
+            verify(mockMessage).display("a failed message");
         }
 
     }
@@ -172,7 +172,7 @@ public class TransactionControllerTest {
     }
 
     private String submitTransactionAdd(Transaction transaction) {
-        return controller.submitAddTransaction(transaction, stubBindingResult, mockModel);
+        return controller.submitAddTransaction(transaction, stubBindingResult);
     }
 
     private void given_add_transaction_will(PostActions postActions) {
