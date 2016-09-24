@@ -1,6 +1,6 @@
 package com.odde.bbuddy.transaction.view;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import com.odde.bbuddy.common.view.Model;
 import org.junit.Test;
 
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
@@ -11,11 +11,11 @@ public class PresentableAddTransactionTest {
 
     @Test
     public void should_pass_type_values_to_page() {
-        HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
-        PresentableAddTransaction presentableAddTransaction = new PresentableAddTransaction(mockHttpServletRequest);
+        Model mockModel = mock(Model.class);
+        PresentableAddTransaction presentableAddTransaction = new PresentableAddTransaction(mockModel);
 
         presentableAddTransaction.display();
 
-        verify(mockHttpServletRequest).setAttribute("types", values());
+        verify(mockModel).addAttribute("types", values());
     }
 }

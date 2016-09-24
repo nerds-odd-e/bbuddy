@@ -1,6 +1,5 @@
 package com.odde.bbuddy.common.view;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
@@ -8,8 +7,8 @@ import static org.mockito.Mockito.verify;
 
 public class SignInViewTest {
 
-    HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
-    SignInView view = new SignInView(mockHttpServletRequest);
+    Model mockModel = mock(Model.class);
+    SignInView view = new SignInView(mockModel);
 
     @Test
     public void message_when_sign_in_error() {
@@ -17,8 +16,8 @@ public class SignInViewTest {
 
         view.display("any error", null);
 
-        verify(mockHttpServletRequest).setAttribute("message", "a failed message");
-        verify(mockHttpServletRequest).setAttribute("type", "danger");
+        verify(mockModel).addAttribute("message", "a failed message");
+        verify(mockModel).addAttribute("type", "danger");
     }
 
     @Test
@@ -27,7 +26,7 @@ public class SignInViewTest {
 
         view.display(null, "something logout");
 
-        verify(mockHttpServletRequest).setAttribute("message", "a logout message");
-        verify(mockHttpServletRequest).setAttribute("type", "info");
+        verify(mockModel).addAttribute("message", "a logout message");
+        verify(mockModel).addAttribute("type", "info");
     }
 }

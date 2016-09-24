@@ -1,6 +1,6 @@
 package com.odde.bbuddy.budget.view;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import com.odde.bbuddy.common.view.Model;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
@@ -10,12 +10,12 @@ public class PresentableMonthlyBudgetAmountTest {
 
     @Test
     public void should_pass_amount_message_to_page() {
-        HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
-        PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = new PresentableMonthlyBudgetAmount(mockHttpServletRequest);
+        Model mockModel = mock(Model.class);
+        PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = new PresentableMonthlyBudgetAmount(mockModel);
         presentableMonthlyBudgetAmount.message = "Amount is %s";
 
         presentableMonthlyBudgetAmount.display(100);
 
-        verify(mockHttpServletRequest).setAttribute("amount", "Amount is 100");
+        verify(mockModel).addAttribute("amount", "Amount is 100");
     }
 }
