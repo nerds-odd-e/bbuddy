@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common;
+package com.odde.bbuddy.common.config;
 
 import com.github.mjeanroy.springmvc.view.mustache.MustacheViewResolver;
 import org.springframework.beans.BeansException;

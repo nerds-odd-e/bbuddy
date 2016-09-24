@@ -1,5 +1,6 @@
-package com.odde.bbuddy.common.interceptor;
+package com.odde.bbuddy.common.config;
 
+import com.odde.bbuddy.common.interceptor.*;
 import com.odde.bbuddy.common.view.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
