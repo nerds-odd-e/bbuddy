@@ -1,0 +1,17 @@
+spring:
+    datasource:
+        password: dbs3cr3t
+        testWhileIdle: true
+        url: jdbc:mysql://localhost:3306/bbuddy?createDatabaseIfNotExist=true&useSSL=false
+        username: nerd
+        validationQuery: SELECT 1
+    jpa:
+        hibernate:
+            ddl-auto: update
+            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5Dialect
+        show-sql: true
+    messages:
+        basename: BindingErrorMessages

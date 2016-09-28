@@ -1,6 +1,5 @@
-package com.odde.bbuddy.common.controller;
+package com.odde.bbuddy.common.interceptor;
 
-import com.odde.bbuddy.common.controller.LayoutNavigationInterceptor;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -8,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_LIST;
+import static com.odde.bbuddy.common.controller.Urls.SIGNOUT;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -27,6 +26,7 @@ public class LayoutNavigationTest {
         interceptor.postHandle(anyRequest, anyResponse, anyHandler, modelAndView);
 
         assertThat(modelAndView.getModelMap().get("monthlyBudgetAddUrl")).isEqualTo(MONTHLYBUDGET_ADD);
-        assertThat(modelAndView.getModelMap().get("transactionsUrl")).isEqualTo(TRANSACTION_LIST);
+        assertThat(modelAndView.getModelMap().get("transactionsUrl")).isEqualTo(TRANSACTION);
+        assertThat(modelAndView.getModelMap().get("signoutUrl")).isEqualTo(SIGNOUT);
     }
 }

@@ -10,12 +10,13 @@ import org.springframework.stereotype.Component;
 @Scope("cucumber-glue")
 @PropertySources({
         @PropertySource("classpath:ValidationMessages.properties"),
-        @PropertySource("classpath:BindingErrorMessages.properties")
+        @PropertySource("classpath:BindingErrorMessages.properties"),
+        @PropertySource("classpath:labelText.properties")
 })
-public class ErrorMessages {
+public class Messages {
 
-    @Value("${org.hibernate.validator.constraints.NotEmpty.message}")
-    public String notEmpty;
+    @Value("${org.hibernate.validator.constraints.NotBlank.message}")
+    public String notBlank;
 
     @Value("${javax.validation.constraints.NotNull.message}")
     public String notNull;
@@ -25,4 +26,7 @@ public class ErrorMessages {
 
     @Value("${typeMismatch.java.lang.Integer}")
     public String invalidNumber;
+
+    @Value("${home.label.welcome}")
+    public String welcome;
 }

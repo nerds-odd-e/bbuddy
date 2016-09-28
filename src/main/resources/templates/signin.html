@@ -1,19 +1,19 @@
 <link href="/css/signin.css" rel="stylesheet" />
 <div class="container">
-    <form class="form-signin" action="/signin" method="post">
-        <h2 class="form-signin-heading">Please sign in</h2>
+    <form class="form-signin" method="post">
+        <h2 class="form-signin-heading">{{label.head}}</h2>
         <div class="alert alert-{{type}}" role="alert">
             {{message}}
         </div>
-        <label for="username" class="sr-only">User Name</label>
-        <input type="username" id="username" name="username" class="form-control" placeholder="User Name" required autofocus>
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+        <label for="username" class="sr-only">{{label.username}}</label>
+        <input type="username" id="username" name="username" class="form-control" placeholder="{{label.username}}" required autofocus>
+        <label for="password" class="sr-only">{{label.password}}</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="{{label.password}}" required>
         <div class="checkbox">
             <label>
-                <input type="checkbox" value="remember-me"> Remember me
+                <input type="checkbox" value="remember-me"> {{label.rememberme}}
             </label>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">{{label.submit}}</button>
     </form>
 </div>

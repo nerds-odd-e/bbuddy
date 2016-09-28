@@ -1,7 +1,8 @@
-package com.odde.bbuddy.common.controller;
+package com.odde.bbuddy.common.config;
 
+import com.odde.bbuddy.common.interceptor.*;
+import com.odde.bbuddy.common.view.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -10,13 +11,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
-    MessageSource messageSource;
+    ErrorMessage errorMessage;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthenticationInterceptor());
         registry.addInterceptor(new LayoutNavigationInterceptor());
-        registry.addInterceptor(new ErrorMessageInterceptor(messageSource));
+        registry.addInterceptor(new ErrorMessageInterceptor(errorMessage));
+        registry.addInterceptor(new LabelTextInterceptor(new ExposedResourceBundleMessageSource()));
         super.addInterceptors(registry);
     }
 }

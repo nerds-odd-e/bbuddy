@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common.controller;
+package com.odde.bbuddy.common.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -6,7 +6,10 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AuthenticationInterceptor implements HandlerInterceptor {
+import static com.odde.bbuddy.common.controller.Urls.*;
+
+public class LayoutNavigationInterceptor implements HandlerInterceptor {
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return true;
@@ -14,7 +17,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        modelAndView.addObject("user", request.getRemoteUser());
+        modelAndView.addObject("monthlyBudgetAddUrl", MONTHLYBUDGET_ADD);
+        modelAndView.addObject("transactionsUrl", TRANSACTION);
+        modelAndView.addObject("signoutUrl", SIGNOUT);
     }
 
     @Override

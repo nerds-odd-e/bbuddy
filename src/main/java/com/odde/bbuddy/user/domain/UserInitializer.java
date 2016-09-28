@@ -13,7 +13,7 @@ public class UserInitializer {
     UserRepo userRepo;
 
     @PostConstruct
-    public void afterPropertiesSet() throws Exception {
+    public void createDefaultUser() {
         userRepo.deleteAll();
         userRepo.save(new User("user", "password"));
     }

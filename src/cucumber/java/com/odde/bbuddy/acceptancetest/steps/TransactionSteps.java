@@ -55,7 +55,7 @@ public class TransactionSteps {
     }
 
     @Then("^you will see all transactions as below$")
-    public void you_will_see_all_transactions_as_belw(@Format(DAY) List<PresentableTransaction> transactions) throws Throwable {
+    public void you_will_see_all_transactions_as_below(@Format(DAY) List<PresentableTransaction> transactions) throws Throwable {
         transactions.forEach(transaction -> assertThat(commonPage.getAllText()).contains(transaction.allViewText()));
     }
 

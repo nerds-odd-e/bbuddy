@@ -1,22 +1,32 @@
 package com.odde.bbuddy.transaction.view;
 
+import com.odde.bbuddy.common.view.Model;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
-import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
 import static com.odde.bbuddy.common.BeanUtils.copyProperties;
+import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 
+@Component
+@PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PresentableTransactions extends ArrayList<PresentableTransaction> {
-    private final Model model;
-    private final String message;
 
-    public PresentableTransactions(Model model, String message, Transactions transactions) {
+    private final Transactions transactions;
+    private final Model model;
+
+    @Value("${transaction.list.empty}")
+    String noTransactionMessage;
+
+    @Autowired
+    public PresentableTransactions(Transactions transactions, Model model) {
+        this.transactions = transactions;
         this.model = model;
-        this.message = message;
-        transactions.processAll(this::add);
-        this.model.addAttribute("transactions", this);
     }
 
     private void add(Transaction transaction) {
@@ -25,12 +35,12 @@ public class PresentableTransactions extends ArrayList<PresentableTransaction> {
         add(pt);
     }
 
-    public String display() {
+    public String hidden() {
         return isEmpty() ? "hidden" : "";
     }
 
     public String message() {
-        return isEmpty() ? message : "";
+        return isEmpty() ? noTransactionMessage : "";
     }
 
     public int totalIncome() {
@@ -43,5 +53,10 @@ public class PresentableTransactions extends ArrayList<PresentableTransaction> {
 
     public int balance() {
         return -16000;
+    }
+
+    public void display() {
+        transactions.processAll(this::add);
+        model.addAttribute("transactions", this);
     }
 }
