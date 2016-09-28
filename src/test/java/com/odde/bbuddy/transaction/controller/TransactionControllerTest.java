@@ -12,12 +12,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.validation.BindingResult;
 
-import java.util.function.Consumer;
-
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_INDEX;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -27,9 +24,9 @@ public class TransactionControllerTest {
 
     Transactions mockTransactions = mock(Transactions.class);
     PresentableAddTransaction mockPresentableAddTransaction = mock(PresentableAddTransaction.class);
-    PresentableTransactions mockPresentableTransactions = mock(PresentableTransactions.class);
+    PresentableTransactions presentableTransactions = new PresentableTransactions(mockTransactions, "whatever message");
     Message mockMessage = mock(Message.class);
-    TransactionController controller = new TransactionController(mockTransactions, mockPresentableAddTransaction, mockPresentableTransactions, mockMessage);
+    TransactionController controller = new TransactionController(mockTransactions, mockPresentableAddTransaction, presentableTransactions, mockMessage);
     Transaction transaction = new Transaction();
     BindingResult stubBindingResult = mock(BindingResult.class);
 
@@ -133,36 +130,6 @@ public class TransactionControllerTest {
             submitTransactionAdd(invalidTransaction);
 
             verifyPresentableAddTransactionDisplay();
-        }
-
-    }
-
-    public class List {
-
-        @Test
-        public void should_go_to_transaction_list_page() {
-            assertThat(showAllTransactions()).isEqualTo(TRANSACTION_INDEX);
-        }
-
-        @Test
-        public void should_display_view() {
-            given_exists_transactions(transaction);
-
-            showAllTransactions();
-
-            verify(mockPresentableTransactions).display();
-        }
-
-        private void given_exists_transactions(Transaction transaction) {
-            doAnswer(invocation -> {
-                Consumer<Transaction> consumer = (Consumer<Transaction>) invocation.getArguments()[0];
-                consumer.accept(transaction);
-                return null;
-            }).when(mockTransactions).processAll(any(Consumer.class));
-        }
-
-        private String showAllTransactions() {
-            return controller.index();
         }
 
     }

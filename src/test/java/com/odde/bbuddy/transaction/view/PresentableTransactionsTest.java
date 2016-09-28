@@ -1,7 +1,6 @@
 package com.odde.bbuddy.transaction.view;
 
 import com.nitorcreations.junit.runners.NestedRunner;
-import com.odde.bbuddy.common.view.Model;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import org.junit.Before;
@@ -9,22 +8,29 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import static com.odde.bbuddy.common.Formats.parseDay;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_INDEX;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.Income;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
 
 @RunWith(NestedRunner.class)
 public class PresentableTransactionsTest {
 
     Transactions stubTransactions = mock(Transactions.class);
-    Model mockModel = mock(Model.class);
-    PresentableTransactions presentableTransactions = new PresentableTransactions(stubTransactions, mockModel);
+
+    @Test
+    public void should_go_to_index_page() {
+        assertThat(presentableTransactions().getViewName()).isEqualTo(TRANSACTION_INDEX);
+    }
 
     public class NoTransaction {
 
@@ -35,18 +41,14 @@ public class PresentableTransactionsTest {
 
         @Test
         public void should_hide_list_view() {
-            display();
-
-            assertThat(presentableTransactions.hidden()).isEqualTo("hidden");
+            assertThat(modelOfPresentableTransactions().get("hidden")).isEqualTo("hidden");
         }
 
         @Test
         public void should_show_message() {
-            presentableTransactions.noTransactionMessage = "no transaction message";
+            PresentableTransactions presentableTransactions = new PresentableTransactions(stubTransactions, "no transaction message");
 
-            display();
-
-            assertThat(presentableTransactions.message()).isEqualTo("no transaction message");
+            assertThat(presentableTransactions.getModel().get("message")).isEqualTo("no transaction message");
         }
 
     }
@@ -63,24 +65,17 @@ public class PresentableTransactionsTest {
 
         @Test
         public void should_not_hide_list_view() {
-            display();
-
-            assertThat(presentableTransactions.hidden()).isEqualTo("");
+            assertThat(modelOfPresentableTransactions()).doesNotContainKey("hidden");
         }
 
         @Test
         public void should_not_show_message() {
-            display();
-
-            assertThat(presentableTransactions.message()).isEqualTo("");
+            assertThat(modelOfPresentableTransactions()).doesNotContainKey("message");
         }
 
         @Test
         public void should_pass_transaction_to_page() {
-            display();
-
-            verify(mockModel).addAttribute("transactions", presentableTransactions);
-            assertThat(presentableTransactions)
+            assertThat((List<PresentableTransaction>)modelOfPresentableTransactions().get("transactions"))
                     .usingFieldByFieldElementComparator()
                     .containsExactly(presentableTransaction(Income, "description", date, amount));
         }
@@ -113,8 +108,12 @@ public class PresentableTransactionsTest {
         }).when(stubTransactions).processAll(any(Consumer.class));
     }
 
-    private void display() {
-        presentableTransactions.display();
+    private Map<String, Object> modelOfPresentableTransactions() {
+        return presentableTransactions().getModel();
+    }
+
+    private PresentableTransactions presentableTransactions() {
+        return new PresentableTransactions(stubTransactions, "whatever message");
     }
 
 }
