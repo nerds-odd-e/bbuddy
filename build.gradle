@@ -56,14 +56,14 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-test:1.4.0.RELEASE",
             "junit:junit:4.12",
             "org.mockito:mockito-all:1.10.19",
-            "info.cukes:cucumber-java:1.2.4",
-            "info.cukes:cucumber-spring:1.2.4",
+            "info.cukes:cucumber-java:1.2.5",
+            "info.cukes:cucumber-spring:1.2.5",
             "org.seleniumhq.selenium:selenium-java:2.53.1",
             "org.assertj:assertj-core:3.5.2",
             "com.nitorcreations:junit-runners:1.2",
     )
 
-    cucumberRuntime "info.cukes:cucumber-java:1.2.4"
+    cucumberRuntime "info.cukes:cucumber-java:1.2.5"
 }
 
 task bootRunByPort() {
