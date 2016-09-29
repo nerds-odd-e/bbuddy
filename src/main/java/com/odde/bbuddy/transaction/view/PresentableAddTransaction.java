@@ -1,22 +1,20 @@
 package com.odde.bbuddy.transaction.view;
 
-import com.odde.bbuddy.common.view.Model;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
 
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
+import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
 @Component
-public class PresentableAddTransaction {
+@Scope(value = "request", proxyMode = TARGET_CLASS)
+public class PresentableAddTransaction extends ModelAndView {
 
-    private final Model model;
-
-    @Autowired
-    public PresentableAddTransaction(Model model) {
-        this.model = model;
+    public PresentableAddTransaction() {
+        addObject("types", values());
+        setViewName(TRANSACTION_ADD);
     }
 
-    public void display() {
-        model.addAttribute("types", values());
-    }
 }

@@ -1,21 +1,22 @@
 package com.odde.bbuddy.transaction.view;
 
-import com.odde.bbuddy.common.view.Model;
 import org.junit.Test;
 
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class PresentableAddTransactionTest {
 
+    PresentableAddTransaction presentableAddTransaction = new PresentableAddTransaction();
+
     @Test
     public void should_pass_type_values_to_page() {
-        Model mockModel = mock(Model.class);
-        PresentableAddTransaction presentableAddTransaction = new PresentableAddTransaction(mockModel);
+        assertThat(presentableAddTransaction.getModel().get("types")).isEqualTo(values());
+    }
 
-        presentableAddTransaction.display();
-
-        verify(mockModel).addAttribute("types", values());
+    @Test
+    public void should_go_to_transaction_add_page() {
+        assertThat(presentableAddTransaction.getViewName()).isEqualTo(TRANSACTION_ADD);
     }
 }
