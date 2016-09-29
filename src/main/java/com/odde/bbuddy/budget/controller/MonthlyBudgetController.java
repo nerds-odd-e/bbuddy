@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -60,11 +61,10 @@ public class MonthlyBudgetController {
     }
 
     @GetMapping(TOTALAMOUNT)
-    public String totalAmountOfMonthlyBudget(
+    public ModelAndView totalAmountOfMonthlyBudget(
             @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
             @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate) {
-        presentableMonthlyBudgetAmount.display(planner.getAmount(startDate, endDate));
-        return MONTHLYBUDGET_TOTALAMOUNT;
+        return presentableMonthlyBudgetAmount.display(planner.getAmount(startDate, endDate));
     }
 
 }

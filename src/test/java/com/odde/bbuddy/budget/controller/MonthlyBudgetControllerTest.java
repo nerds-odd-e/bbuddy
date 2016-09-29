@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 
@@ -17,7 +18,6 @@ import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_ADD;
-import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -26,9 +26,8 @@ import static org.mockito.Mockito.*;
 public class MonthlyBudgetControllerTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
-    PresentableMonthlyBudgetAmount mockPresentableMonthlyBudgetAmount = mock(PresentableMonthlyBudgetAmount.class);
     Message mockMessage = mock(Message.class);
-    MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount, mockMessage);
+    MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, new PresentableMonthlyBudgetAmount(), mockMessage);
     BindingResult stubBindingResult = mock(BindingResult.class);
 
     @Before
@@ -117,12 +116,20 @@ public class MonthlyBudgetControllerTest {
 
     public class GetAmount {
 
+        private final long total = 100L;
         Date startDate = parseDay("2016-07-01");
         Date endDate = parseDay("2016-07-10");
 
+        MonthlyBudgetController controller = new MonthlyBudgetController(
+                mockPlanner,
+                new PresentableMonthlyBudgetAmount() {{
+                    message = "whatever message";
+                }},
+                mockMessage);
+
         @Test
-        public void should_go_to_get_amount_page() {
-            assertThat(getAmount()).isEqualTo(MONTHLYBUDGET_TOTALAMOUNT);
+        public void should_display_view() {
+            assertThat(getAmount()).isInstanceOf(PresentableMonthlyBudgetAmount.class);
         }
 
         @Test
@@ -134,14 +141,20 @@ public class MonthlyBudgetControllerTest {
 
         @Test
         public void should_pass_amount_to_page() {
-            when(mockPlanner.getAmount(startDate, endDate)).thenReturn(100L);
+            given_planner_will_return_total_as(total);
+            PresentableMonthlyBudgetAmount mockPresentableMonthlyBudgetAmount = mock(PresentableMonthlyBudgetAmount.class);
+            controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount, mockMessage);
 
             getAmount();
 
-            verify(mockPresentableMonthlyBudgetAmount).display(100L);
+            verify(mockPresentableMonthlyBudgetAmount).display(total);
         }
 
-        private String getAmount() {
+        private void given_planner_will_return_total_as(long total) {
+            when(mockPlanner.getAmount(startDate, endDate)).thenReturn(total);
+        }
+
+        private ModelAndView getAmount() {
             return controller.totalAmountOfMonthlyBudget(startDate, endDate);
         }
 
