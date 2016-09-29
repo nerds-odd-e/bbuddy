@@ -23,10 +23,9 @@ import static org.mockito.Mockito.*;
 public class TransactionControllerTest {
 
     Transactions mockTransactions = mock(Transactions.class);
-    PresentableAddTransaction mockPresentableAddTransaction = mock(PresentableAddTransaction.class);
     PresentableTransactions presentableTransactions = new PresentableTransactions(mockTransactions, "whatever message");
     Message mockMessage = mock(Message.class);
-    TransactionController controller = new TransactionController(mockTransactions, mockPresentableAddTransaction, presentableTransactions, mockMessage);
+    TransactionController controller = new TransactionController(mockTransactions, new PresentableAddTransaction(), presentableTransactions, mockMessage);
     Transaction transaction = new Transaction();
     BindingResult stubBindingResult = mock(BindingResult.class);
 

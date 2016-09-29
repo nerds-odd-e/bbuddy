@@ -9,9 +9,9 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
-public class Home extends ModelAndView {
+public class HomeView extends ModelAndView {
 
-    public Home() {
+    public HomeView() {
         setViewName(HOME);
     }
 }

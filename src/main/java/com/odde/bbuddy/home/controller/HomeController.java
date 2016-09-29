@@ -1,6 +1,6 @@
 package com.odde.bbuddy.home.controller;
 
-import com.odde.bbuddy.home.view.Home;
+import com.odde.bbuddy.home.view.HomeView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +14,10 @@ import static com.odde.bbuddy.common.controller.Urls.ROOT;
 public class HomeController {
 
     @Autowired
-    Home home;
+    HomeView homeView;
 
     @GetMapping
     public ModelAndView index(){
-        return home;
+        return homeView;
     }
 }
