@@ -3,30 +3,27 @@ package com.odde.bbuddy.common.view;
 import com.odde.bbuddy.common.controller.SessionController;
 import org.junit.Test;
 
-import static com.odde.bbuddy.common.controller.Urls.SIGNIN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class SessionControllerTest {
 
-    SignInView mockSignInView = mock(SignInView.class);
-    SessionController controller = new SessionController(mockSignInView);
-
-    @Test
-    public void should_go_to_sign_in() {
-        assertThat(signInFailed(controller)).isEqualTo(SIGNIN);
-    }
-
     @Test
     public void should_display_view() {
-        signInFailed(controller);
+        SessionController controller = new SessionController(new SignInView());
 
-        verify(mockSignInView).display("error", "logout");
+        assertThat(controller.signIn("error", "logout")).isInstanceOf(SignInView.class);
     }
 
-    private String signInFailed(SessionController controller) {
-        return controller.signIn("error", "logout");
+    @Test
+    public void should_pass_error_and_logout_to_view() {
+        SignInView mockSignInView = mock(SignInView.class);
+        SessionController controller = new SessionController(mockSignInView);
+
+        controller.signIn("error", "logout");
+
+        verify(mockSignInView).display("error", "logout");
     }
 
 }

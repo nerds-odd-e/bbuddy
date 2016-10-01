@@ -11,13 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.validation.BindingResult;
-
-import java.util.function.Consumer;
+import org.springframework.web.servlet.ModelAndView;
 
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_INDEX;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -26,10 +23,9 @@ import static org.mockito.Mockito.*;
 public class TransactionControllerTest {
 
     Transactions mockTransactions = mock(Transactions.class);
-    PresentableAddTransaction mockPresentableAddTransaction = mock(PresentableAddTransaction.class);
-    PresentableTransactions mockPresentableTransactions = mock(PresentableTransactions.class);
+    PresentableTransactions presentableTransactions = new PresentableTransactions(mockTransactions, "whatever message");
     Message mockMessage = mock(Message.class);
-    TransactionController controller = new TransactionController(mockTransactions, mockPresentableAddTransaction, mockPresentableTransactions, mockMessage);
+    TransactionController controller = new TransactionController(mockTransactions, new PresentableAddTransaction(), presentableTransactions, mockMessage);
     Transaction transaction = new Transaction();
     BindingResult stubBindingResult = mock(BindingResult.class);
 
@@ -41,20 +37,10 @@ public class TransactionControllerTest {
     public class Add {
 
         @Test
-        public void should_go_to_transaction_add_page() {
-            assertThat(addTransaction()).isEqualTo(TRANSACTION_ADD);
-        }
-
-        @Test
         public void should_display_view() {
-            addTransaction();
-
-            verifyPresentableAddTransactionDisplay();
+            assertThat(controller.addTransaction()).isInstanceOf(PresentableAddTransaction.class);
         }
 
-        private String addTransaction() {
-            return controller.addTransaction();
-        }
     }
 
     public class AddSubmitSuccess {
@@ -65,15 +51,8 @@ public class TransactionControllerTest {
         }
 
         @Test
-        public void should_go_to_transaction_add_page() {
-            assertThat(submitTransactionAdd(transaction)).isEqualTo(TRANSACTION_ADD);
-        }
-
-        @Test
         public void should_display_view() {
-            submitTransactionAdd(transaction);
-
-            verifyPresentableAddTransactionDisplay();
+            assertThat(submitTransactionAdd(transaction)).isInstanceOf(PresentableAddTransaction.class);
         }
 
         @Test
@@ -124,15 +103,8 @@ public class TransactionControllerTest {
         }
 
         @Test
-        public void should_go_to_add_transaction_page() {
-            assertThat(submitTransactionAdd(invalidTransaction)).isEqualTo(TRANSACTION_ADD);
-        }
-
-        @Test
         public void should_display_view() {
-            submitTransactionAdd(invalidTransaction);
-
-            verifyPresentableAddTransactionDisplay();
+            assertThat(submitTransactionAdd(invalidTransaction)).isInstanceOf(PresentableAddTransaction.class);
         }
 
     }
@@ -140,47 +112,21 @@ public class TransactionControllerTest {
     public class List {
 
         @Test
-        public void should_go_to_transaction_list_page() {
-            assertThat(showAllTransactions()).isEqualTo(TRANSACTION_INDEX);
-        }
-
-        @Test
         public void should_display_view() {
-            given_exists_transactions(transaction);
-
-            showAllTransactions();
-
-            verify(mockPresentableTransactions).display();
+            assertThat(controller.index()).isInstanceOf(PresentableTransactions.class);
         }
-
-        private void given_exists_transactions(Transaction transaction) {
-            doAnswer(invocation -> {
-                Consumer<Transaction> consumer = (Consumer<Transaction>) invocation.getArguments()[0];
-                consumer.accept(transaction);
-                return null;
-            }).when(mockTransactions).processAll(any(Consumer.class));
-        }
-
-        private String showAllTransactions() {
-            return controller.index();
-        }
-
     }
 
     private void given_has_field_error(boolean value) {
         when(stubBindingResult.hasFieldErrors()).thenReturn(value);
     }
 
-    private String submitTransactionAdd(Transaction transaction) {
+    private ModelAndView submitTransactionAdd(Transaction transaction) {
         return controller.submitAddTransaction(transaction, stubBindingResult);
     }
 
     private void given_add_transaction_will(PostActions postActions) {
         when(mockTransactions.add(any(Transaction.class))).thenReturn(postActions);
-    }
-
-    private void verifyPresentableAddTransactionDisplay() {
-        verify(mockPresentableAddTransaction).display();
     }
 
 }

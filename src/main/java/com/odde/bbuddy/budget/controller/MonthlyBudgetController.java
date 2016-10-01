@@ -2,6 +2,7 @@ package com.odde.bbuddy.budget.controller;
 
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
+import com.odde.bbuddy.budget.view.PresentableAddMonthlyBudget;
 import com.odde.bbuddy.budget.view.PresentableMonthlyBudgetAmount;
 import com.odde.bbuddy.common.view.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -25,6 +27,7 @@ public class MonthlyBudgetController {
 
     private final MonthlyBudgetPlanner planner;
     private final PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount;
+    private final PresentableAddMonthlyBudget presentableAddMonthlyBudget;
     private final Message message;
 
     @Value("${monthlybudget.add.success}")
@@ -37,14 +40,16 @@ public class MonthlyBudgetController {
     public MonthlyBudgetController(
             MonthlyBudgetPlanner planner,
             PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount,
+            PresentableAddMonthlyBudget presentableAddMonthlyBudget,
             Message message) {
         this.planner = planner;
         this.presentableMonthlyBudgetAmount = presentableMonthlyBudgetAmount;
+        this.presentableAddMonthlyBudget = presentableAddMonthlyBudget;
         this.message = message;
     }
 
     @PostMapping(ADD)
-    public String submitAddMonthlyBudget(
+    public ModelAndView submitAddMonthlyBudget(
             @Valid @ModelAttribute MonthlyBudget monthlyBudget,
             BindingResult result) {
         if (!result.hasFieldErrors())
@@ -55,16 +60,15 @@ public class MonthlyBudgetController {
     }
 
     @GetMapping(ADD)
-    public String addMonthlyBudget() {
-        return MONTHLYBUDGET_ADD;
+    public ModelAndView addMonthlyBudget() {
+        return presentableAddMonthlyBudget;
     }
 
     @GetMapping(TOTALAMOUNT)
-    public String totalAmountOfMonthlyBudget(
+    public ModelAndView totalAmountOfMonthlyBudget(
             @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
             @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate) {
-        presentableMonthlyBudgetAmount.display(planner.getAmount(startDate, endDate));
-        return MONTHLYBUDGET_TOTALAMOUNT;
+        return presentableMonthlyBudgetAmount.display(planner.getAmount(startDate, endDate));
     }
 
 }

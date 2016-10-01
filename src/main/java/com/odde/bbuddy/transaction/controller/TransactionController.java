@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -49,7 +50,7 @@ public class TransactionController {
     }
 
     @PostMapping(ADD)
-    public String submitAddTransaction(
+    public ModelAndView submitAddTransaction(
             @Valid @ModelAttribute Transaction transaction,
             BindingResult result) {
         if (!result.hasFieldErrors())
@@ -60,16 +61,13 @@ public class TransactionController {
     }
 
     @GetMapping(ADD)
-    public String addTransaction() {
-        presentableAddTransaction.display();
-        return TRANSACTION_ADD;
+    public ModelAndView addTransaction() {
+        return presentableAddTransaction;
     }
 
     @GetMapping
-    public String index() {
-        presentableTransactions.display();
-
-        return TRANSACTION_INDEX;
+    public ModelAndView index() {
+        return presentableTransactions;
     }
 
 }
