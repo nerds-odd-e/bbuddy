@@ -1,5 +1,5 @@
 <div class="panel panel-primary">
-    <div class="panel-heading">Panel heading</div>
+    <div class="panel-heading">Transactions</div>
     <div class="panel-body">{{transactions.message}}</div>
     <table class="table table-hover" {{transactions.hidden}}>
         <thead>
@@ -23,9 +23,9 @@
     </table>
     <div class="panel-footer" {{transactions.hidden}}>
         <div class="row">
-            <div class="col-md-4">Total Income is {{transactions.totalIncome}}</div>
-            <div class="col-md-4">Total Outcome is {{transactions.totalOutcome}}</div>
-            <div class="col-md-4">Balance is {{transactions.balance}}</div>
+            <div class="col-md-4">Total Income: {{transactions.totalIncome}}</div>
+            <div class="col-md-4">Total Outcome: {{transactions.totalOutcome}}</div>
+            <div class="col-md-4">Balance: {{transactions.balance}}</div>
         </div>
     </div>
 </div>
