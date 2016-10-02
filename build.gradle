@@ -14,15 +14,8 @@ plugins {
 }
 
 apply plugin: 'idea'
-idea {
-    module {
-        inheritOutputDirs = false
-        outputDir = file("$buildDir/classes/main/")
-    }
-}
 
 apply plugin: 'war'
-
 war {
     baseName = 'bbuddy'
     version =  'HEAD'
@@ -65,14 +58,6 @@ dependencies {
 
     cucumberRuntime "info.cukes:cucumber-java:1.2.5"
 }
-
-task bootRunByPort() {
-    bootRun {
-        def port = project.hasProperty("port") ? "$port" : 0
-        systemProperty "server.port", port
-    }
-}
-bootRunByPort.finalizedBy bootRun
 
 cucumber {
     if (project.hasProperty('tag')) {

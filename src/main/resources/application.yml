@@ -2,7 +2,6 @@ spring:
     datasource:
         password: dbs3cr3t
         testWhileIdle: true
-        url: jdbc:mysql://localhost:3306/bbuddy?createDatabaseIfNotExist=true&useSSL=false
         username: nerd
         validationQuery: SELECT 1
     jpa:
@@ -15,3 +14,26 @@ spring:
         show-sql: true
     messages:
         basename: BindingErrorMessages
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/bbuddydev?createDatabaseIfNotExist=true&useSSL=false
+
+server:
+  port: 8090
+
+---
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://localhost:3306/bbuddytest?createDatabaseIfNotExist=true&useSSL=false
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+server:
+  port: 8080
