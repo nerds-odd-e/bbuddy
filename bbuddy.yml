@@ -7,7 +7,7 @@
     - gradle
     - role: mysql
       mysql:
-        database: bbuddy
+        database: bbuddytest
         user: nerd
         password: dbs3cr3t
     - firefox
