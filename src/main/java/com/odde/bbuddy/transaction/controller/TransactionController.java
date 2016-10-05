@@ -4,6 +4,7 @@ import com.odde.bbuddy.common.view.Message;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.view.PresentableAddTransaction;
+import com.odde.bbuddy.transaction.view.PresentableSummaryOfTransactions;
 import com.odde.bbuddy.transaction.view.PresentableTransactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +30,8 @@ public class TransactionController {
     private final Transactions transactions;
     private final PresentableAddTransaction presentableAddTransaction;
     private final PresentableTransactions presentableTransactions;
+    private final PresentableSummaryOfTransactions presentableSummaryOfTransactions;
+
     private final Message message;
 
     @Value("${transaction.add.success}")
@@ -42,10 +45,12 @@ public class TransactionController {
             Transactions transactions,
             PresentableAddTransaction presentableAddTransaction,
             PresentableTransactions presentableTransactions,
+            PresentableSummaryOfTransactions presentableSummaryOfTransactions,
             Message message) {
         this.transactions = transactions;
         this.presentableAddTransaction = presentableAddTransaction;
         this.presentableTransactions = presentableTransactions;
+        this.presentableSummaryOfTransactions = presentableSummaryOfTransactions;
         this.message = message;
     }
 
@@ -67,7 +72,9 @@ public class TransactionController {
 
     @GetMapping
     public ModelAndView index() {
-        return presentableTransactions;
+        transactions.processAll(presentableTransactions::display)
+                .withSummary(presentableSummaryOfTransactions::display);
+        return presentableTransactions.with(presentableSummaryOfTransactions);
     }
 
 }

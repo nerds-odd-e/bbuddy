@@ -5,6 +5,7 @@ import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.function.Consumer;
 
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
@@ -28,8 +29,10 @@ public class Transactions {
         }
     }
 
-    public void processAll(Consumer<Transaction> consumer) {
-        repo.findAll().forEach(consumer::accept);
+    public TransactionsPostActions processAll(Consumer<Transaction> consumer) {
+        List<Transaction> all = repo.findAll();
+        all.forEach(consumer::accept);
+        return new SummaryOfTransactions(all);
     }
 
 }
