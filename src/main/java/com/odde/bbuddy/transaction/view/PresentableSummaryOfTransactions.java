@@ -1,6 +1,6 @@
 package com.odde.bbuddy.transaction.view;
 
-import com.odde.bbuddy.transaction.domain.SummaryOfTransactions;
+import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;

@@ -1,6 +1,6 @@
 package com.odde.bbuddy.transaction.view;
 
-import com.odde.bbuddy.transaction.domain.SummaryOfTransactions;
+import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import org.junit.Test;
 import org.springframework.ui.ModelMap;
 

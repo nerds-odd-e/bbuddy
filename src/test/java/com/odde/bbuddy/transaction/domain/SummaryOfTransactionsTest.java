@@ -1,5 +1,6 @@
 package com.odde.bbuddy.transaction.domain;
 
+import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import org.junit.Test;
 
 import java.util.ArrayList;

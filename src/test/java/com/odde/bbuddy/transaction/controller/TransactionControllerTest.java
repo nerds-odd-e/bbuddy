@@ -3,7 +3,7 @@ package com.odde.bbuddy.transaction.controller;
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.common.view.Message;
-import com.odde.bbuddy.transaction.domain.SummaryOfTransactions;
+import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.domain.TransactionsPostActions;
