@@ -132,10 +132,7 @@ public class TransactionControllerTest {
 
         @Test
         public void should_display_view() {
-            spyOnWithOfPresentableTransactions();
-
             assertThat(controller.index()).isSameAs(presentableTransactions);
-            verify(presentableTransactions).with(presentableSummaryOfTransactions);
         }
 
         @Test
@@ -162,10 +159,6 @@ public class TransactionControllerTest {
 
         private void spyOnDisplayOfPresentableTransactions() {
             doNothing().when(presentableTransactions).display(any(Transaction.class));
-        }
-
-        private void spyOnWithOfPresentableTransactions() {
-            doReturn(presentableTransactions).when(presentableTransactions).with(any(PresentableSummaryOfTransactions.class));
         }
 
         private void given_transactions_processAll_will_return(final Transaction transaction, SummaryOfTransactions summaryOfTransactions) {
