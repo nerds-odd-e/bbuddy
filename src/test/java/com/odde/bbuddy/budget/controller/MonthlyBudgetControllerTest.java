@@ -27,11 +27,11 @@ public class MonthlyBudgetControllerTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     Message mockMessage = mock(Message.class);
-    private final PresentableAddMonthlyBudget presentableAddMonthlyBudget = new PresentableAddMonthlyBudget();
+    PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = spy(new PresentableMonthlyBudgetAmount("whatever message"));
     MonthlyBudgetController controller = new MonthlyBudgetController(
             mockPlanner,
-            new PresentableMonthlyBudgetAmount("whatever message"),
-            presentableAddMonthlyBudget,
+            presentableMonthlyBudgetAmount,
+            new PresentableAddMonthlyBudget(),
             mockMessage);
     BindingResult stubBindingResult = mock(BindingResult.class);
     MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
@@ -122,12 +122,6 @@ public class MonthlyBudgetControllerTest {
         Date startDate = parseDay("2016-07-01");
         Date endDate = parseDay("2016-07-10");
 
-        MonthlyBudgetController controller = new MonthlyBudgetController(
-                mockPlanner,
-                new PresentableMonthlyBudgetAmount("whatever message"),
-                presentableAddMonthlyBudget,
-                mockMessage);
-
         @Test
         public void should_display_view() {
             assertThat(getAmount()).isInstanceOf(PresentableMonthlyBudgetAmount.class);
@@ -143,12 +137,15 @@ public class MonthlyBudgetControllerTest {
         @Test
         public void should_pass_amount_to_page() {
             given_planner_will_return_total_as(total);
-            PresentableMonthlyBudgetAmount mockPresentableMonthlyBudgetAmount = mock(PresentableMonthlyBudgetAmount.class);
-            controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount, presentableAddMonthlyBudget, mockMessage);
+            spyOnDisplayOfPresentableMonthlyBudgetAmount();
 
             getAmount();
 
-            verify(mockPresentableMonthlyBudgetAmount).display(total);
+            verify(presentableMonthlyBudgetAmount).display(total);
+        }
+
+        private ModelAndView spyOnDisplayOfPresentableMonthlyBudgetAmount() {
+            return doReturn(presentableMonthlyBudgetAmount).when(presentableMonthlyBudgetAmount).display(anyLong());
         }
 
         private void given_planner_will_return_total_as(long total) {

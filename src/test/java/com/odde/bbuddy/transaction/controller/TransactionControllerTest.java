@@ -132,7 +132,7 @@ public class TransactionControllerTest {
 
         @Test
         public void should_display_view() {
-            assertThat(controller.index()).isSameAs(presentableTransactions);
+            assertThat(controller.index()).isInstanceOf(PresentableTransactions.class);
         }
 
         @Test
