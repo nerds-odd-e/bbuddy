@@ -9,11 +9,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PresentableMonthlyBudgetAmountTest {
 
     private final int total = 100;
-    PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = new PresentableMonthlyBudgetAmount();
+    PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount;
 
     @Test
     public void should_pass_amount_message_to_page() {
-        presentableMonthlyBudgetAmount.message = "Amount is %s";
+        presentableMonthlyBudgetAmount = new PresentableMonthlyBudgetAmount("Amount is %s");
 
         display();
 
@@ -22,7 +22,7 @@ public class PresentableMonthlyBudgetAmountTest {
 
     @Test
     public void should_go_to_total_amount_view() {
-        presentableMonthlyBudgetAmount.message = "Whatever message";
+        presentableMonthlyBudgetAmount = new PresentableMonthlyBudgetAmount("whatever message");
 
         assertThat(display().getViewName()).isEqualTo(MONTHLYBUDGET_TOTALAMOUNT);
     }

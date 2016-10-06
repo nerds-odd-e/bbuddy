@@ -16,10 +16,11 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PresentableMonthlyBudgetAmount extends ModelAndView {
 
-    @Value("${monthlybudget.totalamount.amount}")
-    public String message;
+    private final String message;
 
-    public PresentableMonthlyBudgetAmount() {
+    public PresentableMonthlyBudgetAmount(
+            @Value("${monthlybudget.totalamount.amount}") String message) {
+        this.message = message;
         setViewName(MONTHLYBUDGET_TOTALAMOUNT);
     }
 

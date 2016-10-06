@@ -7,11 +7,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class SignInViewTest {
 
-    SignInView view = new SignInView();
+    SignInView view;
 
     @Test
     public void message_when_sign_in_error() {
-        view.failedMessage = "a failed message";
+        view = new SignInView("a failed message", "whatever logout message");
 
         view.display("any error", null);
 
@@ -21,7 +21,7 @@ public class SignInViewTest {
 
     @Test
     public void message_when_logout() {
-        view.logoutMessage = "a logout message";
+        view = new SignInView("whatever failed message", "a logout message");
 
         view.display(null, "something logout");
 
@@ -31,6 +31,8 @@ public class SignInViewTest {
 
     @Test
     public void should_go_to_sign_in_view() {
+        view = new SignInView("whatever failed message", "whatever logout message");
+
         assertThat(view.display("any error", "any logout").getViewName()).isEqualTo(SIGNIN);
     }
 

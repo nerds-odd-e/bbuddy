@@ -30,7 +30,7 @@ public class MonthlyBudgetControllerTest {
     private final PresentableAddMonthlyBudget presentableAddMonthlyBudget = new PresentableAddMonthlyBudget();
     MonthlyBudgetController controller = new MonthlyBudgetController(
             mockPlanner,
-            new PresentableMonthlyBudgetAmount(),
+            new PresentableMonthlyBudgetAmount("whatever message"),
             presentableAddMonthlyBudget,
             mockMessage);
     BindingResult stubBindingResult = mock(BindingResult.class);
@@ -124,9 +124,7 @@ public class MonthlyBudgetControllerTest {
 
         MonthlyBudgetController controller = new MonthlyBudgetController(
                 mockPlanner,
-                new PresentableMonthlyBudgetAmount() {{
-                    message = "whatever message";
-                }},
+                new PresentableMonthlyBudgetAmount("whatever message"),
                 presentableAddMonthlyBudget,
                 mockMessage);
 

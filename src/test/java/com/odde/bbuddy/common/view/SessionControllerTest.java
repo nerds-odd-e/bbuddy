@@ -11,7 +11,7 @@ public class SessionControllerTest {
 
     @Test
     public void should_display_view() {
-        SessionController controller = new SessionController(new SignInView());
+        SessionController controller = new SessionController(new SignInView("whatever failed message", "whatever logout message"));
 
         assertThat(controller.signIn("error", "logout")).isInstanceOf(SignInView.class);
     }
