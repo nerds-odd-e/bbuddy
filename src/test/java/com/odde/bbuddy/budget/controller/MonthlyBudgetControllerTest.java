@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Date;
 
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
+import static com.odde.bbuddy.budget.builder.PresentableMonthlyBudgetAmountBuilder.defaultPresentableMonthlyBudgetAmount;
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
@@ -28,7 +29,7 @@ public class MonthlyBudgetControllerTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     Message mockMessage = mock(Message.class);
-    PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = spy(new PresentableMonthlyBudgetAmount("whatever message"));
+    PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = spy(defaultPresentableMonthlyBudgetAmount().build());
     MonthlyBudgetController controller = new MonthlyBudgetController(
             mockPlanner,
             presentableMonthlyBudgetAmount,
