@@ -14,6 +14,7 @@ import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_INDEX;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.Income;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.Outcome;
+import static com.odde.bbuddy.transaction.domain.Transaction.builder;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(NestedRunner.class)
@@ -87,12 +88,7 @@ public class PresentableTransactionsTest {
         }
 
         private Transaction transaction(Type type, String description, Date date, int amount) {
-            Transaction transaction = new Transaction();
-            transaction.setType(type);
-            transaction.setDescription(description);
-            transaction.setDate(date);
-            transaction.setAmount(amount);
-            return transaction;
+            return builder().type(type).description(description).date(date).amount(amount).build();
         }
 
     }

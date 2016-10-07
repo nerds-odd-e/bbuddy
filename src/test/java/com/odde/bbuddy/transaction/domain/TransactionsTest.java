@@ -7,12 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Date;
 import java.util.function.Consumer;
 
-import static com.odde.bbuddy.common.Formats.parseDay;
-import static com.odde.bbuddy.transaction.domain.Transaction.*;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.*;
+import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.Arrays.asList;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -22,7 +19,7 @@ public class TransactionsTest {
 
     TransactionRepo mockRepo = mock(TransactionRepo.class);
     Transactions transactions = new Transactions(mockRepo);
-    Transaction transaction = transaction(Income, "any description", parseDay("2016-07-01"), 100);
+    Transaction transaction = defaultTransaction().build();
 
     Runnable afterSuccess = mock(Runnable.class);
     Runnable afterFailed = mock(Runnable.class);
@@ -96,15 +93,6 @@ public class TransactionsTest {
             when(mockRepo.findAll()).thenReturn(asList(transaction));
         }
 
-    }
-
-    private Transaction transaction(Type type, String description, Date date, int amount) {
-        Transaction transaction = new Transaction();
-        transaction.setType(type);
-        transaction.setDescription(description);
-        transaction.setDate(date);
-        transaction.setAmount(amount);
-        return transaction;
     }
 
 }

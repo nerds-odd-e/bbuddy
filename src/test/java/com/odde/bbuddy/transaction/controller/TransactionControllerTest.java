@@ -3,10 +3,10 @@ package com.odde.bbuddy.transaction.controller;
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.common.view.Message;
-import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.domain.TransactionsPostActions;
+import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import com.odde.bbuddy.transaction.view.PresentableAddTransaction;
 import com.odde.bbuddy.transaction.view.PresentableSummaryOfTransactions;
 import com.odde.bbuddy.transaction.view.PresentableTransactions;
@@ -18,13 +18,11 @@ import org.mockito.stubbing.Answer;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
 import java.util.function.Consumer;
 
-import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.Outcome;
+import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -38,7 +36,7 @@ public class TransactionControllerTest {
     PresentableSummaryOfTransactions presentableSummaryOfTransactions = spy(new PresentableSummaryOfTransactions("whatever message", "whatever message", "whatever message"));
     Message mockMessage = mock(Message.class);
     TransactionController controller = new TransactionController(mockTransactions, new PresentableAddTransaction(), presentableTransactions, presentableSummaryOfTransactions, mockMessage);
-    Transaction transaction = transaction(Outcome, "Outcome description", parseDay("2016-07-01"), 100);
+    Transaction transaction = defaultTransaction().build();
     BindingResult stubBindingResult = mock(BindingResult.class);
 
     @Before
@@ -100,7 +98,7 @@ public class TransactionControllerTest {
 
     public class Valid {
 
-        Transaction invalidTransaction = new Transaction();
+        Transaction invalidTransaction = invalidTransaction();
 
         @Before
         public void given_has_some_field_error() {
@@ -117,6 +115,10 @@ public class TransactionControllerTest {
         @Test
         public void should_display_view() {
             assertThat(submitTransactionAdd(invalidTransaction)).isInstanceOf(PresentableAddTransaction.class);
+        }
+
+        private Transaction invalidTransaction() {
+            return defaultTransaction().type(null).description(null).date(null).amount(null).build();
         }
 
     }
@@ -194,15 +196,6 @@ public class TransactionControllerTest {
 
     private void given_add_transaction_will(PostActions postActions) {
         when(mockTransactions.add(any(Transaction.class))).thenReturn(postActions);
-    }
-
-    private Transaction transaction(Transaction.Type type, String description, Date date, int amount) {
-        Transaction transaction = new Transaction();
-        transaction.setType(type);
-        transaction.setDescription(description);
-        transaction.setDate(date);
-        transaction.setAmount(amount);
-        return transaction;
     }
 
 }
