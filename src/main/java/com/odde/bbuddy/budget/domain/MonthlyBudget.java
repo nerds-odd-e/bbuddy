@@ -1,5 +1,6 @@
 package com.odde.bbuddy.budget.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,6 +19,7 @@ import static com.odde.bbuddy.common.Formats.MONTH;
 @NoArgsConstructor
 public class MonthlyBudget {
 
+    @Builder
     public MonthlyBudget(Date month, Integer budget) {
         this.month = month;
         this.budget = budget;

@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 
+import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
@@ -34,7 +35,7 @@ public class MonthlyBudgetControllerTest {
             new PresentableAddMonthlyBudget(),
             mockMessage);
     BindingResult stubBindingResult = mock(BindingResult.class);
-    MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
+    MonthlyBudget monthlyBudget = defaultMonthlyBudget().build();
 
     @Before
     public void given_has_no_field_error() {

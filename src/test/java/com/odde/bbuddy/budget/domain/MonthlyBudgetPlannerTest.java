@@ -8,8 +8,9 @@ import org.mockito.ArgumentCaptor;
 
 import java.util.Date;
 
+import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
+import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.monthlyBudget;
 import static com.odde.bbuddy.common.Formats.parseDay;
-import static com.odde.bbuddy.common.Formats.parseMonth;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -23,8 +24,7 @@ public class MonthlyBudgetPlannerTest {
 
     public class AddMonthlyBudget {
 
-        Date monthDate = parseDay("2016-07-01");
-        MonthlyBudget monthlyBudget = new MonthlyBudget(monthDate, 100);
+        MonthlyBudget monthlyBudget = defaultMonthlyBudget().build();
 
         Runnable afterSuccess = mock(Runnable.class);
         Runnable afterFail = mock(Runnable.class);
@@ -62,17 +62,17 @@ public class MonthlyBudgetPlannerTest {
 
         @Test
         public void overwrite_monthly_budget_when_budget_has_been_set_for_that_month() {
-            given_existing_monthly_budget_with_id(MONTH_BUDGET_ID);
+            given_existing_monthly_budget_with_id(monthlyBudget("2016-07", 100), MONTH_BUDGET_ID);
 
-            MonthlyBudget overwrittenMonthlyBudget = new MonthlyBudget(monthDate, 200);
+            MonthlyBudget overwrittenMonthlyBudget = monthlyBudget("2016-07", 200);
             planner.addMonthlyBudget(overwrittenMonthlyBudget);
 
             MonthlyBudget savedMonthlyBudget = assertSavedMonthlyBudgetEquals(overwrittenMonthlyBudget);
             assertThat(savedMonthlyBudget.getId()).isEqualTo(MONTH_BUDGET_ID);
         }
 
-        private void given_existing_monthly_budget_with_id(long id) {
-            when(mockRepo.findByMonth(monthDate)).thenReturn(monthlyBudget);
+        private void given_existing_monthly_budget_with_id(MonthlyBudget monthlyBudget, long id) {
+            when(mockRepo.findByMonth(monthlyBudget.getMonth())).thenReturn(monthlyBudget);
             monthlyBudget.setId(id);
         }
 
@@ -121,10 +121,6 @@ public class MonthlyBudgetPlannerTest {
 
         private void given_monthly_budget_planned_as(MonthlyBudget... budget) {
             when(mockRepo.findAll()).thenReturn(asList(budget));
-        }
-
-        private MonthlyBudget monthlyBudget(String month, int budget) {
-            return new MonthlyBudget(parseMonth(month), budget);
         }
 
         private void given_total_amount_is(long total) {
