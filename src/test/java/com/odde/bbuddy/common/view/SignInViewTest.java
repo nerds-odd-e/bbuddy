@@ -2,6 +2,7 @@ package com.odde.bbuddy.common.view;
 
 import org.junit.Test;
 
+import static com.odde.bbuddy.common.builder.SignInViewBuilder.defaultSignInView;
 import static com.odde.bbuddy.common.controller.Urls.SIGNIN;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,7 +12,7 @@ public class SignInViewTest {
 
     @Test
     public void message_when_sign_in_error() {
-        view = new SignInView("a failed message", "whatever logout message");
+        view = defaultSignInView().failedMessage("a failed message").build();
 
         view.display("any error", null);
 
@@ -21,7 +22,7 @@ public class SignInViewTest {
 
     @Test
     public void message_when_logout() {
-        view = new SignInView("whatever failed message", "a logout message");
+        view = defaultSignInView().logoutMessage("a logout message").build();
 
         view.display(null, "something logout");
 
@@ -31,7 +32,7 @@ public class SignInViewTest {
 
     @Test
     public void should_go_to_sign_in_view() {
-        view = new SignInView("whatever failed message", "whatever logout message");
+        view = defaultSignInView().build();
 
         assertThat(view.display("any error", "any logout").getViewName()).isEqualTo(SIGNIN);
     }

@@ -1,5 +1,6 @@
 package com.odde.bbuddy.common.view;
 
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
@@ -13,6 +14,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
+@Builder
 public class SignInView extends ModelAndView {
 
     private final String failedMessage;

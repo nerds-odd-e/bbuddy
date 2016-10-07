@@ -4,15 +4,14 @@ import com.odde.bbuddy.common.view.SignInView;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import static com.odde.bbuddy.common.builder.SignInViewBuilder.defaultSignInView;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class SessionControllerTest {
 
-    SignInView signInView = spy(new SignInView("whatever failed message", "whatever logout message"));
+    SignInView signInView = spy(defaultSignInView().build());
     SessionController controller = new SessionController(signInView);
 
     @Test
