@@ -1,5 +1,6 @@
 package com.odde.bbuddy.transaction.view;
 
+import com.odde.bbuddy.common.view.View;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -18,7 +19,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
-public class PresentableTransactions extends ModelAndView {
+public class PresentableTransactions extends ModelAndView implements View<Transaction> {
 
     private final List<PresentableTransaction> presentableTransactions = new ArrayList<>();
 
@@ -40,6 +41,7 @@ public class PresentableTransactions extends ModelAndView {
         return pt;
     }
 
+    @Override
     public void display(Transaction transaction) {
         presentableTransactions.add(presentableTransactionFrom(transaction));
         showViewAndHiddenMessage();

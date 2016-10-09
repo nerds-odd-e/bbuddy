@@ -5,10 +5,12 @@ import com.odde.bbuddy.user.view.SignInView;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import static com.odde.bbuddy.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.odde.bbuddy.user.builder.AuthenticationResultBuilder.defaultAuthenticationResult;
 import static com.odde.bbuddy.user.builder.SignInViewBuilder.defaultSignInView;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 public class SessionControllerTest {
 
@@ -23,15 +25,11 @@ public class SessionControllerTest {
 
     @Test
     public void should_pass_error_and_logout_to_view() {
-        spyOnDisplayOfSignInView();
+        spyOnDisplayOf(signInView);
 
         signIn();
 
         verify(signInView).display(authenticationResult);
-    }
-
-    private void spyOnDisplayOfSignInView() {
-        doNothing().when(signInView).display(any(AuthenticationResult.class));
     }
 
     private ModelAndView signIn() {

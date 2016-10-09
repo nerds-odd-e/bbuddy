@@ -1,5 +1,6 @@
 package com.odde.bbuddy.budget.view;
 
+import com.odde.bbuddy.common.view.View;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -15,7 +16,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
-public class PresentableMonthlyBudgetAmount extends ModelAndView {
+public class PresentableMonthlyBudgetAmount extends ModelAndView implements View<Long> {
 
     private final String message;
 
@@ -26,8 +27,8 @@ public class PresentableMonthlyBudgetAmount extends ModelAndView {
         setViewName(MONTHLYBUDGET_TOTALAMOUNT);
     }
 
-    public ModelAndView display(long amount) {
+    @Override
+    public void display(Long amount) {
         addObject("amount", format(message, amount));
-        return this;
     }
 }

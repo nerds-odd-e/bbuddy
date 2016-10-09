@@ -1,5 +1,6 @@
 package com.odde.bbuddy.user.view;
 
+import com.odde.bbuddy.common.view.View;
 import com.odde.bbuddy.user.domain.AuthenticationResult;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +17,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 @Builder
-public class SignInView extends ModelAndView {
+public class SignInView extends ModelAndView implements View<AuthenticationResult> {
 
     private final String failedMessage;
     private final String logoutMessage;
@@ -34,6 +35,7 @@ public class SignInView extends ModelAndView {
         addObject("type", type);
     }
 
+    @Override
     public void display(AuthenticationResult authenticationResult) {
         authenticationResult
                 .error(() -> setMessageAndType(failedMessage, "danger"))

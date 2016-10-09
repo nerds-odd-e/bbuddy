@@ -6,7 +6,7 @@ import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
 import com.odde.bbuddy.budget.view.PresentableAddMonthlyBudget;
 import com.odde.bbuddy.budget.view.PresentableMonthlyBudgetAmount;
 import com.odde.bbuddy.common.callback.PostActions;
-import com.odde.bbuddy.common.view.Message;
+import com.odde.bbuddy.common.view.View;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,6 +20,7 @@ import static com.odde.bbuddy.budget.builder.PresentableMonthlyBudgetAmountBuild
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
+import static com.odde.bbuddy.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -28,13 +29,13 @@ import static org.mockito.Mockito.*;
 public class MonthlyBudgetControllerTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
-    Message mockMessage = mock(Message.class);
+    View mockView = mock(View.class);
     PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = spy(defaultPresentableMonthlyBudgetAmount().build());
     MonthlyBudgetController controller = new MonthlyBudgetController(
             mockPlanner,
             presentableMonthlyBudgetAmount,
             new PresentableAddMonthlyBudget(),
-            mockMessage);
+            mockView);
     BindingResult stubBindingResult = mock(BindingResult.class);
     MonthlyBudget monthlyBudget = defaultMonthlyBudget().build();
 
@@ -77,7 +78,7 @@ public class MonthlyBudgetControllerTest {
 
             submitAddMonthlyBudget(monthlyBudget);
 
-            verify(mockMessage).display("a success message");
+            verify(mockView).display("a success message");
         }
     }
 
@@ -90,7 +91,7 @@ public class MonthlyBudgetControllerTest {
 
             submitAddMonthlyBudget(monthlyBudget);
 
-            verify(mockMessage).display("a failed message");
+            verify(mockView).display("a failed message");
         }
 
     }
@@ -139,15 +140,11 @@ public class MonthlyBudgetControllerTest {
         @Test
         public void should_pass_amount_to_page() {
             given_planner_will_return_total_as(total);
-            spyOnDisplayOfPresentableMonthlyBudgetAmount();
+            spyOnDisplayOf(presentableMonthlyBudgetAmount);
 
             getAmount();
 
             verify(presentableMonthlyBudgetAmount).display(total);
-        }
-
-        private ModelAndView spyOnDisplayOfPresentableMonthlyBudgetAmount() {
-            return doReturn(presentableMonthlyBudgetAmount).when(presentableMonthlyBudgetAmount).display(anyLong());
         }
 
         private void given_planner_will_return_total_as(long total) {

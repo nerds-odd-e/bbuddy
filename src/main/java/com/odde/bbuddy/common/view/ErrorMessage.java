@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
 
 @Component
-public class ErrorMessage {
+public class ErrorMessage implements View<FieldError> {
 
     private final MessageSource messageSource;
     private final Model model;
@@ -17,6 +17,7 @@ public class ErrorMessage {
         this.model = model;
     }
 
+    @Override
     public void display(FieldError fieldError) {
         model.addAttribute("error." + fieldError.getField(), messageSource.getMessage(fieldError, null));
     }

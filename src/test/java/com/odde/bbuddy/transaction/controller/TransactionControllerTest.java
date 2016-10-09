@@ -2,7 +2,7 @@ package com.odde.bbuddy.transaction.controller;
 
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.common.callback.PostActions;
-import com.odde.bbuddy.common.view.Message;
+import com.odde.bbuddy.common.view.View;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.domain.TransactionsPostActions;
@@ -22,6 +22,7 @@ import java.util.function.Consumer;
 
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
+import static com.odde.bbuddy.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,8 +35,8 @@ public class TransactionControllerTest {
     Transactions mockTransactions = mock(Transactions.class);
     PresentableTransactions presentableTransactions = spy(new PresentableTransactions("whatever message"));
     PresentableSummaryOfTransactions presentableSummaryOfTransactions = spy(new PresentableSummaryOfTransactions("whatever message", "whatever message", "whatever message"));
-    Message mockMessage = mock(Message.class);
-    TransactionController controller = new TransactionController(mockTransactions, new PresentableAddTransaction(), presentableTransactions, presentableSummaryOfTransactions, mockMessage);
+    View mockView = mock(View.class);
+    TransactionController controller = new TransactionController(mockTransactions, new PresentableAddTransaction(), presentableTransactions, presentableSummaryOfTransactions, mockView);
     Transaction transaction = defaultTransaction().build();
     BindingResult stubBindingResult = mock(BindingResult.class);
 
@@ -78,7 +79,7 @@ public class TransactionControllerTest {
 
             submitTransactionAdd(transaction);
 
-            verify(mockMessage).display("a success message");
+            verify(mockView).display("a success message");
         }
     }
 
@@ -91,7 +92,7 @@ public class TransactionControllerTest {
 
             submitTransactionAdd(transaction);
 
-            verify(mockMessage).display("a failed message");
+            verify(mockView).display("a failed message");
         }
 
     }
@@ -139,7 +140,7 @@ public class TransactionControllerTest {
 
         @Test
         public void should_let_view_display_transaction() {
-            spyOnDisplayOfPresentableTransactions();
+            spyOnDisplayOf(presentableTransactions);
 
             controller.index();
 
@@ -148,19 +149,11 @@ public class TransactionControllerTest {
 
         @Test
         public void should_let_view_display_summary_of_transactions() {
-            spyOnDisplayOfPresentableSummaryOfTransactions();
+            spyOnDisplayOf(presentableSummaryOfTransactions);
 
             controller.index();
 
             verify(presentableSummaryOfTransactions).display(summaryOfTransactions);
-        }
-
-        private void spyOnDisplayOfPresentableSummaryOfTransactions() {
-            doNothing().when(presentableSummaryOfTransactions).display(any(SummaryOfTransactions.class));
-        }
-
-        private void spyOnDisplayOfPresentableTransactions() {
-            doNothing().when(presentableTransactions).display(any(Transaction.class));
         }
 
         private void given_transactions_processAll_will_return(final Transaction transaction, SummaryOfTransactions summaryOfTransactions) {

@@ -1,5 +1,6 @@
 package com.odde.bbuddy.transaction.view;
 
+import com.odde.bbuddy.common.view.View;
 import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +17,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 @Builder
-public class PresentableSummaryOfTransactions extends ModelAndView {
+public class PresentableSummaryOfTransactions extends ModelAndView implements View<SummaryOfTransactions> {
 
     private final String balanceMessage;
     private final String totalIncomeMessage;
@@ -31,6 +32,7 @@ public class PresentableSummaryOfTransactions extends ModelAndView {
         this.totalOutcomeMessage = totalOutcomeMessage;
     }
 
+    @Override
     public void display(SummaryOfTransactions summaryOfTransactions) {
         addObject("balance", format(balanceMessage, summaryOfTransactions.balance()));
         addObject("totalIncome", format(totalIncomeMessage, summaryOfTransactions.totalIncome()));

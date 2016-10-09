@@ -1,6 +1,6 @@
 package com.odde.bbuddy.transaction.controller;
 
-import com.odde.bbuddy.common.view.Message;
+import com.odde.bbuddy.common.view.View;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.view.PresentableAddTransaction;
@@ -19,7 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
-import static com.odde.bbuddy.common.controller.Urls.*;
+import static com.odde.bbuddy.common.controller.Urls.ADD;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTION;
 import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 import static com.odde.bbuddy.common.view.ModelAndViewCombiner.combine;
 
@@ -33,7 +34,7 @@ public class TransactionController {
     private final PresentableTransactions presentableTransactions;
     private final PresentableSummaryOfTransactions presentableSummaryOfTransactions;
 
-    private final Message message;
+    private final View<String> message;
 
     @Value("${transaction.add.success}")
     String successMessage;
@@ -47,7 +48,7 @@ public class TransactionController {
             PresentableAddTransaction presentableAddTransaction,
             PresentableTransactions presentableTransactions,
             PresentableSummaryOfTransactions presentableSummaryOfTransactions,
-            Message message) {
+            View<String> message) {
         this.transactions = transactions;
         this.presentableAddTransaction = presentableAddTransaction;
         this.presentableTransactions = presentableTransactions;
