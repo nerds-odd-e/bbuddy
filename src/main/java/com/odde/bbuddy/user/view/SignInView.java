@@ -35,9 +35,9 @@ public class SignInView extends ModelAndView {
     }
 
     public void display(AuthenticationResult authenticationResult) {
-        if (authenticationResult.hasError()) setMessageAndType(failedMessage, "danger");
-
-        if (authenticationResult.isLogout()) setMessageAndType(logoutMessage, "info");
+        authenticationResult
+                .error(() -> setMessageAndType(failedMessage, "danger"))
+                .logout(() -> setMessageAndType(logoutMessage, "info"));
     }
 
 }

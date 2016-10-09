@@ -14,11 +14,15 @@ public class AuthenticationResult {
     private String error;
     private String logout;
 
-    public boolean hasError() {
-        return error != null;
+    public AuthenticationResult error(Runnable afterError) {
+        if (error != null)
+            afterError.run();
+        return this;
     }
 
-    public boolean isLogout() {
-        return logout != null;
+    public AuthenticationResult logout(Runnable afterLogout) {
+        if (logout != null)
+            afterLogout.run();
+        return this;
     }
 }
