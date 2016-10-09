@@ -1,6 +1,6 @@
-package com.odde.bbuddy.common.controller;
+package com.odde.bbuddy.user.controller;
 
-import com.odde.bbuddy.common.view.SignInView;
+import com.odde.bbuddy.user.view.SignInView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

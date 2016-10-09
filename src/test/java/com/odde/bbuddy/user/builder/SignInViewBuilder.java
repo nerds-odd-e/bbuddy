@@ -1,6 +1,6 @@
-package com.odde.bbuddy.common.builder;
+package com.odde.bbuddy.user.builder;
 
-import com.odde.bbuddy.common.view.SignInView;
+import com.odde.bbuddy.user.view.SignInView;
 
 public class SignInViewBuilder {
 

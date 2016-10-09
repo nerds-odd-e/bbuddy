@@ -1,10 +1,10 @@
-package com.odde.bbuddy.common.controller;
+package com.odde.bbuddy.user.controller;
 
-import com.odde.bbuddy.common.view.SignInView;
+import com.odde.bbuddy.user.view.SignInView;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
-import static com.odde.bbuddy.common.builder.SignInViewBuilder.defaultSignInView;
+import static com.odde.bbuddy.user.builder.SignInViewBuilder.defaultSignInView;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;

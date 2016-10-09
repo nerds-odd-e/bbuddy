@@ -1,8 +1,8 @@
-package com.odde.bbuddy.common.view;
+package com.odde.bbuddy.user.view;
 
 import org.junit.Test;
 
-import static com.odde.bbuddy.common.builder.SignInViewBuilder.defaultSignInView;
+import static com.odde.bbuddy.user.builder.SignInViewBuilder.defaultSignInView;
 import static com.odde.bbuddy.common.controller.Urls.SIGNIN;
 import static org.assertj.core.api.Assertions.assertThat;
 

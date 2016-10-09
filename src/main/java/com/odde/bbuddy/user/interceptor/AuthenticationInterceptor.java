@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common.interceptor;
+package com.odde.bbuddy.user.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

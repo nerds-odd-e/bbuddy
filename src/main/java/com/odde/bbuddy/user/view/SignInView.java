@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common.view;
+package com.odde.bbuddy.user.view;
 
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
