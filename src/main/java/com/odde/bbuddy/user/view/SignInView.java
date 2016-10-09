@@ -1,5 +1,6 @@
 package com.odde.bbuddy.user.view;
 
+import com.odde.bbuddy.user.domain.AuthenticationResult;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -28,16 +29,15 @@ public class SignInView extends ModelAndView {
         setViewName(SIGNIN);
     }
 
-    public ModelAndView display(String error, String logout) {
-        if (error != null) setMessageAndType(failedMessage, "danger");
-
-        if (logout != null) setMessageAndType(logoutMessage, "info");
-
-        return this;
-    }
-
     private void setMessageAndType(String message, String type) {
         addObject("message", message);
         addObject("type", type);
     }
+
+    public void display(AuthenticationResult authenticationResult) {
+        if (authenticationResult.hasError()) setMessageAndType(failedMessage, "danger");
+
+        if (authenticationResult.isLogout()) setMessageAndType(logoutMessage, "info");
+    }
+
 }

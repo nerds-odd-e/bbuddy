@@ -1,16 +1,18 @@
 package com.odde.bbuddy.user.controller;
 
+import com.odde.bbuddy.user.domain.AuthenticationResult;
 import com.odde.bbuddy.user.view.SignInView;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import static com.odde.bbuddy.user.builder.AuthenticationResultBuilder.defaultAuthenticationResult;
 import static com.odde.bbuddy.user.builder.SignInViewBuilder.defaultSignInView;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 public class SessionControllerTest {
 
+    AuthenticationResult authenticationResult = defaultAuthenticationResult().build();
     SignInView signInView = spy(defaultSignInView().build());
     SessionController controller = new SessionController(signInView);
 
@@ -25,15 +27,15 @@ public class SessionControllerTest {
 
         signIn();
 
-        verify(signInView).display("error", "logout");
+        verify(signInView).display(authenticationResult);
     }
 
     private void spyOnDisplayOfSignInView() {
-        doReturn(signInView).when(signInView).display(anyString(), anyString());
+        doNothing().when(signInView).display(any(AuthenticationResult.class));
     }
 
     private ModelAndView signIn() {
-        return controller.signIn("error", "logout");
+        return controller.signIn(authenticationResult);
     }
 
 }
