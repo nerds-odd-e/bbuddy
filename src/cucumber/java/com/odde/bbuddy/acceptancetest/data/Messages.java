@@ -29,4 +29,10 @@ public class Messages {
 
     @Value("${home.label.welcome}")
     public String welcome;
+
+    @Value("${authentication.failed}")
+    public String loginFailed;
+
+    @Value("${authentication.logout}")
+    public String logout;
 }

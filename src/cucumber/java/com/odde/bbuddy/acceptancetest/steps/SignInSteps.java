@@ -2,6 +2,7 @@ package com.odde.bbuddy.acceptancetest.steps;
 
 import com.odde.bbuddy.acceptancetest.data.Messages;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
+import com.odde.bbuddy.acceptancetest.pages.HomePage;
 import com.odde.bbuddy.acceptancetest.pages.SignInPage;
 import com.odde.bbuddy.user.domain.User;
 import com.odde.bbuddy.user.repo.UserRepo;
@@ -18,10 +19,13 @@ public class SignInSteps {
     UserRepo userRepo;
 
     @Autowired
-    SignInPage page;
+    SignInPage signInPage;
 
     @Autowired
     CommonPage commonPage;
+
+    @Autowired
+    HomePage homePage;
 
     @Autowired
     Messages messages;
@@ -33,11 +37,26 @@ public class SignInSteps {
 
     @When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void login_with_user_name_and_password(String userName, String password) throws Throwable {
-        page.signIn(userName, password);
+        signInPage.signIn(userName, password);
     }
 
     @Then("^login successfully$")
     public void login_successfully() throws Throwable {
         assertThat(commonPage.getAllText()).contains(messages.welcome);
+    }
+
+    @Then("^login failed with some message$")
+    public void login_failed_with_some_message() throws Throwable {
+        assertThat(commonPage.getAllText()).contains(messages.loginFailed);
+    }
+
+    @When("^logout$")
+    public void logout() throws Throwable {
+        homePage.signout();
+    }
+
+    @Then("^logout with some message$")
+    public void logout_with_some_message() throws Throwable {
+        assertThat(commonPage.getAllText()).contains(messages.logout);
     }
 }
