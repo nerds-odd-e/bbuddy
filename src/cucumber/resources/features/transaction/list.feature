@@ -25,3 +25,11 @@ Feature: Transaction
       | Total of Outcome | 30000  |
       | Total of All     | -16000 |
 
+  Scenario: paginate of all transactions
+    Given exists 15 transactions
+    And every page will display 10 transactions
+    When show page 1
+    Then you will see 10 transactions in page 1
+    When show page 2
+    Then you will see 5 transactions in page 2
+

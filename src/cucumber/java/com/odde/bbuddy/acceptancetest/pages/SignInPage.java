@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import static com.odde.bbuddy.common.controller.Urls.SIGNIN;
+
 @Component
 @Scope("cucumber-glue")
 public class SignInPage {
@@ -14,7 +16,7 @@ public class SignInPage {
     UiDriver driver;
 
     public void signIn(String userName, String password) {
-        driver.navigateTo("/signin");
+        driver.navigateTo(SIGNIN);
         setPassword(password);
         setUserNameAndSubmit(userName);
     }
