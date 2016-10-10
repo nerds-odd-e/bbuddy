@@ -4,8 +4,6 @@ import com.odde.bbuddy.common.view.View;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.view.PresentableAddTransaction;
-import com.odde.bbuddy.transaction.view.PresentableSummaryOfTransactions;
-import com.odde.bbuddy.transaction.view.PresentableTransactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -22,7 +20,6 @@ import javax.validation.Valid;
 import static com.odde.bbuddy.common.controller.Urls.ADD;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION;
 import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
-import static com.odde.bbuddy.common.view.ModelAndViewCombiner.combine;
 
 @Controller
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
@@ -31,8 +28,6 @@ public class TransactionController {
 
     private final Transactions transactions;
     private final PresentableAddTransaction presentableAddTransaction;
-    private final PresentableTransactions presentableTransactions;
-    private final PresentableSummaryOfTransactions presentableSummaryOfTransactions;
 
     private final View<String> message;
 
@@ -46,13 +41,9 @@ public class TransactionController {
     public TransactionController(
             Transactions transactions,
             PresentableAddTransaction presentableAddTransaction,
-            PresentableTransactions presentableTransactions,
-            PresentableSummaryOfTransactions presentableSummaryOfTransactions,
             View<String> message) {
         this.transactions = transactions;
         this.presentableAddTransaction = presentableAddTransaction;
-        this.presentableTransactions = presentableTransactions;
-        this.presentableSummaryOfTransactions = presentableSummaryOfTransactions;
         this.message = message;
     }
 
@@ -70,13 +61,6 @@ public class TransactionController {
     @GetMapping(ADD)
     public ModelAndView addTransaction() {
         return presentableAddTransaction;
-    }
-
-    @GetMapping
-    public ModelAndView index() {
-        transactions.processAll(presentableTransactions::display)
-                .withSummary(presentableSummaryOfTransactions::display);
-        return combine(presentableTransactions).with(presentableSummaryOfTransactions);
     }
 
 }
