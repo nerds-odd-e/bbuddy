@@ -15,6 +15,7 @@ import java.util.function.Consumer;
 
 import static com.odde.bbuddy.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.odde.bbuddy.transaction.builder.PresentableSummaryOfTransactionsBuilder.defaultPresentableSummaryOfTransactions;
+import static com.odde.bbuddy.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
 import static com.odde.bbuddy.transaction.builder.SummaryOfTransactionsBuilder.builder;
 import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -25,7 +26,7 @@ public class TransactionListControllerTest {
     SummaryOfTransactions summaryOfTransactions = builder().build();
     Transaction transaction = defaultTransaction().build();
     Transactions mockTransactions = mock(Transactions.class);
-    PresentableTransactions presentableTransactions = spy(new PresentableTransactions("whatever message"));
+    PresentableTransactions presentableTransactions = spy(defaultPresentableTransactions().build());
     PresentableSummaryOfTransactions presentableSummaryOfTransactions = spy(defaultPresentableSummaryOfTransactions().build());
     TransactionListController controller = new TransactionListController(mockTransactions, presentableTransactions, presentableSummaryOfTransactions);
 

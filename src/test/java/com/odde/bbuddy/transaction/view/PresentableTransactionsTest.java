@@ -11,6 +11,7 @@ import java.util.Map;
 
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_INDEX;
+import static com.odde.bbuddy.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.Income;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.Outcome;
@@ -20,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(NestedRunner.class)
 public class PresentableTransactionsTest {
 
-    PresentableTransactions presentableTransactions = new PresentableTransactions("whatever message");
+    PresentableTransactions presentableTransactions = defaultPresentableTransactions().build();
 
     @Test
     public void should_go_to_index_page() {
@@ -36,7 +37,7 @@ public class PresentableTransactionsTest {
 
         @Test
         public void should_show_message() {
-            presentableTransactions = new PresentableTransactions("no transaction message");
+            presentableTransactions = PresentableTransactions.builder().noTransactionMessage("no transaction message").build();
 
             assertThat(modelOf(presentableTransactions).get("message")).isEqualTo("no transaction message");
         }

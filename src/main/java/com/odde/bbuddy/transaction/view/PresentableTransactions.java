@@ -2,6 +2,7 @@ package com.odde.bbuddy.transaction.view;
 
 import com.odde.bbuddy.common.view.View;
 import com.odde.bbuddy.transaction.domain.Transaction;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
@@ -23,6 +24,7 @@ public class PresentableTransactions extends ModelAndView implements View<Transa
 
     private final List<PresentableTransaction> presentableTransactions = new ArrayList<>();
 
+    @Builder
     public PresentableTransactions(
             @Value("${transaction.list.empty}") String noTransactionMessage) {
         addObject("transactions", presentableTransactions);
