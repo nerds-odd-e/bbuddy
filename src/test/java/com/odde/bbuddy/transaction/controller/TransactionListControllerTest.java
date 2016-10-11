@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.function.Consumer;
 
@@ -37,14 +38,18 @@ public class TransactionListControllerTest {
 
     @Test
     public void should_display_view() {
-        assertThat(controller.index()).isInstanceOf(PresentableTransactions.class);
+        assertThat(list()).isInstanceOf(PresentableTransactions.class);
+    }
+
+    private ModelAndView list() {
+        return controller.index(1);
     }
 
     @Test
     public void should_let_view_display_transaction() {
         spyOnDisplayOf(presentableTransactions);
 
-        controller.index();
+        list();
 
         verify(presentableTransactions).display(transaction);
     }
@@ -53,7 +58,7 @@ public class TransactionListControllerTest {
     public void should_let_view_display_summary_of_transactions() {
         spyOnDisplayOf(presentableSummaryOfTransactions);
 
-        controller.index();
+        list();
 
         verify(presentableSummaryOfTransactions).display(summaryOfTransactions);
     }

@@ -6,6 +6,7 @@ import com.odde.bbuddy.transaction.view.PresentableTransactions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION;
@@ -25,7 +26,7 @@ public class TransactionListController {
     }
 
     @GetMapping
-    public ModelAndView index() {
+    public ModelAndView index(@RequestParam(defaultValue = "1") int page) {
         transactions.processAll(presentableTransactions::display)
                 .withSummary(presentableSummaryOfTransactions::display);
         return combine(presentableTransactions).with(presentableSummaryOfTransactions);
