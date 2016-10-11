@@ -1,6 +1,7 @@
 package com.odde.bbuddy.transaction.domain;
 
 import com.nitorcreations.junit.runners.NestedRunner;
+import com.odde.bbuddy.common.controller.ResultRange;
 import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.junit.Before;
@@ -9,6 +10,7 @@ import org.junit.runner.RunWith;
 
 import java.util.function.Consumer;
 
+import static com.odde.bbuddy.common.builder.ResultRangeBuilder.defaultResultRange;
 import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.Arrays.asList;
 import static org.mockito.Matchers.any;
@@ -64,6 +66,7 @@ public class TransactionsTest {
     public class ProcessAll {
 
         private Consumer<Transaction> whateverConsumer = transaction -> {};
+        private ResultRange whateverResultRange = defaultResultRange().build();
 
         @Before
         public void given_findAll_will_return_transaction(){
@@ -74,7 +77,7 @@ public class TransactionsTest {
         public void should_process_all_transactions() {
             Consumer<Transaction> mockConsumer = mock(Consumer.class);
 
-            transactions.processAll(mockConsumer);
+            processAll(mockConsumer);
 
             verify(mockConsumer).accept(transaction);
         }
@@ -83,7 +86,7 @@ public class TransactionsTest {
         public void process_all_transactions_with_summary() {
             Consumer<SummaryOfTransactions> mockConsumer = mock(Consumer.class);
 
-            transactions.processAll(whateverConsumer)
+            processAll(whateverConsumer)
                     .withSummary(mockConsumer);
 
             verify(mockConsumer).accept(any(SummaryOfTransactions.class));
@@ -91,6 +94,10 @@ public class TransactionsTest {
 
         private void given_findAll_will_return(Transaction transaction) {
             when(mockRepo.findAll()).thenReturn(asList(transaction));
+        }
+
+        private TransactionsPostActions processAll(Consumer<Transaction> mockConsumer) {
+            return transactions.processAll(mockConsumer, whateverResultRange);
         }
 
     }

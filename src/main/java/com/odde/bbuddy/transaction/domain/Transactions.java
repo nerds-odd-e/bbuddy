@@ -1,6 +1,7 @@
 package com.odde.bbuddy.transaction.domain;
 
 import com.odde.bbuddy.common.callback.PostActions;
+import com.odde.bbuddy.common.controller.ResultRange;
 import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class Transactions {
         }
     }
 
-    public TransactionsPostActions processAll(Consumer<Transaction> consumer) {
+    public TransactionsPostActions processAll(Consumer<Transaction> consumer, ResultRange resultRange) {
         List<Transaction> all = repo.findAll();
         all.forEach(consumer::accept);
         return new SummaryOfTransactions(all);
