@@ -24,7 +24,7 @@ import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NA
 @Controller
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 @RequestMapping(TRANSACTION)
-public class TransactionController {
+public class TransactionAddController {
 
     private final Transactions transactions;
     private final PresentableAddTransaction presentableAddTransaction;
@@ -38,7 +38,7 @@ public class TransactionController {
     String failedMessage;
 
     @Autowired
-    public TransactionController(
+    public TransactionAddController(
             Transactions transactions,
             PresentableAddTransaction presentableAddTransaction,
             View<String> message) {

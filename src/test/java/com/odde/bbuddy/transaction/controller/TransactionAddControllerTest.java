@@ -20,11 +20,11 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(NestedRunner.class)
-public class TransactionControllerTest {
+public class TransactionAddControllerTest {
 
     Transactions mockTransactions = mock(Transactions.class);
     View mockView = mock(View.class);
-    TransactionController controller = new TransactionController(mockTransactions, new PresentableAddTransaction(), mockView);
+    TransactionAddController controller = new TransactionAddController(mockTransactions, new PresentableAddTransaction(), mockView);
     Transaction transaction = defaultTransaction().build();
     BindingResult stubBindingResult = mock(BindingResult.class);
 
