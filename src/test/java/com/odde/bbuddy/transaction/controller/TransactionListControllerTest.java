@@ -78,8 +78,8 @@ public class TransactionListControllerTest {
         verify(mockTransactions).processAll(any(Consumer.class), eq(pageable));
     }
 
-    private void given_result_range_will_be_created_with(Pageable resultRange, int pageNumber) {
-        when(mockPageableFactory.create(pageNumber)).thenReturn(resultRange);
+    private void given_result_range_will_be_created_with(Pageable pageable, int pageNumber) {
+        when(mockPageableFactory.create(pageNumber)).thenReturn(pageable);
     }
 
     private void given_transactions_processAll_will_return(final Transaction transaction, SummaryOfTransactions summaryOfTransactions) {

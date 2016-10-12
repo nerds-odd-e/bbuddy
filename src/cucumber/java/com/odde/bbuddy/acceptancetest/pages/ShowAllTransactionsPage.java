@@ -20,7 +20,7 @@ public class ShowAllTransactionsPage {
     }
 
     public void navigateToPage(int pageNumber) {
-        uiDriver.navigateToWithParams(TRANSACTION, paramsWithPage(pageNumber));
+        uiDriver.navigateToWithParams(TRANSACTION, paramsWithPage(pageNumber - 1));
     }
 
     private Params paramsWithPage(int pageNumber) {

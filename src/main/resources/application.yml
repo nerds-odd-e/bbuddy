@@ -15,6 +15,9 @@ spring:
     messages:
         basename: BindingErrorMessages
 
+application:
+    perPageLimit: 10
+
 ---
 
 spring:

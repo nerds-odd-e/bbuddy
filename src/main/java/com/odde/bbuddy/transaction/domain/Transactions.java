@@ -4,10 +4,10 @@ import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
@@ -31,10 +31,10 @@ public class Transactions {
         }
     }
 
-    public TransactionsPostActions processAll(Consumer<Transaction> consumer, Pageable resultRange) {
-        List<Transaction> all = repo.findAll();
+    public TransactionsPostActions processAll(Consumer<Transaction> consumer, Pageable pageable) {
+        Page<Transaction> all = repo.findAll(pageable);
         all.forEach(consumer::accept);
-        return new SummaryOfTransactions(all);
+        return new SummaryOfTransactions(all.getContent());
     }
 
 }

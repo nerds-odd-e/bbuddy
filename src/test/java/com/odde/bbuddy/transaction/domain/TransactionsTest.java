@@ -6,13 +6,13 @@ import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.function.Consumer;
 
 import static com.odde.bbuddy.common.builder.PageableBuilder.defaultPageable;
 import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
-import static java.util.Arrays.asList;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -65,11 +65,11 @@ public class TransactionsTest {
 
     public class ProcessAll {
 
-        private Consumer<Transaction> whateverConsumer = transaction -> {};
+        private Consumer<Transaction> whateverTransactionConsumer = transaction -> {};
         private Pageable whateverPageable = defaultPageable().build();
 
         @Before
-        public void given_findAll_will_return_transaction(){
+        public void given_findAll_will_return_transaction() {
             given_findAll_will_return(transaction);
         }
 
@@ -86,14 +86,29 @@ public class TransactionsTest {
         public void process_all_transactions_with_summary() {
             Consumer<SummaryOfTransactions> mockConsumer = mock(Consumer.class);
 
-            processAll(whateverConsumer)
+            processAll(whateverTransactionConsumer)
                     .withSummary(mockConsumer);
 
             verify(mockConsumer).accept(any(SummaryOfTransactions.class));
         }
 
+        @Test
+        public void should_pass_pageable_to_repo() {
+            Pageable pageable = defaultPageable().build();
+
+            transactions.processAll(whateverTransactionConsumer, pageable);
+
+            verify(mockRepo).findAll(pageable);
+        }
+
         private void given_findAll_will_return(Transaction transaction) {
-            when(mockRepo.findAll()).thenReturn(asList(transaction));
+            Page mockPage = mock(Page.class);
+            doAnswer(invocation -> {
+                Consumer consumer = invocation.getArgumentAt(0, Consumer.class);
+                consumer.accept(transaction);
+                return null;
+            }).when(mockPage).forEach(any(Consumer.class));
+            when(mockRepo.findAll(any(Pageable.class))).thenReturn(mockPage);
         }
 
         private TransactionsPostActions processAll(Consumer<Transaction> mockConsumer) {

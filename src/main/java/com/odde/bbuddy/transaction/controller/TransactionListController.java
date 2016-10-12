@@ -31,7 +31,7 @@ public class TransactionListController {
     }
 
     @GetMapping
-    public ModelAndView index(@RequestParam(defaultValue = "1") int page) {
+    public ModelAndView index(@RequestParam(defaultValue = "0") int page) {
         transactions.processAll(presentableTransactions::display, pageableFactory.create(page))
                 .withSummary(presentableSummaryOfTransactions::display);
         return combine(presentableTransactions).with(presentableSummaryOfTransactions);
