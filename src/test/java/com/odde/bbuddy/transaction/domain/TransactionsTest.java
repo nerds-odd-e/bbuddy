@@ -1,16 +1,16 @@
 package com.odde.bbuddy.transaction.domain;
 
 import com.nitorcreations.junit.runners.NestedRunner;
-import com.odde.bbuddy.common.controller.ResultRange;
 import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.data.domain.Pageable;
 
 import java.util.function.Consumer;
 
-import static com.odde.bbuddy.common.builder.ResultRangeBuilder.defaultResultRange;
+import static com.odde.bbuddy.common.builder.PageableBuilder.defaultPageable;
 import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.Arrays.asList;
 import static org.mockito.Matchers.any;
@@ -66,7 +66,7 @@ public class TransactionsTest {
     public class ProcessAll {
 
         private Consumer<Transaction> whateverConsumer = transaction -> {};
-        private ResultRange whateverResultRange = defaultResultRange().build();
+        private Pageable whateverPageable = defaultPageable().build();
 
         @Before
         public void given_findAll_will_return_transaction(){
@@ -97,7 +97,7 @@ public class TransactionsTest {
         }
 
         private TransactionsPostActions processAll(Consumer<Transaction> mockConsumer) {
-            return transactions.processAll(mockConsumer, whateverResultRange);
+            return transactions.processAll(mockConsumer, whateverPageable);
         }
 
     }

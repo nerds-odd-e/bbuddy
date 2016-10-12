@@ -1,6 +1,6 @@
 package com.odde.bbuddy.transaction.controller;
 
-import com.odde.bbuddy.common.controller.ResultRangeFactory;
+import com.odde.bbuddy.common.controller.PageableFactory;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.view.PresentableSummaryOfTransactions;
 import com.odde.bbuddy.transaction.view.PresentableTransactions;
@@ -20,19 +20,19 @@ public class TransactionListController {
     private final Transactions transactions;
     private final PresentableTransactions presentableTransactions;
     private final PresentableSummaryOfTransactions presentableSummaryOfTransactions;
-    private final ResultRangeFactory resultRangeFactory;
+    private final PageableFactory pageableFactory;
 
     @Autowired
-    public TransactionListController(Transactions transactions, PresentableTransactions presentableTransactions, PresentableSummaryOfTransactions presentableSummaryOfTransactions, ResultRangeFactory resultRangeFactory) {
+    public TransactionListController(Transactions transactions, PresentableTransactions presentableTransactions, PresentableSummaryOfTransactions presentableSummaryOfTransactions, PageableFactory pageableFactory) {
         this.transactions = transactions;
         this.presentableTransactions = presentableTransactions;
         this.presentableSummaryOfTransactions = presentableSummaryOfTransactions;
-        this.resultRangeFactory = resultRangeFactory;
+        this.pageableFactory = pageableFactory;
     }
 
     @GetMapping
     public ModelAndView index(@RequestParam(defaultValue = "1") int page) {
-        transactions.processAll(presentableTransactions::display, resultRangeFactory.create(page))
+        transactions.processAll(presentableTransactions::display, pageableFactory.create(page))
                 .withSummary(presentableSummaryOfTransactions::display);
         return combine(presentableTransactions).with(presentableSummaryOfTransactions);
     }

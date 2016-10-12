@@ -1,7 +1,6 @@
 package com.odde.bbuddy.transaction.controller;
 
-import com.odde.bbuddy.common.controller.ResultRange;
-import com.odde.bbuddy.common.controller.ResultRangeFactory;
+import com.odde.bbuddy.common.controller.PageableFactory;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.domain.TransactionsPostActions;
@@ -12,11 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.function.Consumer;
 
-import static com.odde.bbuddy.common.builder.ResultRangeBuilder.defaultResultRange;
+import static com.odde.bbuddy.common.builder.PageableBuilder.defaultPageable;
 import static com.odde.bbuddy.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.odde.bbuddy.transaction.builder.PresentableSummaryOfTransactionsBuilder.defaultPresentableSummaryOfTransactions;
 import static com.odde.bbuddy.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
@@ -32,8 +32,8 @@ public class TransactionListControllerTest {
     Transactions mockTransactions = mock(Transactions.class);
     PresentableTransactions presentableTransactions = spy(defaultPresentableTransactions().build());
     PresentableSummaryOfTransactions presentableSummaryOfTransactions = spy(defaultPresentableSummaryOfTransactions().build());
-    ResultRangeFactory mockResultRangeFactory = mock(ResultRangeFactory.class);
-    TransactionListController controller = new TransactionListController(mockTransactions, presentableTransactions, presentableSummaryOfTransactions, mockResultRangeFactory);
+    PageableFactory mockPageableFactory = mock(PageableFactory.class);
+    TransactionListController controller = new TransactionListController(mockTransactions, presentableTransactions, presentableSummaryOfTransactions, mockPageableFactory);
 
     @Before
     public void given_transactions_processAll_is_ready_to_be_called() {
@@ -69,21 +69,21 @@ public class TransactionListControllerTest {
 
     @Test
     public void should_pass_result_range_to_transactions() {
-        ResultRange resultRange = defaultResultRange().build();
+        Pageable pageable = defaultPageable().build();
         int pageNumber = 1;
-        given_result_range_will_be_created_with(resultRange, pageNumber);
+        given_result_range_will_be_created_with(pageable, pageNumber);
 
         controller.index(pageNumber);
 
-        verify(mockTransactions).processAll(any(Consumer.class), eq(resultRange));
+        verify(mockTransactions).processAll(any(Consumer.class), eq(pageable));
     }
 
-    private void given_result_range_will_be_created_with(ResultRange resultRange, int pageNumber) {
-        when(mockResultRangeFactory.create(pageNumber)).thenReturn(resultRange);
+    private void given_result_range_will_be_created_with(Pageable resultRange, int pageNumber) {
+        when(mockPageableFactory.create(pageNumber)).thenReturn(resultRange);
     }
 
     private void given_transactions_processAll_will_return(final Transaction transaction, SummaryOfTransactions summaryOfTransactions) {
-        when(mockTransactions.processAll(any(Consumer.class), any(ResultRange.class))).thenAnswer(new Answer<TransactionsPostActions>() {
+        when(mockTransactions.processAll(any(Consumer.class), any(Pageable.class))).thenAnswer(new Answer<TransactionsPostActions>() {
             @Override
             public TransactionsPostActions answer(InvocationOnMock invocation) throws Throwable {
                 Consumer<Transaction> consumer = invocation.getArgumentAt(0, Consumer.class);
