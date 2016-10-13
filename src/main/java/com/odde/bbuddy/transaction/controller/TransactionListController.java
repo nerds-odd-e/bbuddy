@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import static com.odde.bbuddy.common.controller.PageableFactory.*;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION;
 import static com.odde.bbuddy.common.view.ModelAndViewCombiner.combine;
 
@@ -31,7 +32,7 @@ public class TransactionListController {
     }
 
     @GetMapping
-    public ModelAndView index(@RequestParam(defaultValue = "0") int page) {
+    public ModelAndView index(@RequestParam(defaultValue = DEFAULT_PAGE_NUMBER) int page) {
         transactions.processAll(presentableTransactions::display, pageableFactory.create(page))
                 .withSummary(presentableSummaryOfTransactions::display);
         return combine(presentableTransactions).with(presentableSummaryOfTransactions);

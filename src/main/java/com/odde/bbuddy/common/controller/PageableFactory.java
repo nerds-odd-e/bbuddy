@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PageableFactory {
+    public static final String DEFAULT_PAGE_NUMBER = "0";
     private final int perPageLimit;
 
     public PageableFactory(
