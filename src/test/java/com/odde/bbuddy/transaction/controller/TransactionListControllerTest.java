@@ -1,6 +1,7 @@
 package com.odde.bbuddy.transaction.controller;
 
 import com.odde.bbuddy.common.controller.PageableFactory;
+import com.odde.bbuddy.common.view.PageView;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.domain.TransactionsPostActions;
@@ -33,7 +34,8 @@ public class TransactionListControllerTest {
     PresentableTransactions presentableTransactions = spy(defaultPresentableTransactions().build());
     PresentableSummaryOfTransactions presentableSummaryOfTransactions = spy(defaultPresentableSummaryOfTransactions().build());
     PageableFactory mockPageableFactory = mock(PageableFactory.class);
-    TransactionListController controller = new TransactionListController(mockTransactions, presentableTransactions, presentableSummaryOfTransactions, mockPageableFactory);
+    PageView mockPageView = mock(PageView.class);
+    TransactionListController controller = new TransactionListController(mockTransactions, presentableTransactions, presentableSummaryOfTransactions, mockPageableFactory, mockPageView);
 
     @Before
     public void given_transactions_processAll_is_ready_to_be_called() {

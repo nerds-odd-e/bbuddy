@@ -1,6 +1,7 @@
 package com.odde.bbuddy.transaction.controller;
 
 import com.odde.bbuddy.common.controller.PageableFactory;
+import com.odde.bbuddy.common.view.PageView;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.view.PresentableSummaryOfTransactions;
 import com.odde.bbuddy.transaction.view.PresentableTransactions;
@@ -20,20 +21,24 @@ public class TransactionListController {
     private final PresentableTransactions presentableTransactions;
     private final PresentableSummaryOfTransactions presentableSummaryOfTransactions;
     private final PageableFactory pageableFactory;
+    private final PageView pageView;
 
     @Autowired
-    public TransactionListController(Transactions transactions, PresentableTransactions presentableTransactions, PresentableSummaryOfTransactions presentableSummaryOfTransactions, PageableFactory pageableFactory) {
+    public TransactionListController(Transactions transactions, PresentableTransactions presentableTransactions, PresentableSummaryOfTransactions presentableSummaryOfTransactions, PageableFactory pageableFactory, PageView pageView) {
         this.transactions = transactions;
         this.presentableTransactions = presentableTransactions;
         this.presentableSummaryOfTransactions = presentableSummaryOfTransactions;
         this.pageableFactory = pageableFactory;
+        this.pageView = pageView;
     }
 
     @GetMapping
     public ModelAndView index() {
         transactions.processAll(presentableTransactions::display, pageableFactory.create())
                 .withSummary(presentableSummaryOfTransactions::display);
-        return combine(presentableTransactions).with(presentableSummaryOfTransactions);
+        combine(presentableTransactions).with(presentableSummaryOfTransactions);
+        combine(presentableTransactions).with(pageView);
+        return presentableTransactions;
     }
 
 }
