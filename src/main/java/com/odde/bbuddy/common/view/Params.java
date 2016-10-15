@@ -1,4 +1,4 @@
-package com.odde.bbuddy.acceptancetest.driver;
+package com.odde.bbuddy.common.view;
 
 import java.util.HashMap;
 import java.util.Map;

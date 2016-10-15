@@ -1,5 +1,6 @@
 package com.odde.bbuddy.acceptancetest.driver;
 
+import com.odde.bbuddy.common.view.Params;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
