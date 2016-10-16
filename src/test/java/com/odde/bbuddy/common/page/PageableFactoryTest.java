@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common.controller;
+package com.odde.bbuddy.common.page;
 
 import org.junit.Test;
 import org.springframework.data.domain.Pageable;

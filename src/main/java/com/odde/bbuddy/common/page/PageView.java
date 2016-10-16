@@ -1,6 +1,6 @@
-package com.odde.bbuddy.common.view;
+package com.odde.bbuddy.common.page;
 
-import com.odde.bbuddy.common.controller.CurrentPage;
+import com.odde.bbuddy.common.view.Params;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

@@ -1,12 +1,12 @@
-package com.odde.bbuddy.common.view;
+package com.odde.bbuddy.common.page;
 
 import com.nitorcreations.junit.runners.NestedRunner;
-import com.odde.bbuddy.common.controller.CurrentPage;
+import com.odde.bbuddy.common.view.Params;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.ui.ModelMap;
 
-import static com.odde.bbuddy.common.view.PageView.PAGE_PARAM_NAME;
+import static com.odde.bbuddy.common.page.PageView.PAGE_PARAM_NAME;
 import static java.lang.String.valueOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;

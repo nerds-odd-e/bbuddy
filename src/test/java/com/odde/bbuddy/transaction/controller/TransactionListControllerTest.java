@@ -1,7 +1,7 @@
 package com.odde.bbuddy.transaction.controller;
 
-import com.odde.bbuddy.common.controller.PageableFactory;
-import com.odde.bbuddy.common.view.PageView;
+import com.odde.bbuddy.common.page.PageableFactory;
+import com.odde.bbuddy.common.page.PageView;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.domain.TransactionsPostActions;

@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common.controller;
+package com.odde.bbuddy.common.page;
 
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.junit.Test;
