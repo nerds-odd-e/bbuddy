@@ -24,7 +24,14 @@
     <div class="panel-footer" {{hidden}}>
         <div class="row">
             <div class="col-md-3">
-                <div class="col-md-4 media-middle"><a href="{{previousPageUrl}}" {{previousPageUrlHidden}}>{{label.previousPage}}</a><span {{previousPageTextHidden}}>{{label.previousPage}}</span></div>
+                <div class="col-md-4 media-middle">
+                    {{#previousPageUrl}}
+                        <a href="{{previousPageUrl}}">{{label.previousPage}}</a>
+                    {{/previousPageUrl}}
+                    {{^previousPageUrl}}
+                        <span>{{label.previousPage}}</span>
+                    {{/previousPageUrl}}
+                </div>
                 <div class="col-md-4 media-middle"><span>{{currentPage}}</span></div>
                 <div class="col-md-4 media-middle"><a href="#">{{label.nextPage}}</a></div>
             </div>

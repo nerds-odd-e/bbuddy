@@ -20,6 +20,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 public class PageView extends ModelAndView {
 
     public static final String PAGE_PARAM_NAME = "page";
+    private static final int FIRST_PAGE = 0;
 
     public PageView(
             @Autowired HttpServletRequest request,
@@ -30,32 +31,18 @@ public class PageView extends ModelAndView {
 
     private int currentPage(HttpServletRequest request) {
         if (request.getParameter("page") == null)
-            return 0;
+            return FIRST_PAGE;
         else
             return parseInt(request.getParameter(PAGE_PARAM_NAME));
     }
 
     private void displayPreviousPage(int currentPage) {
-        if (isOnFirstPage(currentPage))
-            displayPreviousPageText();
-        else
+        if (currentPage != FIRST_PAGE)
             displayPreviousPageLink(currentPage);
-    }
-
-    private boolean isOnFirstPage(int currentPage) {
-        return currentPage == 0;
     }
 
     private void displayPreviousPageLink(int currentPage) {
         addObject("previousPageUrl", previousPageUrl(currentPage));
-        addObject("previousPageTextHidden", "hidden");
-        addObject("previousPageUrlHidden", "");
-    }
-
-    private void displayPreviousPageText() {
-        addObject("previousPageUrl", "#");
-        addObject("previousPageTextHidden", "");
-        addObject("previousPageUrlHidden", "hidden");
     }
 
     private String previousPageUrl(int currentPage) {
@@ -65,6 +52,6 @@ public class PageView extends ModelAndView {
     }
 
     private void displayCurrentPage(int currentPage, String currentPageMessage) {
-        addObject("currentPage", format(currentPageMessage, currentPage));
+        addObject("currentPage", format(currentPageMessage, currentPage + 1));
     }
 }

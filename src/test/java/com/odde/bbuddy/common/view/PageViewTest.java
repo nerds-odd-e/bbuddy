@@ -23,12 +23,12 @@ public class PageViewTest {
         public void param_page_exists() {
             given_page_is(5);
 
-            assertThat(pageViewModelMap("Current page is %s").get("currentPage")).isEqualTo("Current page is 5");
+            assertThat(pageViewModelMap("Current page is %s").get("currentPage")).isEqualTo("Current page is 6");
         }
         
         @Test
         public void no_param_page() {
-            assertThat(pageViewModelMap("Current page is %s").get("currentPage")).isEqualTo("Current page is 0");
+            assertThat(pageViewModelMap("Current page is %s").get("currentPage")).isEqualTo("Current page is 1");
         }
 
     }
@@ -39,19 +39,19 @@ public class PageViewTest {
         public void previous_page_when_not_on_first_page() {
             given_page_is(1);
 
-            assertPreviousPageEquals(previousPageUrl(PAGE_PARAM_NAME, 0), "hidden", "", pageViewModelMap("whatever message"));
+            assertPreviousPageEquals(previousPageUrl(PAGE_PARAM_NAME, 0), pageViewModelMap("whatever message"));
         }
 
         @Test
         public void previous_page_when_on_first_page() {
             given_page_is(0);
 
-            assertPreviousPageEquals("#", "", "hidden", pageViewModelMap("whatever message"));
+            assertPreviousPageEquals(null, pageViewModelMap("whatever message"));
         }
 
         @Test
         public void no_param_page() {
-            assertPreviousPageEquals("#", "", "hidden", pageViewModelMap("whatever message"));
+            assertPreviousPageEquals(null, pageViewModelMap("whatever message"));
         }
 
     }
@@ -60,10 +60,8 @@ public class PageViewTest {
         return new PageView(mockRequest, currentPageMessage).getModelMap();
     }
 
-    private void assertPreviousPageEquals(String previousPageUrl, String previousPageTextHidden, String previousPageUrlHidden, ModelMap modelMap) {
+    private void assertPreviousPageEquals(String previousPageUrl, ModelMap modelMap) {
         assertThat(modelMap.get("previousPageUrl")).isEqualTo(previousPageUrl);
-        assertThat(modelMap.get("previousPageTextHidden")).isEqualTo(previousPageTextHidden);
-        assertThat(modelMap.get("previousPageUrlHidden")).isEqualTo(previousPageUrlHidden);
     }
 
     private String previousPageUrl(String paramName, int paramValue) {
