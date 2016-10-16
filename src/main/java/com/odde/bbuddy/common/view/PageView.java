@@ -1,6 +1,6 @@
 package com.odde.bbuddy.common.view;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import com.odde.bbuddy.common.controller.CurrentPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
-import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
@@ -23,17 +22,10 @@ public class PageView extends ModelAndView {
     private static final int FIRST_PAGE = 0;
 
     public PageView(
-            @Autowired HttpServletRequest request,
-            @Value("${pagination.currentPage}") String currentPageMessage) {
-        displayCurrentPage(currentPage(request), currentPageMessage);
-        displayPreviousPage(currentPage(request));
-    }
-
-    private int currentPage(HttpServletRequest request) {
-        if (request.getParameter("page") == null)
-            return FIRST_PAGE;
-        else
-            return parseInt(request.getParameter(PAGE_PARAM_NAME));
+            @Value("${pagination.currentPage}") String currentPageMessage,
+            @Autowired CurrentPage mockCurrentPage) {
+        displayCurrentPage(mockCurrentPage.number(), currentPageMessage);
+        displayPreviousPage(mockCurrentPage.number());
     }
 
     private void displayPreviousPage(int currentPage) {
