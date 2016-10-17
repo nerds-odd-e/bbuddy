@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/bbuddytest?createDatabaseIfNotExist=true&useSSL=false
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+server:
+  port: 8080

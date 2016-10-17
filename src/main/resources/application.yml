@@ -17,26 +17,3 @@ spring:
 
 application:
     perPageLimit: 10
-
----
-
-spring:
-  profiles: dev
-  datasource:
-    url: jdbc:mysql://localhost:3306/bbuddydev?createDatabaseIfNotExist=true&useSSL=false
-
-server:
-  port: 8090
-
----
-
-spring:
-  profiles: test
-  datasource:
-    url: jdbc:mysql://localhost:3306/bbuddytest?createDatabaseIfNotExist=true&useSSL=false
-  jpa:
-    hibernate:
-      ddl-auto: create
-
-server:
-  port: 8080
