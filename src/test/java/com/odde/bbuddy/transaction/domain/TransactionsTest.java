@@ -67,6 +67,7 @@ public class TransactionsTest {
 
         private Consumer<Transaction> whateverTransactionConsumer = transaction -> {};
         private Pageable whateverPageable = defaultPageable().build();
+        Page mockPage = mock(Page.class);
 
         @Before
         public void given_findAll_will_return_transaction() {
@@ -100,9 +101,23 @@ public class TransactionsTest {
 
             verify(mockRepo).findAll(pageable);
         }
+        
+        @Test
+        public void should_process_all_transactions_with_total_page_count() {
+            given_total_page_count_is(10);
+            Consumer<Integer> mockConsumer = mock(Consumer.class);
+
+            processAll(whateverTransactionConsumer)
+                    .withTotalPageCount(mockConsumer);
+
+            verify(mockConsumer).accept(10);
+        }
+
+        private void given_total_page_count_is(int totalPageCount) {
+            when(mockPage.getTotalPages()).thenReturn(totalPageCount);
+        }
 
         private void given_findAll_will_return(Transaction transaction) {
-            Page mockPage = mock(Page.class);
             doAnswer(invocation -> {
                 Consumer consumer = invocation.getArgumentAt(0, Consumer.class);
                 consumer.accept(transaction);

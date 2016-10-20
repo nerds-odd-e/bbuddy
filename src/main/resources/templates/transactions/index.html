@@ -33,7 +33,14 @@
                     {{/previousPageUrl}}
                 </div>
                 <div class="col-md-4 media-middle"><span>{{currentPage}}</span></div>
-                <div class="col-md-4 media-middle"><a href="#">{{label.nextPage}}</a></div>
+                <div class="col-md-4 media-middle">
+                    {{#nextPageUrl}}
+                        <a href="{{nextPageUrl}}">{{label.nextPage}}</a>
+                    {{/nextPageUrl}}
+                    {{^nextPageUrl}}
+                        <span>{{label.nextPage}}</span>
+                    {{/nextPageUrl}}
+                </div>
             </div>
             <div class="col-md-3">{{totalIncome}}</div>
             <div class="col-md-3">{{totalOutcome}}</div>

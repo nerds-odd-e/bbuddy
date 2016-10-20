@@ -1,7 +1,7 @@
 package com.odde.bbuddy.transaction.controller;
 
-import com.odde.bbuddy.common.page.PageableFactory;
 import com.odde.bbuddy.common.page.PageView;
+import com.odde.bbuddy.common.page.PageableFactory;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.domain.TransactionsPostActions;
@@ -78,6 +78,13 @@ public class TransactionListControllerTest {
 
         verify(mockTransactions).processAll(any(Consumer.class), eq(pageable));
     }
+    
+    @Test
+    public void should_let_view_display_total_page_count() {
+        controller.index();
+
+        verify(mockPageView).display(5);
+    }
 
     private void given_pageable_will_be_created_as(Pageable pageable) {
         when(mockPageableFactory.create()).thenReturn(pageable);
@@ -99,8 +106,13 @@ public class TransactionListControllerTest {
         doAnswer(invocation -> {
             Consumer<SummaryOfTransactions> consumer = invocation.getArgumentAt(0, Consumer.class);
             consumer.accept(summaryOfTransactions);
-            return null;
+            return stubTransactionsPostActions;
         }).when(stubTransactionsPostActions).withSummary(any(Consumer.class));
+        doAnswer(invocation -> {
+            Consumer<Integer> consumer = invocation.getArgumentAt(0, Consumer.class);
+            consumer.accept(5);
+            return stubTransactionsPostActions;
+        }).when(stubTransactionsPostActions).withTotalPageCount(any(Consumer.class));
         return stubTransactionsPostActions;
     }
 
