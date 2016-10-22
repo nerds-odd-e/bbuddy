@@ -7,7 +7,7 @@ public class PageableBuilder {
 
     private int page = 1;
 
-    public static PageableBuilder defaultPageable() {
+    public static PageableBuilder builder() {
         return new PageableBuilder();
     }
 
@@ -15,8 +15,4 @@ public class PageableBuilder {
         return new PageRequest(page, 10);
     }
 
-    public PageableBuilder page(int page) {
-        this.page = page;
-        return this;
-    }
 }

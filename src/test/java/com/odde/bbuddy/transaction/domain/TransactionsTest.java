@@ -1,6 +1,7 @@
 package com.odde.bbuddy.transaction.domain;
 
 import com.nitorcreations.junit.runners.NestedRunner;
+import com.odde.bbuddy.common.builder.ConsumeAnswer;
 import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.junit.Before;
@@ -11,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.function.Consumer;
 
-import static com.odde.bbuddy.common.builder.PageableBuilder.defaultPageable;
+import static com.odde.bbuddy.common.builder.PageableBuilder.builder;
 import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -66,7 +67,7 @@ public class TransactionsTest {
     public class ProcessAll {
 
         private Consumer<Transaction> whateverTransactionConsumer = transaction -> {};
-        private Pageable whateverPageable = defaultPageable().build();
+        private Pageable whateverPageable = builder().build();
         Page mockPage = mock(Page.class);
 
         @Before
@@ -95,7 +96,7 @@ public class TransactionsTest {
 
         @Test
         public void should_pass_pageable_to_repo() {
-            Pageable pageable = defaultPageable().build();
+            Pageable pageable = builder().build();
 
             transactions.processAll(whateverTransactionConsumer, pageable);
 
@@ -118,11 +119,9 @@ public class TransactionsTest {
         }
 
         private void given_findAll_will_return(Transaction transaction) {
-            doAnswer(invocation -> {
-                Consumer consumer = invocation.getArgumentAt(0, Consumer.class);
-                consumer.accept(transaction);
-                return null;
-            }).when(mockPage).forEach(any(Consumer.class));
+            doAnswer(
+                    new ConsumeAnswer<>(transaction)
+            ).when(mockPage).forEach(any(Consumer.class));
             when(mockRepo.findAll(any(Pageable.class))).thenReturn(mockPage);
         }
 

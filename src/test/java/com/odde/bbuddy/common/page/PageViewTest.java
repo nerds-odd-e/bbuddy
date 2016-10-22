@@ -21,8 +21,8 @@ public class PageViewTest {
         @Test
         public void param_page_exists() {
             view = builder()
-                    .withCurrentPage(5)
-                    .withCurrentPageMessage("Current page is %s")
+                    .currentPage(5)
+                    .currentPageMessage("Current page is %s")
                     .build();
 
             assertThat(view.getModelMap().get("currentPage")).isEqualTo("Current page is 5");
@@ -34,14 +34,14 @@ public class PageViewTest {
 
         @Test
         public void previous_page_when_not_on_first_page() {
-            view = builder().withCurrentPage(2).build();
+            view = builder().currentPage(2).build();
 
             assertPreviousPageEquals(pageUrl(PAGE_PARAM_NAME, 1));
         }
 
         @Test
         public void previous_page_when_on_first_page() {
-            view = builder().withCurrentPage(FIRST_PAGE).build();
+            view = builder().currentPage(FIRST_PAGE).build();
 
             assertPreviousPageEquals(null);
         }
@@ -56,7 +56,7 @@ public class PageViewTest {
 
         @Test
         public void next_page_when_not_on_last_page() {
-            view = builder().withCurrentPage(4).build();
+            view = builder().currentPage(4).build();
 
             totalPageCountIs(5);
 
@@ -65,7 +65,7 @@ public class PageViewTest {
 
         @Test
         public void next_page_when_on_last_page() {
-            view = builder().withCurrentPage(4).build();
+            view = builder().currentPage(4).build();
 
             totalPageCountIs(4);
 
