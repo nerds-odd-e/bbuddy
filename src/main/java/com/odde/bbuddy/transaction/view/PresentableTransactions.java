@@ -28,12 +28,11 @@ public class PresentableTransactions extends ModelAndView implements View<Transa
     public PresentableTransactions(
             @Value("${transaction.list.empty}") String noTransactionMessage) {
         addObject("transactions", presentableTransactions);
-        hiddenViewAndShowMessage(noTransactionMessage);
+        showMessage(noTransactionMessage);
         setViewName(TRANSACTION_INDEX);
     }
 
-    private void hiddenViewAndShowMessage(String noTransactionMessage) {
-        addObject("hidden", "hidden");
+    private void showMessage(String noTransactionMessage) {
         addObject("message", noTransactionMessage);
     }
 
@@ -46,11 +45,10 @@ public class PresentableTransactions extends ModelAndView implements View<Transa
     @Override
     public void display(Transaction transaction) {
         presentableTransactions.add(presentableTransactionFrom(transaction));
-        showViewAndHiddenMessage();
+        hideMessage();
     }
 
-    private void showViewAndHiddenMessage() {
-        getModelMap().remove("hidden");
+    private void hideMessage() {
         getModelMap().remove("message");
     }
 

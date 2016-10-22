@@ -31,11 +31,6 @@ public class PresentableTransactionsTest {
     public class NoTransaction {
 
         @Test
-        public void should_hide_list_view() {
-            assertThat(modelOf(presentableTransactions).get("hidden")).isEqualTo("hidden");
-        }
-
-        @Test
         public void should_show_message() {
             presentableTransactions = PresentableTransactions.builder().noTransactionMessage("no transaction message").build();
 
@@ -48,13 +43,6 @@ public class PresentableTransactionsTest {
 
         private Date date = parseDay("2016-07-01");
         private int amount = 100;
-
-        @Test
-        public void should_not_hide_list_view() {
-            displayTransaction();
-
-            assertThat(modelOf(presentableTransactions)).doesNotContainKey("hidden");
-        }
 
         @Test
         public void should_not_show_message() {
