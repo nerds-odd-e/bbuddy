@@ -67,7 +67,6 @@ public class TransactionsTest {
     public class ProcessAll {
 
         private Consumer<Transaction> whateverTransactionConsumer = transaction -> {};
-        private Pageable whateverPageable = builder().build();
         Page mockPage = mock(Page.class);
 
         @Before
@@ -126,7 +125,7 @@ public class TransactionsTest {
         }
 
         private TransactionsPostActions processAll(Consumer<Transaction> mockConsumer) {
-            return transactions.processAll(mockConsumer, whateverPageable);
+            return transactions.processAll(mockConsumer, builder().build());
         }
 
     }
