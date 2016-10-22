@@ -11,7 +11,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 public class CurrentPage {
-    public static final int FIRST_PAGE = 0;
+    public static final int FIRST_PAGE = 1;
     private final HttpServletRequest request;
 
     @Autowired

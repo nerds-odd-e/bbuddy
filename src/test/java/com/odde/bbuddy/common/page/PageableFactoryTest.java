@@ -19,7 +19,7 @@ public class PageableFactoryTest {
 
         Pageable pageable = pageableFactory(perPageLimit).create();
 
-        assertPageSizeAndNumberEquals(perPageLimit, page, pageable);
+        assertPageSizeAndNumberEquals(perPageLimit, page - 1, pageable);
     }
 
     private void given_page_number_is(int page) {

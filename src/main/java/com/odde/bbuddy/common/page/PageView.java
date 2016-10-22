@@ -20,7 +20,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PageView extends ModelAndView implements View<Integer> {
 
-    private static final String PAGE_PARAM_NAME = "page";
+    public static final String PAGE_PARAM_NAME = "page";
     private final CurrentPage currentPage;
 
     public PageView(
@@ -41,11 +41,11 @@ public class PageView extends ModelAndView implements View<Integer> {
     }
 
     private void displayCurrentPage(String currentPageMessage) {
-        addObject("currentPage", format(currentPageMessage, currentPage.number() + 1));
+        addObject("currentPage", format(currentPageMessage, currentPage.number()));
     }
 
     public void display(Integer totalPageCount) {
-        if (currentPage.number() < totalPageCount - 1)
+        if (currentPage.number() < totalPageCount)
             displayNextPageUrl();
     }
 
