@@ -14,9 +14,10 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 public class PageableFactory {
     private final int perPageLimit;
     private final CurrentPage currentPage;
+    public static final String PER_PAGE_LIMIT_PROPERTY_NAME = "application.perPageLimit";
 
     public PageableFactory(
-            @Value("${application.perPageLimit}") int perPageLimit,
+            @Value("${" + PER_PAGE_LIMIT_PROPERTY_NAME + "}") int perPageLimit,
             @Autowired CurrentPage currentPage) {
         this.perPageLimit = perPageLimit;
         this.currentPage = currentPage;
