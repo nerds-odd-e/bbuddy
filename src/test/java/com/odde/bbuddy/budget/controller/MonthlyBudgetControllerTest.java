@@ -20,7 +20,6 @@ import static com.odde.bbuddy.budget.builder.PresentableMonthlyBudgetAmountBuild
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
-import static com.odde.bbuddy.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -140,7 +139,6 @@ public class MonthlyBudgetControllerTest {
         @Test
         public void should_pass_amount_to_page() {
             given_planner_will_return_total_as(total);
-            spyOnDisplayOf(presentableMonthlyBudgetAmount);
 
             getAmount();
 

@@ -1,7 +1,7 @@
 package com.odde.bbuddy.transaction.controller;
 
-import com.odde.bbuddy.common.page.PageableFactory;
 import com.odde.bbuddy.common.page.PageView;
+import com.odde.bbuddy.common.page.PageableFactory;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.view.PresentableSummaryOfTransactions;
 import com.odde.bbuddy.transaction.view.PresentableTransactions;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTION;
-import static com.odde.bbuddy.common.view.ModelAndViewCombiner.combine;
 
 @Controller
 @RequestMapping(TRANSACTION)
@@ -37,9 +36,7 @@ public class TransactionListController {
         transactions.processAll(presentableTransactions::display, pageableFactory.create())
                 .withSummary(presentableSummaryOfTransactions::display)
                 .withTotalPageCount(pageView::display);
-        combine(presentableTransactions).with(presentableSummaryOfTransactions);
-        combine(presentableTransactions).with(pageView);
-        return presentableTransactions;
+        return presentableTransactions.combineWith(pageView, presentableSummaryOfTransactions);
     }
 
 }

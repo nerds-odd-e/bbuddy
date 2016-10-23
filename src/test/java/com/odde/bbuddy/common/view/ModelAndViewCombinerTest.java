@@ -3,19 +3,28 @@ package com.odde.bbuddy.common.view;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
-import static com.odde.bbuddy.common.view.ModelAndViewCombiner.*;
+import java.util.AbstractMap.SimpleEntry;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ModelAndViewCombinerTest {
 
     @Test
     public void merge_model_map_entry() {
-        ModelAndView modelAndView = new ModelAndView();
-        ModelAndView toBeMerged = new ModelAndView();
-        toBeMerged.addObject("key", "value");
+        ModelAndView afterCombined = combinerWithOriginal().combineWith(
+                toBeCombined("key", "value"), toBeCombined("anotherKey", "anotherValue"));
 
-        ModelAndView newModelAndView = combine(modelAndView).with(toBeMerged);
+        assertThat(afterCombined.getModelMap()).containsExactly(
+                new SimpleEntry<>("key", "value"), new SimpleEntry<>("anotherKey", "anotherValue"));
+    }
 
-        assertThat(newModelAndView.getModelMap()).containsEntry("key", "value");
+    private ModelAndViewCombiner combinerWithOriginal() {
+        return new ModelAndViewCombiner(new ModelAndView());
+    }
+
+    private ModelAndView toBeCombined(String key, String value) {
+        ModelAndView toBeCombined = new ModelAndView();
+        toBeCombined.addObject(key, value);
+        return toBeCombined;
     }
 }

@@ -1,5 +1,6 @@
 package com.odde.bbuddy.transaction.view;
 
+import com.odde.bbuddy.common.view.CombinableModelAndView;
 import com.odde.bbuddy.common.view.View;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import lombok.Builder;
@@ -20,7 +21,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
-public class PresentableTransactions extends ModelAndView implements View<Transaction> {
+public class PresentableTransactions extends ModelAndView implements View<Transaction>, CombinableModelAndView {
 
     private final List<PresentableTransaction> presentableTransactions = new ArrayList<>();
 
@@ -52,4 +53,8 @@ public class PresentableTransactions extends ModelAndView implements View<Transa
         getModelMap().remove("message");
     }
 
+    @Override
+    public ModelAndView original() {
+        return this;
+    }
 }

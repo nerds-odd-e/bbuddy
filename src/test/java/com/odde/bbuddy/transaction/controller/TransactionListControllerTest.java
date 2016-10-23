@@ -13,12 +13,12 @@ import com.odde.bbuddy.transaction.view.PresentableSummaryOfTransactions;
 import com.odde.bbuddy.transaction.view.PresentableTransactions;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.function.Consumer;
 
-import static com.odde.bbuddy.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.odde.bbuddy.transaction.builder.PresentableSummaryOfTransactionsBuilder.defaultPresentableSummaryOfTransactions;
 import static com.odde.bbuddy.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
 import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
@@ -46,15 +46,16 @@ public class TransactionListControllerTest {
     public void should_display_view() {
         assertThat(list()).isInstanceOf(PresentableTransactions.class);
     }
+    
+    @Test
+    public void should_combine_with_views() {
+        list();
 
-    private ModelAndView list() {
-        return controller.index();
+        verifyCombinedWith(presentableTransactions, presentableSummaryOfTransactions, mockPageView);
     }
 
     @Test
     public void should_let_view_display_transaction() {
-        spyOnDisplayOf(presentableTransactions);
-
         list();
 
         verify(presentableTransactions).display(transaction);
@@ -62,8 +63,6 @@ public class TransactionListControllerTest {
 
     @Test
     public void should_let_view_display_summary_of_transactions() {
-        spyOnDisplayOf(presentableSummaryOfTransactions);
-
         list();
 
         verify(presentableSummaryOfTransactions).display(summaryOfTransactions);
@@ -105,6 +104,16 @@ public class TransactionListControllerTest {
                 new ConsumeAnswer<>(totalPageCount, stubTransactionsPostActions)
         ).when(stubTransactionsPostActions).withTotalPageCount(any(Consumer.class));
         return stubTransactionsPostActions;
+    }
+
+    private ModelAndView list() {
+        return controller.index();
+    }
+
+    private void verifyCombinedWith(PresentableTransactions presentableTransactions, PresentableSummaryOfTransactions presentableSummaryOfTransactions, PageView pageView) {
+        ArgumentCaptor<ModelAndView> captor = ArgumentCaptor.forClass(ModelAndView.class);
+        verify(presentableTransactions).combineWith(captor.capture());
+        assertThat(captor.getAllValues()).containsExactlyInAnyOrder(presentableSummaryOfTransactions, pageView);
     }
 
 }
