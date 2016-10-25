@@ -5,8 +5,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
@@ -22,10 +21,10 @@ public class ApplicationConfigurations {
         this.applicationContext = applicationContext;
     }
 
-    private final List<String> overwrittenConfigurationNames = new ArrayList<>();
+    private final Map<String, Object> overwrittenConfigurationNames = new HashMap<>();
 
     public void overwrite(String propertyName, Object propertyValue) {
-        overwrittenConfigurationNames.add(propertyName);
+        overwrittenConfigurationNames.put(propertyName, propertyValue);
         systemProperties().put(propertyName, propertyValue);
     }
 
@@ -34,6 +33,10 @@ public class ApplicationConfigurations {
     }
 
     public void restore() {
-        overwrittenConfigurationNames.forEach(name -> systemProperties().remove(name));
+        overwrittenConfigurationNames.keySet().forEach(name -> systemProperties().remove(name));
+    }
+
+    public Object getOverWritten(String name) {
+        return overwrittenConfigurationNames.get(name);
     }
 }

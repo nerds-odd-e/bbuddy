@@ -79,7 +79,7 @@ public class TransactionListSteps {
 
     @Then("^you will see (\\d+) transactions in page (\\d+)$")
     public void you_will_see_transactions_in_page(int transactionCount, int pageNumber) throws Throwable {
-        assertThat(commonPage.getAllText()).contains(amountTextOfTransactionsInPage(pageNumber, 10, transactionCount));
+        assertThat(commonPage.getAllText()).contains(amountTextOfTransactionsInPage(pageNumber, (Integer) applicationConfigurations.getOverWritten(PER_PAGE_LIMIT_PROPERTY_NAME), transactionCount));
     }
 
     private List<String> amountTextOfTransactionsInPage(int pageNumber, int perPageCount, int transactionCount) {

@@ -37,7 +37,14 @@ public class ApplicationConfigurationsTest {
         assertThat(systemProperties).containsExactly(new SimpleEntry<>("existingName", "existingValue"));
     }
 
-    public ApplicationConfigurations applicationConfigurations() {
+    @Test
+    public void get_overwritten_property() {
+        applicationConfigurations.overwrite("name", "value");
+
+        assertThat(applicationConfigurations.getOverWritten("name")).isEqualTo("value");
+    }
+
+    private ApplicationConfigurations applicationConfigurations() {
         when(mockConfigurableEnvironment.getSystemProperties()).thenReturn(systemProperties);
         when(mockConfigurableApplicationContext.getEnvironment()).thenReturn(mockConfigurableEnvironment);
         return new ApplicationConfigurations(mockConfigurableApplicationContext);
