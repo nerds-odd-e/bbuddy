@@ -1,6 +1,7 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
 import com.odde.bbuddy.Application;
+import com.odde.bbuddy.acceptancetest.data.ApplicationConfigurations;
 import com.odde.bbuddy.acceptancetest.data.transaction.TransactionRepoForTest;
 import com.odde.bbuddy.acceptancetest.data.budget.MonthlyBudgetRepoForTest;
 import com.odde.bbuddy.acceptancetest.driver.UiDriver;
@@ -38,6 +39,9 @@ public class Hooks {
     @Autowired
     TransactionRepoForTest transactionRepo;
 
+    @Autowired
+    ApplicationConfigurations applicationConfigurations;
+
     @Before("@user")
     public void signIn(){
         userRepo.save(new User("user", "password"));
@@ -64,6 +68,11 @@ public class Hooks {
     @After("@transaction")
     public void cleanUpTransaction() {
         transactionRepo.deleteAll();
+    }
+
+    @After("@restoreApplicationConfiguration")
+    public void restoreApplicationConfiguration() {
+        applicationConfigurations.restore();
     }
 
 }
