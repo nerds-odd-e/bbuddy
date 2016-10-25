@@ -16,6 +16,7 @@ Please install the following tools for this project. The latest version should b
 # Setup Command Line Development Environment
 Use git to clone this project into a folder. Then in this folder, run the command below in order.
 
+* Create a default mysql dba user `mysql -u root -p < src/main/sql/create_default_dba.sql`
 * Start Web Application `SPRING_PROFILES_ACTIVE=dev gradle clean bootRun` (on port 8090)
     * if you want to start it on a port rather than 8090 (e.g. 8070), please do `SPRING_PROFILES_ACTIVE=dev SERVER_PORT=8070 gradle clean bootRun`
 * Run All Tests `SPRING_PROFILES_ACTIVE=test gradle clean check cucumber` (on port 8080)
