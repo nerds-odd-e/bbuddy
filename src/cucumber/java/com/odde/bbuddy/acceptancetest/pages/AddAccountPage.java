@@ -2,6 +2,7 @@ package com.odde.bbuddy.acceptancetest.pages;
 
 import com.odde.bbuddy.acceptancetest.data.account.EditableAccount;
 import com.odde.bbuddy.acceptancetest.driver.UiDriver;
+import com.odde.bbuddy.acceptancetest.driver.UiElement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -17,16 +18,17 @@ public class AddAccountPage {
 
     public void add(EditableAccount account) {
         driver.navigateTo(ACCOUNT_ADD);
-        setName(account.getName());
         setBalanceBroughtForward(account.getBalanceBroughtForward());
-//        driver.findElementByName("name").submit();
+        setNameAndSubmit(account.getName());
     }
 
     public void setBalanceBroughtForward(String balanceBroughtForward) {
         driver.findElementByName("balanceBroughtForward").sendKeys(balanceBroughtForward);
     }
 
-    public void setName(String name) {
-        driver.findElementByName("name").sendKeys(name);
+    public void setNameAndSubmit(String name) {
+        UiElement element = driver.findElementByName("name");
+        element.sendKeys(name);
+        element.submit();
     }
 }
