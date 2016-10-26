@@ -3,6 +3,7 @@ package com.odde.bbuddy.account.controller;
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.account.domain.Account;
 import com.odde.bbuddy.account.domain.Accounts;
+import com.odde.bbuddy.common.view.View;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -15,7 +16,8 @@ import static org.mockito.Mockito.verify;
 public class AccountControllerTest {
 
     Accounts mockAccounts = mock(Accounts.class);
-    AccountController controller = new AccountController(mockAccounts);
+    View<String> mockView = mock(View.class);
+    AccountController controller = new AccountController(mockAccounts, mockView);
 
     public class Add {
 
@@ -27,20 +29,34 @@ public class AccountControllerTest {
     }
 
     public class AddAccountSuccess {
-        
+
+        Account account = new Account();
+
         @Test
         public void should_go_to_view() {
-            assertThat(controller.submitAddAccount(new Account())).isEqualTo(ACCOUNT_ADD);
+            assertThat(submitAddAccount()).isEqualTo(ACCOUNT_ADD);
         }
-        
+
         @Test
         public void should_add_account() {
-            Account account = new Account();
-
-            controller.submitAddAccount(account);
+            submitAddAccount();
 
             verify(mockAccounts).add(account);
         }
+        
+        @Test
+        public void should_display_success_message() {
+            controller.successMessage = "a success message";
+
+            submitAddAccount();
+
+            verify(mockView).display("a success message");
+        }
+
+        private String submitAddAccount() {
+            return controller.submitAddAccount(account);
+        }
+
     }
 
 }
