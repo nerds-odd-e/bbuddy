@@ -1,4 +1,4 @@
-@user
+@user @account
 Feature: Account
 
   Scenario: successfully add account
