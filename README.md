@@ -18,8 +18,8 @@ Use git to clone this project into a folder. Then in this folder, run the comman
 
 * Create a default mysql dba user `mysql -u root -p < src/main/sql/create_default_dba.sql`
 * Start Web Application `gradle clean bootRun` (on port 8090)
-    * if you want to start it on a port rather than 8090 (e.g. 8070), please do `SERVER_PORT=8070 gradle clean bootRun`
 * Run All Tests `gradle clean check cucumber` (on port 8080)
+* if you want to start it on a port rather than 8090 (e.g. 8070), please do `gradle clean bootRun -Pport=8070`
 
 # Setup Intellij Development Environment
 
