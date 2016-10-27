@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.odde.bbuddy.common.BeanUtils.copyProperties;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_INDEX;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTIONS_INDEX;
 import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
@@ -27,10 +27,10 @@ public class PresentableTransactions extends ModelAndView implements View<Transa
 
     @Builder
     public PresentableTransactions(
-            @Value("${transaction.list.empty}") String noTransactionMessage) {
+            @Value("${transactions.list.empty}") String noTransactionMessage) {
         addObject("transactions", presentableTransactions);
         showMessage(noTransactionMessage);
-        setViewName(TRANSACTION_INDEX);
+        setViewName(TRANSACTIONS_INDEX);
     }
 
     private void showMessage(String noTransactionMessage) {

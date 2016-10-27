@@ -24,9 +24,9 @@ public class PresentableSummaryOfTransactions extends ModelAndView implements Vi
     private final String totalOutcomeMessage;
 
     public PresentableSummaryOfTransactions(
-            @Value("${summary.transaction.balance}") String balanceMessage,
-            @Value("${summary.transaction.totalIncome}") String totalIncomeMessage,
-            @Value("${summary.transaction.totalOutcome}") String totalOutcomeMessage) {
+            @Value("${transactions.summary.balance}") String balanceMessage,
+            @Value("${transactions.summary.totalIncome}") String totalIncomeMessage,
+            @Value("${transactions.summary.totalOutcome}") String totalOutcomeMessage) {
         this.balanceMessage = balanceMessage;
         this.totalIncomeMessage = totalIncomeMessage;
         this.totalOutcomeMessage = totalOutcomeMessage;

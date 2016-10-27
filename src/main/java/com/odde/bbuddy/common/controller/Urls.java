@@ -4,17 +4,17 @@ public class Urls {
     public static final String ADD = "/add";
     public static final String INDEX = "/index";
 
-    public static final String MONTHLYBUDGET = "/monthlybudget";
+    public static final String MONTHLYBUDGETS = "/monthlybudgets";
     public static final String TOTALAMOUNT = "/totalamount";
-    public static final String MONTHLYBUDGET_ADD = MONTHLYBUDGET + ADD;
-    public static final String MONTHLYBUDGET_TOTALAMOUNT = MONTHLYBUDGET + TOTALAMOUNT;
+    public static final String MONTHLYBUDGETS_ADD = MONTHLYBUDGETS + ADD;
+    public static final String MONTHLYBUDGETS_TOTALAMOUNT = MONTHLYBUDGETS + TOTALAMOUNT;
 
-    public static final String TRANSACTION = "/transactions";
-    public static final String TRANSACTION_ADD = TRANSACTION + ADD;
-    public static final String TRANSACTION_INDEX = TRANSACTION + INDEX;
+    public static final String TRANSACTIONS = "/transactions";
+    public static final String TRANSACTIONS_ADD = TRANSACTIONS + ADD;
+    public static final String TRANSACTIONS_INDEX = TRANSACTIONS + INDEX;
 
-    public static final String ACCOUNT = "/accounts";
-    public static final String ACCOUNT_ADD = ACCOUNT + ADD;
+    public static final String ACCOUNTS = "/accounts";
+    public static final String ACCOUNTS_ADD = ACCOUNTS + ADD;
 
     public static final String SIGNIN = "/signin";
     public static final String SIGNOUT = "/signout";

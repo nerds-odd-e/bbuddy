@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
-import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGETS_TOTALAMOUNT;
 import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 import static java.lang.String.format;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
@@ -22,9 +22,9 @@ public class PresentableMonthlyBudgetAmount extends ModelAndView implements View
 
     @Builder
     public PresentableMonthlyBudgetAmount(
-            @Value("${monthlybudget.totalamount.amount}") String message) {
+            @Value("${monthlybudgets.totalamount.amount}") String message) {
         this.message = message;
-        setViewName(MONTHLYBUDGET_TOTALAMOUNT);
+        setViewName(MONTHLYBUDGETS_TOTALAMOUNT);
     }
 
     @Override

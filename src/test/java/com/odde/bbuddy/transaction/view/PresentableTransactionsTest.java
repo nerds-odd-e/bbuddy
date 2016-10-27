@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.odde.bbuddy.common.Formats.parseDay;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_INDEX;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTIONS_INDEX;
 import static com.odde.bbuddy.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type;
 import static com.odde.bbuddy.transaction.domain.Transaction.Type.Income;
@@ -25,7 +25,7 @@ public class PresentableTransactionsTest {
 
     @Test
     public void should_go_to_index_page() {
-        assertThat(presentableTransactions.getViewName()).isEqualTo(TRANSACTION_INDEX);
+        assertThat(presentableTransactions.getViewName()).isEqualTo(TRANSACTIONS_INDEX);
     }
 
     public class NoTransaction {

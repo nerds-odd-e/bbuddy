@@ -3,7 +3,7 @@ package com.odde.bbuddy.budget.view;
 import org.junit.Test;
 
 import static com.odde.bbuddy.budget.builder.PresentableMonthlyBudgetAmountBuilder.defaultPresentableMonthlyBudgetAmount;
-import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGETS_TOTALAMOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PresentableMonthlyBudgetAmountTest {
@@ -25,7 +25,7 @@ public class PresentableMonthlyBudgetAmountTest {
     public void should_go_to_total_amount_view() {
         presentableMonthlyBudgetAmount = defaultPresentableMonthlyBudgetAmount().build();
 
-        assertThat(presentableMonthlyBudgetAmount.getViewName()).isEqualTo(MONTHLYBUDGET_TOTALAMOUNT);
+        assertThat(presentableMonthlyBudgetAmount.getViewName()).isEqualTo(MONTHLYBUDGETS_TOTALAMOUNT);
     }
 
     private void display() {

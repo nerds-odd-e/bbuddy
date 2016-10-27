@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.odde.bbuddy.common.controller.Urls.ACCOUNT_ADD;
+import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS_ADD;
 
 @Component
 @Scope("cucumber-glue")
@@ -17,7 +17,7 @@ public class AddAccountPage {
     UiDriver driver;
 
     public void add(EditableAccount account) {
-        driver.navigateTo(ACCOUNT_ADD);
+        driver.navigateTo(ACCOUNTS_ADD);
         setBalanceBroughtForward(account.getBalanceBroughtForward());
         setNameAndSubmit(account.getName());
     }

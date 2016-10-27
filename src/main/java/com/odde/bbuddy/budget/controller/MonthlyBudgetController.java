@@ -21,7 +21,7 @@ import static com.odde.bbuddy.common.Formats.DAY;
 import static com.odde.bbuddy.common.controller.Urls.*;
 
 @Controller
-@RequestMapping(MONTHLYBUDGET)
+@RequestMapping(MONTHLYBUDGETS)
 @PropertySource("classpath:resultMessages.properties")
 public class MonthlyBudgetController {
 
@@ -30,10 +30,10 @@ public class MonthlyBudgetController {
     private final PresentableAddMonthlyBudget presentableAddMonthlyBudget;
     private final View message;
 
-    @Value("${monthlybudget.add.success}")
+    @Value("${monthlybudgets.add.success}")
     String successMessage;
 
-    @Value("${monthlybudget.add.failed}")
+    @Value("${monthlybudgets.add.failed}")
     String failedMessage;
 
     @Autowired

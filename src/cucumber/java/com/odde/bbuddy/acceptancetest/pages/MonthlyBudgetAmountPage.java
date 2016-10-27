@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGETS_TOTALAMOUNT;
 
 @Component
 @Scope("cucumber-glue")
@@ -19,7 +19,7 @@ public class MonthlyBudgetAmountPage {
         Params params = new Params();
         params.add("startDate", startDate);
         params.add("endDate", endDate);
-        driver.navigateToWithParams(MONTHLYBUDGET_TOTALAMOUNT, params);
+        driver.navigateToWithParams(MONTHLYBUDGETS_TOTALAMOUNT, params);
     }
 
 }

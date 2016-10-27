@@ -18,12 +18,12 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 import static com.odde.bbuddy.common.controller.Urls.ADD;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTIONS;
 import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 
 @Controller
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
-@RequestMapping(TRANSACTION)
+@RequestMapping(TRANSACTIONS)
 public class TransactionAddController {
 
     private final Transactions transactions;
@@ -31,10 +31,10 @@ public class TransactionAddController {
 
     private final View<String> message;
 
-    @Value("${transaction.add.success}")
+    @Value("${transactions.add.success}")
     String successMessage;
 
-    @Value("${transaction.add.failed}")
+    @Value("${transactions.add.failed}")
     String failedMessage;
 
     @Autowired

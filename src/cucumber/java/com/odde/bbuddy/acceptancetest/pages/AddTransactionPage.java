@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTION_ADD;
+import static com.odde.bbuddy.common.controller.Urls.TRANSACTIONS_ADD;
 
 @Component
 @Scope("cucumber-glue")
@@ -17,7 +17,7 @@ public class AddTransactionPage {
     UiDriver driver;
 
     public void add(EditableTransaction transaction) {
-        driver.navigateTo(TRANSACTION_ADD);
+        driver.navigateTo(TRANSACTIONS_ADD);
         setType(transaction.getType());
         setDescription(transaction.getDescription());
         setDate(transaction.getDate());
