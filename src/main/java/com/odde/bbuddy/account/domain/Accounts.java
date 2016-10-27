@@ -5,6 +5,9 @@ import com.odde.bbuddy.common.callback.PostActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
+
 @Service
 public class Accounts {
     private final AccountRepo accountRepo;
@@ -15,7 +18,11 @@ public class Accounts {
     }
 
     public PostActions add(Account account) {
-        accountRepo.save(account);
-        return null;
+        try {
+            accountRepo.save(account);
+            return success();
+        } catch (IllegalArgumentException e) {
+            return failed();
+        }
     }
 }
