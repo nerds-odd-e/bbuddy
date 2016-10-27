@@ -1,6 +1,7 @@
 package com.odde.bbuddy.acceptancetest.driver;
 
 import com.odde.bbuddy.common.view.Params;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -8,7 +9,11 @@ import org.springframework.stereotype.Component;
 @Scope("cucumber-glue")
 public class UiDriverWithHostName implements UiDriver {
 
-    private final String hostName = "http://localhost:8080";
+    public static final String DELIMITER = ":";
+    @Value("${server.port}")
+    private String port = "8080";
+
+    private final String hostName = "http://localhost";
     private final UiDriver originalDriver = new SeleniumWebDriver();
 
     @Override
@@ -18,7 +23,11 @@ public class UiDriverWithHostName implements UiDriver {
 
     @Override
     public void navigateTo(String url) {
-        originalDriver.navigateTo(hostName + url);
+        originalDriver.navigateTo(urlWithHostAndPort(url));
+    }
+
+    public String urlWithHostAndPort(String url) {
+        return hostName + DELIMITER + port + url;
     }
 
     @Override
@@ -33,7 +42,7 @@ public class UiDriverWithHostName implements UiDriver {
 
     @Override
     public void navigateToWithParams(String url, Params params) {
-        originalDriver.navigateToWithParams(hostName + url, params);
+        originalDriver.navigateToWithParams(urlWithHostAndPort(url), params);
     }
 
     @Override

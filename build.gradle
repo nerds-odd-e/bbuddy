@@ -65,6 +65,9 @@ cucumber {
     }
     jvmOptions {
         environment 'SPRING_PROFILES_ACTIVE', 'test'
+        if (project.hasProperty('port')) {
+            environment 'SERVER_PORT', "$port"
+        }
     }
 }
 
