@@ -63,4 +63,15 @@ cucumber {
     if (project.hasProperty('tag')) {
         tags = ["@" + "$tag"]
     }
+    jvmOptions {
+        environment 'SPRING_PROFILES_ACTIVE', 'test'
+    }
+}
+
+bootRun {
+    environment 'SPRING_PROFILES_ACTIVE', 'dev'
+}
+
+test {
+    environment 'SPRING_PROFILES_ACTIVE', 'test'
 }
