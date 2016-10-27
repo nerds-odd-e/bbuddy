@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/bbuddydev?createDatabaseIfNotExist=true&useSSL=false
+    url: jdbc:mysql://localhost:3306/bbuddydev?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
 
 server:
   port: 8090
