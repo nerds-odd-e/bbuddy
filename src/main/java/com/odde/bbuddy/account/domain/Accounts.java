@@ -1,6 +1,7 @@
 package com.odde.bbuddy.account.domain;
 
 import com.odde.bbuddy.account.repo.AccountRepo;
+import com.odde.bbuddy.common.callback.PostActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,8 @@ public class Accounts {
         this.accountRepo = accountRepo;
     }
 
-    public void add(Account account) {
+    public PostActions add(Account account) {
         accountRepo.save(account);
+        return null;
     }
 }

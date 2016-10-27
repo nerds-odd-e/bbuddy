@@ -25,6 +25,9 @@ public class AccountController {
     @Value("${accounts.add.success}")
     String successMessage;
 
+    @Value("${accounts.add.failed}")
+    String failedMessage;
+
     @Autowired
     public AccountController(Accounts accounts, View<String> message) {
         this.accounts = accounts;
@@ -38,8 +41,9 @@ public class AccountController {
 
     @PostMapping(ADD)
     public String submitAddAccount(@ModelAttribute Account account) {
-        accounts.add(account);
-        message.display(successMessage);
+        accounts.add(account)
+                .success(() -> message.display(successMessage))
+                .failed(() -> message.display(failedMessage));
 
         return ACCOUNTS_ADD;
     }

@@ -3,14 +3,17 @@ package com.odde.bbuddy.account.controller;
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.account.domain.Account;
 import com.odde.bbuddy.account.domain.Accounts;
+import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.common.view.View;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(NestedRunner.class)
 public class AccountControllerTest {
@@ -28,9 +31,20 @@ public class AccountControllerTest {
 
     }
 
-    public class AddAccountSuccess {
+    public class SubmitAdd {
 
         Account account = new Account();
+
+        @Before
+        public void given_add_account_will_success() {
+            given_add_account_will(success());
+        }
+
+        @Before
+        public void given_messages() {
+            controller.successMessage = "a success message";
+            controller.failedMessage = "a failed message";
+        }
 
         @Test
         public void should_go_to_view() {
@@ -43,20 +57,43 @@ public class AccountControllerTest {
 
             verify(mockAccounts).add(account);
         }
-        
-        @Test
-        public void should_display_success_message() {
-            controller.successMessage = "a success message";
 
-            submitAddAccount();
+        public class Success {
 
-            verify(mockView).display("a success message");
+            @Test
+            public void should_display_success_message() {
+                given_add_account_will(success());
+
+                submitAddAccount();
+
+                verify(mockView).display("a success message");
+                verify(mockView, never()).display("a failed message");
+            }
+
+        }
+
+        public class Failed {
+
+            @Test
+            public void should_display_failed_message() {
+                given_add_account_will(failed());
+
+                submitAddAccount();
+
+                verify(mockView, never()).display("a success message");
+                verify(mockView).display("a failed message");
+            }
+
         }
 
         private String submitAddAccount() {
             return controller.submitAddAccount(account);
         }
 
-    }
+        private void given_add_account_will(PostActions postActions) {
+            when(mockAccounts.add(account)).thenReturn(postActions);
+        }
 
+    }
+    
 }
