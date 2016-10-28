@@ -8,3 +8,8 @@ Feature: Account
     Then the following account will be created
       | name | balance brought forward |
       | CMB  | 1000                    |
+
+  Scenario: account name can not duplicate
+    Given existing an account with name "CMB"
+    When add a new account with name "CMB"
+    Then there is an error message for duplicate name
