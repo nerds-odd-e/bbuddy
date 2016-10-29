@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static com.odde.bbuddy.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountSteps {
 
@@ -56,7 +57,7 @@ public class AccountSteps {
 
     @Then("^there is an error message for duplicate name$")
     public void there_is_an_error_message_for_duplicate_name() throws Throwable {
-//        assertThat(commonPage.getAllText()).contains(messages.duplicateAccountName);
+        assertThat(commonPage.getAllText()).contains(messages.duplicateAccountName);
     }
 
 }

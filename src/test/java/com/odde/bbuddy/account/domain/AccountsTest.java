@@ -43,6 +43,22 @@ public class AccountsTest {
         verify(afterSuccess, never()).run();
         verify(afterFailed).run();
     }
+    
+    @Test
+    public void should_return_name_duplicated_when_save_with_a_duplicated_name_account() {
+        given_account_name_exists("account name");
+        account.setName("account name");
+        Runnable afterNameDuplicated = mock(Runnable.class);
+
+        accounts.add(account)
+                .nameDuplicated(afterNameDuplicated);
+
+        verify(afterNameDuplicated).run();
+    }
+
+    private void given_account_name_exists(String name) {
+        when(mockAccountRepo.existsByName(name)).thenReturn(true);
+    }
 
     private void given_account_repo_save_will_failed() {
         doThrow(IllegalArgumentException.class).when(mockAccountRepo).save(any(Account.class));

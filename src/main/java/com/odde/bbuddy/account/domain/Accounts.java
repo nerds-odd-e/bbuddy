@@ -15,6 +15,9 @@ public class Accounts {
 
     public AccountPostActions add(Account account) {
         try {
+            if (accountRepo.existsByName(account.getName()))
+                return new NameDuplicatedAccountPostActions();
+
             accountRepo.save(account);
             return new SuccessAccountPostActions();
         } catch (IllegalArgumentException e) {

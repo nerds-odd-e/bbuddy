@@ -1,5 +1,6 @@
 package com.odde.bbuddy.account.domain;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "accounts")
 @Setter
+@Getter
 public class Account {
 
     @Id
