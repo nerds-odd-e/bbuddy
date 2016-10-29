@@ -36,21 +36,27 @@ public class TransactionAddControllerTest {
     public class Add {
 
         @Test
-        public void should_display_view() {
+        public void should_go_to_view() {
             assertThat(controller.addTransaction()).isInstanceOf(PresentableAddTransaction.class);
         }
 
     }
 
-    public class AddSubmitSuccess {
+    public class SubmitAdd {
 
         @Before
         public void given_add_transaction_will_success() {
             given_add_transaction_will(success());
         }
 
+        @Before
+        public void given_messages() {
+            controller.successMessage = "a success message";
+            controller.failedMessage = "a failed message";
+        }
+
         @Test
-        public void should_display_view() {
+        public void should_go_to_view() {
             assertThat(submitTransactionAdd(transaction)).isInstanceOf(PresentableAddTransaction.class);
         }
 
@@ -61,26 +67,35 @@ public class TransactionAddControllerTest {
             verify(mockTransactions).add(transaction);
         }
 
-        @Test
-        public void should_display_success_message() {
-            controller.successMessage = "a success message";
+        public class Success {
 
-            submitTransactionAdd(transaction);
+            @Test
+            public void should_display_success_message() {
+                given_add_transaction_will(success());
 
-            verify(mockView).display("a success message");
+                submitTransactionAdd(transaction);
+
+                verify(mockView).display("a success message");
+                verify(mockView, never()).display("a failed message");
+            }
         }
-    }
 
-    public class AddSubmitFailed {
+        public class Failed {
 
-        @Test
-        public void should_display_failed_message() {
-            given_add_transaction_will(failed());
-            controller.failedMessage = "a failed message";
+            @Test
+            public void should_display_failed_message() {
+                given_add_transaction_will(failed());
 
-            submitTransactionAdd(transaction);
+                submitTransactionAdd(transaction);
 
-            verify(mockView).display("a failed message");
+                verify(mockView, never()).display("a success message");
+                verify(mockView).display("a failed message");
+            }
+
+        }
+
+        private void given_add_transaction_will(PostActions postActions) {
+            when(mockTransactions.add(any(Transaction.class))).thenReturn(postActions);
         }
 
     }
@@ -118,10 +133,6 @@ public class TransactionAddControllerTest {
 
     private ModelAndView submitTransactionAdd(Transaction transaction) {
         return controller.submitAddTransaction(transaction, stubBindingResult);
-    }
-
-    private void given_add_transaction_will(PostActions postActions) {
-        when(mockTransactions.add(any(Transaction.class))).thenReturn(postActions);
     }
 
 }
