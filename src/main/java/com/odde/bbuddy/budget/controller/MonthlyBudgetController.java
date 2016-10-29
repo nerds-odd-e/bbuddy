@@ -65,4 +65,9 @@ public class MonthlyBudgetController {
         return MONTHLYBUDGETS_SEARCH;
     }
 
+    @PostMapping(SEARCH)
+    public String submitSearchAmountOfPeriod() {
+        return MONTHLYBUDGETS_SEARCH;
+    }
+
 }
