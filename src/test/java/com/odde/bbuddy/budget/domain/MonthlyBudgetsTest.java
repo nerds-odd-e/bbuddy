@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(NestedRunner.class)
-public class MonthlyBudgetPlannerTest {
+public class MonthlyBudgetsTest {
 
     MonthlyBudgetRepo mockRepo = mock(MonthlyBudgetRepo.class);
-    MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(mockRepo);
+    MonthlyBudgets monthlyBudgets = new MonthlyBudgets(mockRepo);
 
     public class AddMonthlyBudget {
 
@@ -28,14 +28,14 @@ public class MonthlyBudgetPlannerTest {
 
         @Test
         public void save_monthly_budget() {
-            planner.addMonthlyBudget(monthlyBudget);
+            monthlyBudgets.addMonthlyBudget(monthlyBudget);
 
             assertSavedMonthlyBudgetEquals(monthlyBudget);
         }
 
         @Test
         public void after_success_is_called_if_save_successfully() {
-            planner.addMonthlyBudget(monthlyBudget)
+            monthlyBudgets.addMonthlyBudget(monthlyBudget)
                     .success(afterSuccess)
                     .failed(afterFail);
 
@@ -47,7 +47,7 @@ public class MonthlyBudgetPlannerTest {
         public void after_fail_is_called_if_save_failed() {
             given_save_will_fail();
 
-            planner.addMonthlyBudget(monthlyBudget)
+            monthlyBudgets.addMonthlyBudget(monthlyBudget)
                     .success(afterSuccess)
                     .failed(afterFail);
 
@@ -60,7 +60,7 @@ public class MonthlyBudgetPlannerTest {
             given_existing_monthly_budget_with_id(monthlyBudget("2016-07", 100), MONTH_BUDGET_ID);
 
             MonthlyBudget overwrittenMonthlyBudget = monthlyBudget("2016-07", 200);
-            planner.addMonthlyBudget(overwrittenMonthlyBudget);
+            monthlyBudgets.addMonthlyBudget(overwrittenMonthlyBudget);
 
             MonthlyBudget savedMonthlyBudget = assertSavedMonthlyBudgetEquals(overwrittenMonthlyBudget);
             assertThat(savedMonthlyBudget.getId()).isEqualTo(MONTH_BUDGET_ID);

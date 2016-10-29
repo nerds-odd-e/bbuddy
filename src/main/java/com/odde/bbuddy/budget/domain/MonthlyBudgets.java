@@ -5,15 +5,17 @@ import com.odde.bbuddy.common.callback.PostActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.function.Consumer;
+
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 
 @Service
-public class MonthlyBudgetPlanner {
+public class MonthlyBudgets {
     private final MonthlyBudgetRepo monthlyBudgetRepo;
 
     @Autowired
-    public MonthlyBudgetPlanner(MonthlyBudgetRepo monthlyBudgetRepo) {
+    public MonthlyBudgets(MonthlyBudgetRepo monthlyBudgetRepo) {
         this.monthlyBudgetRepo = monthlyBudgetRepo;
     }
 
@@ -33,5 +35,9 @@ public class MonthlyBudgetPlanner {
             monthlyBudgetRepo.save(existingBudget);
         } else
             monthlyBudgetRepo.save(monthlyBudget);
+    }
+
+    public void searchAmountOfPeriod(Consumer<Integer> consumer, Period period) {
+        consumer.accept(37);
     }
 }

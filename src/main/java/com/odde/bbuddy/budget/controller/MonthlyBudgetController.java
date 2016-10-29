@@ -1,7 +1,8 @@
 package com.odde.bbuddy.budget.controller;
 
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
-import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
+import com.odde.bbuddy.budget.domain.MonthlyBudgets;
+import com.odde.bbuddy.budget.domain.Period;
 import com.odde.bbuddy.budget.view.PresentableAddMonthlyBudget;
 import com.odde.bbuddy.common.view.View;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +19,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 import static com.odde.bbuddy.common.controller.Urls.*;
+import static java.lang.String.format;
 
 @Controller
 @RequestMapping(MONTHLYBUDGETS)
 @PropertySource("classpath:resultMessages.properties")
 public class MonthlyBudgetController {
 
-    private final MonthlyBudgetPlanner planner;
+    private final MonthlyBudgets monthlyBudgets;
     private final PresentableAddMonthlyBudget presentableAddMonthlyBudget;
     private final View message;
 
@@ -34,12 +36,15 @@ public class MonthlyBudgetController {
     @Value("${monthlybudgets.add.failed}")
     String failedMessage;
 
+    @Value("${monthlybudgets.search.amount}")
+    String amountOfPeriodMessage;
+
     @Autowired
     public MonthlyBudgetController(
-            MonthlyBudgetPlanner planner,
+            MonthlyBudgets monthlyBudgets,
             PresentableAddMonthlyBudget presentableAddMonthlyBudget,
             View<String> message) {
-        this.planner = planner;
+        this.monthlyBudgets = monthlyBudgets;
         this.presentableAddMonthlyBudget = presentableAddMonthlyBudget;
         this.message = message;
     }
@@ -49,7 +54,7 @@ public class MonthlyBudgetController {
             @Valid @ModelAttribute MonthlyBudget monthlyBudget,
             BindingResult result) {
         if (!result.hasFieldErrors())
-            planner.addMonthlyBudget(monthlyBudget)
+            monthlyBudgets.addMonthlyBudget(monthlyBudget)
                     .success(() -> message.display(successMessage))
                     .failed(() -> message.display(failedMessage));
         return addMonthlyBudget();
@@ -66,8 +71,12 @@ public class MonthlyBudgetController {
     }
 
     @PostMapping(SEARCH)
-    public String submitSearchAmountOfPeriod() {
-        return MONTHLYBUDGETS_SEARCH;
+    public String submitSearchAmountOfPeriod(@ModelAttribute Period period) {
+        monthlyBudgets.searchAmountOfPeriod(
+                amount -> message.display(format(amountOfPeriodMessage, amount)),
+                period);
+
+        return searchAmountOfPeriod();
     }
 
 }

@@ -2,8 +2,10 @@ package com.odde.bbuddy.budget.controller;
 
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
-import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
+import com.odde.bbuddy.budget.domain.MonthlyBudgets;
+import com.odde.bbuddy.budget.domain.Period;
 import com.odde.bbuddy.budget.view.PresentableAddMonthlyBudget;
+import com.odde.bbuddy.common.builder.ConsumeAnswer;
 import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.common.view.View;
 import org.junit.Before;
@@ -12,9 +14,12 @@ import org.junit.runner.RunWith;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.function.Consumer;
+
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
+import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGETS_SEARCH;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -22,10 +27,10 @@ import static org.mockito.Mockito.*;
 @RunWith(NestedRunner.class)
 public class MonthlyBudgetControllerTest {
 
-    MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
+    MonthlyBudgets mockMonthlyBudgets = mock(MonthlyBudgets.class);
     View mockView = mock(View.class);
     MonthlyBudgetController controller = new MonthlyBudgetController(
-            mockPlanner,
+            mockMonthlyBudgets,
             new PresentableAddMonthlyBudget(),
             mockView);
     BindingResult stubBindingResult = mock(BindingResult.class);
@@ -67,7 +72,7 @@ public class MonthlyBudgetControllerTest {
         public void should_add_monthly_budget() {
             submitAddMonthlyBudget(monthlyBudget);
 
-            verify(mockPlanner).addMonthlyBudget(monthlyBudget);
+            verify(mockMonthlyBudgets).addMonthlyBudget(monthlyBudget);
         }
 
         public class Success {
@@ -99,7 +104,7 @@ public class MonthlyBudgetControllerTest {
         }
 
         private void given_add_monthly_budget_will(PostActions postActions) {
-            when(mockPlanner.addMonthlyBudget(any(MonthlyBudget.class))).thenReturn(postActions);
+            when(mockMonthlyBudgets.addMonthlyBudget(any(MonthlyBudget.class))).thenReturn(postActions);
         }
 
     }
@@ -117,7 +122,7 @@ public class MonthlyBudgetControllerTest {
         public void should_not_add_monthly_budget() {
             submitAddMonthlyBudget(invalidMonthlyBudget);
 
-            verify(mockPlanner, never()).addMonthlyBudget(invalidMonthlyBudget);
+            verify(mockMonthlyBudgets, never()).addMonthlyBudget(invalidMonthlyBudget);
         }
 
         @Test
@@ -125,6 +130,41 @@ public class MonthlyBudgetControllerTest {
             assertThat(submitAddMonthlyBudget(invalidMonthlyBudget)).isInstanceOf(PresentableAddMonthlyBudget.class);
         }
 
+    }
+    
+    public class Search {
+
+        private final Period period = new Period();
+
+        @Test
+        public void should_go_to_view() {
+            assertThat(submitSearchAmountOfPeriod()).isEqualTo(MONTHLYBUDGETS_SEARCH);
+        }
+
+        @Test
+        public void should_pass_period_to_monthlybudgets() {
+            submitSearchAmountOfPeriod();
+
+            verify(mockMonthlyBudgets).searchAmountOfPeriod(any(Consumer.class), eq(period));
+        }
+        
+        @Test
+        public void should_display_amount() {
+            controller.amountOfPeriodMessage = "Total amount of this period is %s";
+            given_amount_of_period_is(100);
+
+            submitSearchAmountOfPeriod();
+
+            verify(mockView).display("Total amount of this period is 100");
+        }
+
+        private String submitSearchAmountOfPeriod() {
+            return controller.submitSearchAmountOfPeriod(period);
+        }
+
+        private void given_amount_of_period_is(int amount) {
+            doAnswer(new ConsumeAnswer(amount)).when(mockMonthlyBudgets).searchAmountOfPeriod(any(Consumer.class), eq(period));
+        }
     }
 
     private void given_has_field_error(boolean value) {
