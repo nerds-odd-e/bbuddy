@@ -1,16 +1,12 @@
 package com.odde.bbuddy.account.controller;
 
 import com.nitorcreations.junit.runners.NestedRunner;
-import com.odde.bbuddy.account.domain.Account;
-import com.odde.bbuddy.account.domain.Accounts;
-import com.odde.bbuddy.common.callback.PostActions;
+import com.odde.bbuddy.account.domain.*;
 import com.odde.bbuddy.common.view.View;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
-import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -21,6 +17,7 @@ public class AccountControllerTest {
     Accounts mockAccounts = mock(Accounts.class);
     View<String> mockView = mock(View.class);
     AccountController controller = new AccountController(mockAccounts, mockView);
+    Account account = new Account();
 
     public class Add {
 
@@ -33,11 +30,9 @@ public class AccountControllerTest {
 
     public class SubmitAdd {
 
-        Account account = new Account();
-
         @Before
         public void given_add_account_will_success() {
-            given_add_account_will(success());
+            given_add_account_will(new SuccessAccountPostActions());
         }
 
         @Before
@@ -62,7 +57,7 @@ public class AccountControllerTest {
 
             @Test
             public void should_display_success_message() {
-                given_add_account_will(success());
+                given_add_account_will(new SuccessAccountPostActions());
 
                 submitAddAccount();
 
@@ -76,7 +71,7 @@ public class AccountControllerTest {
 
             @Test
             public void should_display_failed_message() {
-                given_add_account_will(failed());
+                given_add_account_will(new FailedAccountPostActions());
 
                 submitAddAccount();
 
@@ -90,10 +85,24 @@ public class AccountControllerTest {
             return controller.submitAddAccount(account);
         }
 
-        private void given_add_account_will(PostActions postActions) {
-            when(mockAccounts.add(account)).thenReturn(postActions);
+    }
+
+    public class Valid {
+
+        @Test
+        public void account_name_can_not_duplicate() {
+            given_add_account_will(new NameDuplicatedAccountPostActions());
+            controller.nameDuplicatedMessage = "a name duplicated message";
+
+            controller.submitAddAccount(account);
+
+            verify(mockView).display("a name duplicated message");
         }
 
     }
-    
+
+    private void given_add_account_will(AccountPostActions postActions) {
+        when(mockAccounts.add(account)).thenReturn(postActions);
+    }
+
 }

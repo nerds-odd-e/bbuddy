@@ -1,12 +1,8 @@
 package com.odde.bbuddy.account.domain;
 
 import com.odde.bbuddy.account.repo.AccountRepo;
-import com.odde.bbuddy.common.callback.PostActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
-import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 
 @Service
 public class Accounts {
@@ -17,12 +13,13 @@ public class Accounts {
         this.accountRepo = accountRepo;
     }
 
-    public PostActions add(Account account) {
+    public AccountPostActions add(Account account) {
         try {
             accountRepo.save(account);
-            return success();
+            return new SuccessAccountPostActions();
         } catch (IllegalArgumentException e) {
-            return failed();
+            return new FailedAccountPostActions();
         }
     }
+
 }

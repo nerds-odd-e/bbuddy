@@ -28,6 +28,9 @@ public class AccountController {
     @Value("${accounts.add.failed}")
     String failedMessage;
 
+    @Value("${accounts.add.nameDuplicated}")
+    String nameDuplicatedMessage;
+
     @Autowired
     public AccountController(Accounts accounts, View<String> message) {
         this.accounts = accounts;
@@ -43,7 +46,8 @@ public class AccountController {
     public String submitAddAccount(@ModelAttribute Account account) {
         accounts.add(account)
                 .success(() -> message.display(successMessage))
-                .failed(() -> message.display(failedMessage));
+                .failed(() -> message.display(failedMessage))
+                .nameDuplicated(() -> message.display(nameDuplicatedMessage));
 
         return ACCOUNTS_ADD;
     }
