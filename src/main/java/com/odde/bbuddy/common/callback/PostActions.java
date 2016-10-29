@@ -1,6 +1,11 @@
 package com.odde.bbuddy.common.callback;
 
 public interface PostActions {
-    PostActions success(Runnable afterSuccess);
-    PostActions failed(Runnable afterFailed);
+    default PostActions success(Runnable afterSuccess) {
+        return this;
+    }
+
+    default PostActions failed(Runnable afterFailed) {
+        return this;
+    }
 }

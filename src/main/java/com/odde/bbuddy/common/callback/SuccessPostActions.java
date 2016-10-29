@@ -7,8 +7,4 @@ public class SuccessPostActions implements PostActions {
         return this;
     }
 
-    @Override
-    public PostActions failed(Runnable afterFailed) {
-        return this;
-    }
 }
