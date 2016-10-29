@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS;
 import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS_ADD;
 import static com.odde.bbuddy.common.controller.Urls.ADD;
+import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.ACCOUNTS_ADD_NAME_DUPLICATED;
 
 @Controller
 @RequestMapping(ACCOUNTS)
@@ -28,7 +29,7 @@ public class AccountController {
     @Value("${accounts.add.failed}")
     String failedMessage;
 
-    @Value("${accounts.add.nameDuplicated}")
+    @Value(ACCOUNTS_ADD_NAME_DUPLICATED)
     String nameDuplicatedMessage;
 
     @Autowired

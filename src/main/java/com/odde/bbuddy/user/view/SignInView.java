@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
 import static com.odde.bbuddy.common.controller.Urls.SIGNIN;
+import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_FAILED;
+import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_LOGOUT;
 import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
@@ -23,8 +25,8 @@ public class SignInView extends ModelAndView implements View<AuthenticationResul
     private final String logoutMessage;
 
     public SignInView(
-            @Value("${authentication.failed}") String failedMessage,
-            @Value("${authentication.logout}") String logoutMessage) {
+            @Value(AUTHENTICATION_FAILED) String failedMessage,
+            @Value(AUTHENTICATION_LOGOUT) String logoutMessage) {
         this.failedMessage = failedMessage;
         this.logoutMessage = logoutMessage;
         setViewName(SIGNIN);

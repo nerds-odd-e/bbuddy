@@ -6,6 +6,10 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.ACCOUNTS_ADD_NAME_DUPLICATED;
+import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_FAILED;
+import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_LOGOUT;
+
 @Component
 @Scope("cucumber-glue")
 @PropertySources({
@@ -30,12 +34,12 @@ public class Messages {
     @Value("${home.label.welcome}")
     public String welcome;
 
-    @Value("${authentication.failed}")
+    @Value(AUTHENTICATION_FAILED)
     public String loginFailed;
 
-    @Value("${authentication.logout}")
+    @Value(AUTHENTICATION_LOGOUT)
     public String logout;
 
-    @Value("${accounts.add.nameDuplicated}")
+    @Value(ACCOUNTS_ADD_NAME_DUPLICATED)
     public String duplicateAccountName;
 }
