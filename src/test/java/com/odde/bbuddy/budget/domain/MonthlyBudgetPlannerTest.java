@@ -6,12 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 
-import java.util.Date;
-
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.monthlyBudget;
-import static com.odde.bbuddy.common.Formats.parseDay;
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -19,8 +15,7 @@ import static org.mockito.Mockito.*;
 public class MonthlyBudgetPlannerTest {
 
     MonthlyBudgetRepo mockRepo = mock(MonthlyBudgetRepo.class);
-    BudgetCategoryImpl mockBudgetCategory = mock(BudgetCategoryImpl.class);
-    MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(mockBudgetCategory, mockRepo);
+    MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(mockRepo);
 
     public class AddMonthlyBudget {
 
@@ -92,40 +87,6 @@ public class MonthlyBudgetPlannerTest {
             return captor.getValue();
         }
 
-    }
-
-    public class GetAmountOfMonthlyBudget {
-
-        Date startDate = parseDay("2016-07-01");
-        Date endDate = parseDay("2016-07-10");
-
-        @Test
-        public void get_amount_from_budget_category() {
-            given_monthly_budget_planned_as();
-            given_total_amount_is(100L);
-
-            assertThat(planner.getAmount(startDate, endDate)).isEqualTo(100L);
-        }
-
-        @Test
-        public void read_from_repo_and_set_amount() {
-            given_monthly_budget_planned_as(
-                    monthlyBudget("2016-06", 30),
-                    monthlyBudget("2016-07", 31));
-
-            planner.getAmount(startDate, endDate);
-
-            verify(mockBudgetCategory).setAmount(parseDay("2016-06-01"), 30);
-            verify(mockBudgetCategory).setAmount(parseDay("2016-07-01"), 31);
-        }
-
-        private void given_monthly_budget_planned_as(MonthlyBudget... budget) {
-            when(mockRepo.findAll()).thenReturn(asList(budget));
-        }
-
-        private void given_total_amount_is(long total) {
-            when(mockBudgetCategory.getAmount(any(Date.class), any(Date.class))).thenReturn(total);
-        }
     }
 
 }

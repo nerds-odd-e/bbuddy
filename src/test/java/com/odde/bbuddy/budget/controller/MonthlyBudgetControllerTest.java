@@ -4,7 +4,6 @@ import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
 import com.odde.bbuddy.budget.domain.MonthlyBudgetPlanner;
 import com.odde.bbuddy.budget.view.PresentableAddMonthlyBudget;
-import com.odde.bbuddy.budget.view.PresentableMonthlyBudgetAmount;
 import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.common.view.View;
 import org.junit.Before;
@@ -13,11 +12,7 @@ import org.junit.runner.RunWith;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
-
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
-import static com.odde.bbuddy.budget.builder.PresentableMonthlyBudgetAmountBuilder.defaultPresentableMonthlyBudgetAmount;
-import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,10 +24,8 @@ public class MonthlyBudgetControllerTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     View mockView = mock(View.class);
-    PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = spy(defaultPresentableMonthlyBudgetAmount().build());
     MonthlyBudgetController controller = new MonthlyBudgetController(
             mockPlanner,
-            presentableMonthlyBudgetAmount,
             new PresentableAddMonthlyBudget(),
             mockView);
     BindingResult stubBindingResult = mock(BindingResult.class);
@@ -130,43 +123,6 @@ public class MonthlyBudgetControllerTest {
         @Test
         public void should_display_view() {
             assertThat(submitAddMonthlyBudget(invalidMonthlyBudget)).isInstanceOf(PresentableAddMonthlyBudget.class);
-        }
-
-    }
-
-    public class GetAmount {
-
-        private final long total = 100L;
-        Date startDate = parseDay("2016-07-01");
-        Date endDate = parseDay("2016-07-10");
-
-        @Test
-        public void should_display_view() {
-            assertThat(getAmount()).isInstanceOf(PresentableMonthlyBudgetAmount.class);
-        }
-
-        @Test
-        public void should_get_amount_from_monthly_budget_planner() {
-            getAmount();
-
-            verify(mockPlanner).getAmount(startDate, endDate);
-        }
-
-        @Test
-        public void should_pass_amount_to_page() {
-            given_planner_will_return_total_as(total);
-
-            getAmount();
-
-            verify(presentableMonthlyBudgetAmount).display(total);
-        }
-
-        private void given_planner_will_return_total_as(long total) {
-            when(mockPlanner.getAmount(startDate, endDate)).thenReturn(total);
-        }
-
-        private ModelAndView getAmount() {
-            return controller.totalAmountOfMonthlyBudget(startDate, endDate);
         }
 
     }
