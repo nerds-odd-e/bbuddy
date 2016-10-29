@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static com.odde.bbuddy.account.builder.AccountBuilder.defaultAccount;
 import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -17,7 +18,7 @@ public class AccountControllerTest {
     Accounts mockAccounts = mock(Accounts.class);
     View<String> mockView = mock(View.class);
     AccountController controller = new AccountController(mockAccounts, mockView);
-    Account account = new Account();
+    Account account = defaultAccount().build();
 
     public class Add {
 

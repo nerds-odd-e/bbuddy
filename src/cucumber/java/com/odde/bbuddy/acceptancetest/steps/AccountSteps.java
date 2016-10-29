@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static com.odde.bbuddy.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
+import static com.odde.bbuddy.account.builder.AccountBuilder.defaultAccount;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountSteps {
@@ -42,9 +43,7 @@ public class AccountSteps {
 
     @Given("^existing an account with name \"([^\"]*)\"$")
     public void existing_an_account_with_name(String name) throws Throwable {
-        Account account = new Account();
-        account.setName(name);
-        accountRepoForTest.save(account);
+        accountRepoForTest.save(defaultAccount().name(name).build());
     }
 
     @When("^add a new account with name \"([^\"]*)\"$")

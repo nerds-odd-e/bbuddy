@@ -3,6 +3,7 @@ package com.odde.bbuddy.account.domain;
 import com.odde.bbuddy.account.repo.AccountRepo;
 import org.junit.Test;
 
+import static com.odde.bbuddy.account.builder.AccountBuilder.defaultAccount;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
@@ -10,7 +11,7 @@ public class AccountsTest {
 
     AccountRepo mockAccountRepo = mock(AccountRepo.class);
     Accounts accounts = new Accounts(mockAccountRepo);
-    Account account = new Account();
+    Account account = defaultAccount().build();
 
     Runnable afterSuccess = mock(Runnable.class);
     Runnable afterFailed = mock(Runnable.class);
@@ -47,10 +48,9 @@ public class AccountsTest {
     @Test
     public void should_return_name_duplicated_when_save_with_a_duplicated_name_account() {
         given_account_name_exists("account name");
-        account.setName("account name");
         Runnable afterNameDuplicated = mock(Runnable.class);
 
-        accounts.add(account)
+        accounts.add(defaultAccount().name("account name").build())
                 .nameDuplicated(afterNameDuplicated);
 
         verify(afterNameDuplicated).run();
