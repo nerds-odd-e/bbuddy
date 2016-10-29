@@ -48,15 +48,19 @@ public class AccountSteps {
 
     @When("^add a new account with name \"([^\"]*)\"$")
     public void add_a_new_account_with_name(String name) throws Throwable {
-        EditableAccount account = new EditableAccount();
-        account.setName(name);
-        account.setBalanceBroughtForward("0");
-        addAccountPage.add(account);
+        addAccountPage.add(editableAccount(name));
     }
 
     @Then("^there is an error message for duplicate name$")
     public void there_is_an_error_message_for_duplicate_name() throws Throwable {
         assertThat(commonPage.getAllText()).contains(messages.duplicateAccountName);
+    }
+
+    private EditableAccount editableAccount(String name) {
+        EditableAccount account = new EditableAccount();
+        account.setName(name);
+        account.setBalanceBroughtForward("0");
+        return account;
     }
 
 }
