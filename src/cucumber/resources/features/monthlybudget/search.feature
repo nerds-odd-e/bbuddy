@@ -1,3 +1,4 @@
+@user @monthlyBudget
 Feature: Get budget of a period
 
   Scenario: Get budget of a period

@@ -17,8 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
-import static com.odde.bbuddy.common.controller.Urls.ADD;
-import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGETS;
+import static com.odde.bbuddy.common.controller.Urls.*;
 
 @Controller
 @RequestMapping(MONTHLYBUDGETS)
@@ -59,6 +58,11 @@ public class MonthlyBudgetController {
     @GetMapping(ADD)
     public ModelAndView addMonthlyBudget() {
         return presentableAddMonthlyBudget;
+    }
+    
+    @GetMapping(SEARCH)
+    public String searchAmountOfPeriod() {
+        return MONTHLYBUDGETS_SEARCH;
     }
 
 }
