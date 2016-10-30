@@ -14,21 +14,21 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class Period {
 
     @DateTimeFormat(pattern = DAY)
-    private Date startDate;
+    private LocalDate startDate;
 
     @DateTimeFormat(pattern = DAY)
-    private Date endDate;
+    private LocalDate endDate;
 
     private LocalDate localDateOf(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
     private LocalDate getEndDate() {
-        return localDateOf(endDate);
+        return endDate;
     }
 
     private LocalDate getStartDate() {
-        return localDateOf(startDate);
+        return startDate;
     }
 
     public long overlappingDayCount(Period anotherPeriod) {

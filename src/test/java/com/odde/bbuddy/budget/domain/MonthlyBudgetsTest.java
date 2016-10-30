@@ -6,11 +6,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Consumer;
 
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.monthlyBudget;
-import static com.odde.bbuddy.common.Formats.parseDay;
+import static com.odde.bbuddy.common.Formats.DAY;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -160,8 +162,8 @@ public class MonthlyBudgetsTest {
 
         private Period period(String startDate, String endDate) {
             Period period = new Period();
-            period.setStartDate(parseDay(startDate));
-            period.setEndDate(parseDay(endDate));
+            period.setStartDate(LocalDate.parse(startDate, DateTimeFormatter.ofPattern(DAY)));
+            period.setEndDate(LocalDate.parse(endDate, DateTimeFormatter.ofPattern(DAY)));
             return period;
         }
 

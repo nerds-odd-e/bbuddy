@@ -9,10 +9,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 
-import static com.odde.bbuddy.common.Formats.MONTH;
+import static com.odde.bbuddy.common.Formats.DAY;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Entity
@@ -23,7 +21,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 public class MonthlyBudget {
 
     @Builder
-    public MonthlyBudget(Date month, Integer budget) {
+    public MonthlyBudget(LocalDate month, Integer budget) {
         this.month = month;
         this.budget = budget;
     }
@@ -33,8 +31,8 @@ public class MonthlyBudget {
     private long id;
 
     @NotNull
-    @DateTimeFormat(pattern = MONTH)
-    private Date month;
+    @DateTimeFormat(pattern = DAY)
+    private LocalDate month;
 
     @NotNull
     private Integer budget;
@@ -44,7 +42,7 @@ public class MonthlyBudget {
     }
 
     private LocalDate startOfMonth() {
-        return month.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return month.withDayOfMonth(1);
     }
 
     private long dailyBudget() {
@@ -53,13 +51,13 @@ public class MonthlyBudget {
 
     private Period getPeriod() {
         Period period = new Period();
-        period.setStartDate(month);
+        period.setStartDate(startOfMonth());
         period.setEndDate(endOfMonth());
         return period;
     }
 
-    private Date endOfMonth() {
-        return Date.from(startOfMonth().withDayOfMonth(startOfMonth().lengthOfMonth()).atStartOfDay(ZoneId.systemDefault()).toInstant());
+    private LocalDate endOfMonth() {
+        return month.withDayOfMonth(month.lengthOfMonth());
     }
 
     public long overlappingBudget(Period period) {
