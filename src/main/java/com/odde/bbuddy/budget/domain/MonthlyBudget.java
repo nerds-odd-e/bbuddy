@@ -46,14 +46,7 @@ public class MonthlyBudget {
     }
 
     private long dailyBudget() {
-        return getBudget() / dayCount();
-    }
-
-    private Period getPeriod() {
-        Period period = new Period();
-        period.setStartDate(startOfMonth());
-        period.setEndDate(endOfMonth());
-        return period;
+        return budget / dayCount();
     }
 
     private LocalDate endOfMonth() {
@@ -61,6 +54,6 @@ public class MonthlyBudget {
     }
 
     public long overlappingBudget(Period period) {
-        return dailyBudget() * period.overlappingDayCount(getPeriod());
+        return dailyBudget() * period.overlappingDayCount(new Period(startOfMonth(), endOfMonth()));
     }
 }

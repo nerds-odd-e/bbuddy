@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.function.Consumer;
 
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
+import static com.odde.bbuddy.budget.builder.PeriodBuilder.defaultPeriod;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGETS_SEARCH;
@@ -134,7 +135,7 @@ public class MonthlyBudgetControllerTest {
     
     public class Search {
 
-        private final Period period = new Period();
+        private final Period period = defaultPeriod().build();
 
         @Test
         public void should_go_to_view() {
