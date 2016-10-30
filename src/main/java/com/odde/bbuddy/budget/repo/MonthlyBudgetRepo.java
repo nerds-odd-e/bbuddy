@@ -5,7 +5,7 @@ import org.springframework.data.repository.Repository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.stream.Stream;
 
 @Transactional
 public interface MonthlyBudgetRepo extends Repository<MonthlyBudget, Long> {
@@ -13,5 +13,5 @@ public interface MonthlyBudgetRepo extends Repository<MonthlyBudget, Long> {
 
     void save(MonthlyBudget monthlyBudget);
 
-    List<MonthlyBudget> findAll();
+    Stream<MonthlyBudget> findAll();
 }

@@ -5,7 +5,6 @@ import com.odde.bbuddy.common.callback.PostActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
@@ -39,11 +38,13 @@ public class MonthlyBudgets {
     }
 
     public void searchAmountOfPeriod(Consumer<Long> consumer, Period period) {
-        List<MonthlyBudget> all = monthlyBudgetRepo.findAll();
-        long sum = all.stream()
+        consumer.accept(amountOfPeriod(period));
+    }
+
+    private long amountOfPeriod(Period period) {
+        return monthlyBudgetRepo.findAll()
                 .mapToLong(monthlyBudget -> monthlyBudget.overlappingBudget(period))
                 .sum();
-        consumer.accept(sum);
     }
 
 }

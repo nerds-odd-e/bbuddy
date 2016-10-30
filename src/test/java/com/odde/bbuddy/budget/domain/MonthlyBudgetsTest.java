@@ -7,11 +7,11 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.monthlyBudget;
 import static com.odde.bbuddy.budget.builder.PeriodBuilder.period;
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -99,6 +99,9 @@ public class MonthlyBudgetsTest {
 
         @Test
         public void no_planned_monthly_budget() {
+            given_monthly_budget_planned_as(
+                    monthlyBudget("2016-05", 31));
+
             searchAmountOfPeriod("2016-06-01", "2016-06-30");
 
             assertAmountOfPeriodEquals(0);
@@ -159,7 +162,7 @@ public class MonthlyBudgetsTest {
         }
 
         private void given_monthly_budget_planned_as(MonthlyBudget... monthlyBudget) {
-            when(mockRepo.findAll()).thenReturn(asList(monthlyBudget));
+            when(mockRepo.findAll()).thenReturn(Stream.of(monthlyBudget));
         }
 
         private void assertAmountOfPeriodEquals(long amount) {
