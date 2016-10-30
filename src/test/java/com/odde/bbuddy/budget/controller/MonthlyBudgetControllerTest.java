@@ -151,7 +151,7 @@ public class MonthlyBudgetControllerTest {
         @Test
         public void should_display_amount() {
             controller.amountOfPeriodMessage = "Total amount of this period is %s";
-            given_amount_of_period_is(100);
+            given_amount_of_period_is(100L);
 
             submitSearchAmountOfPeriod();
 
@@ -162,8 +162,8 @@ public class MonthlyBudgetControllerTest {
             return controller.submitSearchAmountOfPeriod(period);
         }
 
-        private void given_amount_of_period_is(int amount) {
-            doAnswer(new ConsumeAnswer(amount)).when(mockMonthlyBudgets).searchAmountOfPeriod(any(Consumer.class), eq(period));
+        private void given_amount_of_period_is(long amount) {
+            doAnswer(new ConsumeAnswer<Long>(amount)).when(mockMonthlyBudgets).searchAmountOfPeriod(any(Consumer.class), eq(period));
         }
     }
 

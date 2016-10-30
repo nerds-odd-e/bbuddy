@@ -37,7 +37,10 @@ public class MonthlyBudgets {
             monthlyBudgetRepo.save(monthlyBudget);
     }
 
-    public void searchAmountOfPeriod(Consumer<Integer> consumer, Period period) {
-        consumer.accept(37);
+    public void searchAmountOfPeriod(Consumer<Long> consumer, Period period) {
+        consumer.accept(monthlyBudgetRepo.findAll().stream()
+                .mapToLong(monthlyBudget -> monthlyBudget.overlappingBudget(period))
+                .sum());
     }
+
 }

@@ -8,9 +8,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import static com.odde.bbuddy.common.Formats.MONTH;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Entity
 @Table(name = "monthly_budgets")
@@ -35,4 +38,31 @@ public class MonthlyBudget {
 
     @NotNull
     private Integer budget;
+
+    private long dayCount() {
+        return DAYS.between(startOfMonth(), startOfMonth().plusMonths(1));
+    }
+
+    private LocalDate startOfMonth() {
+        return month.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    private long dailyBudget() {
+        return getBudget() / dayCount();
+    }
+
+    private Period getPeriod() {
+        Period period = new Period();
+        period.setStartDate(month);
+        period.setEndDate(endOfMonth());
+        return period;
+    }
+
+    private Date endOfMonth() {
+        return Date.from(startOfMonth().withDayOfMonth(startOfMonth().lengthOfMonth()).atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
+    public long overlappingBudget(Period period) {
+        return dailyBudget() * period.overlappingDayCount(getPeriod());
+    }
 }

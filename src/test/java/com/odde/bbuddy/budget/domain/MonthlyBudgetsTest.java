@@ -6,8 +6,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 
+import java.util.function.Consumer;
+
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.monthlyBudget;
+import static com.odde.bbuddy.common.Formats.parseDay;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -17,7 +21,7 @@ public class MonthlyBudgetsTest {
     MonthlyBudgetRepo mockRepo = mock(MonthlyBudgetRepo.class);
     MonthlyBudgets monthlyBudgets = new MonthlyBudgets(mockRepo);
 
-    public class AddMonthlyBudget {
+    public class Add {
 
         MonthlyBudget monthlyBudget = defaultMonthlyBudget().build();
 
@@ -85,6 +89,88 @@ public class MonthlyBudgetsTest {
             ArgumentCaptor<MonthlyBudget> captor = ArgumentCaptor.forClass(MonthlyBudget.class);
             verify(mockRepo).save(captor.capture());
             return captor.getValue();
+        }
+
+    }
+
+    public class GetAmountOfPeriod {
+
+        Consumer mockConsumer = mock(Consumer.class);
+
+        @Test
+        public void no_planned_monthly_budget() {
+            searchAmountOfPeriod("2016-06-01", "2016-06-30");
+
+            assertAmountOfPeriodEquals(0);
+        }
+
+        @Test
+        public void amount_of_period_which_exactly_the_month_with_budget_planned() {
+            given_monthly_budget_planned_as(
+                    monthlyBudget("2016-06", 30));
+
+            searchAmountOfPeriod("2016-06-01", "2016-06-30");
+
+            assertAmountOfPeriodEquals(30);
+        }
+        
+        @Test
+        public void period_in_one_month_with_budget_planned() {
+            given_monthly_budget_planned_as(
+                    monthlyBudget("2016-07", 31));
+
+            searchAmountOfPeriod("2016-07-01", "2016-07-01");
+            assertAmountOfPeriodEquals(1);
+        }
+        
+        @Test
+        public void period_overlap_with_month_and_start_date_not_in_month() {
+            given_monthly_budget_planned_as(
+                    monthlyBudget("2016-06", 60));
+
+            searchAmountOfPeriod("2016-05-15", "2016-06-15");
+
+            assertAmountOfPeriodEquals(30);
+        }
+        
+        @Test
+        public void period_overlap_with_month_and_end_date_not_in_month() {
+            given_monthly_budget_planned_as(
+                    monthlyBudget("2016-06", 60));
+
+            searchAmountOfPeriod("2016-06-16", "2016-07-15");
+
+            assertAmountOfPeriodEquals(30);
+        }
+        
+        @Test
+        public void period_overlap_with_two_months() {
+            given_monthly_budget_planned_as(
+                    monthlyBudget("2016-06", 60),
+                    monthlyBudget("2016-07", 31));
+
+            searchAmountOfPeriod("2016-06-16", "2016-07-15");
+
+            assertAmountOfPeriodEquals(45);
+        }
+
+        private void searchAmountOfPeriod(String startDate, String endDate) {
+            monthlyBudgets.searchAmountOfPeriod(mockConsumer, period(startDate, endDate));
+        }
+
+        private Period period(String startDate, String endDate) {
+            Period period = new Period();
+            period.setStartDate(parseDay(startDate));
+            period.setEndDate(parseDay(endDate));
+            return period;
+        }
+
+        private void given_monthly_budget_planned_as(MonthlyBudget... monthlyBudget) {
+            when(mockRepo.findAll()).thenReturn(asList(monthlyBudget));
+        }
+
+        private void assertAmountOfPeriodEquals(long amount) {
+            verify(mockConsumer).accept(amount);
         }
 
     }
