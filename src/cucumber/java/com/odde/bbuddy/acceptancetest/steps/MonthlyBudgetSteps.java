@@ -1,6 +1,6 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
-import com.odde.bbuddy.acceptancetest.data.LocalDateTransformer;
+import com.odde.bbuddy.acceptancetest.data.transformer.MonthToLocalDateTransformer;
 import com.odde.bbuddy.acceptancetest.data.budget.MonthlyBudgetRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
@@ -33,12 +33,12 @@ public class MonthlyBudgetSteps {
     MonthlyBudgetRepoForTest monthlyBudgetRepo;
 
     @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")
-    public void budget_has_been_set_for_month(int budget, @Transform(LocalDateTransformer.class) LocalDate month) throws Throwable {
+    public void budget_has_been_set_for_month(int budget, @Transform(MonthToLocalDateTransformer.class) LocalDate month) throws Throwable {
         monthlyBudgetRepo.save(new MonthlyBudget(month, budget));
     }
 
     @Given("^budget planned for \"([^\"]*)\" is (\\d+)$")
-    public void budget_planned_for_is(@Transform(LocalDateTransformer.class) LocalDate month, int budget) throws Throwable {
+    public void budget_planned_for_is(@Transform(MonthToLocalDateTransformer.class) LocalDate month, int budget) throws Throwable {
         budget_has_been_set_for_month(budget, month);
     }
 
@@ -53,12 +53,12 @@ public class MonthlyBudgetSteps {
     }
 
     @Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$")
-    public void monthly_budget_for_is_saved(Integer budget, @Transform(LocalDateTransformer.class) LocalDate month) throws Throwable {
-        assertListDeepEquals(asList(new MonthlyBudget(month, budget)), monthlyBudgetRepo.findAll(), "month");
+    public void monthly_budget_for_is_saved(Integer budget, @Transform(MonthToLocalDateTransformer.class) LocalDate month) throws Throwable {
+        assertListDeepEquals(asList(new MonthlyBudget(month, budget)), monthlyBudgetRepo.findAll());
     }
 
     @Then("^the budget for \"([^\"]*)\" is (\\d+)$")
-    public void the_budget_for_is(@Transform(LocalDateTransformer.class) LocalDate month, int budget) throws Throwable {
+    public void the_budget_for_is(@Transform(MonthToLocalDateTransformer.class) LocalDate month, int budget) throws Throwable {
         monthly_budget_for_is_saved(budget, month);
     }
 

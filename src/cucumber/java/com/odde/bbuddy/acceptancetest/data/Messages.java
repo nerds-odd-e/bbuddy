@@ -25,7 +25,7 @@ public class Messages {
     @Value("${javax.validation.constraints.NotNull.message}")
     public String notNull;
 
-    @Value("${typeMismatch.java.util.Date}")
+    @Value("${typeMismatch.java.time.LocalDate}")
     public String invalidDate;
 
     @Value("${typeMismatch.java.lang.Integer}")

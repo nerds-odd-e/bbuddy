@@ -5,7 +5,7 @@ import com.odde.bbuddy.transaction.domain.Transaction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +41,7 @@ public class PresentableTransactionsTest {
 
     public class HasSomeTransactions {
 
-        private Date date = parseDay("2016-07-01");
+        private LocalDate date = parseDay("2016-07-01");
         private int amount = 100;
 
         @Test
@@ -67,7 +67,7 @@ public class PresentableTransactionsTest {
             presentableTransactions.display(transaction(Income, "description", date, amount));
         }
 
-        private PresentableTransaction presentableTransaction(Type type, String description, Date date, int amount) {
+        private PresentableTransaction presentableTransaction(Type type, String description, LocalDate date, int amount) {
             PresentableTransaction presentableTransaction = new PresentableTransaction();
             presentableTransaction.setType(type);
             presentableTransaction.setDescription(description);
@@ -76,7 +76,7 @@ public class PresentableTransactionsTest {
             return presentableTransaction;
         }
 
-        private Transaction transaction(Type type, String description, Date date, int amount) {
+        private Transaction transaction(Type type, String description, LocalDate date, int amount) {
             return builder().type(type).description(description).date(date).amount(amount).build();
         }
 

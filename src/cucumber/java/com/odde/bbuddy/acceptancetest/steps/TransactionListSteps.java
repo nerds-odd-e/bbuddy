@@ -1,12 +1,12 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
 import com.odde.bbuddy.acceptancetest.data.ApplicationConfigurations;
+import com.odde.bbuddy.acceptancetest.data.transaction.TransactionForTest;
 import com.odde.bbuddy.acceptancetest.data.transaction.TransactionRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.ShowAllTransactionsPage;
 import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.view.PresentableTransaction;
-import cucumber.api.Format;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-import static com.odde.bbuddy.common.Formats.DAY;
+import static com.odde.bbuddy.acceptancetest.data.transaction.TransactionForTest.expectedTransactions;
 import static com.odde.bbuddy.common.page.PageableFactory.PER_PAGE_LIMIT_PROPERTY_NAME;
 import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.stream.Collectors.toList;
@@ -38,8 +38,8 @@ public class TransactionListSteps {
     ApplicationConfigurations applicationConfigurations;
 
     @Given("^exists the following transactions$")
-    public void exists_the_following_transactions(@Format(DAY) List<Transaction> transactions) throws Throwable {
-        transactions.forEach(transaction -> transactionRepo.save(transaction));
+    public void exists_the_following_transactions(List<TransactionForTest> expected) throws Throwable {
+        expectedTransactions(expected, Transaction.class).forEach(transactionRepo::save);
     }
 
     @When("^show all transactions$")
@@ -48,8 +48,9 @@ public class TransactionListSteps {
     }
 
     @Then("^you will see all transactions as below$")
-    public void you_will_see_all_transactions_as_below(@Format(DAY) List<PresentableTransaction> transactions) throws Throwable {
-        transactions.forEach(transaction -> assertThat(commonPage.getAllText()).contains(transaction.allViewText()));
+    public void you_will_see_all_transactions_as_below(List<TransactionForTest> transactions) throws Throwable {
+        expectedTransactions(transactions, PresentableTransaction.class)
+                .forEach(transaction -> assertThat(commonPage.getAllText()).contains(transaction.allViewText()));
     }
 
     @When("^show total of all transactions$")

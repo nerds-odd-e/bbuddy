@@ -13,24 +13,20 @@ import static java.util.Date.from;
 public class Formats {
     public static final String DAY = "yyyy-MM-dd";
 
-    public static Date parseDay(String day) {
-        return parseDate(day, DAY);
+    public static Date parseDayToDate(String day) {
+        try {
+            return new SimpleDateFormat(DAY).parse(day);
+        } catch (ParseException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     public static LocalDate parseMonth(String month) {
         return parse(month + "-01", ofPattern(DAY));
     }
 
-    public static LocalDate parseDayToLocalDate(String day) {
+    public static LocalDate parseDay(String day) {
         return parse(day, ofPattern(DAY));
-    }
-
-    private static Date parseDate(String source, String pattern) {
-        try {
-            return new SimpleDateFormat(pattern).parse(source);
-        } catch (ParseException e) {
-            throw new IllegalStateException(e);
-        }
     }
 
     public static Date dateOf(LocalDate date) {
