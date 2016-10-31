@@ -2,6 +2,8 @@ package com.odde.bbuddy.common;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Formats {
@@ -12,8 +14,12 @@ public class Formats {
         return parseDate(day, DAY);
     }
 
-    public static Date parseMonth(String month) {
-        return parseDate(month, MONTH);
+    public static LocalDate parseMonth(String month) {
+        return LocalDate.parse(month + "-01", DateTimeFormatter.ofPattern(DAY));
+    }
+
+    public static LocalDate parseDayToLocalDate(String day) {
+        return LocalDate.parse(day, DateTimeFormatter.ofPattern(DAY));
     }
 
     private static Date parseDate(String source, String pattern) {

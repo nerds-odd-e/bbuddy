@@ -8,9 +8,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 
-import static com.odde.bbuddy.common.Formats.MONTH;
+import static com.odde.bbuddy.common.Formats.DAY;
 
 @Entity
 @Table(name = "monthly_budgets")
@@ -20,7 +20,7 @@ import static com.odde.bbuddy.common.Formats.MONTH;
 public class MonthlyBudget {
 
     @Builder
-    public MonthlyBudget(Date month, Integer budget) {
+    public MonthlyBudget(LocalDate month, Integer budget) {
         this.month = month;
         this.budget = budget;
     }
@@ -30,8 +30,8 @@ public class MonthlyBudget {
     private long id;
 
     @NotNull
-    @DateTimeFormat(pattern = MONTH)
-    private Date month;
+    @DateTimeFormat(pattern = DAY)
+    private LocalDate month;
 
     @NotNull
     private Integer budget;

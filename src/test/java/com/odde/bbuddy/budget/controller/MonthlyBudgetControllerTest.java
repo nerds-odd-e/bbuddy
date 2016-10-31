@@ -13,11 +13,11 @@ import org.junit.runner.RunWith;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static com.odde.bbuddy.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.odde.bbuddy.budget.builder.PresentableMonthlyBudgetAmountBuilder.defaultPresentableMonthlyBudgetAmount;
-import static com.odde.bbuddy.common.Formats.parseDay;
+import static com.odde.bbuddy.common.Formats.parseDayToLocalDate;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -137,8 +137,8 @@ public class MonthlyBudgetControllerTest {
     public class GetAmount {
 
         private final long total = 100L;
-        Date startDate = parseDay("2016-07-01");
-        Date endDate = parseDay("2016-07-10");
+        LocalDate startDate = parseDayToLocalDate("2016-07-01");
+        LocalDate endDate = parseDayToLocalDate("2016-07-10");
 
         @Test
         public void should_display_view() {

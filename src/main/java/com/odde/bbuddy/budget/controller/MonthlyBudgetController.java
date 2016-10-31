@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Date;
+import java.time.LocalDate;
 
 import static com.odde.bbuddy.common.Formats.DAY;
 import static com.odde.bbuddy.common.controller.Urls.*;
@@ -66,8 +66,8 @@ public class MonthlyBudgetController {
 
     @GetMapping(TOTALAMOUNT)
     public ModelAndView totalAmountOfMonthlyBudget(
-            @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
-            @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate) {
+            @RequestParam("startDate") @DateTimeFormat(pattern = DAY) LocalDate startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = DAY) LocalDate endDate) {
         presentableMonthlyBudgetAmount.display(planner.getAmount(startDate, endDate));
         return presentableMonthlyBudgetAmount;
     }

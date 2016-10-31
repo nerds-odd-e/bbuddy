@@ -5,6 +5,8 @@ import com.odde.bbuddy.common.callback.PostActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
@@ -21,10 +23,10 @@ public class MonthlyBudgetPlanner {
         this.monthlyBudgetRepo = monthlyBudgetRepo;
     }
 
-    public long getAmount(Date startDate, Date endDate) {
+    public long getAmount(LocalDate startDate, LocalDate endDate) {
         allPlannedBudgets().forEach(this::setAmount);
 
-        return getTotalAmount(startDate, endDate);
+        return getTotalAmount(localDateOf(startDate), localDateOf(endDate));
     }
 
     private long getTotalAmount(Date startDate, Date endDate) {
@@ -32,7 +34,13 @@ public class MonthlyBudgetPlanner {
     }
 
     private void setAmount(MonthlyBudget monthlyBudget) {
-        budgetCategory.setAmount(monthlyBudget.getMonth(), monthlyBudget.getBudget());
+        budgetCategory.setAmount(
+                localDateOf(monthlyBudget.getMonth()),
+                monthlyBudget.getBudget());
+    }
+
+    private Date localDateOf(LocalDate date) {
+        return Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 
     private Iterable<MonthlyBudget> allPlannedBudgets() {

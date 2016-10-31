@@ -1,20 +1,20 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
+import com.odde.bbuddy.acceptancetest.data.LocalDateTransformer;
 import com.odde.bbuddy.acceptancetest.data.budget.MonthlyBudgetRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.MonthlyBudgetAmountPage;
 import com.odde.bbuddy.budget.domain.MonthlyBudget;
-import cucumber.api.Format;
+import cucumber.api.Transform;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import static com.odde.bbuddy.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
-import static com.odde.bbuddy.common.Formats.MONTH;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -33,18 +33,18 @@ public class MonthlyBudgetSteps {
     MonthlyBudgetRepoForTest monthlyBudgetRepo;
 
     @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")
-    public void budget_has_been_set_for_month(int budget, @Format(MONTH) Date month) throws Throwable {
+    public void budget_has_been_set_for_month(int budget, @Transform(LocalDateTransformer.class) LocalDate month) throws Throwable {
         monthlyBudgetRepo.save(new MonthlyBudget(month, budget));
     }
 
     @Given("^budget planned for \"([^\"]*)\" is (\\d+)$")
-    public void budget_planned_for_is(@Format(MONTH) Date month, int budget) throws Throwable {
+    public void budget_planned_for_is(@Transform(LocalDateTransformer.class) LocalDate month, int budget) throws Throwable {
         budget_has_been_set_for_month(budget, month);
     }
 
     @When("^add budget for \"([^\"]*)\" with amount (\\d+)$")
     public void add_budget_for_with_amount(String month, int budget) throws Throwable {
-        addMonthlyBudgetPage.addMonthlyBudget(month, String.valueOf(budget));
+        addMonthlyBudgetPage.addMonthlyBudget(month + "-01", String.valueOf(budget));
     }
 
     @When("^add budget for \"([^\"]*)\" with a new amount (\\d+)$")
@@ -53,12 +53,12 @@ public class MonthlyBudgetSteps {
     }
 
     @Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$")
-    public void monthly_budget_for_is_saved(Integer budget, @Format(MONTH) Date month) throws Throwable {
+    public void monthly_budget_for_is_saved(Integer budget, @Transform(LocalDateTransformer.class) LocalDate month) throws Throwable {
         assertListDeepEquals(asList(new MonthlyBudget(month, budget)), monthlyBudgetRepo.findAll(), "month");
     }
 
     @Then("^the budget for \"([^\"]*)\" is (\\d+)$")
-    public void the_budget_for_is(@Format(MONTH) Date month, int budget) throws Throwable {
+    public void the_budget_for_is(@Transform(LocalDateTransformer.class) LocalDate month, int budget) throws Throwable {
         monthly_budget_for_is_saved(budget, month);
     }
 
