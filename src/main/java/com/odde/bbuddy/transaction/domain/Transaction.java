@@ -1,5 +1,6 @@
 package com.odde.bbuddy.transaction.domain;
 
+import com.odde.bbuddy.common.entity.Past;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -30,7 +31,7 @@ public class Transaction {
     @NotBlank
     private String description;
 
-    @NotNull @DateTimeFormat(pattern = DAY)
+    @NotNull @DateTimeFormat(pattern = DAY) @Past
     private LocalDate date;
 
     @NotNull @Min(1)
