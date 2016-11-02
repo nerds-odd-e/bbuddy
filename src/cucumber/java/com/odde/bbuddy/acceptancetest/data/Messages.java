@@ -6,7 +6,6 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.ACCOUNTS_ADD_NAME_DUPLICATED;
 import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_FAILED;
 import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_LOGOUT;
 
@@ -40,6 +39,6 @@ public class Messages {
     @Value(AUTHENTICATION_LOGOUT)
     public String logout;
 
-    @Value(ACCOUNTS_ADD_NAME_DUPLICATED)
-    public String duplicateAccountName;
+    @Value("${com.odde.bbuddy.Unique.message}")
+    public String duplicateField;
 }

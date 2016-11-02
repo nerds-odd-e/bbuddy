@@ -15,7 +15,6 @@ import java.util.List;
 
 import static com.odde.bbuddy.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
 import static com.odde.bbuddy.account.builder.AccountBuilder.defaultAccount;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class AccountSteps {
 
@@ -49,11 +48,6 @@ public class AccountSteps {
     @When("^add a new account with name \"([^\"]*)\"$")
     public void add_a_new_account_with_name(String name) throws Throwable {
         addAccountPage.add(editableAccount(name));
-    }
-
-    @Then("^there is an error message for duplicate name$")
-    public void there_is_an_error_message_for_duplicate_name() throws Throwable {
-        assertThat(commonPage.getAllText()).contains(messages.duplicateAccountName);
     }
 
     private EditableAccount editableAccount(String name) {
