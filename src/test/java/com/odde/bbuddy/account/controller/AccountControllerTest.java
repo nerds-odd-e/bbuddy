@@ -1,7 +1,9 @@
 package com.odde.bbuddy.account.controller;
 
 import com.nitorcreations.junit.runners.NestedRunner;
-import com.odde.bbuddy.account.domain.*;
+import com.odde.bbuddy.account.domain.Account;
+import com.odde.bbuddy.account.domain.Accounts;
+import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.common.view.View;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +11,8 @@ import org.junit.runner.RunWith;
 import org.springframework.validation.BindingResult;
 
 import static com.odde.bbuddy.account.builder.AccountBuilder.defaultAccount;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -35,7 +39,7 @@ public class AccountControllerTest {
 
         @Before
         public void given_add_account_will_success() {
-            given_add_account_will(new SuccessAccountPostActions());
+            given_add_account_will(success());
         }
 
         @Before
@@ -60,7 +64,7 @@ public class AccountControllerTest {
 
             @Test
             public void should_display_success_message() {
-                given_add_account_will(new SuccessAccountPostActions());
+                given_add_account_will(success());
 
                 submitAddAccount();
 
@@ -74,7 +78,7 @@ public class AccountControllerTest {
 
             @Test
             public void should_display_failed_message() {
-                given_add_account_will(new FailedAccountPostActions());
+                given_add_account_will(failed());
 
                 submitAddAccount();
 
@@ -107,7 +111,7 @@ public class AccountControllerTest {
         return controller.submitAddAccount(account, stubBindingResult);
     }
 
-    private void given_add_account_will(AccountPostActions postActions) {
+    private void given_add_account_will(PostActions postActions) {
         when(mockAccounts.add(account)).thenReturn(postActions);
     }
 

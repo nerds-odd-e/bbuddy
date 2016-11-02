@@ -1,9 +1,13 @@
 package com.odde.bbuddy.account.domain;
 
 import com.odde.bbuddy.account.repo.AccountRepo;
+import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.common.validator.FieldCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
+import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
 
 @Service
 public class Accounts implements FieldCheck<String> {
@@ -14,12 +18,12 @@ public class Accounts implements FieldCheck<String> {
         this.accountRepo = accountRepo;
     }
 
-    public AccountPostActions add(Account account) {
+    public PostActions add(Account account) {
         try {
             accountRepo.save(account);
-            return new SuccessAccountPostActions();
+            return success();
         } catch (IllegalArgumentException e) {
-            return new FailedAccountPostActions();
+            return failed();
         }
     }
 
