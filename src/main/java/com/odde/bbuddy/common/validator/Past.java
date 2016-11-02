@@ -1,4 +1,4 @@
-package com.odde.bbuddy.common.entity;
+package com.odde.bbuddy.common.validator;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

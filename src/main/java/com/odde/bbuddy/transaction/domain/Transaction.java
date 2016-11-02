@@ -1,6 +1,6 @@
 package com.odde.bbuddy.transaction.domain;
 
-import com.odde.bbuddy.common.entity.Past;
+import com.odde.bbuddy.common.validator.Past;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
