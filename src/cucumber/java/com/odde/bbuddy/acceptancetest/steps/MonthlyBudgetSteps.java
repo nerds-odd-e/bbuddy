@@ -44,7 +44,7 @@ public class MonthlyBudgetSteps {
 
     @When("^add budget for \"([^\"]*)\" with amount (\\d+)$")
     public void add_budget_for_with_amount(String month, int budget) throws Throwable {
-        addMonthlyBudgetPage.addMonthlyBudget(month + "-01", String.valueOf(budget));
+        addMonthlyBudgetPage.addMonthlyBudget(month, String.valueOf(budget));
     }
 
     @When("^add budget for \"([^\"]*)\" with a new amount (\\d+)$")
