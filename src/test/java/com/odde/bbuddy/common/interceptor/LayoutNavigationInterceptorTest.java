@@ -6,9 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.odde.bbuddy.common.controller.Urls.MONTHLYBUDGETS_ADD;
-import static com.odde.bbuddy.common.controller.Urls.SIGNOUT;
-import static com.odde.bbuddy.common.controller.Urls.TRANSACTIONS;
+import static com.odde.bbuddy.common.controller.Urls.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -17,16 +15,23 @@ public class LayoutNavigationInterceptorTest {
     private final HttpServletRequest anyRequest = mock(HttpServletRequest.class);
     private final HttpServletResponse anyResponse = mock(HttpServletResponse.class);
     private final Object anyHandler = new Object();
+    ModelAndView modelAndView = new ModelAndView();
 
     @Test
     public void left_panel_menu_urls() throws Exception {
-        LayoutNavigationInterceptor interceptor = new LayoutNavigationInterceptor();
+        postHandle();
 
-        ModelAndView modelAndView = new ModelAndView();
-        interceptor.postHandle(anyRequest, anyResponse, anyHandler, modelAndView);
+        assertThat(modelAndViewAttribute("monthlyBudgetsAddUrl")).isEqualTo(MONTHLYBUDGETS_ADD);
+        assertThat(modelAndViewAttribute("transactionsUrl")).isEqualTo(TRANSACTIONS);
+        assertThat(modelAndViewAttribute("accountsUrl")).isEqualTo(ACCOUNTS_ADD);
+        assertThat(modelAndViewAttribute("signoutUrl")).isEqualTo(SIGNOUT);
+    }
 
-        assertThat(modelAndView.getModelMap().get("monthlyBudgetsAddUrl")).isEqualTo(MONTHLYBUDGETS_ADD);
-        assertThat(modelAndView.getModelMap().get("transactionsUrl")).isEqualTo(TRANSACTIONS);
-        assertThat(modelAndView.getModelMap().get("signoutUrl")).isEqualTo(SIGNOUT);
+    private Object modelAndViewAttribute(String monthlyBudgetsAddUrl) {
+        return modelAndView.getModelMap().get(monthlyBudgetsAddUrl);
+    }
+
+    private void postHandle() throws Exception {
+        new LayoutNavigationInterceptor().postHandle(anyRequest, anyResponse, anyHandler, modelAndView);
     }
 }
