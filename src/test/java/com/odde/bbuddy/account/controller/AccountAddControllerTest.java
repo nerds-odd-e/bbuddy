@@ -3,17 +3,18 @@ package com.odde.bbuddy.account.controller;
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.account.domain.Account;
 import com.odde.bbuddy.account.domain.Accounts;
+import com.odde.bbuddy.account.view.PresentableAddAccount;
 import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.common.view.View;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import static com.odde.bbuddy.account.builder.AccountBuilder.defaultAccount;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.failed;
 import static com.odde.bbuddy.common.callback.PostActionsFactory.success;
-import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -22,7 +23,7 @@ public class AccountAddControllerTest {
 
     Accounts mockAccounts = mock(Accounts.class);
     View<String> mockView = mock(View.class);
-    AccountAddController controller = new AccountAddController(mockAccounts, mockView);
+    AccountAddController controller = new AccountAddController(mockAccounts, mockView, new PresentableAddAccount());
     Account account = defaultAccount().build();
     private final BindingResult stubBindingResult = mock(BindingResult.class);
 
@@ -30,7 +31,7 @@ public class AccountAddControllerTest {
 
         @Test
         public void should_go_to_view() {
-            assertThat(controller.addAccount()).isEqualTo(ACCOUNTS_ADD);
+            assertThat(controller.addAccount()).isInstanceOf(PresentableAddAccount.class);
         }
 
     }
@@ -50,7 +51,7 @@ public class AccountAddControllerTest {
 
         @Test
         public void should_go_to_view() {
-            assertThat(submitAddAccount()).isEqualTo(ACCOUNTS_ADD);
+            assertThat(submitAddAccount()).isInstanceOf(PresentableAddAccount.class);
         }
 
         @Test
@@ -107,7 +108,7 @@ public class AccountAddControllerTest {
 
     }
 
-    private String submitAddAccount() {
+    private ModelAndView submitAddAccount() {
         return controller.submitAddAccount(account, stubBindingResult);
     }
 
