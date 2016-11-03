@@ -21,10 +21,11 @@ public class LayoutNavigationInterceptorTest {
     public void left_panel_menu_urls() throws Exception {
         postHandle();
 
-        assertThat(modelAndViewAttribute("monthlyBudgetsAddUrl")).isEqualTo(MONTHLYBUDGETS_ADD);
+        assertThat(modelAndViewAttribute("monthlyBudgetsUrl")).isEqualTo(MONTHLYBUDGETS_ADD);
         assertThat(modelAndViewAttribute("transactionsUrl")).isEqualTo(TRANSACTIONS);
-        assertThat(modelAndViewAttribute("accountsUrl")).isEqualTo(ACCOUNTS_ADD);
+        assertThat(modelAndViewAttribute("accountsUrl")).isEqualTo(ACCOUNTS);
         assertThat(modelAndViewAttribute("signoutUrl")).isEqualTo(SIGNOUT);
+        assertThat(modelAndViewAttribute("rootUrl")).isEqualTo(ROOT);
     }
 
     private Object modelAndViewAttribute(String monthlyBudgetsAddUrl) {

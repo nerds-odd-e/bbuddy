@@ -20,7 +20,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/">{{label.dashboard}}</a></li>
+                <li><a href="{{rootUrl}}">{{label.dashboard}}</a></li>
                 <li><a href="#">{{user}}</a></li>
                 <li>
                     <form action="{{signoutUrl}}" method="post" class="navbar-form navbar-left">
@@ -36,8 +36,8 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
-                <li><a href="/">{{label.overview}} <span class="sr-only">(current)</span></a></li>
-                <li><a href="{{monthlyBudgetsAddUrl}}">{{label.budgetplan}}</a></li>
+                <li><a href="{{rootUrl}}">{{label.dashboard}} <span class="sr-only">(current)</span></a></li>
+                <li><a href="{{monthlyBudgetsUrl}}">{{label.budgetplan}}</a></li>
                 <li><a href="{{accountsUrl}}">{{label.accounts}}</a></li>
                 <li><a href="{{transactionsUrl}}">{{label.transactions}}</a></li>
                 <li><a href="#">{{label.export}}</a></li>
