@@ -41,4 +41,11 @@ public class Messages {
 
     @Value("${com.odde.bbuddy.Unique.message}")
     public String duplicateField;
+
+    @Value("${javax.validation.constraints.Min.message}")
+    private String minNumberMessage;
+
+    public String negativeNumber() {
+        return minNumberMessage.replace("{value}","0");
+    }
 }

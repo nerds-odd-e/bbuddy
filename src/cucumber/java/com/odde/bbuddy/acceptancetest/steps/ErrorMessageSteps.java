@@ -40,6 +40,11 @@ public class ErrorMessageSteps {
         assertErrorMessageEquals(field, messages.duplicateField);
     }
 
+    @Then("^there is an error message for negative ([^\"]*)$")
+    public void there_is_an_error_message_for_negative(String field) throws Throwable {
+        assertErrorMessageEquals(field, messages.negativeNumber());
+    }
+
     private void assertErrorMessageEquals(String field, String errorMessageTemplate) {
         assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessageTemplate));
     }
