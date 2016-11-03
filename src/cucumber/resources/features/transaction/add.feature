@@ -1,5 +1,5 @@
 @user @transaction
-Feature: Transaction
+Feature: Add Transactions
 
   Scenario: successfully add transactions
     When add transactions with the following information

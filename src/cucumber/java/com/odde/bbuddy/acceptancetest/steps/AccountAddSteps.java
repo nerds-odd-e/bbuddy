@@ -16,7 +16,7 @@ import java.util.List;
 import static com.odde.bbuddy.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
 import static com.odde.bbuddy.account.builder.AccountBuilder.defaultAccount;
 
-public class AccountSteps {
+public class AccountAddSteps {
 
     @Autowired
     AddAccountPage addAccountPage;

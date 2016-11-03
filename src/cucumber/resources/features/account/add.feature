@@ -1,5 +1,5 @@
 @user @account
-Feature: Account
+Feature: Add Account
 
   Scenario: successfully add account
     When add account with the following information

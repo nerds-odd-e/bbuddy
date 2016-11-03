@@ -18,11 +18,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(NestedRunner.class)
-public class AccountControllerTest {
+public class AccountAddControllerTest {
 
     Accounts mockAccounts = mock(Accounts.class);
     View<String> mockView = mock(View.class);
-    AccountController controller = new AccountController(mockAccounts, mockView);
+    AccountAddController controller = new AccountAddController(mockAccounts, mockView);
     Account account = defaultAccount().build();
     private final BindingResult stubBindingResult = mock(BindingResult.class);
 

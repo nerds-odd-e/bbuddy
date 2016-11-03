@@ -1,5 +1,5 @@
 @user @transaction
-Feature: Transaction
+Feature: Show Transactions
 
   Scenario: show all transactions
     Given exists the following transactions

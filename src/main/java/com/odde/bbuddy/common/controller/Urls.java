@@ -15,6 +15,7 @@ public class Urls {
 
     public static final String ACCOUNTS = "/accounts";
     public static final String ACCOUNTS_ADD = ACCOUNTS + ADD;
+    public static final String ACCOUNTS_INDEX = ACCOUNTS + INDEX;
 
     public static final String SIGNIN = "/signin";
     public static final String SIGNOUT = "/signout";
