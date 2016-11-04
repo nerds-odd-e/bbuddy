@@ -82,3 +82,6 @@ gradle-app.setting
 # Ansible
 /*.retry
 /hosts.txt
+
+# Sonar
+.sonar
