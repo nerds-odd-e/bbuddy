@@ -85,3 +85,17 @@ bootRun {
 test {
     environment 'SPRING_PROFILES_ACTIVE', 'test'
 }
+
+task copyDependencyLibraries(type: Copy) {
+    into "$buildDir/output/libs"
+    from configurations.compile
+}
+
+classes.dependsOn(copyDependencyLibraries)
+
+task copyTestDependencyLibraries(type: Copy) {
+    into "$buildDir/output/test-libs"
+    from configurations.testCompile
+}
+
+testClasses.dependsOn(copyTestDependencyLibraries)
