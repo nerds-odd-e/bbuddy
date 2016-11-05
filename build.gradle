@@ -70,6 +70,8 @@ cucumber {
         if (project.hasProperty('port')) {
             environment 'SERVER_PORT', "$port"
         }
+        def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
+        jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
     }
 }
 
