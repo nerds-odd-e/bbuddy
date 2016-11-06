@@ -2,15 +2,15 @@ package com.odde.bbuddy.transaction.domain.summary;
 
 import com.odde.bbuddy.transaction.domain.Transaction;
 
-public abstract class TransactionForSummary {
+public interface TransactionForSummary {
 
-    public abstract int income();
+    int income();
 
-    public abstract int outcome();
+    int outcome();
 
-    public abstract int balance();
+    int balance();
 
-    public static TransactionForSummary create(Transaction transaction) {
+    static TransactionForSummary create(Transaction transaction) {
         switch (transaction.getType()) {
             case Income:
                 return new IncomeTransactionForSummary(transaction);

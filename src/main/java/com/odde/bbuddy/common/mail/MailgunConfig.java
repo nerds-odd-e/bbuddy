@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 @PropertySource("classpath:mailgun.properties")
 public class MailgunConfig {
+    private final static String API_URL = "https://api.mailgun.net/v3";
     private final String domain;
     private final String apiKey;
     private final String from;
-    private final static String apiUrl = "https://api.mailgun.net/v3";
 
     @Autowired
     public MailgunConfig(
@@ -32,7 +32,7 @@ public class MailgunConfig {
     }
 
     public String apiUrl() {
-        return apiUrl;
+        return API_URL;
     }
 
     public String domain() {

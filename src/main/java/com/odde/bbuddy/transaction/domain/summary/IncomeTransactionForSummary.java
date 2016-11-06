@@ -2,7 +2,7 @@ package com.odde.bbuddy.transaction.domain.summary;
 
 import com.odde.bbuddy.transaction.domain.Transaction;
 
-public class IncomeTransactionForSummary extends TransactionForSummary {
+public class IncomeTransactionForSummary implements TransactionForSummary {
 
     private final Transaction origin;
 
