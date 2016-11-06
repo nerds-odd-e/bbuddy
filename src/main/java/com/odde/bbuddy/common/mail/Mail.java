@@ -1,8 +1,10 @@
 package com.odde.bbuddy.common.mail;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class Mail {
     private String from;
     private String to;
