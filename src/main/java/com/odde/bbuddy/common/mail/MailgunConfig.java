@@ -6,15 +6,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Singleton;
-
 @Component
 @PropertySource("classpath:mailgun.properties")
 public class MailgunConfig {
     private final String domain;
     private final String apiKey;
     private final String from;
-    private final String apiUrl = "https://api.mailgun.net/v3";
+    private final static String apiUrl = "https://api.mailgun.net/v3";
 
     @Autowired
     public MailgunConfig(

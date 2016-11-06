@@ -9,17 +9,17 @@ public class Params {
     private static final String QUERY_HEAD = "?";
     private static final String PARAM_DELIMITER = "&";
     private static final String PARAM_CONNECTOR = "=";
-    private final Map<String, String> params = new HashMap<>();
+    private final Map<String, String> allParams = new HashMap<>();
 
     public void add(String name, String value) {
-        params.put(name, value);
+        allParams.put(name, value);
     }
 
     public String getQuery() {
-        if (params.isEmpty())
+        if (allParams.isEmpty())
             return "";
 
-        return QUERY_HEAD + params.entrySet().stream()
+        return QUERY_HEAD + allParams.entrySet().stream()
                 .map(this::paramInQuery)
                 .collect(joining(PARAM_DELIMITER));
     }

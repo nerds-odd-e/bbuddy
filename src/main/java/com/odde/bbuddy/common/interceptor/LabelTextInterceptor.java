@@ -45,7 +45,7 @@ public class LabelTextInterceptor implements HandlerInterceptor {
     }
 
     private boolean isAllNameInKey(String viewName, String key) {
-        return Stream.of(viewName.split(VIEW_NAME_DELIMITER)).allMatch(name -> key.contains(name));
+        return Stream.of(viewName.split(VIEW_NAME_DELIMITER)).allMatch(key::contains);
     }
 
     private Set<String> allLabelMessageKeys(HttpServletRequest request) {
@@ -54,7 +54,7 @@ public class LabelTextInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-
+        //no implementation needed
     }
 
 }

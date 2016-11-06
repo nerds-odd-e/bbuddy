@@ -17,20 +17,18 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class MonthlyBudget {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @NotNull
+    @Month
+    private LocalDate month;
+    @NotNull
+    private Integer budget;
+
     @Builder
     public MonthlyBudget(LocalDate month, Integer budget) {
         this.month = month;
         this.budget = budget;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    @NotNull
-    @Month
-    private LocalDate month;
-
-    @NotNull
-    private Integer budget;
 }

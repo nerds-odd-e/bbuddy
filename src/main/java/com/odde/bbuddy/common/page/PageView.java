@@ -44,6 +44,7 @@ public class PageView extends ModelAndView implements View<Integer> {
         addObject("currentPage", format(currentPageMessage, currentPage.number()));
     }
 
+    @Override
     public void display(Integer totalPageCount) {
         if (currentPage.number() < totalPageCount)
             displayNextPageUrl();

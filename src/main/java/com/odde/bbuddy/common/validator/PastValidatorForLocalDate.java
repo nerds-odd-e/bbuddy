@@ -14,7 +14,9 @@ public class PastValidatorForLocalDate implements ConstraintValidator<Past, Loca
     @Autowired
     private Clock clock;
 
-    public PastValidatorForLocalDate() { }
+    public PastValidatorForLocalDate() {
+        //this constructor must be there so that Spring DI works for this validator
+    }
 
     public PastValidatorForLocalDate(Clock clock) {
         this.clock = clock;
@@ -22,7 +24,7 @@ public class PastValidatorForLocalDate implements ConstraintValidator<Past, Loca
 
     @Override
     public void initialize(Past constraintAnnotation) {
-
+        //no implementation needed
     }
 
     @Override

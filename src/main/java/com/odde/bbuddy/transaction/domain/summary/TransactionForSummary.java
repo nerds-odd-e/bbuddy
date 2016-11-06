@@ -2,19 +2,13 @@ package com.odde.bbuddy.transaction.domain.summary;
 
 import com.odde.bbuddy.transaction.domain.Transaction;
 
-public class TransactionForSummary {
+public abstract class TransactionForSummary {
 
-    public int income() {
-        return 0;
-    }
+    public abstract int income();
 
-    public int outcome() {
-        return 0;
-    }
+    public abstract int outcome();
 
-    public int balance() {
-        return 0;
-    }
+    public abstract int balance();
 
     public static TransactionForSummary create(Transaction transaction) {
         switch (transaction.getType()) {

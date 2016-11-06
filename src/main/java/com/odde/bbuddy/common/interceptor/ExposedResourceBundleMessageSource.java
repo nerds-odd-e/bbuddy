@@ -1,6 +1,5 @@
 package com.odde.bbuddy.common.interceptor;
 
-import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 import java.util.Locale;
@@ -13,7 +12,7 @@ public class ExposedResourceBundleMessageSource extends ResourceBundleMessageSou
         return getResourceBundle(basename, locale).keySet();
     }
 
-    public String getMessageOverrided(String code, Object[] args, Locale locale) throws NoSuchMessageException {
+    public String getMessageOverrided(String code, Object[] args, Locale locale) {
         return getMessage(code, args, locale);
     }
 
