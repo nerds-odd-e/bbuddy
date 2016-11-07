@@ -102,13 +102,14 @@ task copyTestDependencyLibraries(type: Copy) {
 testClasses.dependsOn(copyTestDependencyLibraries)
 
 task mergeUnitTestResults << {
-    def testResultsDir = file("${buildDir}/test-results")
-    copy {
-        from testResultsDir
-        into testResultsDir
-        include '**/*$*.xml'
-        rename { String fileName ->
-            fileName.replace('$Add', '')
-        }
+    fileTree("${buildDir}/test-results")
+            .matching { include '**/*$*.xml' }
+            .getFiles()
+            .each {
+        def document = (new XmlParser()).parse(it)
+        document.@name = document.@name.substring(0, document.@name.indexOf('$'))
+        new XmlNodePrinter(new PrintWriter(it)).print(document)
     }
 }
+
+jacocoTestReport.dependsOn(mergeUnitTestResults)
