@@ -56,6 +56,7 @@ dependencies {
             "org.seleniumhq.selenium:selenium-java:2.53.1",
             "org.assertj:assertj-core:3.5.2",
             "com.nitorcreations:junit-runners:1.2",
+            gradleTestKit()
     )
 
     cucumberRuntime "info.cukes:cucumber-java:1.2.5"
@@ -99,3 +100,15 @@ task copyTestDependencyLibraries(type: Copy) {
 }
 
 testClasses.dependsOn(copyTestDependencyLibraries)
+
+task mergeUnitTestResults << {
+    def testResultsDir = file("${buildDir}/test-results")
+    copy {
+        from testResultsDir
+        into testResultsDir
+        include '**/*$*.xml'
+        rename { String fileName ->
+            fileName.replace('$Add', '')
+        }
+    }
+}
