@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE"
@@ -11,19 +10,16 @@ buildscript {
 plugins {
     id "java"
     id "com.github.samueltbrown.cucumber" version "0.9"
+    id "idea"
+    id "war"
+    id "jacoco"
 }
+apply plugin: "spring-boot"
 
-apply plugin: 'idea'
-
-apply plugin: 'war'
 war {
-    baseName = 'bbuddy'
-    version =  'HEAD'
+    baseName = "bbuddy"
+    version =  "HEAD"
 }
-
-apply plugin: 'spring-boot'
-
-apply plugin: 'jacoco'
 
 repositories {
     mavenCentral()
