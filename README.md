@@ -9,7 +9,7 @@ Please install the following tools for this project. The latest version should b
 
 * git
 * jdk 1.8
-* gradle 2.X (don't use gradle 3.X)
+* gradle 2.13 (don't use gradle 2.14, 2.14.1 or 3.X)
 * mysql
 * intellij idea community edition with the following plug-in installed
     * lombok plug-in

@@ -1,5 +1,5 @@
 gradle:
-  version: 2.14.1
+  version: 2.13
   cache_dir: /var/cache/ansible
   profile: /etc/profile.d/gradle.sh
   install_to: /opt
