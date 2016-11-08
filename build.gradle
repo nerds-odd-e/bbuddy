@@ -59,16 +59,15 @@ dependencies {
 }
 
 cucumber {
-    if (project.hasProperty('tag')) {
-        tags = ["@" + "$tag"]
-    }
     jvmOptions {
         environment 'SPRING_PROFILES_ACTIVE', 'test'
-        if (project.hasProperty('port')) {
-            environment 'SERVER_PORT', "$port"
+        if (project.hasProperty("port")) {
+            environment "SERVER_PORT", "$port"
         }
-        def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
-        jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
+        if (project.hasProperty('sonar')) {
+            def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
+            jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
+        }
     }
 }
 
@@ -81,6 +80,11 @@ bootRun {
 
 test {
     environment 'SPRING_PROFILES_ACTIVE', 'test'
+    if (!project.hasProperty("sonar")) {
+        jacoco {
+            enabled false
+        }
+    }
 }
 
 task copyDependencyLibraries(type: Copy) {
@@ -88,14 +92,15 @@ task copyDependencyLibraries(type: Copy) {
     from configurations.compile
 }
 
-classes.dependsOn(copyDependencyLibraries)
-
 task copyTestDependencyLibraries(type: Copy) {
     into "$buildDir/output/test-libs"
     from configurations.testCompile
 }
 
-testClasses.dependsOn(copyTestDependencyLibraries)
+if (project.hasProperty("sonar")) {
+    classes.dependsOn(copyDependencyLibraries)
+    testClasses.dependsOn(copyTestDependencyLibraries)
+}
 
 task mergeUnitTestResults << {
     fileTree("${buildDir}/test-results")
