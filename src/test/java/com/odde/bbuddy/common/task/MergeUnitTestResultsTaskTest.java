@@ -41,6 +41,7 @@ public class MergeUnitTestResultsTaskTest {
     @Before
     public void createTask() throws IOException {
         copyFileToDirectory(gradleFile(), tmpFolder.getRoot());
+        copyFileToDirectory(new File(System.getProperty("user.dir") + separator + "gradle" + separator + "sonar.gradle"), tmpFolder.newFolder("gradle"));
     }
 
     @Before

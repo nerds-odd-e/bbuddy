@@ -1,0 +1,45 @@
+cucumber {
+    jvmOptions {
+        if (project.hasProperty('sonar')) {
+            def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
+            jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
+        }
+    }
+}
+
+test {
+    if (!project.hasProperty("sonar")) {
+        jacoco {
+            enabled false
+        }
+    }
+}
+
+task copyDependencyLibraries(type: Copy) {
+    into "$buildDir/output/libs"
+    from configurations.compile
+}
+
+task copyTestDependencyLibraries(type: Copy) {
+    into "$buildDir/output/test-libs"
+    from configurations.testCompile
+}
+
+if (project.hasProperty("sonar")) {
+    classes.dependsOn(copyDependencyLibraries)
+    testClasses.dependsOn(copyTestDependencyLibraries)
+}
+
+task mergeUnitTestResults << {
+    fileTree("${buildDir}/test-results")
+            .matching { include '**/*$*.xml' }
+            .getFiles()
+            .each {
+        def document = (new XmlParser()).parse(it)
+        document.@name = document.@name.substring(0, document.@name.indexOf('$'))
+        new XmlNodePrinter(new PrintWriter(it)).print(document)
+    }
+}
+
+jacocoTestReport.dependsOn(mergeUnitTestResults)
+
