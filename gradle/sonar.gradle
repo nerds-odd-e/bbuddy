@@ -1,19 +1,4 @@
-cucumber {
-    jvmOptions {
-        if (project.hasProperty('sonar')) {
-            def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter { it.name == "jacocoagent.jar" }.singleFile
-            jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
-        }
-    }
-}
-
-test {
-    if (!project.hasProperty("sonar")) {
-        jacoco {
-            enabled false
-        }
-    }
-}
+def isSonarRunning = project.hasProperty('sonar')
 
 task copyDependencyLibraries(type: Copy) {
     into "$buildDir/output/libs"
@@ -23,11 +8,6 @@ task copyDependencyLibraries(type: Copy) {
 task copyTestDependencyLibraries(type: Copy) {
     into "$buildDir/output/test-libs"
     from configurations.testCompile
-}
-
-if (project.hasProperty("sonar")) {
-    classes.dependsOn(copyDependencyLibraries)
-    testClasses.dependsOn(copyTestDependencyLibraries)
 }
 
 task mergeUnitTestResults << {
@@ -41,5 +21,21 @@ task mergeUnitTestResults << {
     }
 }
 
-jacocoTestReport.dependsOn(mergeUnitTestResults)
-
+if (isSonarRunning) {
+    cucumber {
+        jvmOptions {
+            def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter {
+                it.name == "jacocoagent.jar"
+            }.singleFile
+            jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
+        }
+    }
+    classes.dependsOn(copyDependencyLibraries)
+    testClasses.dependsOn(copyTestDependencyLibraries)
+} else {
+    test {
+        jacoco {
+            enabled false
+        }
+    }
+}
