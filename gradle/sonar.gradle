@@ -1,5 +1,3 @@
-def isSonarRunning = project.hasProperty('sonar')
-
 task copyDependencyLibraries(type: Copy) {
     into "$buildDir/output/libs"
     from configurations.compile
@@ -21,7 +19,10 @@ task mergeUnitTestResults << {
     }
 }
 
-if (isSonarRunning) {
+task sonar {
+    dependsOn "ci"
+    dependsOn "mergeUnitTestResults"
+    tasks.findByName("mergeUnitTestResults").mustRunAfter "ci"
     cucumber {
         jvmOptions {
             def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter {
