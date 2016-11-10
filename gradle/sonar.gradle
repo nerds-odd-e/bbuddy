@@ -1,3 +1,13 @@
+def updateUnitTestResult = {
+    def document = (new XmlParser()).parse(it)
+    document.@name = document.@name.substring(0, document.@name.indexOf('$'))
+    new XmlNodePrinter(new PrintWriter(it)).print(document)
+}
+
+def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter {
+    it.name == "jacocoagent.jar"
+}.singleFile
+
 task copyDependencyLibraries(type: Copy) {
     into "$buildDir/output/libs"
     from configurations.compile
@@ -8,30 +18,23 @@ task copyTestDependencyLibraries(type: Copy) {
     from configurations.testCompile
 }
 
-task mergeUnitTestResults << {
+task updateUnitTestResults << {
     fileTree("${buildDir}/test-results")
             .matching { include '**/*$*.xml' }
             .getFiles()
-            .each {
-        def document = (new XmlParser()).parse(it)
-        document.@name = document.@name.substring(0, document.@name.indexOf('$'))
-        new XmlNodePrinter(new PrintWriter(it)).print(document)
-    }
+            .each updateUnitTestResult
 }
 
 task sonar {
     dependsOn "ci"
     dependsOn "copyDependencyLibraries"
     dependsOn "copyTestDependencyLibraries"
-    dependsOn "mergeUnitTestResults"
+    dependsOn "updateUnitTestResults"
     tasks.findByName("copyDependencyLibraries").mustRunAfter "ci"
     tasks.findByName("copyTestDependencyLibraries").mustRunAfter "copyDependencyLibraries"
-    tasks.findByName("mergeUnitTestResults").mustRunAfter "copyTestDependencyLibraries"
+    tasks.findByName("updateUnitTestResults").mustRunAfter "copyTestDependencyLibraries"
     cucumber {
         jvmOptions {
-            def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter {
-                it.name == "jacocoagent.jar"
-            }.singleFile
             jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
         }
     }
