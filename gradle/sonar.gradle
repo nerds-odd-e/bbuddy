@@ -30,12 +30,11 @@ if (isSonarRunning) {
             jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
         }
     }
-    classes.dependsOn(copyDependencyLibraries)
-    testClasses.dependsOn(copyTestDependencyLibraries)
-} else {
     test {
         jacoco {
-            enabled false
+            enabled true
         }
     }
+    classes.dependsOn(copyDependencyLibraries)
+    testClasses.dependsOn(copyTestDependencyLibraries)
 }

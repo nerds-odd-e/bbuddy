@@ -17,4 +17,7 @@ cucumber {
 
 test {
     environment 'SPRING_PROFILES_ACTIVE', 'test'
+    jacoco {
+        enabled false
+    }
 }
