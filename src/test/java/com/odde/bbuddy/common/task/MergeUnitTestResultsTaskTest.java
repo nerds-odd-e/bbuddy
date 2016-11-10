@@ -40,8 +40,8 @@ public class MergeUnitTestResultsTaskTest {
 
     @Before
     public void createTask() throws IOException {
-        copyFileToDirectory(gradleFile(), tmpFolder.getRoot());
-        copyFileToDirectory(new File(System.getProperty("user.dir") + separator + "gradle" + separator + "sonar.gradle"), tmpFolder.newFolder("gradle"));
+        copyFileToRootFolder("build.gradle");
+        copyFileToGradleFolder("sonar.gradle", "ci.gradle");
     }
 
     @Before
@@ -100,8 +100,14 @@ public class MergeUnitTestResultsTaskTest {
                 .build();
     }
 
-    private File gradleFile() {
-        return new File(System.getProperty("user.dir") + separator + "build.gradle");
+    private void copyFileToRootFolder(String fileName) throws IOException {
+        copyFileToDirectory(new File(System.getProperty("user.dir") + separator + fileName), tmpFolder.getRoot());
+    }
+
+    private void copyFileToGradleFolder(String... fileNames) throws IOException {
+        File gradleFolder = tmpFolder.newFolder("gradle");
+        for (String fileName : fileNames)
+            copyFileToDirectory(new File(System.getProperty("user.dir") + separator + "gradle" + separator + fileName), gradleFolder);
     }
 
 }

@@ -58,24 +58,12 @@ dependencies {
     cucumberRuntime "info.cukes:cucumber-java:1.2.5"
 }
 
+apply from: "gradle/ci.gradle"
 apply from: "gradle/sonar.gradle"
-
-cucumber {
-    jvmOptions {
-        environment 'SPRING_PROFILES_ACTIVE', 'test'
-        if (project.hasProperty("port")) {
-            environment "SERVER_PORT", "$port"
-        }
-    }
-}
 
 bootRun {
     environment 'SPRING_PROFILES_ACTIVE', 'dev'
     if (project.hasProperty('port')) {
         environment 'SERVER_PORT', "$port"
     }
-}
-
-test {
-    environment 'SPRING_PROFILES_ACTIVE', 'test'
 }

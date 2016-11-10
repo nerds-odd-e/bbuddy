@@ -1,0 +1,20 @@
+task ci {
+    dependsOn 'clean'
+    dependsOn 'check'
+    dependsOn 'cucumber'
+    tasks.findByName('check').mustRunAfter 'clean'
+    tasks.findByName('cucumber').mustRunAfter 'check'
+}
+
+cucumber {
+    jvmOptions {
+        environment 'SPRING_PROFILES_ACTIVE', 'test'
+        if (project.hasProperty("port")) {
+            environment "SERVER_PORT", "$port"
+        }
+    }
+}
+
+test {
+    environment 'SPRING_PROFILES_ACTIVE', 'test'
+}
