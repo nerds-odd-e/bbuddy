@@ -1,5 +1,3 @@
-apply from: "gradle/common.gradle"
-
 task run {
     dependsOn "clean"
     dependsOn "bootRun"
