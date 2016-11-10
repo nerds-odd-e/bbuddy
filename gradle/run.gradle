@@ -1,0 +1,12 @@
+task run {
+    dependsOn "clean"
+    dependsOn "bootRun"
+    tasks.findByName("bootRun").mustRunAfter "clean"
+}
+
+bootRun {
+    environment "SPRING_PROFILES_ACTIVE", "dev"
+    if (project.hasProperty("port")) {
+        environment "SERVER_PORT", "$port"
+    }
+}

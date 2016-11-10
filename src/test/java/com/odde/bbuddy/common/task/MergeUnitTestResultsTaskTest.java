@@ -41,7 +41,7 @@ public class MergeUnitTestResultsTaskTest {
     @Before
     public void createTask() throws IOException {
         copyFileToRootFolder("build.gradle");
-        copyFileToGradleFolder("sonar.gradle", "ci.gradle");
+        copyFileToGradleFolder("sonar.gradle", "ci.gradle", "run.gradle");
     }
 
     @Before
