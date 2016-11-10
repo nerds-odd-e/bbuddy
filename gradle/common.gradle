@@ -3,6 +3,13 @@ def commandLineArg(argName, ifArgPresent) {
         ifArgPresent(project.property(argName))
 }
 
+def runInSequence(Task task, String... subTaskNames) {
+    task.dependsOn subTaskNames
+    [subTaskNames.dropRight(1), subTaskNames.drop(1)].transpose()
+            .each { project.tasks.findByName(it[1]).mustRunAfter it[0] }
+}
+
 ext {
     commandLineArg = this.&commandLineArg
+    runInSequence = this.&runInSequence
 }

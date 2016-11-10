@@ -26,13 +26,7 @@ task updateUnitTestResults << {
 }
 
 task sonar {
-    dependsOn "ci"
-    dependsOn "copyDependencyLibraries"
-    dependsOn "copyTestDependencyLibraries"
-    dependsOn "updateUnitTestResults"
-    tasks.findByName("copyDependencyLibraries").mustRunAfter "ci"
-    tasks.findByName("copyTestDependencyLibraries").mustRunAfter "copyDependencyLibraries"
-    tasks.findByName("updateUnitTestResults").mustRunAfter "copyTestDependencyLibraries"
+    runInSequence(it, "ci", "copyDependencyLibraries", "copyTestDependencyLibraries", "updateUnitTestResults")
     cucumber {
         jvmOptions {
             jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]

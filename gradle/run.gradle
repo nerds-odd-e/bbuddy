@@ -1,7 +1,5 @@
 task run {
-    dependsOn "clean"
-    dependsOn "bootRun"
-    tasks.findByName("bootRun").mustRunAfter "clean"
+    runInSequence(it, "clean", "bootRun")
 }
 
 bootRun {

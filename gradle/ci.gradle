@@ -1,9 +1,5 @@
 task ci {
-    dependsOn "clean"
-    dependsOn "check"
-    dependsOn "cucumber"
-    tasks.findByName("check").mustRunAfter "clean"
-    tasks.findByName("cucumber").mustRunAfter "check"
+    runInSequence(it, "clean", "check", "cucumber")
 }
 
 cucumber {
