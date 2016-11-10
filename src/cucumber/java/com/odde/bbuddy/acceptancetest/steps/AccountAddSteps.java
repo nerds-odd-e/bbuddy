@@ -4,7 +4,6 @@ import com.odde.bbuddy.acceptancetest.data.Messages;
 import com.odde.bbuddy.acceptancetest.data.account.AccountRepoForTest;
 import com.odde.bbuddy.acceptancetest.data.account.EditableAccount;
 import com.odde.bbuddy.acceptancetest.pages.AddAccountPage;
-import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.account.domain.Account;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -20,9 +19,6 @@ public class AccountAddSteps {
 
     @Autowired
     AddAccountPage addAccountPage;
-
-    @Autowired
-    CommonPage commonPage;
 
     @Autowired
     AccountRepoForTest accountRepoForTest;

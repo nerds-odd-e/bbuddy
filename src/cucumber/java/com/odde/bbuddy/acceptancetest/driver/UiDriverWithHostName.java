@@ -54,4 +54,9 @@ public class UiDriverWithHostName implements UiDriver {
     public UiElement findElementById(String id) {
         return originalDriver.findElementById(id);
     }
+
+    @Override
+    public void waitForTextPresent(String text) {
+        originalDriver.waitForTextPresent(text);
+    }
 }

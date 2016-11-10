@@ -16,4 +16,6 @@ public interface UiDriver {
     UiSelect findSelectByName(String name);
 
     UiElement findElementById(String id);
+
+    void waitForTextPresent(String text);
 }

@@ -1,26 +1,35 @@
 package com.odde.bbuddy.acceptancetest.pages;
 
-import com.odde.bbuddy.common.view.Params;
 import com.odde.bbuddy.acceptancetest.driver.UiDriver;
+import com.odde.bbuddy.common.view.Params;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTIONS;
+import static com.odde.bbuddy.common.view.MessageSources.LABEL_TEXT_FULL_NAME;
 
 @Component
 @Scope("cucumber-glue")
+@PropertySource(LABEL_TEXT_FULL_NAME)
 public class ShowAllTransactionsPage {
 
     @Autowired
-    UiDriver uiDriver;
+    UiDriver driver;
+
+    @Value("${label.transactions}")
+    String title;
 
     public void show() {
-        uiDriver.navigateTo(TRANSACTIONS);
+        driver.navigateTo(TRANSACTIONS);
+        driver.waitForTextPresent(title);
     }
 
     public void navigateToPage(int pageNumber) {
-        uiDriver.navigateToWithParams(TRANSACTIONS, paramsWithPage(pageNumber));
+        driver.navigateToWithParams(TRANSACTIONS, paramsWithPage(pageNumber));
+        driver.waitForTextPresent(title);
     }
 
     private Params paramsWithPage(int pageNumber) {
