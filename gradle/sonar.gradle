@@ -21,8 +21,12 @@ task mergeUnitTestResults << {
 
 task sonar {
     dependsOn "ci"
+    dependsOn "copyDependencyLibraries"
+    dependsOn "copyTestDependencyLibraries"
     dependsOn "mergeUnitTestResults"
-    tasks.findByName("mergeUnitTestResults").mustRunAfter "ci"
+    tasks.findByName("copyDependencyLibraries").mustRunAfter "ci"
+    tasks.findByName("copyTestDependencyLibraries").mustRunAfter "copyDependencyLibraries"
+    tasks.findByName("mergeUnitTestResults").mustRunAfter "copyTestDependencyLibraries"
     cucumber {
         jvmOptions {
             def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter {
@@ -36,6 +40,4 @@ task sonar {
             enabled true
         }
     }
-    classes.dependsOn(copyDependencyLibraries)
-    testClasses.dependsOn(copyTestDependencyLibraries)
 }
