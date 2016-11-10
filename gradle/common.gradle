@@ -1,0 +1,8 @@
+def commandLineArg(argName, ifArgPresent) {
+    if (project.hasProperty(argName))
+        ifArgPresent(project.property(argName))
+}
+
+ext {
+    commandLineArg = this.&commandLineArg
+}
