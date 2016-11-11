@@ -18,7 +18,7 @@ public class ShowAllAccountsPage {
     @Autowired
     UiDriver driver;
 
-    @Value("${label.accounts}")
+    @Value("${accounts.index.label.title}")
     String title;
 
     public void show() {

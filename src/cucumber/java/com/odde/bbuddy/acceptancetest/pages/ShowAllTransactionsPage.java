@@ -19,7 +19,7 @@ public class ShowAllTransactionsPage {
     @Autowired
     UiDriver driver;
 
-    @Value("${label.transactions}")
+    @Value("${transactions.index.label.title}")
     String title;
 
     public void show() {
