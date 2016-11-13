@@ -4,7 +4,6 @@ import com.odde.bbuddy.Application;
 import com.odde.bbuddy.acceptancetest.data.ApplicationConfigurations;
 import com.odde.bbuddy.acceptancetest.data.account.AccountRepoForTest;
 import com.odde.bbuddy.acceptancetest.data.transaction.TransactionRepoForTest;
-import com.odde.bbuddy.acceptancetest.data.budget.MonthlyBudgetRepoForTest;
 import com.odde.bbuddy.acceptancetest.driver.UiDriver;
 import com.odde.bbuddy.acceptancetest.pages.SignInPage;
 import com.odde.bbuddy.user.domain.User;
@@ -35,9 +34,6 @@ public class Hooks {
     UserRepo userRepo;
 
     @Autowired
-    MonthlyBudgetRepoForTest monthlyBudgetRepo;
-
-    @Autowired
     TransactionRepoForTest transactionRepo;
 
     @Autowired
@@ -55,12 +51,6 @@ public class Hooks {
     @After
     public void closeUiDriver() {
         uiDriver.close();
-    }
-
-    @Before("@monthlyBudget")
-    @After("@monthlyBudget")
-    public void cleanUpMonthlyBudget() {
-        monthlyBudgetRepo.deleteAll();
     }
 
     @After("@user,@deleteUser")

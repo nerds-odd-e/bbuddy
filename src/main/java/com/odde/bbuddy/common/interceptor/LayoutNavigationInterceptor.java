@@ -17,7 +17,6 @@ public class LayoutNavigationInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        modelAndView.addObject("monthlyBudgetsUrl", MONTHLYBUDGETS_ADD);
         modelAndView.addObject("transactionsUrl", TRANSACTIONS);
         modelAndView.addObject("accountsUrl", ACCOUNTS);
         modelAndView.addObject("signoutUrl", SIGNOUT);

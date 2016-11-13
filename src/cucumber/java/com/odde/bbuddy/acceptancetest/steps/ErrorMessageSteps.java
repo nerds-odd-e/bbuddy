@@ -30,11 +30,6 @@ public class ErrorMessageSteps {
         assertErrorMessageEquals(field, messages.invalidDate);
     }
 
-    @Then("^there is an error message for invalid number ([^\"]*)$")
-    public void there_is_an_error_message_for_invalid_number(String field) throws Throwable {
-        assertErrorMessageEquals(field, messages.invalidNumber);
-    }
-
     @Then("^there is an error message for duplicate ([^\"]*)$")
     public void there_is_an_error_message_for_duplicate(String field) throws Throwable {
         assertErrorMessageEquals(field, messages.duplicateField);
