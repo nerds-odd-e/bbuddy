@@ -33,6 +33,9 @@ Vagrant.configure(2) do |config|
         echo "export https_proxy='http://10.0.2.2:3128'"   >> /etc/profile.d/proxy.sh
         echo "export all_proxy='socks5h://10.0.2.2:1080'"  >> /etc/profile.d/proxy.sh
         echo "export no_proxy='127.0.0.1,localhost,10.0.2.2,10.0.2.15,ruby.taobao.org'" >> /etc/profile.d/proxy.sh
+        echo "export JAVA_OPTS='-Dhttp.proxyHost=10.0.2.2 -Dhttp.proxyPort=3128 -Dhttps.proxyHost=10.0.2.2 -Dhttps.proxyPort=3128 -DsocksProxyHost= -DsocksProxyPort='" >> /etc/profile.d/proxy.sh
+        echo 'export GRADLE_OPTS="\$JAVA_OPTS"' >> /etc/profile.d/proxy.sh
+        echo 'export MAVEN_OPTS="\$JAVA_OPTS"' >> /etc/profile.d/proxy.sh
       fi
       source /etc/profile.d/proxy.sh
       apt-get update -qq && apt-get install -y python
