@@ -11,11 +11,6 @@
         user: nerd
         password: dbs3cr3t
     - firefox
-  environment:
-    http_proxy:  "http://10.0.2.2:3128"
-    https_proxy: "http://10.0.2.2:3128"
-    all_proxy:   "http://10.0.2.2:1080"
-    no_proxy:    "127.0.0.1,localhost,10.0.2.2,10.0.2.15,ruby.taobao.org"
 
 - name: BBuddy CI
   hosts: bbuddy_ci_servers
