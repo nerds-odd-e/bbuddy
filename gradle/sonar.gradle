@@ -4,9 +4,11 @@ def updateUnitTestResult = {
     new XmlNodePrinter(new PrintWriter(it)).print(document)
 }
 
-def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter {
-    it.name == "jacocoagent.jar"
-}.singleFile
+def jacocoAgent = {
+    zipTree(configurations.jacocoAgent.singleFile).filter {
+        it.name == "jacocoagent.jar"
+    }.singleFile
+}
 
 task copyDependencyLibraries(type: Copy) {
     into "$buildDir/output/libs"
@@ -25,11 +27,10 @@ task updateUnitTestResults << {
             .each updateUnitTestResult
 }
 
-task sonar {
-    runInSequence(it, "ci", "copyDependencyLibraries", "copyTestDependencyLibraries", "updateUnitTestResults")
+task addCodeCoverageForAllTests << {
     cucumber {
         jvmOptions {
-            jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
+            jvmArgs = ["-javaagent:${jacocoAgent()}=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
         }
     }
     test {
@@ -37,4 +38,8 @@ task sonar {
             enabled true
         }
     }
+}
+
+task sonar {
+    runInSequence(it, "addCodeCoverageForAllTests", "ci", "copyDependencyLibraries", "copyTestDependencyLibraries", "updateUnitTestResults")
 }
