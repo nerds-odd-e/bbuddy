@@ -37,7 +37,7 @@ Vagrant.configure(2) do |config|
         echo 'export GRADLE_OPTS="\$JAVA_OPTS"' >> /etc/profile.d/proxy.sh
         echo 'export MAVEN_OPTS="\$JAVA_OPTS"' >> /etc/profile.d/proxy.sh
       fi
-      source /etc/profile.d/proxy.sh
+      [[ -f /etc/profile.d/proxy.sh ]] && source /etc/profile.d/proxy.sh
       apt-get update -qq && apt-get install -y python
   ]
 
