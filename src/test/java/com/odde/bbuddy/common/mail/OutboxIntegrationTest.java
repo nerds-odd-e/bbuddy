@@ -11,7 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringApplicationConfiguration(classes = Application.class)
 public class OutboxIntegrationTest {
     @Autowired
     private Outbox outbox;
