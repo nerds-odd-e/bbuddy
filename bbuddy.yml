@@ -1,6 +1,8 @@
 ---
 - name: BBuddy Server
   hosts: all
+  vars_files:
+    - src/main/resources/application.yml
   any_errors_fatal: true
   roles:
     - jdk8
@@ -8,8 +10,13 @@
     - role: mysql
       mysql:
         database: bbuddytest
-        user: nerd
-        password: dbs3cr3t
+        user: "{{ spring.datasource.username }}"
+        password: "{{ spring.datasource.password }}"
+    - role: mysql
+      mysql:
+        database: bbuddydev
+        user: "{{ spring.datasource.username }}"
+        password: "{{ spring.datasource.password }}"
     - firefox
 
 - name: BBuddy CI
