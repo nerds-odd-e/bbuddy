@@ -5,12 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
+@SpringBootTest(classes = Application.class)
 public class OutboxIntegrationTest {
     @Autowired
     private Outbox outbox;
@@ -21,7 +22,7 @@ public class OutboxIntegrationTest {
         mail.setSubject("Test subject");
         mail.setText("Text body");
         mail.setFrom("NONEXIST@example.com");
-        mail.setTo("NONEXIST@example.com");
+        mail.setTo("bbuddy@mea.tyjie.com");
         assertThat(outbox.send(mail)).isTrue();
     }
 
