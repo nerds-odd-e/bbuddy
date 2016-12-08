@@ -1,0 +1,51 @@
+{
+  "name": "bbuddy",
+  "version": "0.0.1",
+  "description": "bbuddy client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nerds-odd-e/bbuddy.git"
+  },
+  "keywords": [
+    "bbuddy",
+    "Odd-e",
+    "training",
+    "GOOS",
+    "TDD",
+    "BDD"
+  ],
+  "author": "Odd-e",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nerds-odd-e/bbuddy/issues"
+  },
+  "homepage": "https://github.com/nerds-odd-e/bbuddy#readme",
+  "dependencies": {
+    "angular": "^1.5.9",
+    "bootstrap": "^3.3.7"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.5.3",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.9",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-latest": "^6.16.0",
+    "css-loader": "^0.26.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "gulp": "^3.9.1",
+    "gulp-webpack": "^1.5.0",
+    "html-webpack-plugin": "^2.24.1",
+    "postcss-loader": "^1.2.0",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-hot-middleware": "^2.13.2"
+  }
+}
