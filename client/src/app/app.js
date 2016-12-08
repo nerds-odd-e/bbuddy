@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.css'
+import '../sass/layout.css'
 import angular from 'angular'
 
 
