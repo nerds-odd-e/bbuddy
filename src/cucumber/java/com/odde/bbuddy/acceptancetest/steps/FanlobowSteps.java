@@ -47,4 +47,12 @@ public class FanlobowSteps {
         String tries = uiDriver.findElementById("tries").getText();
         assertEquals(arg1, Integer.parseInt(tries));
     }
+
+    @When("^I input \"([^\"]*)\"$")
+    public void i_input(String arg1) throws Throwable {
+        this_game_started();
+        uiDriver.findElementById("char").sendKeys(arg1);
+        uiDriver.findElementById("char").submit();
+    }
+
 }
