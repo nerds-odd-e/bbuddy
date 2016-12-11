@@ -18,6 +18,7 @@ public class GameControllerTest {
         Model mockModel = mock(Model.class);
         gameController.getInput("a",mockModel);
         verify(mockModel).addAttribute("tries",11);
+        verify(mockHangman).input("a");
 
     }
 }

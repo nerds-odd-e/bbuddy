@@ -1,5 +1,8 @@
 package com.odde.bbuddy.game.domain;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Hangman {
     int tries = 12;
 
