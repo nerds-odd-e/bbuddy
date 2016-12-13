@@ -10,7 +10,7 @@ module.exports = function(dev) {
         devtool: dev ? 'eval-source-map' : 'cheap-module-source-map',
         debug: dev,
         entry: {
-            app: './src/app/app'
+            app: './src/app/root'
         },
         devServer:{
             stats: {
@@ -32,7 +32,7 @@ module.exports = function(dev) {
                 template: './src/www/index.html',
                 inject: 'body'
             }),
-            new ExtractTextPlugin('[name].[hash].css')
+            new ExtractTextPlugin('[name].bundle.css')
         ],
         module: {
             loaders: [{
