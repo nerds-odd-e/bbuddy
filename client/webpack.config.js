@@ -7,7 +7,7 @@ var autoprefixer = require('autoprefixer')
 
 module.exports = function(dev) {
     var config = {
-        devtool: dev ? 'eval-source-map' : 'cheap-module-source-map',
+        devtool: dev ? 'cheap-module-eval-source-map' : 'hidden-source-map',
         debug: dev,
         entry: {
             app: './src/app/root'
