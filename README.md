@@ -14,6 +14,7 @@ Please install the following tools for this project. The latest version should b
 * intellij idea community edition with the following plug-in installed
     * lombok plug-in
 * Firefox 46.0 (don't use higher version)
+* gulp 3.9.1
 
 # Setup Command Line Development Environment
 Use git to clone this project into a folder. Then in this folder, run the command below in order.
