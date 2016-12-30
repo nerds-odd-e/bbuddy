@@ -4,7 +4,7 @@ import authentication from './authentication'
 class SignInController {
     constructor(authentication, $state){
         this.credential = {
-            username: 'user',
+            username: '',
             password: ''
         }
         this.authentication = authentication

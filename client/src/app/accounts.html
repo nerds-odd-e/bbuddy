@@ -1,0 +1,17 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">Accounts</div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Account Name</th>
+            <th>Balance</th>
+        </tr>
+        </thead>
+        <tbody class="table-hover">
+        <tr ng-repeat="account in $ctrl.accounts">
+            <td class="text-left">{{account.name}}</td>
+            <td class="text-left">{{account.balanceBroughtForward}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

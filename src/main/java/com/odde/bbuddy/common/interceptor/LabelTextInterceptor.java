@@ -27,6 +27,10 @@ public class LabelTextInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if (modelAndView == null || modelAndView.getViewName() == null){
+            return;
+        }
+        System.out.print(modelAndView);
         allLabelMessageKeys(request).stream()
                 .filter(key -> isLabelMessageKeyForView(key, modelAndView.getViewName()))
                 .forEach(key -> addLabelMessage(key, modelAndView, request));

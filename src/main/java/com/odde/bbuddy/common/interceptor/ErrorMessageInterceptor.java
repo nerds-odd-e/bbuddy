@@ -32,6 +32,9 @@ public class ErrorMessageInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        if (modelAndView == null){
+            return;
+        }
         allFieldErrors(modelAndView).forEach(this::display);
     }
 
