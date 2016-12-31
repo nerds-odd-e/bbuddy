@@ -1,3 +1,6 @@
+import {Inject} from '../common/decorators'
+
+@Inject('$http')
 export default class Authentication {
     constructor($http){
         this.authenticated= false
@@ -16,5 +19,3 @@ export default class Authentication {
         return !!this.authenticated
     }
 }
-
-Authentication.$inject = ['$http']

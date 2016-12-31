@@ -10,4 +10,5 @@ var header = {
 
 export default angular
     .module('app.header', [])
-    .component('header', header).name;
+    .component('header', header)
+    .name;
