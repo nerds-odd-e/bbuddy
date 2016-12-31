@@ -20,7 +20,6 @@ public class LayoutNavigationInterceptor implements HandlerInterceptor {
         if (modelAndView == null){
             return;
         }
-        modelAndView.addObject("monthlyBudgetsUrl", MONTHLYBUDGETS_ADD);
         modelAndView.addObject("transactionsUrl", TRANSACTIONS);
         modelAndView.addObject("accountsUrl", ACCOUNTS);
         modelAndView.addObject("signoutUrl", SIGNOUT);
