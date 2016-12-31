@@ -1,0 +1,21 @@
+{
+  "name": "bbuddy",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular": {
+      "version": "1.5.9",
+      "from": "angular@1.5.9",
+      "resolved": "https://registry.npm.taobao.org/angular/download/angular-1.5.9.tgz"
+    },
+    "angular-ui-router": {
+      "version": "1.0.0-beta.3",
+      "from": "angular-ui-router@>=1.0.0-beta.2 <2.0.0",
+      "resolved": "https://registry.npm.taobao.org/angular-ui-router/download/angular-ui-router-1.0.0-beta.3.tgz"
+    },
+    "bootstrap": {
+      "version": "3.3.7",
+      "from": "bootstrap@latest",
+      "resolved": "https://registry.npm.taobao.org/bootstrap/download/bootstrap-3.3.7.tgz"
+    }
+  }
+}
