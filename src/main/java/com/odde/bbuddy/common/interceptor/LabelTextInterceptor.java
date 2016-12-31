@@ -30,7 +30,6 @@ public class LabelTextInterceptor implements HandlerInterceptor {
         if (modelAndView == null || modelAndView.getViewName() == null){
             return;
         }
-        System.out.print(modelAndView);
         allLabelMessageKeys(request).stream()
                 .filter(key -> isLabelMessageKeyForView(key, modelAndView.getViewName()))
                 .forEach(key -> addLabelMessage(key, modelAndView, request));
