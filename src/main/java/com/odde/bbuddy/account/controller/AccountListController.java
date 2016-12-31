@@ -1,6 +1,7 @@
 package com.odde.bbuddy.account.controller;
 
 import com.odde.bbuddy.account.domain.Account;
+import com.odde.bbuddy.account.repo.AccountRepo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,12 @@ import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS_INDEX;
 @RequestMapping(ACCOUNTS)
 public class AccountListController {
 
+    private final AccountRepo repo;
+
+    public AccountListController(AccountRepo repo) {
+        this.repo = repo;
+    }
+
     @GetMapping
     public String index() {
         return ACCOUNTS_INDEX;
@@ -26,7 +33,7 @@ public class AccountListController {
     @GetMapping("list.json")
     @ResponseBody
     public List<Account> list() {
-        return Arrays.asList(new Account(0, "Jackson", 100));
+        return repo.findAll();
     }
 
 }
