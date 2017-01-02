@@ -11,7 +11,7 @@ gulp.task("default", ["build-dev", "webpack:server"]);
 
 gulp.task("build-dev", ["webpack:build-dev", "mocha"], function() {
     gulp.watch(["src/app/**/*", "src/sass/**/*"], ["webpack:build-dev"]);
-    gulp.watch(["src/app/**/*", "src/app/test/**/*"], ["mocha"]);
+    gulp.watch(["src/app/**/*", "src/app/test/**/*.js"], ["mocha"]);
 });
 
 gulp.task("mocha", function(){
