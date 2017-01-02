@@ -1,18 +1,17 @@
 import {Inject} from '../common/decorators'
 
-@Inject('$http')
+
+@Inject('api')
 export default class Authentication {
-    constructor($http){
+    constructor(api){
         this.authenticated= false
-        this.$http = $http
+        this.api = api
     }
     authenticate(credential, success=()=>{}, fail=()=>{}) {
-        this.$http.post("http://localhost:8090/signin",
-            `username=${credential.username}&password=${credential.password}`,
-            {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
-        ).then((response) => {
-            this.authenticated = !response.data.includes("Invalid username and password!")
-            this.authenticated ? success() : fail()
+        this.api.auth.signIn(credential,
+            (response) => {
+                this.authenticated = !response.data.includes("Invalid username and password!")
+                this.authenticated ? success() : fail()
         })
     }
     isAuthenticated(){

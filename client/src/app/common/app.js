@@ -2,8 +2,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import '../../sass/layout.css'
 import angular from 'angular'
 import uiRouter from 'angular-ui-router'
-import header from './header.js'
-import sidebar from './sidebar.js'
+import header from './header'
+import sidebar from './sidebar'
+import common from './common'
 
 
 let app = {
@@ -26,7 +27,7 @@ function routing($stateProvider) {
 routing.$inject = ['$stateProvider']
 
 export default angular
-    .module('app', [uiRouter, header, sidebar])
+    .module('app', [uiRouter, common, header, sidebar])
     .component('app', app)
     .config(routing)
     .name
