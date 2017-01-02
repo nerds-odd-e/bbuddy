@@ -10,8 +10,11 @@ import org.springframework.stereotype.Component;
 public class UiDriverWithHostName implements UiDriver {
 
     public static final String DELIMITER = ":";
-    @Value("${server.port}")
+    @Value("${cucumber.port}")
     private String port = "8080";
+
+    @Value("${cucumber.context-path}")
+    private String contextPath;
 
     private final String hostName = "http://localhost";
     private final UiDriver originalDriver = new SeleniumWebDriver();
@@ -27,7 +30,7 @@ public class UiDriverWithHostName implements UiDriver {
     }
 
     public String urlWithHostAndPort(String url) {
-        return hostName + DELIMITER + port + url;
+        return hostName + DELIMITER + port + contextPath + url;
     }
 
     @Override
@@ -58,5 +61,10 @@ public class UiDriverWithHostName implements UiDriver {
     @Override
     public void waitForTextPresent(String text) {
         originalDriver.waitForTextPresent(text);
+    }
+
+    @Override
+    public UiElement findLinkByText(String text) {
+        return originalDriver.findLinkByText(text);
     }
 }

@@ -23,4 +23,9 @@ public class SeleniumWebElement implements UiElement {
     public String getText() {
         return element.getText();
     }
+
+    @Override
+    public void click() {
+        element.click();
+    }
 }

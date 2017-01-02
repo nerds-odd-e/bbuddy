@@ -26,13 +26,13 @@ public class SignInPage {
         driver.navigateTo(SIGNIN);
         driver.waitForTextPresent(headMessage);
         setPassword(password);
-        setUserNameAndSubmit(userName);
+        setUserName(userName);
+        driver.findElementById("signin").click();
     }
 
-    private void setUserNameAndSubmit(String userName) {
+    private void setUserName(String userName) {
         UiElement userNameTextBox = driver.findElementByName("username");
         userNameTextBox.sendKeys(userName);
-        userNameTextBox.submit();
     }
 
     private void setPassword(String password) {

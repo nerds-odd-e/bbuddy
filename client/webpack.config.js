@@ -20,7 +20,7 @@ module.exports = function(dev) {
             contentBase: 'src/www/',  //Relative directory for base of server
             hot: true,
             inline: true,
-            port: 8080        //Port Number
+            port: 8100        //Port Number
         },
         output: {
             path: path.join(__dirname, 'dist'),

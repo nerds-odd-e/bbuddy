@@ -56,4 +56,9 @@ public class SeleniumWebDriver implements UiDriver {
             }
         });
     }
+
+    @Override
+    public UiElement findLinkByText(String text) {
+        return new SeleniumWebElement(webDriver.findElement(By.linkText(text)));
+    }
 }

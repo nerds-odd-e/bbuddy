@@ -18,4 +18,6 @@ public interface UiDriver {
     UiElement findElementById(String id);
 
     void waitForTextPresent(String text);
+
+    UiElement findLinkByText(String text);
 }

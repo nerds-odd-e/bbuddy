@@ -36,14 +36,14 @@ function routing($stateProvider, $urlRouterProvider){
     $stateProvider
         .state('auth', {
             redirectTo: 'auth.signIn',
-            url: '/auth',
+            url: '/app',
             template: '<div ui-view></div>'
         })
         .state('auth.signIn', {
             url: '/signin',
             component: 'signIn'
         });
-    $urlRouterProvider.otherwise('/auth/signin');
+    $urlRouterProvider.otherwise('/app/signin');
 }
 routing.$inject = ['$stateProvider', '$urlRouterProvider']
 

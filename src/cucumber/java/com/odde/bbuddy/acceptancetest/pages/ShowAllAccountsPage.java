@@ -7,7 +7,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS;
 import static com.odde.bbuddy.common.view.MessageSources.LABEL_TEXT_FULL_NAME;
 
 @Component
@@ -21,8 +20,15 @@ public class ShowAllAccountsPage {
     @Value("${accounts.index.label.title}")
     String title;
 
+    @Value("${label.appTitle}")
+    String appTitle;
+
+    @Value("${label.accounts}")
+    String accountsLinkText;
+
     public void show() {
-        driver.navigateTo(ACCOUNTS);
+        driver.waitForTextPresent(appTitle);
+        driver.findLinkByText(accountsLinkText).click();
         driver.waitForTextPresent(title);
     }
 }
