@@ -1,15 +1,5 @@
 import angular from 'angular'
-import {Inject} from '../common/decorators'
-
-@Inject('$http')
-class AccountsController{
-    constructor($http) {
-        $http.get("http://localhost:8090/accounts/list.json").success((data)=>{
-            this.accounts = data;
-        })
-    }
-}
-
+import AccountsController from './accounts.controller'
 let accounts = {
     template: require('./accounts.html'),
     controller: AccountsController
