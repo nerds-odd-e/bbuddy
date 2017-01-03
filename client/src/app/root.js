@@ -1,10 +1,10 @@
 import angular from 'angular'
-import {app, routing, http} from './common'
 import router from 'angular-ui-router'
+import {common, routing, http} from './common'
 import components from './components'
 
 export default angular
-    .module('root', [ router, app, components ])
+    .module('root', [ router, common, components ])
     .component('root', { template: require('./root.html') })
     .config(routing)
     .config(http)
