@@ -16,7 +16,7 @@ export default class Accounts {
         this.api.accounts.add(account,
             (response) => {
                 let result = response.data
-                result.success ? success() : failure(result.message)
+                result.success ? success() : failure(result.errors[0].defaultMessage)
             }
         )
     }
