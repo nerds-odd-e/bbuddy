@@ -1,4 +1,4 @@
-import Controller from '../../../components/accounts/accounts.controller';
+import Controller from '../../../components/accounts/list.controller';
 
 describe('accounts controller', function() {
     it('Show all accounts', function(){

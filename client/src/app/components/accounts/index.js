@@ -1,6 +1,6 @@
 import angular from 'angular'
-import list from './accounts'
-import add from './accounts.add'
+import list from './list.component'
+import add from './add.component'
 
 export default angular
     .module('accounts', [list, add])

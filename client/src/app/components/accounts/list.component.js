@@ -1,13 +1,13 @@
 import angular from 'angular'
-import AccountsAddController from './accounts.add.controller'
+import AccountsController from './list.controller'
 import Accounts from './accounts.model'
 
 function routing($stateProvider) {
     $stateProvider
-        .state('accountsAdd', {
+        .state('accounts', {
             parent: 'app',
-            url: '/accounts/add',
-            component: 'accountsAdd',
+            url: '/accounts',
+            component: 'accounts',
             data:{
                 requireAuth: true
             }
@@ -16,10 +16,10 @@ function routing($stateProvider) {
 routing.$inject = ['$stateProvider']
 
 export default angular
-    .module('accounts.add', [])
-    .component('accountsAdd', {
-        template: require('./accounts.add.html'),
-        controller: AccountsAddController
+    .module('accounts.list', [])
+    .component('accounts', {
+        template: require('./list.html'),
+        controller: AccountsController
     })
     .service('accountsModel', Accounts)
     .config(routing)

@@ -1,4 +1,4 @@
-import Controller from '../../../components/accounts/accounts.add.controller';
+import Controller from '../../../components/accounts/add.controller';
 
 describe('accounts add controller', function() {
     var accounts, $state, add, go, controller
