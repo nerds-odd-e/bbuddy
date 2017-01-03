@@ -1,8 +1,9 @@
 import {Inject} from '../decorators'
 
-@Inject('auth')
+@Inject('authApi', 'accountsApi')
 export default class Api {
-    constructor(auth){
+    constructor(auth, accounts){
         this.auth = auth
+        this.accounts = accounts
     }
 }

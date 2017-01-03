@@ -24,7 +24,7 @@ function routing($stateProvider) {
 routing.$inject = ['$stateProvider']
 
 export default angular
-    .module('dashboard', [])
+    .module('dashboard.main', [])
     .component('dashboard', dashboard)
     .config(routing)
     .name

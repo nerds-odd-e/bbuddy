@@ -1,4 +1,4 @@
-import {Inject} from '../common/decorators'
+import {Inject} from '../../common/decorators'
 
 
 @Inject('api')

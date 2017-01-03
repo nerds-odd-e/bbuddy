@@ -1,6 +1,6 @@
 import angular from 'angular'
 import authentication from './authentication'
-import {Inject} from '../common/decorators'
+import {Inject} from '../../common/decorators'
 
 @Inject('authentication', '$state')
 class SignInController {
@@ -61,7 +61,7 @@ function authenticating($transitions, $state, authentication){
 authenticating.$inject = ['$transitions', '$state', 'authentication']
 
 export default angular
-    .module('auth', [])
+    .module('auth.signIn', [])
     .component('signIn', signIn)
     .service('authentication', authentication)
     .config(routing)

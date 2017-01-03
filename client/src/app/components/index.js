@@ -1,6 +1,8 @@
 import angular from 'angular'
-import account from './accounts'
+import accounts from './accounts'
 import dashboard from './dashboard'
-import signIn from './sign-in'
+import auth from './auth'
 
-export default angular.module('components', [account, dashboard, signIn]).name
+export default angular
+    .module('components', [accounts, dashboard, auth])
+    .name

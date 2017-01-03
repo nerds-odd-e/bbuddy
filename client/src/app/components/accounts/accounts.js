@@ -1,9 +1,6 @@
 import angular from 'angular'
 import AccountsController from './accounts.controller'
-let accounts = {
-    template: require('./accounts.html'),
-    controller: AccountsController
-}
+import Accounts from './accounts.model'
 
 function routing($stateProvider) {
     $stateProvider
@@ -19,8 +16,12 @@ function routing($stateProvider) {
 routing.$inject = ['$stateProvider']
 
 export default angular
-    .module('accounts', [])
-    .component('accounts', accounts)
+    .module('accounts.list', [])
+    .component('accounts', {
+        template: require('./accounts.html'),
+        controller: AccountsController
+    })
+    .service('accountsModel', Accounts)
     .config(routing)
     .name
 

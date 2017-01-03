@@ -1,9 +1,10 @@
-import Controller from '../../components/accounts.controller';
+import Controller from '../../components/accounts/accounts.controller';
 
 describe('accounts controller', function() {
     it('Show all accounts', function(){
-        var $http = {get: () => {}}, q = {success: ()=>{}}
-        sinon.stub($http, 'get').returns(q)
-        var controller = new Controller($http)
+        var accounts = {fetchAll: () => {}}
+        sinon.stub(accounts, 'fetchAll').yields([{id: 1, name: 'ICBC', balanceBroughtForward: 1000}])
+        var controller = new Controller(accounts)
+        controller.accounts.should.eql([{id: 1, name: 'ICBC', balanceBroughtForward: 1000}])
     })
 })
