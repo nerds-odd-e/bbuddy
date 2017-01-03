@@ -5,6 +5,7 @@ import com.odde.bbuddy.account.domain.Account;
 import com.odde.bbuddy.account.domain.Accounts;
 import com.odde.bbuddy.account.view.PresentableAddAccount;
 import com.odde.bbuddy.common.callback.PostActions;
+import com.odde.bbuddy.common.view.Result;
 import com.odde.bbuddy.common.view.View;
 import org.junit.Before;
 import org.junit.Test;
@@ -61,34 +62,67 @@ public class AccountAddControllerTest {
             verify(mockAccounts).add(account);
         }
 
+        @Test
+        public void should_add_account_when_add_by_json() {
+            submitAddAccountByJson();
+
+            verify(mockAccounts).add(account);
+        }
+        
         public class Success {
+
+            @Before
+            public void given_add_account_will_success() {
+                given_add_account_will(success());
+            }
 
             @Test
             public void should_display_success_message() {
-                given_add_account_will(success());
-
                 submitAddAccount();
 
                 verify(mockView).display("a success message");
                 verify(mockView, never()).display("a failed message");
+            }
+            
+            @Test
+            public void should_return_success_status_and_message_when_add_by_json() {
+                Result result = submitAddAccountByJson();
+
+                assertThat(result.isSuccess()).isEqualTo(true);
+                assertThat(result.getMessage()).isEqualTo("a success message");
             }
 
         }
 
         public class Failed {
 
+            @Before
+            public void given_add_account_will_failed() {
+                given_add_account_will(failed());
+            }
+
             @Test
             public void should_display_failed_message() {
-                given_add_account_will(failed());
-
                 submitAddAccount();
 
                 verify(mockView, never()).display("a success message");
                 verify(mockView).display("a failed message");
             }
+            
+            @Test
+            public void should_return_failed_status_and_message_when_add_by_json() {
+                Result result = submitAddAccountByJson();
+
+                assertThat(result.isSuccess()).isEqualTo(false);
+                assertThat(result.getMessage()).isEqualTo("a failed message");
+            }
 
         }
 
+    }
+
+    private Result submitAddAccountByJson() {
+        return controller.submitAddAccountByJson(account);
     }
 
     public class NameDuplicated {

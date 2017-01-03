@@ -1,18 +1,19 @@
 import {Inject} from '../../common/decorators'
 
-@Inject('api')
+@Inject('api', '$state')
 export default class AccountsAddController {
-    constructor(api){
+    constructor(api, $state){
         this.api = api
         this.account = {
             name: '',
             balanceBroughtForward: 0
         }
         this.message = ""
+        this.$state = $state
     }
     save(){
         this.api.accounts.add(this.account, (result) => {
-            result.success ? $state.go('accounts') : this.message = result.message
+            result.data.success ? this.$state.go('accounts') : this.message = result.data.errors[0].defaultMessage
         })
     }
 }

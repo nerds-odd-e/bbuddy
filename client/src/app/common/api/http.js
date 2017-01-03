@@ -17,7 +17,7 @@ export default class Http{
             callback = config
             config = {}
         }
-        this.$http.post(this.url(path), data, config).then(callback)
+        this.$http.post(this.url(path), data, config).then(callback, callback)
     }
 }
 
