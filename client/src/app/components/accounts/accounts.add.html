@@ -1,0 +1,7 @@
+<div>{{$ctrl.message}}</div>
+<form style="max-width: 330px;" method="post" ng-submit="$ctrl.save()">
+    <div><label>Name</label><input type="text" name="name" class="form-control" ng-model="$ctrl.account.name"/></div>
+    <div><label>Balance</label><input type="text" name="balanceBroughtForward" class="form-control" ng-model="$ctrl.account.balanceBroughtForward"/></div>
+    <hr/>
+    <div><input type="submit" value="Save" class="btn btn-lg btn-primary btn-block"/></div>
+</form>
