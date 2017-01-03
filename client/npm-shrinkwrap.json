@@ -16,6 +16,11 @@
       "version": "3.3.7",
       "from": "bootstrap@latest",
       "resolved": "https://registry.npm.taobao.org/bootstrap/download/bootstrap-3.3.7.tgz"
+    },
+    "lodash": {
+      "version": "4.17.4",
+      "from": "lodash@latest",
+      "resolved": "https://registry.npm.taobao.org/lodash/download/lodash-4.17.4.tgz"
     }
   }
 }

@@ -27,7 +27,8 @@
   "dependencies": {
     "angular": "^1.5.9",
     "angular-ui-router": "^1.0.0-beta.2",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.3",

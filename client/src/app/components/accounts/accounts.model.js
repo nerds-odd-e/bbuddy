@@ -9,6 +9,10 @@ export default class Accounts {
         this.api.accounts.all((response)=> callback(response.data))
     }
     add(account, success, failure){
+        if (account.name.trim().length == 0){
+            failure('Account name should not be empty!')
+            return
+        }
         this.api.accounts.add(account,
             (response) => {
                 let result = response.data
