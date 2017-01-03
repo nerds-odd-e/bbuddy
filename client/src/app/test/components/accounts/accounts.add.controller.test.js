@@ -1,14 +1,17 @@
 import Controller from '../../../components/accounts/accounts.add.controller';
 
 describe('accounts add controller', function() {
-    it('add an account successfully', function(){
-        var accounts = {add: () => {}}, $state = {go: ()=>{}}
-        var add = sinon.stub(accounts, 'add').yields()
-        var go = sinon.spy($state, 'go')
-        var controller = new Controller(accounts, $state)
+    var accounts, $state, add, go, controller
+    beforeEach(() => {
+        accounts = {add: () => {}}
+        add = sinon.stub(accounts, 'add').yields()
+        $state = {go: ()=>{}}
+        go = sinon.spy($state, 'go')
+        controller = new Controller(accounts, $state)
         controller.account.name = 'AHA'
         controller.account.balanceBroughtForward = 100000
-
+    })
+    it('add an account successfully', function(){
         controller.save()
 
         add.should.have.been.calledWith({name: 'AHA', balanceBroughtForward: 100000})
@@ -16,10 +19,7 @@ describe('accounts add controller', function() {
     })
 
     it('add an account failed', function(){
-        var accounts = {add: () => {}}, $state = {go: ()=>{}}
-        var add = sinon.stub(accounts, 'add').callsArgWith(2, 'Error')
-        var go = sinon.spy($state, 'go')
-        var controller = new Controller(accounts, $state)
+        add.callsArgWith(2, 'Error')
         controller.account.name = ''
         controller.account.balanceBroughtForward = 0
 
