@@ -10,7 +10,7 @@ export default class Authentication {
     authenticate(credential, success=()=>{}, fail=()=>{}) {
         this.api.auth.signIn(credential,
             (response) => {
-                this.authenticated = !response.data.includes("Invalid username and password!")
+                this.authenticated = !response.includes("Invalid username and password!")
                 this.authenticated ? success() : fail()
         })
     }

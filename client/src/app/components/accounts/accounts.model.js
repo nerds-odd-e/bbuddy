@@ -6,7 +6,7 @@ export default class Accounts {
         this.api = api
     }
     fetchAll(callback){
-        this.api.accounts.all((response)=> callback(response.data))
+        this.api.accounts.all(callback)
     }
     add(account, success, failure){
         if (account.name.trim().length == 0){
@@ -14,8 +14,7 @@ export default class Accounts {
             return
         }
         this.api.accounts.add(account,
-            (response) => {
-                let result = response.data
+            (result) => {
                 result.success ? success() : failure(result.errors[0].defaultMessage)
             }
         )

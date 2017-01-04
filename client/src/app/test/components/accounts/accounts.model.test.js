@@ -5,7 +5,7 @@ describe('accounts model', function() {
     var api, add, accounts, success, failure
     beforeEach(() => {
         api = {accounts: {add: () => {}}}
-        add = sinon.stub(api.accounts, 'add').yields({data: {success: true, errors: []}})
+        add = sinon.stub(api.accounts, 'add').yields({success: true, errors: []})
         accounts = new Accounts(api)
         success = sinon.spy()
         failure = sinon.spy()
@@ -18,7 +18,7 @@ describe('accounts model', function() {
     })
 
     it('server response error when adding an account', function(){
-        add.yields({data: {success: false, errors: [{defaultMessage: 'Error'}]}})
+        add.yields({success: false, errors: [{defaultMessage: 'Error'}]})
 
         accounts.add(account, success, failure)
 

@@ -9,15 +9,18 @@ export default class Http{
     url(path) {
         return `${this.hostUrl}${path}`
     }
+    callbackWithResponseData(callback){
+        return (response) => callback(response.data)
+    }
     get(path, callback) {
-        this.$http.get(this.url(path)).then(callback)
+        this.$http.get(this.url(path)).then(this.callbackWithResponseData(callback))
     }
     post(path, data, config, callback){
         if (typeof config === 'function'){
             callback = config
             config = {}
         }
-        this.$http.post(this.url(path), data, config).then(callback, callback)
+        this.$http.post(this.url(path), data, config).then(this.callbackWithResponseData(callback), this.callbackWithResponseData(callback))
     }
 }
 
