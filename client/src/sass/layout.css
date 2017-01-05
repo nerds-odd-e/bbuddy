@@ -103,3 +103,16 @@ body {
     display: inline-block;
     border-radius: 50%;
 }
+
+
+#loading-bar .bar {
+    background: #eea236;
+    height: 3px;
+}
+#loading-bar .peg {
+    box-shadow: 0 0 10px #eea236, 0 0 5px #eea236;
+}
+#loading-bar-spinner .spinner-icon {
+    border-top-color:  #eea236;
+    border-left-color: #eea236;
+}

@@ -7,6 +7,23 @@
       "from": "angular@1.5.9",
       "resolved": "https://registry.npm.taobao.org/angular/download/angular-1.5.9.tgz"
     },
+    "angular-animate": {
+      "version": "1.6.1",
+      "from": "angular-animate@latest",
+      "resolved": "https://registry.npm.taobao.org/angular-animate/download/angular-animate-1.6.1.tgz"
+    },
+    "angular-loading-bar": {
+      "version": "0.9.0",
+      "from": "angular-loading-bar@*",
+      "resolved": "https://registry.npm.taobao.org/angular-loading-bar/download/angular-loading-bar-0.9.0.tgz",
+      "dependencies": {
+        "angular-animate": {
+          "version": "1.6.1",
+          "from": "angular-animate@latest",
+          "resolved": "https://registry.npm.taobao.org/angular-animate/download/angular-animate-1.6.1.tgz"
+        }
+      }
+    },
     "angular-ui-router": {
       "version": "1.0.0-beta.3",
       "from": "angular-ui-router@>=1.0.0-beta.2 <2.0.0",
