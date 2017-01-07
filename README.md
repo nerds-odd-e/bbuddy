@@ -11,8 +11,12 @@ Please install the following tools for this project. The latest version should b
 * jdk 1.8
 * gradle 2.13 (don't use gradle 2.14, 2.14.1 or 3.X)
 * mysql
-* intellij idea community edition with the following plug-in installed
-    * lombok plug-in
+* Intellij (please choose either community or ultimate edition)
+    * Intellij idea community edition with the following plug-in installed
+        * lombok plug-in
+        * cucumber java plug-in
+    * Intellij idea ultimate edition (evaluation) with the following plug-in installed
+        * lombok plug-in
 * Firefox 46.0 (don't use higher version)
 * gulp 3.9.1
 
@@ -26,9 +30,13 @@ Use git to clone this project into a folder. Then in this folder, run the comman
 
 # Setup Intellij Development Environment
 
-* Start Web Application. Run com.odde.bbuddy.Application as a Spring Boot application by using "dev" as the active profile
+* Start Web Application
+    * Intellij idea community edition
+        * Run com.odde.bbuddy.Application as a Java application by setting environment variable "SPRING_PROFILES_ACTIVE" to "dev"
+    * Intellij idea ultimate edition
+        * Run com.odde.bbuddy.Application as a Spring Boot application by setting environment variable "SPRING_PROFILES_ACTIVE" to "dev"
 * Run Unit Tests. Run those unit tests as normal. The only limitation is that you can't run those "Nested" tests together with other non "Nested" tests
-* Run Acceptance Tests (cucumber). In feature file, you can select the feature or one scenario and then run it. In the configuration, you need to set the active profile as "test" by adding `SPRING_PROFILES_ACTIVE=test` to the environment variables.
+* Run Acceptance Tests (cucumber). In feature file, you can select the feature or one scenario and then run it. In the configuration, you need to set environment variable "SPRING_PROFILES_ACTIVE" to "test"
 * [Spring Boot Developer Tools](http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html) is used so that you can hot load any modified code, template file and resource file without restart the application. Please follow the steps below to enable this hot load feature.
     * Start the application in Intellij as described in the first item. Don't start it with gradle in command line.
     * Edit any code or file, and make the project. Then, the change will be reloaded automatically.
