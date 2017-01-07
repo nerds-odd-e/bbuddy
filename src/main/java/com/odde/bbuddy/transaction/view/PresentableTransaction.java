@@ -22,7 +22,4 @@ public class PresentableTransaction {
         return date.format(ofPattern(DAY));
     }
 
-    public String[] allViewText() {
-        return new String[]{type.name(), description, dateForView(), String.valueOf(amount)};
-    }
 }

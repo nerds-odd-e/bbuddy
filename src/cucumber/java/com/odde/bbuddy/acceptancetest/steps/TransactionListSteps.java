@@ -1,12 +1,10 @@
 package com.odde.bbuddy.acceptancetest.steps;
 
 import com.odde.bbuddy.acceptancetest.data.ApplicationConfigurations;
-import com.odde.bbuddy.acceptancetest.data.transaction.TransactionForTest;
+import com.odde.bbuddy.acceptancetest.data.transaction.DisplayedTransaction;
 import com.odde.bbuddy.acceptancetest.data.transaction.TransactionRepoForTest;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.ShowAllTransactionsPage;
-import com.odde.bbuddy.transaction.domain.Transaction;
-import com.odde.bbuddy.transaction.view.PresentableTransaction;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -16,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-import static com.odde.bbuddy.acceptancetest.data.transaction.TransactionForTest.expectedTransactions;
+import static com.odde.bbuddy.acceptancetest.data.transaction.DisplayedTransaction.expectedTransactions;
 import static com.odde.bbuddy.common.page.PageableFactory.PER_PAGE_LIMIT_PROPERTY_NAME;
 import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.stream.Collectors.toList;
@@ -38,8 +36,8 @@ public class TransactionListSteps {
     ApplicationConfigurations applicationConfigurations;
 
     @Given("^exists the following transactions$")
-    public void exists_the_following_transactions(List<TransactionForTest> expected) throws Throwable {
-        expectedTransactions(expected, Transaction.class).forEach(transactionRepo::save);
+    public void exists_the_following_transactions(List<DisplayedTransaction> displayedTransactions) throws Throwable {
+        expectedTransactions(displayedTransactions).forEach(transactionRepo::save);
     }
 
     @When("^show all transactions$")
@@ -48,9 +46,8 @@ public class TransactionListSteps {
     }
 
     @Then("^you will see all transactions as below$")
-    public void you_will_see_all_transactions_as_below(List<TransactionForTest> transactions) throws Throwable {
-        expectedTransactions(transactions, PresentableTransaction.class)
-                .forEach(transaction -> assertThat(commonPage.getAllText()).contains(transaction.allViewText()));
+    public void you_will_see_all_transactions_as_below(List<DisplayedTransaction> expected) throws Throwable {
+        expected.forEach(displayedTransaction -> displayedTransaction.assertAllFieldsDisplayedIn(commonPage.getAllText()));
     }
 
     @When("^show total of all transactions$")
@@ -80,23 +77,27 @@ public class TransactionListSteps {
 
     @Then("^you will see (\\d+) transactions in page (\\d+)$")
     public void you_will_see_transactions_in_page(int transactionCount, int pageNumber) throws Throwable {
-        assertThat(commonPage.getAllText()).contains(amountTextOfTransactionsInPage(pageNumber, (Integer) applicationConfigurations.getOverWritten(PER_PAGE_LIMIT_PROPERTY_NAME), transactionCount));
+        assertThat(commonPage.getAllText()).contains(amountTextOfTransactionsInPage(pageNumber, transactionCount));
     }
 
-    private List<String> amountTextOfTransactionsInPage(int pageNumber, int perPageCount, int transactionCount) {
-        return amountOfTransactionsInPage(pageNumber, transactionCount, perPageCount).mapToObj(String::valueOf).collect(toList());
+    private Integer perPageCount() {
+        return (Integer) applicationConfigurations.getOverWritten(PER_PAGE_LIMIT_PROPERTY_NAME);
     }
 
-    private IntStream amountOfTransactionsInPage(int pageNumber, int transactionCount, int perPageCount) {
-        return range(amountOfFirstTransaction(pageNumber, perPageCount), amountOfFirstTransaction(pageNumber, perPageCount)+transactionCount);
+    private List<String> amountTextOfTransactionsInPage(int pageNumber, int transactionCount) {
+        return amountOfTransactionsInPage(pageNumber, transactionCount).mapToObj(String::valueOf).collect(toList());
+    }
+
+    private IntStream amountOfTransactionsInPage(int pageNumber, int transactionCount) {
+        return range(amountOfFirstTransaction(pageNumber, perPageCount()), amountOfFirstTransaction(pageNumber, perPageCount()) + transactionCount);
     }
 
     private int amountOfFirstTransaction(int pageNumber, int perPageCount) {
-        return (pageNumber-1) * perPageCount + 1;
+        return (pageNumber - 1) * perPageCount + 1;
     }
 
     private IntStream amountOfTransactions(int count) {
-        return range(1, count+1);
+        return range(1, count + 1);
     }
 
     private void createTransactionWithAmount(int amount) {
