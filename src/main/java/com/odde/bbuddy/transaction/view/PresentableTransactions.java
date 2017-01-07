@@ -6,8 +6,8 @@ import com.odde.bbuddy.transaction.domain.Transaction;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -16,10 +16,9 @@ import java.util.List;
 import static com.odde.bbuddy.common.BeanUtils.copyProperties;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTIONS_INDEX;
 import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
-import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
 @Component
-@Scope(value = "request", proxyMode = TARGET_CLASS)
+@RequestScope
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PresentableTransactions extends ModelAndView implements View<Transaction>, CombinableModelAndView {
 

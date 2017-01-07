@@ -5,18 +5,17 @@ import com.odde.bbuddy.user.domain.AuthenticationResult;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import static com.odde.bbuddy.common.controller.Urls.SIGNIN;
 import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_FAILED;
 import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_LOGOUT;
 import static com.odde.bbuddy.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
-import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
 @Component
-@Scope(value = "request", proxyMode = TARGET_CLASS)
+@RequestScope
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 @Builder
 public class SignInView extends ModelAndView implements View<AuthenticationResult> {

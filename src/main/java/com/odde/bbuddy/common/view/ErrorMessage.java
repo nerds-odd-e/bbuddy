@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.FieldError;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Component
+@RequestScope
 public class ErrorMessage implements View<FieldError> {
 
     private final MessageSource messageSource;
