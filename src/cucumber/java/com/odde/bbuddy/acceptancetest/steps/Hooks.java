@@ -10,18 +10,14 @@ import com.odde.bbuddy.user.domain.User;
 import com.odde.bbuddy.user.repo.UserRepo;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationContextLoader;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = Application.class, loader = SpringApplicationContextLoader.class)
-@WebAppConfiguration
-@IntegrationTest
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+
+@SpringBootTest(webEnvironment = DEFINED_PORT)
+@ContextConfiguration(classes = {Application.class})
 public class Hooks {
 
     @Autowired
@@ -43,7 +39,7 @@ public class Hooks {
     ApplicationConfigurations applicationConfigurations;
 
     @Before("@user")
-    public void signIn(){
+    public void signIn() {
         userRepo.save(new User("user", "password"));
         signInPage.signIn("user", "password");
     }
