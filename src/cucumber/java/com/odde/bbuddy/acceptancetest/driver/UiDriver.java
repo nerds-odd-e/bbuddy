@@ -7,17 +7,15 @@ public interface UiDriver {
 
     void navigateTo(String url);
 
-    UiElement findElementByName(String name);
-
-    UiElement findElementByTag(String tag);
-
     void navigateToWithParams(String url, Params params);
-
-    UiSelect findSelectByName(String name);
-
-    UiElement findElementById(String id);
 
     void waitForTextPresent(String text);
 
-    UiElement findLinkByText(String text);
+    void inputTextByName(String text, String name);
+
+    void clickByText(String text);
+
+    void selectOptionByTextAndElementName(String text, String elementName);
+
+    String getAllTextInPage();
 }

@@ -8,13 +8,14 @@ import org.springframework.stereotype.Component;
 
 import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_FAILED;
 import static com.odde.bbuddy.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_LOGOUT;
+import static com.odde.bbuddy.common.view.MessageSources.BINDING_ERROR_MESSAGE_FULL_NAME;
+import static com.odde.bbuddy.common.view.MessageSources.VALIDATION_MESSAGE_FULL_NAME;
 
 @Component
 @Scope("cucumber-glue")
 @PropertySources({
-        @PropertySource("classpath:ValidationMessages.properties"),
-        @PropertySource("classpath:BindingErrorMessages.properties"),
-        @PropertySource("classpath:labelText.properties")
+        @PropertySource(VALIDATION_MESSAGE_FULL_NAME),
+        @PropertySource(BINDING_ERROR_MESSAGE_FULL_NAME),
 })
 public class Messages {
 
@@ -30,9 +31,6 @@ public class Messages {
     @Value("${typeMismatch.java.lang.Integer}")
     public String invalidNumber;
 
-    @Value("${home.label.welcome}")
-    public String welcome;
-
     @Value(AUTHENTICATION_FAILED)
     public String loginFailed;
 
@@ -46,6 +44,6 @@ public class Messages {
     private String minNumberMessage;
 
     public String negativeNumber() {
-        return minNumberMessage.replace("{value}","0");
+        return minNumberMessage.replace("{value}", "0");
     }
 }

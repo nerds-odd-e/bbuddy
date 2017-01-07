@@ -3,6 +3,7 @@ package com.odde.bbuddy.acceptancetest.steps;
 import com.odde.bbuddy.acceptancetest.data.Messages;
 import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.HomePage;
+import com.odde.bbuddy.acceptancetest.pages.LabelTexts;
 import com.odde.bbuddy.acceptancetest.pages.SignInPage;
 import com.odde.bbuddy.user.domain.User;
 import com.odde.bbuddy.user.repo.UserRepo;
@@ -30,6 +31,9 @@ public class SignInSteps {
     @Autowired
     Messages messages;
 
+    @Autowired
+    LabelTexts labelTexts;
+
     @Given("^there is a user named \"([^\"]*)\" and password is \"([^\"]*)\"$")
     public void there_is_a_user_named_and_password_is(String userName, String password) throws Throwable {
         userRepo.save(new User(userName, password));
@@ -42,7 +46,7 @@ public class SignInSteps {
 
     @Then("^login successfully$")
     public void login_successfully() throws Throwable {
-        assertThat(commonPage.getAllText()).contains(messages.welcome);
+        assertThat(commonPage.getAllText()).contains(labelTexts.welcome);
     }
 
     @Then("^login failed with some message$")

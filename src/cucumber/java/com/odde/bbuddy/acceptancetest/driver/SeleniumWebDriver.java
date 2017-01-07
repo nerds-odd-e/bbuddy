@@ -3,9 +3,15 @@ package com.odde.bbuddy.acceptancetest.driver;
 import com.odde.bbuddy.common.view.Params;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class SeleniumWebDriver implements UiDriver {
 
@@ -23,42 +29,58 @@ public class SeleniumWebDriver implements UiDriver {
     }
 
     @Override
-    public UiElement findElementByName(String name) {
-        return new SeleniumWebElement(webDriver.findElement(By.name(name)));
-    }
-
-    @Override
-    public UiElement findElementByTag(String tag) {
-        return new SeleniumWebElement(webDriver.findElement(By.tagName(tag)));
-    }
-
-    @Override
     public void navigateToWithParams(String url, Params params) {
         webDriver.get(url + params.getQuery());
     }
 
     @Override
-    public UiSelect findSelectByName(String name) {
-        return new SeleniumSelect(webDriver.findElement(By.name(name)));
-    }
-
-    @Override
-    public UiElement findElementById(String id) {
-        return new SeleniumWebElement(webDriver.findElement(By.id(id)));
-    }
-
-    @Override
     public void waitForTextPresent(String text) {
-        new WebDriverWait(webDriver, DEFAULT_TIME_OUT_IN_SECONDS).until(new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver webDriver) {
-                return findElementByTag("body").getText().contains(text);
-            }
-        });
+        new WebDriverWait(webDriver, DEFAULT_TIME_OUT_IN_SECONDS).until(
+                (ExpectedCondition<Boolean>) webDriver -> getAllTextInPage().contains(text));
     }
 
     @Override
-    public UiElement findLinkByText(String text) {
-        return new SeleniumWebElement(webDriver.findElement(By.linkText(text)));
+    public void inputTextByName(String text, String name) {
+        elementByName(name).sendKeys(text);
     }
+
+    private WebElement elementByName(String name) {
+        return webDriver.findElement(By.name(name));
+    }
+
+    @Override
+    public void clickByText(String text) {
+        elementsByText(text).forEach(WebElement::click);
+    }
+
+    private Stream<WebElement> elementsByText(String text) {
+        return Stream.of(
+                elementsByXPath(String.format("//input[@value='%s']", text)),
+                elementsByXPath(String.format("//button[text()='%s']", text)),
+                elementsByLinkText(text))
+                .flatMap(Collection::stream);
+    }
+
+    private List<WebElement> elementsByLinkText(String text) {
+        return webDriver.findElements(By.linkText(text));
+    }
+
+    private List<WebElement> elementsByXPath(String xpath) {
+        return webDriver.findElements(By.xpath(xpath));
+    }
+
+    @Override
+    public void selectOptionByTextAndElementName(String text, String elementName) {
+        new Select(elementByName(elementName)).selectByVisibleText(text);
+    }
+
+    @Override
+    public String getAllTextInPage() {
+        return elementByTag().getText();
+    }
+
+    private WebElement elementByTag() {
+        return webDriver.findElement(By.tagName("body"));
+    }
+
 }

@@ -32,28 +32,8 @@ public class ConfigurableUiDriver implements UiDriver {
     }
 
     @Override
-    public UiElement findElementByName(String name) {
-        return originalDriver.findElementByName(name);
-    }
-
-    @Override
-    public UiElement findElementByTag(String tag) {
-        return originalDriver.findElementByTag(tag);
-    }
-
-    @Override
     public void navigateToWithParams(String url, Params params) {
         originalDriver.navigateToWithParams(urlWithHostAndPort(url), params);
-    }
-
-    @Override
-    public UiSelect findSelectByName(String name) {
-        return originalDriver.findSelectByName(name);
-    }
-
-    @Override
-    public UiElement findElementById(String id) {
-        return originalDriver.findElementById(id);
     }
 
     @Override
@@ -62,7 +42,22 @@ public class ConfigurableUiDriver implements UiDriver {
     }
 
     @Override
-    public UiElement findLinkByText(String text) {
-        return originalDriver.findLinkByText(text);
+    public void inputTextByName(String text, String name) {
+        originalDriver.inputTextByName(text, name);
+    }
+
+    @Override
+    public void clickByText(String text) {
+        originalDriver.clickByText(text);
+    }
+
+    @Override
+    public void selectOptionByTextAndElementName(String text, String elementName) {
+        originalDriver.selectOptionByTextAndElementName(text, elementName);
+    }
+
+    @Override
+    public String getAllTextInPage() {
+        return originalDriver.getAllTextInPage();
     }
 }

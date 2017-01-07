@@ -13,6 +13,6 @@ public class CommonPage {
     UiDriver driver;
 
     public String getAllText() {
-        return driver.findElementByTag("body").getText();
+        return driver.getAllTextInPage();
     }
 }

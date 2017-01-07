@@ -12,7 +12,10 @@ public class HomePage {
     @Autowired
     UiDriver driver;
 
+    @Autowired
+    LabelTexts labelTexts;
+
     public void signout() {
-        driver.findElementById("signout").submit();
+        driver.clickByText(labelTexts.signout);
     }
 }
