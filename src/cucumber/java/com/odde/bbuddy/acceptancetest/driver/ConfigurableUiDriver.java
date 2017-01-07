@@ -7,17 +7,15 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("cucumber-glue")
-public class UiDriverWithHostName implements UiDriver {
+public class ConfigurableUiDriver implements UiDriver {
 
-    public static final String DELIMITER = ":";
+    private static final String DELIMITER = ":";
+    private static final String HOST_NAME = "http://localhost";
+    private final UiDriver originalDriver = new SeleniumWebDriver();
     @Value("${cucumber.port}")
-    private String port = "8080";
-
+    private String port;
     @Value("${cucumber.context-path}")
     private String contextPath;
-
-    private final String hostName = "http://localhost";
-    private final UiDriver originalDriver = new SeleniumWebDriver();
 
     @Override
     public void close() {
@@ -29,8 +27,8 @@ public class UiDriverWithHostName implements UiDriver {
         originalDriver.navigateTo(urlWithHostAndPort(url));
     }
 
-    public String urlWithHostAndPort(String url) {
-        return hostName + DELIMITER + port + contextPath + url;
+    private String urlWithHostAndPort(String url) {
+        return HOST_NAME + DELIMITER + port + contextPath + url;
     }
 
     @Override
