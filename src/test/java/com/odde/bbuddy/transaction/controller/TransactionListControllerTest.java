@@ -5,10 +5,10 @@ import com.odde.bbuddy.common.builder.PageableBuilder;
 import com.odde.bbuddy.common.page.PageView;
 import com.odde.bbuddy.common.page.PageableFactory;
 import com.odde.bbuddy.transaction.builder.SummaryOfTransactionsBuilder;
-import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.domain.TransactionsPostActions;
 import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
+import com.odde.bbuddy.transaction.repo.Transaction;
 import com.odde.bbuddy.transaction.view.PresentableSummaryOfTransactions;
 import com.odde.bbuddy.transaction.view.PresentableTransactions;
 import org.junit.Before;
@@ -46,7 +46,7 @@ public class TransactionListControllerTest {
     public void should_display_view() {
         assertThat(list()).isInstanceOf(PresentableTransactions.class);
     }
-    
+
     @Test
     public void should_combine_with_views() {
         list();
@@ -77,7 +77,7 @@ public class TransactionListControllerTest {
 
         verify(mockTransactions).processAll(any(Consumer.class), eq(pageable));
     }
-    
+
     @Test
     public void should_let_view_display_total_page_count() {
         controller.index();

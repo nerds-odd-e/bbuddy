@@ -5,7 +5,7 @@ import com.odde.bbuddy.acceptancetest.pages.CommonPage;
 import com.odde.bbuddy.acceptancetest.pages.HomePage;
 import com.odde.bbuddy.acceptancetest.pages.LabelTexts;
 import com.odde.bbuddy.acceptancetest.pages.SignInPage;
-import com.odde.bbuddy.user.domain.User;
+import com.odde.bbuddy.user.repo.User;
 import com.odde.bbuddy.user.repo.UserRepo;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

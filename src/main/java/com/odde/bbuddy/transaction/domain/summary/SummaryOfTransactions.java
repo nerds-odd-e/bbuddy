@@ -1,6 +1,6 @@
 package com.odde.bbuddy.transaction.domain.summary;
 
-import com.odde.bbuddy.transaction.domain.Transaction;
+import com.odde.bbuddy.transaction.repo.Transaction;
 
 import java.util.List;
 import java.util.function.ToIntFunction;

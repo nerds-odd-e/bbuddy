@@ -2,7 +2,7 @@ package com.odde.bbuddy.transaction.view;
 
 import com.odde.bbuddy.common.view.CombinableModelAndView;
 import com.odde.bbuddy.common.view.View;
-import com.odde.bbuddy.transaction.domain.Transaction;
+import com.odde.bbuddy.transaction.repo.Transaction;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

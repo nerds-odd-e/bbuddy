@@ -1,6 +1,6 @@
 package com.odde.bbuddy.acceptancetest.data.account;
 
-import com.odde.bbuddy.account.domain.Account;
+import com.odde.bbuddy.account.repo.Account;
 import org.springframework.data.repository.Repository;
 
 import javax.transaction.Transactional;

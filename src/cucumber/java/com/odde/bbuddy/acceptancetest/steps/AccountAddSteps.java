@@ -4,7 +4,7 @@ import com.odde.bbuddy.acceptancetest.data.Messages;
 import com.odde.bbuddy.acceptancetest.data.account.AccountRepoForTest;
 import com.odde.bbuddy.acceptancetest.data.account.EditableAccount;
 import com.odde.bbuddy.acceptancetest.pages.AddAccountPage;
-import com.odde.bbuddy.account.domain.Account;
+import com.odde.bbuddy.account.repo.Account;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

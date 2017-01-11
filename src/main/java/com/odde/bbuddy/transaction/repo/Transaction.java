@@ -1,11 +1,14 @@
-package com.odde.bbuddy.transaction.domain;
+package com.odde.bbuddy.transaction.repo;
 
 import com.odde.bbuddy.common.validator.Past;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -22,7 +25,7 @@ import static com.odde.bbuddy.common.Formats.DAY;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private long id;
 
     @NotNull
@@ -31,10 +34,13 @@ public class Transaction {
     @NotBlank
     private String description;
 
-    @NotNull @DateTimeFormat(pattern = DAY) @Past
+    @NotNull
+    @DateTimeFormat(pattern = DAY)
+    @Past
     private LocalDate date;
 
-    @NotNull @Min(1)
+    @NotNull
+    @Min(1)
     private Integer amount;
 
     public enum Type {

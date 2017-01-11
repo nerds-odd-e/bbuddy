@@ -1,7 +1,7 @@
 package com.odde.bbuddy.account.controller;
 
 import com.nitorcreations.junit.runners.NestedRunner;
-import com.odde.bbuddy.account.domain.Account;
+import com.odde.bbuddy.account.repo.Account;
 import com.odde.bbuddy.account.domain.Accounts;
 import com.odde.bbuddy.account.view.PresentableAddAccount;
 import com.odde.bbuddy.common.callback.PostActions;
@@ -22,11 +22,23 @@ import static org.mockito.Mockito.*;
 @RunWith(NestedRunner.class)
 public class AccountAddControllerTest {
 
+    private final BindingResult stubBindingResult = mock(BindingResult.class);
     Accounts mockAccounts = mock(Accounts.class);
     View<String> mockView = mock(View.class);
     AccountAddController controller = new AccountAddController(mockAccounts, mockView, new PresentableAddAccount());
     Account account = defaultAccount().build();
-    private final BindingResult stubBindingResult = mock(BindingResult.class);
+
+    private Result submitAddAccountByJson() {
+        return controller.submitAddAccountByJson(account);
+    }
+
+    private ModelAndView submitAddAccount() {
+        return controller.submitAddAccount(account, stubBindingResult);
+    }
+
+    private void given_add_account_will(PostActions postActions) {
+        when(mockAccounts.add(account)).thenReturn(postActions);
+    }
 
     public class Add {
 
@@ -68,7 +80,7 @@ public class AccountAddControllerTest {
 
             verify(mockAccounts).add(account);
         }
-        
+
         public class Success {
 
             @Before
@@ -83,7 +95,7 @@ public class AccountAddControllerTest {
                 verify(mockView).display("a success message");
                 verify(mockView, never()).display("a failed message");
             }
-            
+
             @Test
             public void should_return_success_status_and_message_when_add_by_json() {
                 Result result = submitAddAccountByJson();
@@ -108,7 +120,7 @@ public class AccountAddControllerTest {
                 verify(mockView, never()).display("a success message");
                 verify(mockView).display("a failed message");
             }
-            
+
             @Test
             public void should_return_failed_status_and_message_when_add_by_json() {
                 Result result = submitAddAccountByJson();
@@ -119,10 +131,6 @@ public class AccountAddControllerTest {
 
         }
 
-    }
-
-    private Result submitAddAccountByJson() {
-        return controller.submitAddAccountByJson(account);
     }
 
     public class NameDuplicated {
@@ -140,14 +148,6 @@ public class AccountAddControllerTest {
             when(stubBindingResult.hasErrors()).thenReturn(true);
         }
 
-    }
-
-    private ModelAndView submitAddAccount() {
-        return controller.submitAddAccount(account, stubBindingResult);
-    }
-
-    private void given_add_account_will(PostActions postActions) {
-        when(mockAccounts.add(account)).thenReturn(postActions);
     }
 
 }

@@ -5,7 +5,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.servlet.ModelAndView;
 
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTIONS_ADD;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
+import static com.odde.bbuddy.transaction.repo.Transaction.Type.values;
 
 @Component
 @RequestScope

@@ -1,6 +1,7 @@
 package com.odde.bbuddy.account.domain;
 
 import com.nitorcreations.junit.runners.NestedRunner;
+import com.odde.bbuddy.account.repo.Account;
 import com.odde.bbuddy.account.repo.AccountRepo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +27,7 @@ public class AccountsTest {
 
         verify(mockAccountRepo).save(account);
     }
-    
+
     @Test
     public void should_return_success_when_save_with_no_exception() {
         accounts.add(account)
@@ -61,7 +62,7 @@ public class AccountsTest {
 
             assertThat(accounts.isValueUnique("account name")).isEqualTo(false);
         }
-        
+
         @Test
         public void should_return_true_when_validate_unique_with_a_not_existing_name_account() {
             given_account_name_exists("account name", false);
@@ -74,5 +75,5 @@ public class AccountsTest {
         }
 
     }
-    
+
 }

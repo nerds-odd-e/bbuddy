@@ -1,6 +1,6 @@
 package com.odde.bbuddy.account.builder;
 
-import com.odde.bbuddy.account.domain.Account;
+import com.odde.bbuddy.account.repo.Account;
 
 public class AccountBuilder {
 

@@ -1,6 +1,5 @@
 package com.odde.bbuddy.transaction.repo;
 
-import com.odde.bbuddy.transaction.domain.Transaction;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.Repository;

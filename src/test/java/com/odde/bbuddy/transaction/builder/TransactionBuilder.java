@@ -1,10 +1,10 @@
 package com.odde.bbuddy.transaction.builder;
 
-import com.odde.bbuddy.transaction.domain.Transaction;
+import com.odde.bbuddy.transaction.repo.Transaction;
 
 import static com.odde.bbuddy.common.Formats.parseDay;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.Income;
-import static com.odde.bbuddy.transaction.domain.Transaction.builder;
+import static com.odde.bbuddy.transaction.repo.Transaction.Type.Income;
+import static com.odde.bbuddy.transaction.repo.Transaction.builder;
 
 public class TransactionBuilder {
 

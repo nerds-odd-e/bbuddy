@@ -1,5 +1,6 @@
 package com.odde.bbuddy.account.domain;
 
+import com.odde.bbuddy.account.repo.Account;
 import com.odde.bbuddy.account.repo.AccountRepo;
 import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.common.validator.FieldCheck;

@@ -1,8 +1,8 @@
 package com.odde.bbuddy.transaction.controller;
 
 import com.odde.bbuddy.common.view.View;
-import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
+import com.odde.bbuddy.transaction.repo.Transaction;
 import com.odde.bbuddy.transaction.view.PresentableAddTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

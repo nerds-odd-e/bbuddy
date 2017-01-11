@@ -3,7 +3,7 @@ package com.odde.bbuddy.transaction.view;
 import org.junit.Test;
 
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTIONS_ADD;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.values;
+import static com.odde.bbuddy.transaction.repo.Transaction.Type.values;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PresentableAddTransactionTest {

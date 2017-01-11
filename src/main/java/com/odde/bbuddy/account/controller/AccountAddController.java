@@ -1,7 +1,7 @@
 package com.odde.bbuddy.account.controller;
 
-import com.odde.bbuddy.account.domain.Account;
 import com.odde.bbuddy.account.domain.Accounts;
+import com.odde.bbuddy.account.repo.Account;
 import com.odde.bbuddy.account.view.PresentableAddAccount;
 import com.odde.bbuddy.common.callback.ValueCaptor;
 import com.odde.bbuddy.common.view.Result;
@@ -15,7 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
-import static com.odde.bbuddy.common.controller.Urls.*;
+import static com.odde.bbuddy.common.controller.Urls.ACCOUNTS;
+import static com.odde.bbuddy.common.controller.Urls.ADD;
 
 @Controller
 @RequestMapping(ACCOUNTS)
@@ -57,13 +58,15 @@ public class AccountAddController {
     }
 
     @PostMapping(ADD + ".json")
-    public @ResponseBody Result submitAddAccountByJson(@Valid @RequestBody Account account) {
+    public
+    @ResponseBody
+    Result submitAddAccountByJson(@Valid @RequestBody Account account) {
         ValueCaptor<Result> captor = new ValueCaptor<>();
 
         accounts.add(account)
                 .success(() -> captor.capture(Result.success(successMessage)))
                 .failed(() -> captor.capture(Result.failed(failedMessage)));
-        
+
         return captor.value();
     }
 

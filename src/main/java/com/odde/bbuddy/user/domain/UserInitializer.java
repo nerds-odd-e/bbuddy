@@ -1,5 +1,6 @@
 package com.odde.bbuddy.user.domain;
 
+import com.odde.bbuddy.user.repo.User;
 import com.odde.bbuddy.user.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

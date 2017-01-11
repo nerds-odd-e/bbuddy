@@ -3,6 +3,7 @@ package com.odde.bbuddy.transaction.domain;
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.common.builder.ConsumeAnswer;
 import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
+import com.odde.bbuddy.transaction.repo.Transaction;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,8 +67,8 @@ public class TransactionsTest {
 
     public class ProcessAll {
 
-        private Consumer<Transaction> whateverTransactionConsumer = transaction -> {};
         Page mockPage = mock(Page.class);
+        private Consumer<Transaction> whateverTransactionConsumer = transaction -> {};
 
         @Before
         public void given_findAll_will_return_transaction() {

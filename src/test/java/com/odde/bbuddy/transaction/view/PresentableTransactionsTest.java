@@ -1,7 +1,7 @@
 package com.odde.bbuddy.transaction.view;
 
 import com.nitorcreations.junit.runners.NestedRunner;
-import com.odde.bbuddy.transaction.domain.Transaction;
+import com.odde.bbuddy.transaction.repo.Transaction;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -12,10 +12,10 @@ import java.util.Map;
 import static com.odde.bbuddy.common.Formats.parseDay;
 import static com.odde.bbuddy.common.controller.Urls.TRANSACTIONS_INDEX;
 import static com.odde.bbuddy.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.Income;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.Outcome;
-import static com.odde.bbuddy.transaction.domain.Transaction.builder;
+import static com.odde.bbuddy.transaction.repo.Transaction.Type;
+import static com.odde.bbuddy.transaction.repo.Transaction.Type.Income;
+import static com.odde.bbuddy.transaction.repo.Transaction.Type.Outcome;
+import static com.odde.bbuddy.transaction.repo.Transaction.builder;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(NestedRunner.class)
@@ -26,6 +26,10 @@ public class PresentableTransactionsTest {
     @Test
     public void should_go_to_index_page() {
         assertThat(presentableTransactions.getViewName()).isEqualTo(TRANSACTIONS_INDEX);
+    }
+
+    private Map<String, Object> modelOf(PresentableTransactions presentableTransactions) {
+        return presentableTransactions.getModel();
     }
 
     public class NoTransaction {
@@ -80,10 +84,6 @@ public class PresentableTransactionsTest {
             return builder().type(type).description(description).date(date).amount(amount).build();
         }
 
-    }
-
-    private Map<String, Object> modelOf(PresentableTransactions presentableTransactions) {
-        return presentableTransactions.getModel();
     }
 
 }

@@ -1,14 +1,8 @@
 package com.odde.bbuddy.transaction.domain.summary;
 
-import com.odde.bbuddy.transaction.domain.Transaction;
+import com.odde.bbuddy.transaction.repo.Transaction;
 
 public interface TransactionForSummary {
-
-    int income();
-
-    int outcome();
-
-    int balance();
 
     static TransactionForSummary create(Transaction transaction) {
         switch (transaction.getType()) {
@@ -20,4 +14,10 @@ public interface TransactionForSummary {
                 throw new IllegalStateException();
         }
     }
+
+    int income();
+
+    int outcome();
+
+    int balance();
 }

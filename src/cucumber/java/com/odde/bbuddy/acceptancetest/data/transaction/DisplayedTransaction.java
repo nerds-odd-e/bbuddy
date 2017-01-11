@@ -2,7 +2,7 @@ package com.odde.bbuddy.acceptancetest.data.transaction;
 
 import com.odde.bbuddy.acceptancetest.data.transformer.DayToLocalDateTransformer;
 import com.odde.bbuddy.common.BeanUtils;
-import com.odde.bbuddy.transaction.domain.Transaction;
+import com.odde.bbuddy.transaction.repo.Transaction;
 import cucumber.deps.com.thoughtworks.xstream.annotations.XStreamConverter;
 import lombok.Getter;
 

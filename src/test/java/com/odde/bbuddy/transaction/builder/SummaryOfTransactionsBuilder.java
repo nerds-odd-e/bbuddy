@@ -1,15 +1,15 @@
 package com.odde.bbuddy.transaction.builder;
 
-import com.odde.bbuddy.transaction.domain.Transaction;
 import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
+import com.odde.bbuddy.transaction.repo.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.odde.bbuddy.transaction.builder.TransactionBuilder.defaultTransaction;
-import static com.odde.bbuddy.transaction.domain.Transaction.*;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.Income;
-import static com.odde.bbuddy.transaction.domain.Transaction.Type.Outcome;
+import static com.odde.bbuddy.transaction.repo.Transaction.Type;
+import static com.odde.bbuddy.transaction.repo.Transaction.Type.Income;
+import static com.odde.bbuddy.transaction.repo.Transaction.Type.Outcome;
 
 public class SummaryOfTransactionsBuilder {
 

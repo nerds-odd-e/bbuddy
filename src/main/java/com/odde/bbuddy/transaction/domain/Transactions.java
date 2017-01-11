@@ -2,6 +2,7 @@ package com.odde.bbuddy.transaction.domain;
 
 import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.transaction.domain.summary.SummaryOfTransactions;
+import com.odde.bbuddy.transaction.repo.Transaction;
 import com.odde.bbuddy.transaction.repo.TransactionRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -3,7 +3,7 @@ package com.odde.bbuddy.transaction.controller;
 import com.nitorcreations.junit.runners.NestedRunner;
 import com.odde.bbuddy.common.callback.PostActions;
 import com.odde.bbuddy.common.view.View;
-import com.odde.bbuddy.transaction.domain.Transaction;
+import com.odde.bbuddy.transaction.repo.Transaction;
 import com.odde.bbuddy.transaction.domain.Transactions;
 import com.odde.bbuddy.transaction.view.PresentableAddTransaction;
 import org.junit.Before;
@@ -31,6 +31,14 @@ public class TransactionAddControllerTest {
     @Before
     public void given_has_no_field_error() {
         given_has_field_error(false);
+    }
+
+    private void given_has_field_error(boolean value) {
+        when(stubBindingResult.hasFieldErrors()).thenReturn(value);
+    }
+
+    private ModelAndView submitTransactionAdd(Transaction transaction) {
+        return controller.submitAddTransaction(transaction, stubBindingResult);
     }
 
     public class Add {
@@ -67,6 +75,10 @@ public class TransactionAddControllerTest {
             verify(mockTransactions).add(transaction);
         }
 
+        private void given_add_transaction_will(PostActions postActions) {
+            when(mockTransactions.add(any(Transaction.class))).thenReturn(postActions);
+        }
+
         public class Success {
 
             @Test
@@ -92,10 +104,6 @@ public class TransactionAddControllerTest {
                 verify(mockView).display("a failed message");
             }
 
-        }
-
-        private void given_add_transaction_will(PostActions postActions) {
-            when(mockTransactions.add(any(Transaction.class))).thenReturn(postActions);
         }
 
     }
@@ -125,14 +133,6 @@ public class TransactionAddControllerTest {
             return defaultTransaction().type(null).description(null).date(null).amount(null).build();
         }
 
-    }
-
-    private void given_has_field_error(boolean value) {
-        when(stubBindingResult.hasFieldErrors()).thenReturn(value);
-    }
-
-    private ModelAndView submitTransactionAdd(Transaction transaction) {
-        return controller.submitAddTransaction(transaction, stubBindingResult);
     }
 
 }

@@ -6,7 +6,7 @@ import com.odde.bbuddy.acceptancetest.data.account.AccountRepoForTest;
 import com.odde.bbuddy.acceptancetest.data.transaction.TransactionRepoForTest;
 import com.odde.bbuddy.acceptancetest.driver.UiDriver;
 import com.odde.bbuddy.acceptancetest.pages.SignInPage;
-import com.odde.bbuddy.user.domain.User;
+import com.odde.bbuddy.user.repo.User;
 import com.odde.bbuddy.user.repo.UserRepo;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;

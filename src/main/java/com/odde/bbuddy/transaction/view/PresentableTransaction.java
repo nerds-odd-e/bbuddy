@@ -1,6 +1,6 @@
 package com.odde.bbuddy.transaction.view;
 
-import com.odde.bbuddy.transaction.domain.Transaction.Type;
+import com.odde.bbuddy.transaction.repo.Transaction.Type;
 import lombok.Getter;
 import lombok.Setter;
 
