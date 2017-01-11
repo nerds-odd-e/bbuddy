@@ -2,6 +2,7 @@ package com.odde.bbuddy.acceptancetest.driver;
 
 import com.odde.bbuddy.common.view.Params;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -50,7 +51,14 @@ public class SeleniumWebDriver implements UiDriver {
 
     @Override
     public void clickByText(String text) {
-        elementsByText(text).forEach(WebElement::click);
+        firstElementByText(text).click();
+    }
+
+    private WebElement firstElementByText(String text) {
+        return elementsByText(text)
+                .findFirst().<NoSuchElementException>orElseThrow(() -> {
+                    throw new NoSuchElementException(String.format("no element can be found by text: %s", text));
+                });
     }
 
     private Stream<WebElement> elementsByText(String text) {
