@@ -9,7 +9,6 @@ Please install the following tools for this project. The latest version should b
 
 * git
 * jdk 1.8
-* gradle 2.13 (don't use gradle 2.14, 2.14.1 or 3.X)
 * mysql
 * Intellij (please choose either community or ultimate edition)
     * Intellij idea community edition with the following plug-in installed
@@ -24,9 +23,10 @@ Please install the following tools for this project. The latest version should b
 Use git to clone this project into a folder. Then in this folder, run the command below in order.
 
 * Create a default mysql dba user `mysql -u root -p < src/main/sql/create_default_dba.sql`
-* Start Web Application `gradle run` (on port 8090)
-* Run All Tests `gradle ci` (on port 8080)
-* if you want to start it on a port rather than 8090 (e.g. 8070), please do `gradle run -Pport=8070`
+* Init Intellij environment `./gradlew idea`
+* Start Web Application `./gradlew run` (on port 8090)
+* Run All Tests `./gradlew ci` (on port 8080)
+* if you want to start it on a port rather than 8090 (e.g. 8070), please do `./gradlew run -Pport=8070`
 
 # Setup Intellij Development Environment
 
