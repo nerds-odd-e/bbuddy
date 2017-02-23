@@ -13,7 +13,7 @@ env:
 script:
 - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --syntax-check
 - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt
-- bash -lec "gradle sonar"
+- bash -lec "./gradlew sonar"
 - bash -lec "sonar-scanner -Dsonar.login=$SONAR_TOKEN"
 
 notifications:
