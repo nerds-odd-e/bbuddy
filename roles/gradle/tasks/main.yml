@@ -1,19 +1,19 @@
 - name: Gradle | Ensure install directory
-  file: path="{{ gradle.install_to }}" state=directory
+  file: path="{{ gradle_home | dirname }}" state=directory
   become: Yes
 
 - name: Gradle | Ensure gradle
   unarchive:
     copy: false
-    src: "https://services.gradle.org/distributions/gradle-{{gradle.version}}-all.zip"
-    dest: "{{ gradle.install_to }}"
-    creates: "{{ gradle.install_to }}/gradle-{{ gradle.version }}/bin/gradle"
+    src: "https://services.gradle.org/distributions/gradle-{{gradle_version}}-all.zip"
+    dest: "{{ gradle_home | dirname }}"
+    creates: "{{ gradle_bin }}"
   become: Yes
 
 - name: Gradle | Add the Gradle binary to the system path
   copy:
-    dest: "{{ gradle.profile }}"
+    dest: "{{ gradle_profile }}"
     content: |
-      export GRADLE_HOME="{{ gradle.install_to }}/gradle-{{ gradle.version }}"
+      export GRADLE_HOME="{{ gradle_home }}"
       export PATH="$GRADLE_HOME/bin:$PATH"
   become: Yes

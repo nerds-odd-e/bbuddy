@@ -1,5 +1,4 @@
-gradle:
-  version: 2.13
-  cache_dir: /var/cache/ansible
-  profile: /etc/profile.d/gradle.sh
-  install_to: /opt
+gradle_version: 2.13
+gradle_home: "/opt/gradle-{{ gradle_version }}"
+gradle_bin: "{{ gradle_home }}/bin/gradle"
+gradle_profile: /etc/profile.d/gradle.sh
