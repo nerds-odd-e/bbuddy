@@ -1,5 +1,5 @@
-- name: Gradle | Ensure cache directory
-  file: path="{{ gradle.cache_dir }}" state=directory
+- name: Gradle | Ensure install directory
+  file: path="{{ gradle.install_to }}" state=directory
 
 - name: Gradle | Ensure gradle
   unarchive:
