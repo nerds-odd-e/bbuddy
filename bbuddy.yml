@@ -3,7 +3,6 @@
   hosts: all
   any_errors_fatal: true
   roles:
-    - jdk8
     - gradle
     - role: mysql
       mysql:
