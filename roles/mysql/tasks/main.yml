@@ -4,13 +4,16 @@
       with_items:
         - mysql-server
         - python-mysqldb
+  become: Yes
   when: ansible_os_family == "Debian"
 
 - name: Ensure mysql database
   mysql_db: name="{{ mysql.database }}" state=present
+  become: Yes
 
 - name: MySQL user
   mysql_user: user="{{ mysql.user }}" password="{{ mysql.password }}" host="{{ item }}" priv="{{ mysql.database }}.*:ALL,GRANT" state=present
   with_items:
     - localhost
     - "%"
+  become: Yes

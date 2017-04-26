@@ -16,4 +16,5 @@
           export DISPLAY="${DISPLAY:-:{{ xvfb.display }}}"
       notify: Restart and enable xvfb service
 
+  become: Yes
   when: ansible_os_family == "Debian"

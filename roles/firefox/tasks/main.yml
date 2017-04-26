@@ -15,5 +15,5 @@
         ln -s /opt/firefox/firefox /usr/bin/firefox-{{ firefox_version }}
       args:
         creates: "/usr/bin/firefox-{{ firefox_version }}"
-
+  become: Yes
   when: ansible_os_family == "Debian"
