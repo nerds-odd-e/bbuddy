@@ -4,7 +4,7 @@
 - name: Gradle | Ensure gradle
   unarchive:
     copy: false
-    src: "http://local.chaifeng.com:8888/gradle-{{gradle.version}}-bin.zip"
+    src: "https://services.gradle.org/distributions/gradle-{{gradle.version}}-all.zip"
     dest: "{{ gradle.install_to }}"
     creates: "{{ gradle.install_to }}/gradle-{{ gradle.version }}/bin/gradle"
 
@@ -14,4 +14,3 @@
     content: |
       export GRADLE_HOME="{{ gradle.install_to }}/gradle-{{ gradle.version }}"
       export PATH="$GRADLE_HOME/bin:$PATH"
-  when: ansible_os_family == "Debian"
