@@ -1,10 +1,4 @@
 - block:
-    - name: Ensure Xvfb package
-      apt: name="{{ item }}"
-      with_items:
-        - xserver-xorg-core
-        - xvfb
-
     - name: Ensure packages required by firefox
       apt: name=acl,at-spi2-core,colord,dconf-gsettings-backend,dconf-service,glib-networking,glib-networking-common,glib-networking-services,gsettings-desktop-schemas,humanity-icon-theme,libasound2,libatspi2.0-0,libcairo-gobject2,libcanberra0,libdbus-glib-1-2,libdbusmenu-glib4,libdbusmenu-gtk4,libegl1-mesa,libexif12,libgbm1,libgphoto2-l10n,libgtk-3-0,libgtk-3-bin,libgtk-3-common,libgtk2.0-0,libgtk2.0-bin,libgtk2.0-common,libgudev-1.0-0,libieee1284-3,libjson-glib-1.0-0,libpolkit-agent-1-0,libpolkit-backend-1-0,libpolkit-gobject-1-0,librest-0.7-0,libsane,libsane-common,libsoup-gnome2.4-1,libsoup2.4-1,libstartup-notification0,libtdb1,libusb-1.0-0,libvorbisfile3,libxcomposite1,libxcursor1,libxinerama1,libxkbcommon0,libxrandr2,libxtst6,policykit-1,sound-theme-freedesktop,ubuntu-mono
 
@@ -21,16 +15,5 @@
         ln -s /opt/firefox/firefox /usr/bin/firefox-{{ firefox_version }}
       args:
         creates: "/usr/bin/firefox-{{ firefox_version }}"
-
-    - name: Xvfb:{{ xvfb.display }} init.d script
-      template: src=init_xvfb.sh.j2 dest=/etc/init.d/xvfb mode="0755"
-      notify: Restart and enable xvfb service
-
-    - name: Xvfb:{{ xvfb.display }} profile
-      copy:
-        dest: /etc/profile.d/xvfb.sh
-        content: |
-          export DISPLAY=:{{ xvfb.display }}
-      notify: Restart and enable xvfb service
 
   when: ansible_os_family == "Debian"
