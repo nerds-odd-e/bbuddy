@@ -13,7 +13,7 @@
       copy:
         dest: /etc/profile.d/xvfb.sh
         content: |
-          export DISPLAY=:{{ xvfb.display }}
+          export DISPLAY="${DISPLAY:-:{{ xvfb.display }}}"
       notify: Restart and enable xvfb service
 
   when: ansible_os_family == "Debian"
