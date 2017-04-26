@@ -44,5 +44,9 @@ Vagrant.configure(2) do |config|
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "bbuddy.yml"
+    ansible.raw_arguments  = [
+      "-e", "gradle_project=/home/vagrant/bbuddy-dev",
+      "-e", "gradle_project_task='sonar war'"
+    ]
   end
 end
