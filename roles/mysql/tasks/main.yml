@@ -1,6 +1,6 @@
 - block:
     - name: Ensure mysql server
-      apt: name="{{ item }}"
+      apt: name="{{ item }}" update_cache=Yes cache_valid_time=259200
       with_items:
         - mysql-server
         - python-mysqldb
