@@ -9,7 +9,7 @@
         user: nerd
         password: dbs3cr3t
     - role: gradle_project
-      gradle_project_task: war
+      gradle_project_task: sonar
 
 - name: BBuddy CI
   hosts: bbuddy_ci_servers
