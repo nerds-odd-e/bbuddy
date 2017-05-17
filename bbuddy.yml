@@ -9,7 +9,6 @@
         user: nerd
         password: dbs3cr3t
     - role: gradle_project
-      gradle_project_path: "/home/vagrant/bbuddy"
       gradle_project_task: war
 
 - name: BBuddy CI

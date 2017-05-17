@@ -1,4 +1,4 @@
-- name:
+- name: Sync code
   synchronize:
     src: "../../../"
     dest: "{{ gradle_project_path }}/"
@@ -7,9 +7,10 @@
       - "--exclude=.git/"
       - "--exclude-from=.gitignore"
       - "--delete-excluded"
+  when: gradle_project_path != '.'
 
 - name: Build project
   shell: |
     set -e
-    cd {{ gradle_project_path }}
+    cd "{{ gradle_project_path }}"
     {{ gradle_bin }} {{ gradle_project_task}}

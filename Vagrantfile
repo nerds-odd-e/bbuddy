@@ -46,7 +46,7 @@ Vagrant.configure(2) do |config|
     ansible.playbook = "bbuddy.yml"
     ansible.raw_arguments  = [
       "-e", "gradle_project=/home/vagrant/bbuddy-dev",
-      "-e", "gradle_project_task='sonar war'"
+      "-e", "gradle_project_task='cucumber war'"
     ]
   end
 end
