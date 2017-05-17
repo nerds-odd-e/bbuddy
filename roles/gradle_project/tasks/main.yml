@@ -12,5 +12,6 @@
 - name: Build project
   shell: |
     set -e
-    cd "{{ gradle_project_path }}"
+    test -z "{{ gradle_project_task | default('') }}" && exit 0
+    cd "{{ gradle_project_path | realpath }}"
     {{ gradle_bin }} {{ gradle_project_task}}

@@ -14,6 +14,7 @@ env:
 script:
 - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --syntax-check
 - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt
+- bash -lec "./gradlew sonar"
 
 notifications:
   slack: odd-e:fJq94ra1d8PFp66luNXdcBFs

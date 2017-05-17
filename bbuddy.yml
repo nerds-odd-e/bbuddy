@@ -8,8 +8,7 @@
         database: bbuddytest
         user: nerd
         password: dbs3cr3t
-    - role: gradle_project
-      gradle_project_task: sonar
+    - gradle_project
 
 - name: BBuddy CI
   hosts: bbuddy_ci_servers
