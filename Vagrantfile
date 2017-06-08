@@ -8,26 +8,25 @@ Vagrant.configure(2) do |config|
 
   config.vm.hostname = "bbuddy.local"
 
-  synced_opts = {}
-  if ENV["ENABLE_NFS"] == "true"
-    config.vm.network "private_network", type: "dhcp"
-    synced_opts = {nfs: true}
-  end
-
-  {
-    "." => "/home/vagrant/src"
-  }.map { |local_folder, vagrant_folder|
-    config.vm.synced_folder *([local_folder, vagrant_folder] << synced_opts)
-  }
-
   config.vm.network "forwarded_port", guest: 8080, host: 9000
   config.vm.network "forwarded_port", guest: 8090, host: 8090
 
-  config.vm.provider "virtualbox" do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "2048"]
-  end
+  config.vm.provider "virtualbox" do |vb, override|
+    synced_opts = {}
+    if ENV["ENABLE_NFS"] == "true"
+      override.vm.network "private_network", type: "dhcp"
+      synced_opts = {nfs: true}
+    end
 
-  config.vm.provision "shell", inline: %Q[
+    {
+      "." => "/home/vagrant/src"
+    }.map { |local_folder, vagrant_folder|
+      override.vm.synced_folder *([local_folder, vagrant_folder] << synced_opts)
+    }
+
+    vb.customize ["modifyvm", :id, "--memory", "2048"]
+
+    override.vm.provision "shell", inline: <<-SHELL
       set -e
       if [[ '#{ENV["http_proxy"]}' == 'http://127.0.0.1:3128' ]]; then
         echo "export http_proxy='http://10.0.2.2:3128'"     > /etc/profile.d/proxy.sh
