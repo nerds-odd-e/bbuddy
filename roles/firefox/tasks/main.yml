@@ -8,7 +8,7 @@
         firefox --version | grep -F '{{ firefox_version }}' && exit 0
 
         mkdir -p /opt
-        curl https://d.chaifeng.com/mirror/firefox-{{ firefox_version }}.tar.bz2 | tar -jx -C /opt
+        curl --silent -k https://d.chaifeng.com/mirror/firefox-{{ firefox_version }}.tar.bz2 | tar -jx -C /opt
         [[ -L /usr/bin/firefox ]] && rm /usr/bin/firefox
         [[ -f /usr/bin/firefox ]] && mv /usr/bin/firefox /usr/bin/firefox-orig
         ln -s /opt/firefox/firefox /usr/bin/firefox

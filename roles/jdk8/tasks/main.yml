@@ -5,6 +5,7 @@
         src="{{ jdk8.download_url }}" remote_src=true
         dest="{{ jdk8.home | dirname }}"
         creates="{{ jdk8.home }}/bin/java"
+        validate_certs=no
 
     - name: JDK profile
       copy:
