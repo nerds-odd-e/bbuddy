@@ -39,13 +39,35 @@ Vagrant.configure(2) do |config|
       fi
       [[ -f /etc/profile.d/proxy.sh ]] && source /etc/profile.d/proxy.sh
       apt-get update -qq && apt-get install -y python
-  ]
+    SHELL
+
+  end
+
+  config.vm.provider :aws do |aws, override|
+    override.vm.box = "dummy"
+
+    aws.endpoint = ENV['AWS_ENDPOINT'] if ENV['AWS_ENDPOINT']
+    aws.instance_type = ENV['AWS_INSTANCE_TYPE'] || 't2.micro'
+    aws.access_key_id = ENV['AWS_ACCESS_ID']
+    aws.secret_access_key = ENV['AWS_SECRET_KEY']
+    aws.keypair_name = ENV['AWS_KEYPAIR']
+    aws.region= ENV['AWS_REGION']
+
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = "~/.ssh/id_rsa"
+
+    aws.ami = ENV['AWS_DEFAULT_AMI']
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+      apt-get update -qq && apt-get install -y python
+  SHELL
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "bbuddy.yml"
     ansible.raw_arguments  = [
-      "-e", "gradle_project=/home/vagrant/bbuddy-dev",
-      "-e", "gradle_project_task='cucumber war'"
+      "-e", "gradle_project_path=/home/vagrant/bbuddy-dev",
+      "-e", "gradle_project_task='cucumber'"
     ]
   end
 end
