@@ -1,3 +1,7 @@
+- name: Gradle | Ensure unzip
+  package: name=unzip
+  become: Yes
+
 - name: Gradle | Ensure install directory
   file: path="{{ gradle_home | dirname }}" state=directory
   become: Yes
