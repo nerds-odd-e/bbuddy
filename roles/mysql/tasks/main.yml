@@ -4,6 +4,10 @@
       with_items:
         - mysql-server
         - python-mysqldb
+
+    - name: Ensure mysql service
+      service: name=mysql state=started enabled=yes
+
   become: Yes
   when: ansible_os_family == "Debian"
 
