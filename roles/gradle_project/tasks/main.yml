@@ -1,6 +1,6 @@
 - block:
     - name: Ensure project path
-      file: path="{{ gradle_project_path }}" state=directory owner="{{ ansible_ssh_user }}"
+      file: path="{{ gradle_project_path }}" state=directory owner="{{ ansible_user }}"
       become: Yes
 
     - name: Sync code
