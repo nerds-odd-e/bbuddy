@@ -23,4 +23,4 @@
         {{ gradle_bin }} {{ gradle_project_task}} >"build-$(date '+%Y%m%d%H%M%S')".log 2>&1
       args:
         executable: /bin/bash
-  when: gradle_project_task != ''
+  when: gradle_project_task is defined and gradle_project_task
