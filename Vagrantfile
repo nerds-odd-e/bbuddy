@@ -47,16 +47,19 @@ Vagrant.configure(2) do |config|
     override.vm.box = "dummy"
 
     aws.endpoint = ENV['AWS_ENDPOINT'] if ENV['AWS_ENDPOINT']
-    aws.instance_type = ENV['AWS_INSTANCE_TYPE'] || 't2.micro'
-    aws.access_key_id = ENV['AWS_ACCESS_ID']
-    aws.secret_access_key = ENV['AWS_SECRET_KEY']
-    aws.keypair_name = ENV['AWS_KEYPAIR']
-    aws.region= ENV['AWS_REGION']
+
+    aws.region= ENV['AWS_DEFAULT_REGION']
+    aws.access_key_id = ENV['AWS_ACCESS_KEY_ID']
+    aws.secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
+
+    aws.ami = ENV['AWS_DEFAULT_AMI']
+
+    aws.instance_type = ENV['AWS_DEFAULT_INSTANCE_TYPE'] || 't2.micro'
+    aws.keypair_name = ENV['AWS_DEFAULT_KEYPAIR'] || 'default'
 
     override.ssh.username = "ubuntu"
     override.ssh.private_key_path = "~/.ssh/id_rsa"
 
-    aws.ami = ENV['AWS_DEFAULT_AMI']
   end
 
   config.vm.provision "shell", inline: <<-SHELL
