@@ -4,7 +4,7 @@ fail_fast: true
 before_install:
 - sudo apt-get update -qq
 install:
-- pip install ansible
+- pip install ansible==2.3.1.0
 addons:
   sonarqube: true
 env:
