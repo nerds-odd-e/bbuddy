@@ -1,10 +1,11 @@
 # -*- mode: ruby -*-
+# coding: utf-8
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
   config.vm.define "vagrant"
 
-  config.vm.box = "ubuntu/trusty32"
+  config.vm.box = "bento/ubuntu-16.04"
 
   config.vm.hostname = "bbuddy.local"
 
