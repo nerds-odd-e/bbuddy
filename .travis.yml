@@ -1,3 +1,4 @@
+dist: trusty
 language: python
 python: '2.7'
 fail_fast: true
@@ -17,7 +18,7 @@ before_script:
 script:
 - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --syntax-check
 - ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt
-- bash -lec "./gradlew sonar --stacktrace"
+- bash -lc "./gradlew sonar --stacktrace"
 
 notifications:
   slack: odd-e:fJq94ra1d8PFp66luNXdcBFs
