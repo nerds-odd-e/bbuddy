@@ -1,0 +1,19 @@
+- name: Ensure Chromium
+  apt: name=chromium-browser
+
+- name: Ensure Chromium's version is between 58 and 60
+  shell: chromium-browser --version | grep -Eo '{{ chromedriver_chromium_version_regexp }}'
+
+- name: Ensure Chrome Driver folder
+  file: path="/opt/chromedriver-{{ chromedriver_version }}" state=directory
+
+- name: Ensure Chrome Driver v{{ chromedriver_version }}
+  unarchive: >
+    remote_src=true
+    src="https://chromedriver.storage.googleapis.com/{{ chromedriver_version }}/chromedriver_linux{{ ansible_userspace_bits }}.zip"
+    dest="/opt/chromedriver-{{ chromedriver_version }}"
+    creates="/opt/chromedriver-{{ chromedriver_version }}/chromedriver"
+    mode=a+x
+
+- name: Link to Chrome Driver
+  file: path=/usr/bin/chromedriver state=link src="/opt/chromedriver-{{ chromedriver_version }}/chromedriver"

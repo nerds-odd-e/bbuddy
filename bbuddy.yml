@@ -8,6 +8,7 @@
         database: bbuddytest
         user: nerd
         password: dbs3cr3t
+      become: yes
     - gradle_project
 
 - name: BBuddy CI

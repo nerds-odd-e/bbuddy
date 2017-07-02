@@ -1,3 +1,5 @@
 dependencies:
-  - gradle
-  - firefox
+  - role: gradle
+    become: yes
+  - role: chromedriver
+    become: yes
