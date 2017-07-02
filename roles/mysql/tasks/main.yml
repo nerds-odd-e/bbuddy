@@ -1,9 +1,11 @@
 - block:
     - name: Ensure mysql server
-      apt: name="{{ item }}" update_cache=Yes cache_valid_time=259200
-      with_items:
-        - mysql-server
-        - python-mysqldb
+      apt: name="mysql-server" update_cache=Yes cache_valid_time=259200
+      tags:
+        - install-mysql-server
+
+    - name: Ensure python mysql module
+      apt: name="python-mysqldb" update_cache=Yes cache_valid_time=259200
 
     - name: Ensure mysql service
       service: name=mysql state=started enabled=yes

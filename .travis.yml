@@ -16,8 +16,8 @@ before_script:
 - /bin/bash -ex /etc/init.d/xvfb start
 
 script:
-- ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --syntax-check
-- ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt
+- ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --skip-tags install-mysql-server --syntax-check
+- ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --skip-tags install-mysql-server
 - bash -lc "./gradlew sonar --stacktrace"
 
 notifications:
