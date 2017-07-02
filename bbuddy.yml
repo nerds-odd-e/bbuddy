@@ -9,7 +9,8 @@
         user: nerd
         password: dbs3cr3t
       become: yes
-    - gradle_project
+    - role: gradle_project
+      gradle_version: 2.13
 
 - name: BBuddy CI
   hosts: bbuddy_ci_servers
