@@ -1,8 +1,14 @@
-- name: Ensure Chromium
-  apt: name=chromium-browser
+- name: Ensure GPG key of google repository
+  apt_key: id="7FAC5991" url="https://dl-ssl.google.com/linux/linux_signing_key.pub"
 
-- name: Ensure Chromium's version is between 58 and 60
-  shell: chromium-browser --version | grep -Eo '{{ chromedriver_chromium_version_regexp }}'
+- name: Ensure apt source file
+  apt_repository: repo="deb http://dl.google.com/linux/chrome/deb/ stable main" filename="google-chrome"
+
+- name: Ensure Chrome
+  apt: name=google-chrome-stable update_cache=yes
+
+- name: Ensure Chrome's version is between 58 and 60
+  shell: google-chrome --version | grep -Eo '{{ chromedriver_chrome_version_regexp }}'
 
 - name: Ensure Chrome Driver folder
   file: path="/opt/chromedriver-{{ chromedriver_version }}" state=directory
