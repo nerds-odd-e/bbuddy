@@ -1,5 +1,5 @@
 - name: Ensure GPG key of google repository
-  apt_key: id="7FAC5991" url="https://dl-ssl.google.com/linux/linux_signing_key.pub"
+  apt_key: url="https://dl-ssl.google.com/linux/linux_signing_key.pub"
 
 - name: Add Google repository
   copy: >
