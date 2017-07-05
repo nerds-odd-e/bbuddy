@@ -3,7 +3,7 @@
 
 - name: Add Google repository
   copy: >
-    content="deb http://dl.google.com/linux/chrome/deb/ stable main"
+    content="deb https://dl-ssl.google.com/linux/chrome/deb/ stable main"
     dest="/etc/apt/sources.list.d/google-chrome.list"
     force=no
 
