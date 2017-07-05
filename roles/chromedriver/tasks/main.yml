@@ -1,8 +1,11 @@
 - name: Ensure GPG key of google repository
   apt_key: id="7FAC5991" url="https://dl-ssl.google.com/linux/linux_signing_key.pub"
 
-- name: Ensure apt source file
-  apt_repository: repo="deb http://dl.google.com/linux/chrome/deb/ stable main" filename="google-chrome"
+- name: Add Google repository
+  copy: >
+    content="deb http://dl.google.com/linux/chrome/deb/ stable main"
+    dest="/etc/apt/sources.list.d/google-chrome.list"
+    force=no
 
 - name: Ensure Chrome
   apt: name=google-chrome-stable update_cache=yes
