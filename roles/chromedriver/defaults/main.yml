@@ -1,0 +1,3 @@
+chromedriver_version: "2.30"
+chromedriver_chromium_version_regexp: "Chromium (58|59|60)"
+chromedriver_chrome_version_regexp: "Google Chrome (58|59|60)"

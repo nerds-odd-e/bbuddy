@@ -1,0 +1,5 @@
+dependencies:
+  - role: gradle
+    become: yes
+  - role: chromedriver
+    become: yes

@@ -1,0 +1,28 @@
+- name: Ensure GPG key of google repository
+  apt_key: id="7FAC5991" url="https://dl-ssl.google.com/linux/linux_signing_key.pub"
+
+- name: Add Google repository
+  copy: >
+    content="deb https://dl-ssl.google.com/linux/chrome/deb/ stable main"
+    dest="/etc/apt/sources.list.d/google-chrome.list"
+    force=no
+
+- name: Ensure Chrome
+  apt: name=google-chrome-stable update_cache=yes
+
+- name: Ensure Chrome's version is between 58 and 60
+  shell: google-chrome --version | grep -Eo '{{ chromedriver_chrome_version_regexp }}'
+
+- name: Ensure Chrome Driver folder
+  file: path="/opt/chromedriver-{{ chromedriver_version }}" state=directory
+
+- name: Ensure Chrome Driver v{{ chromedriver_version }}
+  unarchive: >
+    remote_src=true
+    src="https://chromedriver.storage.googleapis.com/{{ chromedriver_version }}/chromedriver_linux{{ ansible_userspace_bits }}.zip"
+    dest="/opt/chromedriver-{{ chromedriver_version }}"
+    creates="/opt/chromedriver-{{ chromedriver_version }}/chromedriver"
+    mode=a+x
+
+- name: Link to Chrome Driver
+  file: path=/usr/bin/chromedriver state=link src="/opt/chromedriver-{{ chromedriver_version }}/chromedriver"

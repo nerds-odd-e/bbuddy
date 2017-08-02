@@ -3,14 +3,14 @@
   hosts: all
   any_errors_fatal: true
   roles:
-    - jdk8
-    - gradle
     - role: mysql
       mysql:
         database: bbuddytest
         user: nerd
         password: dbs3cr3t
-    - firefox
+      become: yes
+    - role: gradle_project
+      gradle_version: 2.13
 
 - name: BBuddy CI
   hosts: bbuddy_ci_servers

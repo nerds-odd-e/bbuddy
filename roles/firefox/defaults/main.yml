@@ -1,3 +1,0 @@
-xvfb:
-  display: 42
-firefox_version: 46.0.1

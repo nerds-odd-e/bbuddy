@@ -1,0 +1,46 @@
+#!/bin/bash
+set -eu -o pipefail
+
+NAME=xvfb
+
+DAEMON=/usr/bin/Xvfb
+DAEMON_OPTS=(:{{ xvfb.display }} -ac -screen 0 1024x768x24)
+
+case "$1" in
+  start)
+    if "$0" status; then
+        echo "$NAME has been started!"
+        exit 0
+    fi
+    echo "Starting virtual X frame buffer: $NAME"
+    "$DAEMON" "${DAEMON_OPTS[@]}" &
+    echo "$NAME is started."
+    echo ""
+    echo "Make sure you have set the following environment variable:"
+    echo "export DISPLAY=\":{{ xvfb.display }}\""
+    ;;
+  stop)
+    echo "Stopping virtual X frame buffer: $NAME"
+    pkill "$(basename "${DAEMON}")" -U "$UID"
+    echo "$NAME is stopped."
+    ;;
+  status)
+      if pgrep -lf 'Xvfb .*:{{ xvfb.display }} ' -U "$UID"; then
+          echo "$NAME is running."
+          exit 0
+      else
+          echo "$NAME is stopped."
+          exit 3
+      fi
+      ;;
+  restart)
+    "$0" stop || true
+    "$0" start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|status|restart}"
+    exit 1
+esac
+exit 0
+
+# -*- mode: sh -*-

@@ -1,0 +1,26 @@
+- block:
+    - name: Ensure project path
+      file: path="{{ gradle_project_path }}" state=directory owner="{{ ansible_user }}"
+      become: Yes
+
+    - name: Sync code
+      synchronize:
+        src: "../../../"
+        dest: "{{ gradle_project_path }}/"
+        delete: Yes
+        rsync_opts:
+          - "--exclude=.git/"
+          - "--exclude-from=.gitignore"
+          - "--delete-excluded"
+  when: gradle_project_path != '.'
+
+- block:
+    - name: Build project
+      shell: |
+        source /etc/profile
+        /etc/init.d/xvfb status || /etc/init.d/xvfb start
+        cd "{{ gradle_project_path | realpath }}"
+        {{ gradle_bin }} {{ gradle_project_task}} >"build-$(date '+%Y%m%d%H%M%S')".log 2>&1
+      args:
+        executable: /bin/bash
+  when: gradle_project_task is defined and gradle_project_task

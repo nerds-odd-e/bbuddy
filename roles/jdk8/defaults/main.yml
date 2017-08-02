@@ -1,2 +1,3 @@
-jdk8:
-  profile: /etc/profile.d/java.sh
+jdk8_download_url: https://d.chaifeng.com/mirror/jdk-8u131-linux-x64.tar.gz
+jdk8_home: /opt/jdk1.8.0_131
+jdk8_profile: /etc/profile.d/jdk.sh

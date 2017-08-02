@@ -1,4 +1,6 @@
 spring:
+    profiles:
+        active: dev
     datasource:
         password: dbs3cr3t
         testWhileIdle: true

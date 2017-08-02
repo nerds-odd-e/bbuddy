@@ -1,20 +1,24 @@
+dist: trusty
 language: python
 python: '2.7'
+fail_fast: true
 before_install:
 - sudo apt-get update -qq
 install:
-- pip install ansible
+- pip install ansible==2.3.1.0
 addons:
   sonarqube: true
 env:
   global:
   - secure: aitBvvioQip8+w0ltu45EJ5e7iL0atu5LF/sC5Gj3x057xC1dwk6bK/zeLJY+8r0cPjWuPTCUEGzk06B+kdxntjqOcqDcpFxgPt2EaAmvHeKED7ABXnDf9Bpknqxbz+U+f8O9XIhyatrs9UoNDdwuwCkI/+EjqE9lDVGzvbQmcYDdXdGxQMhrvTw9WlzsY26KZqXkpQwP/sh4vZ//ak6OSXHsQztm5ec3ip+dZwfZt14NKHYGbZzyvWigKopzVuGRTKjkZqqslq+6osfgWICTk3wEZgU5Jn1tGtC8zF7qHEd8WrfD7s3reN/bLGNz5Fn+TL+mVgdSjRtsGYgrkAE6TfoMB49+2/Uz4VJS9n6nnu3+WPpRKtIXgfPtwttmanUs7BoksGx7+DiJurv/IBq4cNXKPj1XQ+dquaFZ1QpzQToOfLsycKNAE6b3D92oXmfVlUOF/Wjk89fJunbYXC/Q6QXF3X92gSG/95se8bsoB4DKUSZHv8wbWpRrVikVamR4INyTAVrBYu+m9feYC4Mf9pRHwbTQxfZul2THEJxzOZpy0+PWLi8Rk3S/GxWu01iK6OxdjUUULJrbBzAmPONg8+k8LbTeJ5MT3fga8w6RsTAz6S8gXJj8jF1kEd1Rtd4FmzuzcMJAYGwZ+cPCIMgL+2qu9ajYKu3dOpaY5hbzsY=
 
+before_script:
+- /bin/bash -ex /etc/init.d/xvfb start
+
 script:
-- ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --syntax-check
-- ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt
-- bash -lec "./gradlew sonar"
-- bash -lec "sonar-scanner -Dsonar.login=$SONAR_TOKEN"
+- ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --skip-tags install-mysql-server --syntax-check
+- ansible-playbook bbuddy.yml --inventory-file=host_travis_ci.txt --skip-tags install-mysql-server
+- bash -lc "./gradlew sonar --stacktrace"
 
 notifications:
   slack: odd-e:fJq94ra1d8PFp66luNXdcBFs
