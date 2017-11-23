@@ -61,6 +61,7 @@ Vagrant.configure(2) do |config|
     override.ssh.username = "ubuntu"
     override.ssh.private_key_path = "~/.ssh/id_rsa"
 
+    override.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ".git/"
   end
 
   config.vm.provision "shell", inline: <<-SHELL
