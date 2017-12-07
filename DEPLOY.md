@@ -1,4 +1,3 @@
-#!/bin/bash
 # BBuddy Installation Guide
 #### [TOC]
 
