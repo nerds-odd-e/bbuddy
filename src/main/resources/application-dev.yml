@@ -1,6 +1,10 @@
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/bbuddydev?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+  jpa:
+    properties:
+      hibernate:
+        default_schema: bbuddydev
 
 server:
   port: 8090
