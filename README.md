@@ -16,8 +16,7 @@ Please install the following tools for this project. The latest version should b
         * cucumber java plug-in
     * Intellij idea ultimate edition (evaluation) with the following plug-in installed
         * lombok plug-in
-* Firefox 46.0 (don't use higher version)
-* gulp 3.9.1
+* Chrome
 
 # Setup Command Line Development Environment
 Use git to clone this project into a folder. Then in this folder, run the command below in order.
@@ -42,18 +41,3 @@ Use git to clone this project into a folder. Then in this folder, run the comman
     * Edit any code or file, and make the project. Then, the change will be reloaded automatically.
     * You can install a Chrome extension called [Live Reload](https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei?hl=en) so that the tab (in which this application is opened) will be refreshed automatically.
 
-# Setup Development Environment using VM
-Install the following tools first.
-
-* [VirtualBox](https://www.virtualbox.org/)
-* [Vagrant](https://www.vagrantup.com)
-* [Ansible](https://www.ansible.com/)
-
-Then run the command: `vagrant up`
-
-# If you are using MacOS, and have [Homebrew](http://brew.sh/) installed.
-Run the below commands:
-
-    brew cask install virtualbox vagrant
-    brew install ansible
-    vagrant up
