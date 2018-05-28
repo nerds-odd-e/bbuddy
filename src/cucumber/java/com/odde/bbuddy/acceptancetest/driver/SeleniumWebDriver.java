@@ -27,6 +27,7 @@ public class SeleniumWebDriver implements UiDriver {
     @Override
     public void navigateTo(String url) {
         webDriver.get(url);
+        webDriver.switchTo().window(webDriver.getWindowHandle());
     }
 
     @Override
