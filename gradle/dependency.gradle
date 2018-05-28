@@ -10,7 +10,7 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-web:1.4.0.RELEASE",
             "com.github.mjeanroy:springmvc-mustache:0.5.3",
             "org.glassfish.jersey.core:jersey-client:2.23.2",
-            "mysql:mysql-connector-java:6.0.3",
+            "mysql:mysql-connector-java:8.0.11",
             files("libs/moss-common-2.1.0.0.jar"),
             "org.projectlombok:lombok:1.16.10",
             "org.webjars:bootstrap:3.3.7-1",
