@@ -40,6 +40,7 @@ public class TransactionListControllerTest {
     @Before
     public void given_transactions_processAll_is_ready_to_be_called() {
         given_transactions_processAll_will_return(transaction, summaryOfTransactions);
+        given_pageable_will_be_created_as(PageableBuilder.builder().build());
     }
 
     @Test

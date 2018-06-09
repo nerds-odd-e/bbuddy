@@ -26,6 +26,6 @@ public class ConsumeAnswer<T> implements Answer<T> {
     }
 
     private Consumer consumer(InvocationOnMock invocation) {
-        return invocation.getArgumentAt(0, Consumer.class);
+        return invocation.getArgument(0);
     }
 }
