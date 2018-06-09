@@ -96,7 +96,7 @@ public class UpdateUnitTestResultsTaskTest {
     private void runTask() {
         result = GradleRunner.create()
                 .withProjectDir(tmpFolder.getRoot())
-                .withArguments(taskName)
+                .withArguments(taskName, "-DsocksProxyHost=", "-DsocksProxyPort=")
                 .build();
     }
 
